@@ -1,4 +1,4 @@
-app.controller('MainCtrl', ['$scope', function ($scope) {
+app.controller('contactsMainController', ['$scope', function ($scope) {
  
   $scope.myData = [
     {
