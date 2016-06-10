@@ -2,7 +2,8 @@ var request = require('request');
 var fs = require('fs');
 var mailchimp = require('mailchimp-v3');
 var allLists = [];
-mailchimp.setApiKey('89a25dec87f33b2f139df5db995092d7-us13');
+var apiKey = '89a25dec87f33b2f139df5db995092d7-us13';
+mailchimp.setApiKey(apiKey);
 
 mailchimp
 	.get('lists')
@@ -13,16 +14,9 @@ mailchimp
 		
 		for (var i=0; i<lists.lists.length; i++) {
 			var list_name = lists.lists[i].name;
-			console.log("List name is " + list_name);
-
 			var list_id = lists.lists[i].id;
-			console.log("List id is " + list_id);
-
 			var list_date_created = lists.lists[i].date_created;
-			console.log("List date is " + list_date_created);
-
 			var list_country = lists.lists[i].country;
-			console.log("List country is " + list_country);
 
 			var new_list = {
 			name : list_name,
@@ -33,13 +27,34 @@ mailchimp
 
 			allLists.push(new_list);
 		}
-		console.log("Length of list is " + lists.lists.length);
-		
-		for (var i=0; i<lists.lists.length; i++) {
-			console.log("List name at index " + i + " is " + allLists[i].name);
-		}
+
+		return allLists;
 
 	})
+	
+	.then(function(allLists) {
+		console.log("Get request for members");
+		var username = 'anything';
+
+		for (var i=0; i<allLists.length; i++) {
+			var idOfList = allLists[i].id;
+			var url = 'https://' + username + ':' + apiKey + '@us13.api.mailchimp.com/3.0/lists/' + idOfList + '/members';
+
+			request({url: url}, function (error, response, body) {
+   				if (!error && response.statusCode == 200) {
+    			var info = JSON.parse(body);
+    			console.log(info);
+    			fs.writeFile('result.json', JSON.stringify(info,null,4), (err) => {
+  					if (err) throw err;
+ 					console.log('It\'s saved!');
+					});
+				};
+			})
+		}
+
+		console.log("Done");
+	})
+
 	.catch(function(error) {
 		console.log("There is error");
 		console.log(error);
