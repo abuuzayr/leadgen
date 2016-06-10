@@ -6,7 +6,8 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router']);
 	      .state('home', {
  	        url: '/',
 	        views: {
-                LeadList: {templateUrl: 'ContactsMgmt/partials/contactsLeadList.html', controller: 'aboutController'}
+                LeadList: {templateUrl: 'ContactsMgmt/partials/contactsLeadList.html', controller: 'contactsMainController'},
+                BlackList: {templateUrl: 'ContactsMgmt/partials/contactsBlackList.html', controller: 'contactsMainController'}
             }
  	      })
  	}]);
