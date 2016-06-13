@@ -35,6 +35,7 @@ mailchimp
 	.then(function(allLists) {
 		console.log("Get request for members");
 		var username = 'anything';
+		var subscriberList = [];
 
 		for (var i=0; i<allLists.length; i++) {
 			var idOfList = allLists[i].id;
@@ -42,12 +43,10 @@ mailchimp
 
 			request({url: url}, function (error, response, body) {
    				if (!error && response.statusCode == 200) {
-    			var info = JSON.parse(body);
-    			console.log(info);
-    			fs.writeFile('result.json', JSON.stringify(info,null,4), (err) => {
-  					if (err) throw err;
- 					console.log('It\'s saved!');
-					});
+    				var info = JSON.parse(body);
+    				console.log(info);
+    				var 
+    			
 				};
 			})
 		}
