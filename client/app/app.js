@@ -6,15 +6,15 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
 	      .state('home', {
  	        url: '/',
 	        views: {
-                viewA: {template: "Welcome to BulletLead"},
-				viewB: {template: ""}
+                viewA: {templateUrl: 'views/pages/view.html'},
+				//viewB: {templateUrl: ""}
             }
  	      })
 		   .state('leadlist', {
  	        url: '/leadlist',
 		
 	        views: {
-				viewA: {templateUrl: 'ContactsMgmt/partials/contactsTabs.html'},
+				//viewA: {templateUrl: 'ContactsMgmt/partials/contactsTabs.html'},
 				viewB: {templateUrl: 'ContactsMgmt/partials/contactsLeadList.html', controller: 'contactsMainController'}
             }
  	      })
@@ -31,8 +31,9 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
                url: '/business',
 
                views: {
-                   viewA: {templateUrl: 'ScrapingMgmt/partials/scrapTabs.html'},
-                   viewB: {templateUrl: 'ScrapingMgmt/partials/beforeScrap.html'}
+                   viewA: {templateUrl: 'ScrapingMgmt/partial/scrapTabs.html'},
+                   viewB: {templateUrl: 'ScrapingMgmt/partial/beforeScrap.html'}
                }
            })
+           
  	}]);
