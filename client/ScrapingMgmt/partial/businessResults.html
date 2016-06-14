@@ -1,8 +1,8 @@
-<div ng-controller="scrapMainController" >
+<div ng-controller="scrapMainController as vm" >
     
     <h2>Results</h2>
 
-    <div id="grid1" ui-grid="{ data: myData }" class="grid"></div>
+    <div id="grid1" ui-grid="{ vm.gridOptions }" class="grid"></div>
 
     <h3>hello</h3>
 
