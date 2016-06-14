@@ -36,6 +36,13 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
                }
            })
 
+		   .state('business.businessStartScrap', {
+			   url: '/startScrap',
+			   views: {
+				   viewA: {templateUrl: 'ScrapingMgmt/partial/businessScrap.html'}
+			   }
+		   })
+
            .state('consumer', {
            		url: '/consumer',
 
