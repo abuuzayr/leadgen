@@ -5,44 +5,30 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
  	    $stateProvider
 	      .state('home', {
  	        url: '/',
-	        views: {
-                viewA: {templateUrl: 'views/pages/view.html'},
-				//viewB: {templateUrl: ""}
-            }
+			 templateUrl: 'views/pages/view.html'
  	      })
 		   .state('leadlist', {
  	        url: '/leadlist',
-		
-	        views: {
-				//viewA: {templateUrl: 'ContactsMgmt/partials/contactsTabs.html'},
-				viewB: {templateUrl: 'ContactsMgmt/partials/contactsLeadList.html', controller: 'contactsMainController'}
-            }
+			 templateUrl: 'ContactsMgmt/partials/contactsLeadList.html',
+			 controller: 'contactsMainController'
  	      })
 		   .state('blacklist', {
  	        url: '/blacklist',
-		
-	        views: {
-				viewA: {templateUrl: 'ContactsMgmt/partials/contactsTabs.html'},
-				viewB: {templateUrl: 'ContactsMgmt/partials/contactsBlackList.html', controller: 'contactsMainController'}
-            }
+			 templateUrl: 'ContactsMgmt/partials/contactsBlackList.html',
+			 controller: 'contactsMainController'
  	      })
-
            .state('business', {
                url: '/business',
-
-               views: {
-                   viewA: {templateUrl: 'ScrapingMgmt/partial/scrapTabs.html'},
-                   viewB: {templateUrl: 'ScrapingMgmt/partial/businessBeforeScrap.html'}
-               }
+			   templateUrl: 'ScrapingMgmt/partial/businessBeforeScrap.html'
            })
+
+		   .state('business.businessStartScrap', {
+			   url: '/startScrap',
+			   templateUrl: 'ScrapingMgmt/partial/businessScrap.html'
+		   })
 
            .state('consumer', {
            		url: '/consumer',
-
-           		views: {
-           			viewA: {templateUrl: 'ScrapingMgmt/partial/scrapTabs.html'},
-           			viewB: {templateUrl: 'ScrapingMgmt/partial/consumerBeforeScrap.html'} 
-           		}
-           })
-           
+				   templateUrl: 'ScrapingMgmt/partial/consumerBeforeScrap.html'
+           })    
  	}]);
