@@ -32,8 +32,17 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
 
                views: {
                    viewA: {templateUrl: 'ScrapingMgmt/partial/scrapTabs.html'},
-                   viewB: {templateUrl: 'ScrapingMgmt/partial/beforeScrap.html'}
+                   viewB: {templateUrl: 'ScrapingMgmt/partial/businessBeforeScrap.html'}
                }
+           })
+
+           .state('consumer', {
+           		url: '/consumer',
+
+           		views: {
+           			viewA: {templateUrl: 'ScrapingMgmt/partial/scrapTabs.html'},
+           			viewB: {templateUrl: 'ScrapingMgmt/partial/consumerBeforeScrap.html'} 
+           		}
            })
            
  	}]);
