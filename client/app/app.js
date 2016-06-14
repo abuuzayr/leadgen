@@ -29,6 +29,6 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
 
            .state('consumer', {
            		url: '/consumer',
-				   templateUrl: 'ScrapingMgmt/partial/consumerBeforeScrap.html'
+				templateUrl: 'ScrapingMgmt/partial/consumerBeforeScrap.html'
            })    
  	}]);
