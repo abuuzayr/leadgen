@@ -1,0 +1,35 @@
+[
+    {
+    "firstName": "Steve Rogers",
+    "lastName": "Captain America",
+    "company": "Avengers",
+    "employed": true
+    },
+
+    {"firstName": "Tony Stark",
+    "lastName": "Ironman",
+    "company": "Avengers",
+    "employed": true
+    },
+
+    {
+    "firstName": "Oliver Queen",
+    "lastName": "Green Arrow",
+    "company": "Justice League",
+    "employed": false
+    },
+    
+    {
+    "firstName": "Dr Stephen Vincent Strange",
+    "lastName": "Dr Strange",
+    "company": "Avengers",
+    "employed": false
+    },
+
+    {
+    "firstName": "Barry Allen",
+    "lastName": "Flash",
+    "company": "Justice League",
+    "employed": true
+    }
+]

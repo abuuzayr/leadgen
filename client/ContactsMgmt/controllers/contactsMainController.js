@@ -1,18 +1,23 @@
-app.controller('contactsMainController', ['$scope', '$http', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, $http, uiGridConstants, $q, $location, $timeout) {
+app.controller('contactsMainController', ['$scope', 'leadsData', '$http', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsData, $http, uiGridConstants, $q, $location, $timeout) {
    
-     var viewContentLoaded = $q.defer();
-        $scope.$on('$viewContentLoaded', function () {
-            $timeout(function () {
-                viewContentLoaded.resolve();
-            }, 0);
-        });
-        viewContentLoaded.promise.then(function () {
-            $timeout(function () {
-                componentHandler.upgradeDom();
-            }, 0);
-        });
+    leadsData.success(function(data) {
+    vm.gridOptions.data = data;
+  });
 
-    $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+    var vm = this;
+  //    var viewContentLoaded = $q.defer();
+  //       $scope.$on('$viewContentLoaded', function () {
+  //           $timeout(function () {
+  //               viewContentLoaded.resolve();
+  //           }, 0);
+  //       });
+  //       viewContentLoaded.promise.then(function () {
+  //           $timeout(function () {
+  //               componentHandler.upgradeDom();
+  //           }, 0);
+  //       });
+
+    vm.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
     if( col.filters[0].term ){
       return 'header-filtered';
     } else {
@@ -20,45 +25,24 @@ app.controller('contactsMainController', ['$scope', '$http', 'uiGridConstants', 
     }
   };
 
-  $scope.gridOptions = {
+  vm.gridOptions = {
     enableSorting: true,
     enableFiltering: true,
     columnDefs: [
-      { field: 'firstName', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'lastName', headerCellClass: $scope.highlightFilteredHeader  },
+      { field: 'firstName', headerCellClass: vm.highlightFilteredHeader },
+      { field: 'lastName', headerCellClass: vm.highlightFilteredHeader  },
       { field: 'company', enableSorting: false },
       { field: 'employed', filter: {
         term: true,
         type: uiGridConstants.filter.SELECT,
         selectOptions: [ { value: true, label: 'true' }, { value: false, label: 'false' } ]
         },
-        cellFilter: 'mapEmployed', headerCellClass: $scope.highlightFilteredHeader },
+        cellFilter: 'mapEmployed', headerCellClass: vm.highlightFilteredHeader },
     ],
     onRegisterApi: function( gridApi ) {
-      $scope.gridApi = gridApi;
+      vm.gridApi = gridApi;
     }
   };
-
-    $scope.gridOptions.data = [
-    {
-        "firstName": "Cox",
-        "lastName": "Carney",
-        "company": "Enormo",
-        "employed": true
-    },
-    {
-        "firstName": "Lorraine",
-        "lastName": "Wise",
-        "company": "Comveyer",
-        "employed": false
-    },
-    {
-        "firstName": "Nancy",
-        "lastName": "Waters",
-        "company": "Fuelton",
-        "employed": false
-    }
-];   
 }])
 
 .filter('mapEmployed', function() {

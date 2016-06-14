@@ -1,6 +1,6 @@
-<div class="mdl-tabs__tab-bar" ng-include = "'ContactsMgmt/partials/contactsTabs.html'"></div>
-<div ng-controller="contactsMainController" >
-    <div id="grid1" ui-grid="gridOptions" class="grid"></div>
+<div ng-controller="contactsMainController as vm" >
+    <div class="mdl-tabs__tab-bar" ng-include = "'ContactsMgmt/partials/contactsTabs.html'"></div>
+    <div id="grid1" ui-grid="vm.gridOptions" class="grid"></div>
 </div>
     
 
