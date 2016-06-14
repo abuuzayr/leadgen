@@ -1,26 +1,9 @@
-app.controller('scrapMainController', function(){
+app.controller('scrapMainController', ['$scope', 'leadsResult', '$http', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsResult, $http, uiGridConstants, $q, $location, $timeout) {
+    
+    leadsResult.success(function(data) {
+    vm.gridOptions.data = data;
+  });
     var vm = this;
-
-    vm.gridOptions.data = [
-        {
-            'name': 'Lord Of the Rings',
-            'email': 'lotr@email.com',
-            'company': 'Gandalf',
-            'number': '123'
-        },
-        {
-            name: 'Pirates of the Caribbean',
-            email: 'potc@pirate.com',
-            company: 'Ahoy',
-            number: '456'
-        },
-        {
-            name: 'Zootopia',
-            email: 'fox@animal.com',
-            company: 'Animal Kingdom',
-            number: '789'
-        }
-    ];
 
     //store category and country
     vm.fields = {};
@@ -36,22 +19,25 @@ app.controller('scrapMainController', function(){
         vm.scrapData = {};
     }
 
-    vm.gridOptions = {
+    vm.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+    if( col.filters[0].term ){
+      return 'header-filtered';
+    } else {
+      return '';
+    }
+  };
+  
+  vm.gridOptions = {
     enableSorting: true,
     enableFiltering: true,
     columnDefs: [
-      { field: 'firstName', headerCellClass: vm.highlightFilteredHeader },
-      { field: 'lastName', headerCellClass: vm.highlightFilteredHeader  },
+      { field: 'name', headerCellClass: vm.highlightFilteredHeader },
+      { field: 'email', headerCellClass: vm.highlightFilteredHeader  },
       { field: 'company', enableSorting: false },
-      { field: 'employed', filter: {
-        term: true,
-        type: uiGridConstants.filter.SELECT,
-        selectOptions: [ { value: true, label: 'true' }, { value: false, label: 'false' } ]
-        },
-        cellFilter: 'mapEmployed', headerCellClass: vm.highlightFilteredHeader },
+      { field: 'number', headerCellClass: vm.highlightFilteredHeader }
     ],
     onRegisterApi: function( gridApi ) {
       vm.gridApi = gridApi;
     }
-  };  
-});
+  };
+}]);

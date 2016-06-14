@@ -27,6 +27,11 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
 			   templateUrl: 'ScrapingMgmt/partial/businessScrap.html'
 		   })
 
+		   .state('business.businessResults', {
+			   url: '/scrapResults',
+			   templateUrl: 'ScrapingMgmt/partial/businessResults.html'
+		   })
+
            .state('consumer', {
            		url: '/consumer',
 				templateUrl: 'ScrapingMgmt/partial/consumerBeforeScrap.html'
