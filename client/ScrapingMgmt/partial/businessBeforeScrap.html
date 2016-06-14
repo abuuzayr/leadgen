@@ -1,24 +1,34 @@
 <div class="container">
+  <div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>
   <form role="form">
-    <div class="form-group">
+    <div class="form-group" ng-submit="main.getData()">
         <br>
       <h4>Scrap By:</h4>
       <br>
-      <select class="form-control" id="category">
+      <select class="form-control" id="category" ng-model='main.scrapData.category'>
         <option>F & B</option>
         <option>Retail</option>
         <option>IT</option>
         <option>Education</option>
       </select>
       <br>
-<select class="form-control" id="country">
+      <select class="form-control" id="country" ng-model='main.scrapData.country'>
         <option>Singapore</option>
         <option>Hong Kong</option>
         <option>Taiwan</option>
         <option>Sweden</option>
       </select>
       <br>
-      <input type="submit" class="btn btn-info" value="Scrap">
+        <!--input type="submit" class="btn btn-info" value="Scrap"-->
+        <a ui-sref=".businessStartScrap">
+          <button type="submit" class="btn btn-info">Scrap</button>
+        </a>
+        <!--button type ="submit" a ui-sref=".businessStartScrap" class="btn btn-info">Scrap</a-->
+      <!--/a-->
     </div>
   </form>
 </div>
+<!--div ui-view="viewA"></div-->
+<div ui-view></div>
+
+
