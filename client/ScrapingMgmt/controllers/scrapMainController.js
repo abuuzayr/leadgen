@@ -1,24 +1,20 @@
 app.controller('scrapMainController', ['$scope', 'leadsResult', '$http', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsResult, $http, uiGridConstants, $q, $location, $timeout) {
     
+    //get data from json file
     leadsResult.success(function(data) {
     vm.gridOptions.data = data;
-  });
+    });
+    
     var vm = this;
 
-    //store category and country
-    vm.fields = {};
+    // get leads from backend
+    // store leads data to vm.leads
+    /*leadsResult.get(vm.input.category,vm.input.country)
+      .success(function(data) {
+        vm.leads = data;
+      });*/
 
-    vm.getData = function() {
-
-        vm.fields.push({
-            category: vm.scrapData.category,
-            country: vm.scrapData.country
-        });
-
-        //clear after fields has been added
-        vm.scrapData = {};
-    }
-
+    //filter for ui-grid
     vm.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
     if( col.filters[0].term ){
       return 'header-filtered';
