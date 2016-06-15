@@ -19,17 +19,20 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
  	      })
            .state('business', {
                url: '/business',
-			   templateUrl: 'ScrapingMgmt/partial/businessBeforeScrap.html'
+			   templateUrl: 'ScrapingMgmt/partial/businessBeforeScrap.html',
+			   controller: 'scrapMainController'
            })
 
 		   .state('business.businessStartScrap', {
 			   url: '/startScrap',
-			   templateUrl: 'ScrapingMgmt/partial/businessScrap.html'
+			   templateUrl: 'ScrapingMgmt/partial/businessScrap.html',
+			   controller: 'scrapMainController'
 		   })
 
 		   .state('business.businessResults', {
 			   url: '/scrapResults',
-			   templateUrl: 'ScrapingMgmt/partial/businessResults.html'
+			   templateUrl: 'ScrapingMgmt/partial/businessResults.html',
+			   controller: 'scrapMainController'
 		   })
 
            .state('consumer', {
