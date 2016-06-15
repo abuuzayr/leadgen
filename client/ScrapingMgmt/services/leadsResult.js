@@ -5,5 +5,15 @@ app.factory('leadsResult', ['$http', function($http) {
     }) 
     .error(function(err) { 
         return err; 
-    }); 
+    });
+
+    // create a new object
+    /*var leadsFactory = {};
+
+    //get leads data from yellow page
+    leadsFactory.get = function(category,country) {
+        return $http.get('/api/leads/' + category,country);
+    };
+
+    return leadsFactory;*/
 }]);
