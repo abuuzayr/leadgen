@@ -1,36 +1,45 @@
-<div class="container">
+<div class="container" ng-controller="scrapMainController as vm" >
+ 
   <div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>
+  
   <form role="form">
-    <div class="form-group" ng-submit="main.getData()">
+    <div class="form-group">
         <br>
       <h4>Scrap By:</h4>
       <br>
-      <select class="form-control" id="category" ng-model='main.scrapData.category'>
+      <select class="form-control" id="category" ng-model='vm.input.category'>
         <option>F & B</option>
         <option>Retail</option>
         <option>IT</option>
         <option>Education</option>
       </select>
       <br>
-      <select class="form-control" id="country" ng-model='main.scrapData.country'>
+      <select class="form-control" id="country" ng-model='vm.input.country'>
         <option>Singapore</option>
         <option>Hong Kong</option>
         <option>Taiwan</option>
         <option>Sweden</option>
       </select>
       <br>
-        <!--input type="submit" class="btn btn-info" value="Scrap"-->
-        <a ui-sref=".businessStartScrap">
-          <button type="submit" class="btn btn-info">Scrap</button>
-        </a>
-        <!--button type ="submit" a ui-sref=".businessStartScrap" class="btn btn-info">Scrap</a-->
-        <a ui-sref=".businessResults">
-          <button type="submit" class="btn btn-info">Result</button>
-        </a>
+      
+      <h3>Category is: </h3>
+      <p>{{ vm.input.category }}</p>
+      <p>{{ vm.input.country }}</p>
+      
+      <!--input type="submit" class="btn btn-info" value="Scrap"-->
+      <a ui-sref=".businessStartScrap">
+        <button type="submit" class="btn btn-info">Scrap</button>
+      </a>
     </div>
   </form>
+      
+      <!--button type ="submit" a ui-sref=".businessStartScrap" class="btn btn-info">Scrap</a-->
+      <a ui-sref=".businessResults">
+        <button class="btn btn-info">Result</button>
+      </a>
+      <div ui-view></div>
 </div>
-<div ui-view></div>
+
 
 
 
