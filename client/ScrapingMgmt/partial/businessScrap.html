@@ -1,9 +1,16 @@
-<div ng-controller="scrapMainController as vm1" >
-<h3>Scraping</h3>
-
-    <h3>Category is: </h3>
-    <p>{{ vm.input.category }}</p>
-    <p>{{ vm.input.country }}</p>
-
-
+<div ng-controller="googleController as gc" >
+    <br>
+    <h3> {{gc.numScrap}} Contacts Scraped...</h3>
+    
+    <div id="grid2" ui-grid="gc.gridOptions" class="grid"></div>
+ 
+    <br>
+    <button type='button' class="btn btn-info" id = 'scrollArea' data-ng-click="gc.transfer()">Scrape</button>
+    <button type='button' class="btn btn-info" data-ng-click="gc.pauseScraping()">Pause</button>
+    <button type='button' class="btn btn-info" data-ng-click="gc.stopScraping()">Stop</button>
+    
+      <a ui-sref="businessResults">
+        <button type="button" class="btn btn-info">View Results</button>
+      </a>
+      <div ui-view></div>
 </div>

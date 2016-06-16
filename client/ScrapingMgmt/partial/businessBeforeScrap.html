@@ -5,7 +5,7 @@
   <form role="form">
     <div class="form-group">
         <br>
-      <h4>Scrap By:</h4>
+      <h3>Scrap By:</h3>
       <br>
       <select class="form-control" id="category" ng-model='vm.input.category'>
         <option>F & B</option>
@@ -22,22 +22,15 @@
       </select>
       <br>
       
-      <h3>Category is: </h3>
-      <p>{{ vm.input.category }}</p>
-      <p>{{ vm.input.country }}</p>
-      
       <!--input type="submit" class="btn btn-info" value="Scrap"-->
+      <div ng-controller="googleController as gc">
       <a ui-sref=".businessStartScrap">
-        <button type="submit" class="btn btn-info">Scrap</button>
+        <button type="button" class="btn btn-info">Proceed to Scrape</button>
       </a>
+
     </div>
   </form>
-      
-      <!--button type ="submit" a ui-sref=".businessStartScrap" class="btn btn-info">Scrap</a-->
-      <a ui-sref=".businessResults">
-        <button class="btn btn-info">Result</button>
-      </a>
-      <div ui-view></div>
+  <div ui-view></div>
 </div>
 
 

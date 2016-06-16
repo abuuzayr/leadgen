@@ -1,15 +1,10 @@
 <div class="results">
-    <div ng-controller="scrapMainController as vm" >
-    <h2>Results</h2>
-    <div id="grid1" ui-grid="vm.gridOptions" class="grid"></div>
-    </div>
+    <h3>Results</h3>
 
-    <div ng-controller="googleController as gc" >
-    <h2> Google API Result </h2>
-    <div id="grid2" ui-grid="gc.gridOptions" class="grid"></div>
-    <br>
-    <button type='button' data-ng-click="gc.transfer()">Start Scraping</button>
-    <button type='button' data-ng-click="gc.stopScraping()">Stop</button>
+    <div ng-controller="resultController as rc" >
+    <div id="grid2" ui-grid="rc.gridOptions" class="grid"></div>
+
+    <h3 text-align="center">Total Contacts Scraped: {{rc.resultsLength}}</h3>
     </div>
 
     <div ng-controller="ypController as yp" >
