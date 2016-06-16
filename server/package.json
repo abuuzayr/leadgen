@@ -10,7 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "assert": "^1.4.1",
+    "bluebird": "^3.4.0",
+    "body-parser": "^1.15.1",
     "express": "^4.13.4",
-    "mongodb": "^2.1.18"
+    "mongodb": "^2.1.18",
+    "underscore": "^1.8.3"
   }
 }
