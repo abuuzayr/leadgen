@@ -32,7 +32,7 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
 		   .state('business.businessResults', {
 			   url: '/scrapResults',
 			   templateUrl: 'ScrapingMgmt/partial/businessResults.html',
-			   controller: 'scrapMainController'
+			   controller: 'googleController'
 		   })
 
            .state('consumer', {
