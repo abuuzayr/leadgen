@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Deadpool",
+        "email": "dp@email.com",
+        "company": "House",
+        "number": 921
+    },
+    {
+        "name": "Now you see me 2",
+        "email": "nysm2@pirate.com",
+        "company": "Magic",
+        "number": 777
+    },
+    {
+        "name": "Dr Stange",
+        "email": "stephen@animal.com",
+        "company": "Temple",
+        "number": 221
+    }
+]
