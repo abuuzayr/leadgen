@@ -1,11 +1,12 @@
 app.controller('scrapMainController', ['$scope', 'leadsResult', '$http', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsResult, $http, uiGridConstants, $q, $location, $timeout) {
     
-    //get data from json file
-    leadsResult.success(function(data) {
-    vm.gridOptions.data = data;
-    });
-    
     var vm = this;
+
+    //get data from json file
+    leadsResult
+      .success(function(data) {
+        vm.gridOptions.data = data;
+      });
 
     // get leads from backend
     // store leads data to vm.leads
