@@ -1,7 +1,20 @@
-<div ng-controller="scrapMainController as vm" >
-    
+<div class="results">
+    <div ng-controller="scrapMainController as vm" >
     <h2>Results</h2>
-
     <div id="grid1" ui-grid="vm.gridOptions" class="grid"></div>
+    </div>
+
+    <div ng-controller="googleController as gc" >
+    <h2> Google API Result </h2>
+    <div id="grid2" ui-grid="gc.gridOptions" class="grid"></div>
+    <br>
+    <button type='button' data-ng-click="gc.transfer()">Start Scraping</button>
+    <button type='button' data-ng-click="gc.stopScraping()">Stop</button>
+    </div>
+
+    <div ng-controller="ypController as yp" >
+    <h2> YellowPages Result </h2>
+    <div id="grid3" ui-grid="yp.gridOptions" class="grid"></div>
+    </div>
 
 </div>
