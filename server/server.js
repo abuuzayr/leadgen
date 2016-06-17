@@ -4,7 +4,8 @@ config = require('./config'),
 common = require('./common'),
 assert = require('assert'),
 dbHandler = require('./database-handler'),
-apiRouter = require('./routes/api');
+apiRouter = require('./routes/api'),
+ScrapManager = require('./ScrapingManager/scrap-manager');
 
 var mongodb = require('mongodb');
 
@@ -63,6 +64,9 @@ dbHandler.dbConnect(function(result){
 	if(result == config.successMsg)
 		app.listen(config.port ,function(){
 			console.log('Starting application server');
+			// ScrapManager.scrapCorporateGoogleCont('engineering','singapore')
+			// .then(common.printStuff)
+			// .catch(common.printStuff);
 		});
 })
 

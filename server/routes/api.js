@@ -9,33 +9,64 @@ apiRouter.use('/',jsonParser,function(req,res,next){
 	next();
 })
 
-apiRouter.route('/contacts/leadList/leads')
+
+/*
+CRUD on leads list
+*/
+apiRouter.route('/corporate/contacts/leadList/leads')
 	.get(function(req,res){
-		ContactsManager.displayLeadCB(res,'localContacts',null,displayResultsCallback);
+		ContactsManager.displayLeadCB(res,'localCorporate',null,displayResultsCallback);
 	})
 	.post(function(req,res){
-		console.log(req.body);
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.addLeadCB(res,'localContacts',req.body,returnStatusCode);
+			ContactsManager.addLeadCB(res,'localCorporate',req.body,returnStatusCode);
 		}
 	})
 	.delete(function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.deleteLeadCB(res,'localContacts',req.body,returnStatusCode);
+			ContactsManager.deleteLeadsCB(res,'localCorporate',req.body,returnStatusCode);
 		}
 	})
 	.patch(function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			
+			ContactsManager.updateLeadCB(res,'localCorporate',req.body,returnStatusCode);
 		}
 	});
 
+/*
+CRUD on fields
+*/
+apiRouter.route('/corporate/contacts/leadList/fields')
+	.get(function(req,res){
+		ContactsManager.displayLeadCB(res,'localCorporate',null,displayResultsCallback);
+	})
+	.post(function(req,res){
+		if(!req.body)
+			returnStatusCode(res,400);
+		else{
+			ContactsManager.addLeadCB(res,'localCorporate',req.body,returnStatusCode);
+		}
+	})
+	.delete(function(req,res){
+		if(!req.body)
+			returnStatusCode(res,400);
+		else{
+			ContactsManager.deleteLeadsCB(res,'localCorporate',req.body,returnStatusCode);
+		}
+	})
+	.patch(function(req,res){
+		if(!req.body)
+			returnStatusCode(res,400);
+		else{
+			ContactsManager.updateLeadCB(res,'localCorporate',req.body,returnStatusCode);
+		}
+	});
 
 
 var displayResultsCallback = function(res,results){

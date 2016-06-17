@@ -1,4 +1,5 @@
 var MongoClient = require('mongodb').MongoClient,
+mongodb = require('mongodb'),
 Promise = require('bluebird'),
 config = require('./config');
 
@@ -9,6 +10,7 @@ var deleteDB = function(collectionName,obj){
 				if(err!=null)
 					reject(500);
 				else{
+					obj._id = new mongodb.ObjectID(obj._id);
 					var col = db.collection(collectionName);
 					col.deleteOne(obj,function(err,results){
 						if(err!=null)
@@ -87,18 +89,25 @@ var dbHandler = {
 		return new Promise(function(resolve,reject){	
 			MongoClient.connect(config.dbURI,function(err,db){
 				if(err!=null)
-					reject(err);
+					reject(400);
 				else{
 					var col = db.collection(collectionName);
+
+					/*
+						Wrap string to mongodb object id
+					*/
+					originalObj._id = new mongodb.ObjectID(originalObj._id); 
+					delete updateObj._id;	
+
 					var obj = {
 						$set : updateObj
-					}
+					};
 					col.updateOne(originalObj,obj,function(err,results){
 						if(err!=null)
-							reject(err);
+							reject(400);
 						else{
 							db.close();
-							resolve('success');
+							resolve(200);
 						}
 					})
 				}
@@ -157,6 +166,25 @@ var dbHandler = {
 				}
 			});
 		});
+	},
+	dbDropCollection : function(collectionName){
+		return new Promise(function(resolve,reject){
+			MongoClient.connect(config.dbURI,function(err,db){
+				if(err!=null)
+					reject(500);
+				else{
+					db.dropCollection(collectionName,function(err,result){
+						if(err!=null)
+							reject(500);
+						else{
+							db.close();
+							resolve(200);
+						}
+						
+					});
+				}
+			})
+		})
 	}
 }
 
