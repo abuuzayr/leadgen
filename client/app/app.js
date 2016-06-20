@@ -20,11 +20,11 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
            .state('business', {
                url: '/business',
 			   templateUrl: 'ScrapingMgmt/partial/businessBeforeScrap.html',
-			   controller: 'scrapMainController'
+			   controller: 'googleController'
            })
 
 		   .state('business.businessStartScrap', {
-			   url: '/startScrap',
+			   url: '/startScraping',
 			   templateUrl: 'ScrapingMgmt/partial/businessScrap.html',
 			   controller: 'googleController'
 		   })
@@ -39,4 +39,8 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
            		url: '/consumer',
 				templateUrl: 'ScrapingMgmt/partial/consumerBeforeScrap.html'
            })    
+		   .state('profile', {
+               url: '/profile',
+			   templateUrl: 'ProfileMgmt/partial/profile.html',
+           })
  	}]);
