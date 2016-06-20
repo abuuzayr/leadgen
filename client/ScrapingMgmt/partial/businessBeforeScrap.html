@@ -1,36 +1,46 @@
-<div class="container" ng-controller="scrapMainController as vm" >
+<div class="container">
  
   <div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>
   
+  <div ng-controller="googleController as gc">
   <form role="form">
     <div class="form-group">
         <br>
       <h3>Scrap By:</h3>
       <br>
-      <select class="form-control" id="category" ng-model='vm.input.category'>
+      <select class="form-control" id="category" ng-model='gc.input.category'>
         <option>F & B</option>
         <option>Retail</option>
         <option>IT</option>
         <option>Education</option>
       </select>
       <br>
-      <select class="form-control" id="country" ng-model='vm.input.country'>
+      <select class="form-control" id="country" ng-model='gc.input.country'>
         <option>Singapore</option>
         <option>Hong Kong</option>
         <option>Taiwan</option>
         <option>Sweden</option>
       </select>
       <br>
-      
+
+      <!--{{gc.input.category}}
+      {{gc.input.country}} -->
+
       <!--input type="submit" class="btn btn-info" value="Scrap"-->
-      <div ng-controller="googleController as gc">
+      <!--<div ng-controller="googleController as gc">
       <a ui-sref=".businessStartScrap">
         <button type="button" class="btn btn-info">Proceed to Scrape</button>
-      </a>
+      </a>-->
 
-    </div>
+      <!-- Accent-colored raised button with ripple -->
+      <a ui-sref=".businessStartScrap">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="gc.goToScrapTable()">
+        Proceed to Scrape
+        </button>
+      </a>
   </form>
   <div ui-view></div>
+  </div>
 </div>
 
 
