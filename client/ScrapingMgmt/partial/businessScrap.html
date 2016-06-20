@@ -1,16 +1,51 @@
-<div ng-controller="googleController as gc" >
+<!--<link rel="stylesheet" type="text/css" href="assets/css/scrapBiz.css">-->
+<div ng-controller="googleController as gc2" >
     <br>
-    <h3> {{gc.numScrap}} Contacts Scraped...</h3>
+    <!--<h4>{{gc.input.category}}</h4>
+    <h4>Countey is {{gc.input.country}}</h4>-->
+    <h3> <i class="material-icons" ng-hide="rc.symbol">cached</i> {{gc.numScrap}} Contacts Scraped...</h3>
     
     <div id="grid2" ui-grid="gc.gridOptions" class="grid"></div>
  
     <br>
-    <button type='button' class="btn btn-info" id = 'scrollArea' data-ng-click="gc.transfer()">Scrape</button>
-    <button type='button' class="btn btn-info" data-ng-click="gc.pauseScraping()">Pause</button>
-    <button type='button' class="btn btn-info" data-ng-click="gc.stopScraping()">Stop</button>
-    
+    <div class='controlButtons'>
+      <!--<button type='button' class="btn btn-info" id = 'scrollArea' data-ng-click="gc.transfer()">Scrape</button>
+      <button type='button' class="btn btn-info" data-ng-click="gc.pauseScraping()">Pause</button>
+      <button type='button' class="btn btn-info" data-ng-click="gc.stopScraping(); gc.showFunction()">Stop</button>-->
+      <!-- Colored mini FAB button -->
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.transfer()">
+        <i class="material-icons">play_arrow</i>
+      </button>
+
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.pauseScraping()">
+        <i class="material-icons">pause</i>
+      </button>
+
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.stopScraping(); gc.showFunction()">
+        <i class="material-icons">stop</i>
+      </button>
+      
+      <!-- Raised button -->
+      <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="gc.showResult">
+        {{gc.scrapMessage}}
+      </button>
+
+      <!-- Colored raised button -->
+      <!--<div class='resultButton'>-->
       <a ui-sref="businessResults">
-        <button type="button" class="btn btn-info">View Results</button>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-show="gc.showResult">
+        View Results
+        </button>
       </a>
-      <div ui-view></div>
+      <!--</div>-->
+      </div>
+
+      <!--<a ui-sref="businessResults">
+        <button type="button" class="btn btn-success" ng-show="gc.showResult">View Results</button>
+      </a>-->
+
+<!-- scrolling function     
+      <div id="scrollArea">
+        <a id="scrapTable"></a>
+      </div>-->
 </div>
