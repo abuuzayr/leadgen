@@ -4,12 +4,22 @@
     <div ng-controller="resultController as rc" >
     <div id="grid2" ui-grid="rc.gridOptions" class="grid"></div>
 
-    <h3 text-align="center">Total Contacts Scraped: {{rc.resultsLength}}</h3>
-    </div>
+    <h4>Total Contacts Scraped: {{rc.resultsLength}}</h4>
+    
+    <!-- Accent-colored raised button with ripple -->
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="rc.deleteRow(row)">
+        Deleted Selected
+    </button>
 
-    <div ng-controller="ypController as yp" >
-    <h2> YellowPages Result </h2>
-    <div id="grid3" ui-grid="yp.gridOptions" class="grid"></div>
-    </div>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.showFunction(); rc.saveToContacts()">
+        Add to Contacts
+    </button>
 
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-show="rc.showResult">
+    {{ rc.responseMessage }}
+    <i class="material-icons" ng-show="rc.symbol">done</i>
+    <i class="material-icons" ng-hide="rc.symbol">clear</i>
+    </button>
+
+    </div>
 </div>
