@@ -1,62 +1,81 @@
-app.controller('googleController', ['$scope', 'googleResults', 'shareData','$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', '$anchorScroll', function ($scope, googleResults, shareData, $http, uiGridConstants, $q, $location, $timeout, $interval, $anchorScroll) {
+app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData','$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', 
+                function ($scope, googleResults, ypResults,shareData, $http, uiGridConstants, $q, $location, $timeout, $interval) {
   
     var gc = this;
 
    gc.displayList = [];
-   gc.numScrap = 0;
    gc.dataList = [];
-   gc.resultList = [];
-
+   gc.dataListForYP = [];
+   gc.numScrap = 0;
    gc.totalLeads = 0;
+   gc.messageNoScrap = "No more websites available";
+
+   gc.input = {};
 
     //get data from json file (google api)
     googleResults
         .success(function(data){
             gc.dataList = data;
-            // console.log('printing ' + gc.dataList);
-            // console.log('print again ' + gc.dataList[0].name);
-            // console.log('print again ' + gc.dataList[1].name);
             gc.totalLeads = gc.dataList.length;
-        console.log('total leads length is ' + gc.totalLeads);
+        // console.log('total leads length is ' + gc.totalLeads);
         });
+
+    //googleResults.getGoogleLeads(gc.input.category,gc.input.country);
+    
+    // get data from json file (yellow page)
+    ypResults
+        .success(function(data) {
+            gc.dataListForYP = data;
+        })
 
     var stop;
     gc.transfer = function() {
-        if(angular.isDefined(stop) && stop !== 1) return;
+        if(angular.isDefined(stop) /*&& stop !== 1*/) return;
 
         stop = $interval(function() {
-            if(gc.dataList.length > 0) {
+            if (gc.dataList.length > 0) {
                 var popLead = gc.dataList.pop();
                 console.log('pop lead is ' + popLead);
                 gc.displayList.push(popLead);
                 gc.numScrap = gc.displayList.length;
-                // console.log('length of displaylist is ' + gc.numScrap);
-                // console.log('setting data');
                 shareData.addLead(popLead);
+
+            } else if (gc.dataListForYP.length > 0) {
+                var popYPLead = gc.dataListForYP.pop();
+                console.log('yp pop lead is ' + popLead);
+                gc.displayList.push(popYPLead);
+                gc.numScrap = gc.displayList.length;
+                shareData.addLead(popYPLead);
 
             } else {
                 gc.stopScraping();
+                //show the 'view results' button
+                gc.showFunction();
             }
         },1000);
     };
 
     gc.pauseScraping = function() {
-        if(angular.isDefined(stop) && stop !== 1) {
+        if(angular.isDefined(stop) /*&& stop !== 1*/) {
             $interval.cancel(stop);
             stop = undefined;
             
         }
     }
 
+    //if press stop button, cannot continue scraping
     gc.stopScraping = function() {
         if(angular.isDefined(stop)) {
             $interval.cancel(stop);
-            stop = 1;
+            //stop = 1;
         }
     }
 
-
-
+    gc.showResult = false;
+    gc.scrapMessage = "Scraping Stopped";
+    gc.showFunction = function() {
+        gc.showResult = true;
+    };
 
     //filter for ui-grid
     gc.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
@@ -81,19 +100,4 @@ app.controller('googleController', ['$scope', 'googleResults', 'shareData','$htt
       gc.gridApi = gridApi;
     }
   };
-
-    /*gc.gridOptionsTwo = {
-    enableSorting: true,
-    enableFiltering: true,
-    data: 'gc.displayList',
-    columnDefs: [
-      { field: 'name', headerCellClass: gc.highlightFilteredHeader },
-      { field: 'email', headerCellClass: gc.highlightFilteredHeader  },
-      { field: 'company', enableSorting: false },
-      { field: 'number', headerCellClass: gc.highlightFilteredHeader }
-    ],
-    onRegisterApi: function( gridApi ) {
-      gc.gridApi = gridApi;
-    }
-  };*/
 }]);
