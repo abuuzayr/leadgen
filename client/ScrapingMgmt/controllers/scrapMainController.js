@@ -1,6 +1,7 @@
 app.controller('scrapMainController', ['$scope', 'leadsResult', '$http', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsResult, $http, uiGridConstants, $q, $location, $timeout) {
     
     var vm = this;
+    vm.input = {};
 
     //get data from json file
     leadsResult
