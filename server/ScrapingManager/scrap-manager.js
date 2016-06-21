@@ -11,7 +11,7 @@ var ScrapManager = {
 		return new Promise(function(resolve,reject){
 			loadCoordinates(index)
 			.then(function(arr){
-				var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + arr[0] + ',' + arr[1] + '&radius=2000&keyword=' + type + '&key=' + apiKey;
+				var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + arr[0] + ',' + arr[1] + '&radius=30000&keyword=' + type + '&key=' + apiKey;
 				
 				requestGoogle(url)
 				.then(function(places){
@@ -29,8 +29,12 @@ var ScrapManager = {
 					
 					for(var i=0;i<results.length;i++){
 						var obj = {
+							firstName : null,
+							lastName : null,
+							email : null,
 							companyName : results[i].result.name,
 							phoneNumber : results[i].result.international_phone_number,
+							category : type,
 							origin : 1
 						};
 						arr.push(obj);
@@ -89,11 +93,13 @@ var ScrapManager = {
 				
 		});
 	},
-	scrapCorporateYellowPage : function(){
-
+	scrapCorporateYellowPage : function(type){
+		//QUERY FROM SERVER CORPORATE DB
+		//RETURN objects that match type
 	},
-	scrapConsumersYellowPage : function(){
-
+	scrapConsumersYellowPage : function(type){
+		//QUERY FROM SERVER CONSUMER DB
+		//RETURN objects that match type
 	}
 
 };

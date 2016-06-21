@@ -3,7 +3,8 @@ apiRouter = express.Router(),
 dbHandler = require('../database-handler'),
 jsonParser = require('body-parser').json(),
 ContactsManager = require('../ContactsManager/contacts-manager'),
-ScrapManager = require('../ScrapingManager/scrap-manager');
+ScrapManager = require('../ScrapingManager/scrap-manager'),
+fs = require('fs');
 
 apiRouter.use('/',jsonParser,function(req,res,next){
 	console.log('Welcome to the API page');
@@ -16,32 +17,32 @@ CRUD on leads list
 */
 apiRouter.route('/corporate/contacts/leadList/leads')
 	.get(function(req,res){
-		ContactsManager.displayLeadCB(res,'localCorporate',null,displayResultsCallback);
+		ContactsManager.displayContacts(res,'localCorporate',null,displayResultsCallback);
 	})
 	.post(function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.addLeadCB(res,'localCorporate',req.body,returnStatusCode);
+			ContactsManager.addContacts(res,'localCorporate',req.body,returnStatusCode);
 		}
 	})
 	.delete(function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.deleteLeadsCB(res,'localCorporate',req.body,returnStatusCode);
+			ContactsManager.deleteContacts(res,'localCorporate',req.body,returnStatusCode);
 		}
 	})
 	.patch(function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.updateLeadCB(res,'localCorporate',req.body,returnStatusCode);
+			ContactsManager.updateContacts(res,'localCorporate',req.body,returnStatusCode);
 		}
 	});
 
 /*
-CRUD on fields
+Add/remove on fields
 */
 apiRouter.route('/corporate/contacts/leadList/fields')
 	.post(function(req,res){
@@ -74,7 +75,107 @@ apiRouter.route('/corporate/contacts/leadList/fields')
 
 
 /*
-API FOR SCRAPING
+	BlackList API
+*/
+apiRouter.route('/corporate/contacts/blackList/domain')
+	.get(function(req,res){
+		fs.readFile('./domains.json',function(err,data){
+			if(err != null)
+				returnStatusCode(res,500);
+			else{
+				res.json(JSON.parse(data));
+			}
+		});
+	})
+	.post(function(req,res){
+		if(!req.body)
+			returnStatusCode(res,400);
+		else{
+			if(req.body.domainName == undefined || req.body.domainName == null || req.body.domainName == '')
+				returnStatusCode(res,400);
+			else{
+				var str = req.body.domainName;
+				fs.readFile('./domains.json',function(err,data){
+					if(err != null)
+						returnStatusCode(res,500);
+					else{
+						var arr = JSON.parse(data);
+						arr.push(str);
+						fs.writeFile('./domains.json',JSON.stringify(arr,null,4) , function(err){
+							if(err != null )
+								returnStatusCode(res,500);
+							else
+								returnStatusCode(res,200);
+						})						
+					}
+	
+				})	
+			}
+		}
+	})
+	.delete(function(req,res){
+		if(!req.body)
+			returnStatusCode(res,400);
+		else{
+			if(req.body.domainName == undefined || req.body.domainName == null || req.body.domainName == '')
+				returnStatusCode(res,400);
+			else{
+				var str = req.body.domainName;
+				fs.readFile('./domains.json',function(err,data){
+					if(err != null)
+						returnStatusCode(res,500);
+					else{
+						var arr1 = JSON.parse(data);
+						var arr2 = [];
+						for(var i=0;i<arr1.length;i++){
+							if (arr1[i] != str ) 
+								arr2.push(arr1[i]);
+						}
+						if(arr2.length == arr1.length)
+						 	returnStatusCode(res,400);
+						fs.writeFile('./domains.json',JSON.stringify(arr2,null,4) , function(err){
+							if(err != null )
+								returnStatusCode(res,500);
+							else
+								returnStatusCode(res,200);
+						})						
+					}
+	
+				})	
+			}
+		}
+	})
+
+apiRouter.route('/corporate/contacts/blackList/contacts')
+	.get(function(req,res){
+		ContactsManager.displayContacts(res,'localCorporate',null,displayResultsCallback);
+	})
+	.post(function(req,res){
+		if(!req.body)
+			returnStatusCode(res,400);
+		else{
+			ContactsManager.addContacts(res,'localCorporate',req.body,returnStatusCode);
+		}
+	})
+	.delete(function(req,res){
+		if(!req.body)
+			returnStatusCode(res,400);
+		else{
+			ContactsManager.deleteContacts(res,'localCorporate',req.body,returnStatusCode);
+		}
+	})
+	.patch(function(req,res){
+		if(!req.body)
+			returnStatusCode(res,400);
+		else{
+			ContactsManager.updateContacts(res,'localCorporate',req.body,returnStatusCode);
+		}
+	});
+
+
+
+/*
+API FOR ScrapingManager
 */
 apiRouter.route('/corporate/scrape/g/new')
 	.get(function(req,res){
@@ -108,7 +209,9 @@ apiRouter.get('/corporate/scrape/g/cont',function(req,res){
 });
 
 
-
+/*
+Helper functions
+*/
 var displayResultsCallback = function(res,results){
 	res.json(results);
 };

@@ -4,7 +4,7 @@ common = require('../common'),
 Promise = require('bluebird');
 
 var ContactsManager = {
-	displayLeadCB : function(res,collectionName,obj,callback){
+	displayContacts : function(res,collectionName,obj,callback){
 		dbHandler.dbQuery(collectionName,obj)
 		.then(function(results){
 			callback(res,results);
@@ -13,7 +13,7 @@ var ContactsManager = {
 			callback(res,error);
 		});	
 	},
-	addLeadCB : function(res,collectionName,obj,callback){
+	addContacts : function(res,collectionName,obj,callback){
 		dbHandler.dbInsert(collectionName,obj)
 		.then(function(results){
 			callback(res,results);
@@ -22,7 +22,7 @@ var ContactsManager = {
 			callback(res,error);
 		});
 	},
-	deleteLeadsCB : function(res,collectionName,obj,callback){
+	deleteContacts : function(res,collectionName,obj,callback){
 		if(!Array.isArray(obj)){
 			dbHandler.dbDelete(collectionName,obj)
 			.then(function(results){
@@ -45,7 +45,7 @@ var ContactsManager = {
 			})
 		}
 	},
-	updateLeadCB : function(res,collectionName,obj,callback){
+	updateContacts : function(res,collectionName,obj,callback){
 		if((Array.isArray(obj)) && obj.length == 2){
 			console.log(obj[0]);
 			console.log(obj[1]);
