@@ -1,6 +1,6 @@
-app.controller('contactsMainController', ['$scope','leadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('mailListController', ['$scope','mailListData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, mailListData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
-    leadsData.success(function(data) {
+    mailListData.success(function(data) {
     $scope.gridOptions.data = data;
   });
 
@@ -29,18 +29,18 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
     enableFiltering: true,
     showGridFooter:true,
     columnDefs: [
-      { field: 'firstName', displayName: 'First Name', enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'lastName', displayName: 'Last Name', headerCellClass: $scope.highlightFilteredHeader  },
-      { field: 'company', displayName: 'Company', enableSorting: false },
-      { field: 'employed', displayName: 'Employed', filter: {
-        term: true,
-        type: uiGridConstants.filter.SELECT,
-        selectOptions: [ { value: true, label: 'true' }, { value: false, label: 'false' } ]
-        },
-        cellFilter: 'mapEmployed', headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'listName', displayName: 'List Name', enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader, },
+      { field: 'subscribers', displayName: 'Subscribers', enableFiltering: false, },
+      { field: 'details', displayName: 'Details', enableCellEdit: false, enableFiltering: false, enableSorting: false,  cellTemplate:'<button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" ng-click="grid.appScope.showMe(row.entity.listName)"><i class="material-icons md-48">zoom_in</i></button>'}
     ],
   };
-  
+
+
+  //view details
+   $scope.showMe = function(value){
+                   alert(value);
+                };
+
   //add new lead
    $scope.addData = function() {
     var n = $scope.gridOptions.data.length + 1;
@@ -117,21 +117,4 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
         };
    
 }])
-
-
-//filter drop down option hashing
-.filter('mapEmployed', function() {
-  var employedHash = {
-    true: 'true',
-    false: 'false'
-  };
-
-  return function(input) {
-    if (!input){
-      return 'false';
-    } else {
-      return employedHash[input];
-    }
-  };
-});
-
+;

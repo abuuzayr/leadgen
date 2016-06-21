@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ngAnimate']);
+var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.selection', 'ui.router', 'ui.grid.edit', 'ngAnimate']);
 
 app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 	    $urlRouterProvider.otherwise('/');
@@ -30,6 +30,6 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
 		 .state('maillist', {
 			 url: '/maillist',
 			 templateUrl: 'ContactsMgmt/partials/contactsMailList.html',
-			 controller: 'contactsMainController'
+			 controller: 'mailListController'
 		 })
  	}]);
