@@ -44,23 +44,38 @@ apiRouter.route('/corporate/contacts/leadList/leads')
 CRUD on fields
 */
 apiRouter.route('/corporate/contacts/leadList/fields')
-
 	.post(function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.addLeadCB(res,'localCorporate',req.body,returnStatusCode);
+			if(req.body.fieldName == undefined || req.body.fieldName == null || req.body.fieldName == '')
+				returnStatusCode(res,400);
+			else{
+				var str = req.body.fieldName;	
+				ContactsManager.addField(res,'localCorporate',str,returnStatusCode);				
+			}
+
 		}
 	})
 	.delete(function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.deleteLeadsCB(res,'localCorporate',req.body,returnStatusCode);
+			if(req.body.fieldName == undefined || req.body.fieldName == null || req.body.fieldName == '')
+				returnStatusCode(res,400);
+			else{
+				var str = req.body.fieldName;	
+				ContactsManager.removeField(res,'localCorporate',str,returnStatusCode);				
+			}
+
 		}
 	});
 
 
+
+/*
+API FOR SCRAPING
+*/
 apiRouter.route('/corporate/scrape/g/new')
 	.get(function(req,res){
 		if(!req.body)
@@ -77,20 +92,20 @@ apiRouter.route('/corporate/scrape/g/new')
 		}
 	});
 
-	apiRouter.get('/corporate/scrape/g/cont',function(req,res){
-		if(!req.body)
-			returnStatusCode(res,400);
-		else{
-			index ++;
-			ScrapManager.scrapCorporateGoogleNew(index,'engineering')
-			.then(function(results){
-				res.json(results);
-			})
-			.catch(function(error){
-				res.sendStatus(400);
-			});
-		}
-	});
+apiRouter.get('/corporate/scrape/g/cont',function(req,res){
+	if(!req.body)
+		returnStatusCode(res,400);
+	else{
+		index ++;
+		ScrapManager.scrapCorporateGoogleNew(index,'engineering')
+		.then(function(results){
+			res.json(results);
+		})
+		.catch(function(error){
+			res.sendStatus(400);
+		});
+	}
+});
 
 
 

@@ -21,7 +21,9 @@ dbHandler.dbConnect(function(result){
 	if(result == config.successMsg)
 		app.listen(config.port ,function(){
 			console.log('Starting application server');
-
+			// dbHandler.dbRemoveDuplicate('localCorporate', 'phoneNumber')
+			// .then(common.printStuff)
+			// .catch(common.printStuff);
 		});
 	else
 		console.log('Could not connect to database');

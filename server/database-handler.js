@@ -10,7 +10,8 @@ var deleteDB = function(collectionName,obj){
 				if(err!=null)
 					reject(500);
 				else{
-					obj._id = new mongodb.ObjectID(obj._id);
+					if(obj._id != undefined)
+					 obj._id = new mongodb.ObjectID(obj._id);
 					var col = db.collection(collectionName);
 					col.deleteOne(obj,function(err,results){
 						if(err!=null)
@@ -114,20 +115,24 @@ var dbHandler = {
 			});
 		});
 	},
-	dbRemoveDuplicate : function(collectionName,option){
+	dbRemoveDuplicate : function(collectionName,field){
 		return new Promise(function(resolve,reject){
 			MongoClient.connect(config.dbURI,function(err,db){
 				if(err!=null)
 					reject(err);
 				else{
 					var col = db.collection(collectionName);
-					// var fieldString = '$' + field;
-					if(option == 1)
-						var obj = { $group : { "_id": "$email" , "count":{$sum:1}}};
-					else 
-						var obj = { $group : { "_id": "$phoneNumber" , "count":{$sum:1}}};
+					var fieldString = "$" + field;
+					var obj = {
+						$group : {
+							"_id" : fieldString,
+							"count" : {$sum : 1}
+						}
+					};
 					var arr = [obj];
+					console.log(arr);
 					col.aggregate(arr).toArray(function(err,results){
+						console.log(results);	
 						if(err!=null)
 							reject(err);
 						else{
@@ -135,17 +140,9 @@ var dbHandler = {
 							for(var i=0;i<results.length;i++){
 								if(results[i].count > 1){
 									if(results[i]._id != null && results[i]._id != undefined && results[i]._id != '' ){
-										var object; 
-										if(option == 1){
-											object = {
-												email:results[i]._id
-											};
-										}
-										else{
-											object = {
-												phoneNumber:results[i]._id
-											};
-										}
+										var object = {}; 
+										object[field] = results[i]._id
+										console.log(object);
 										for(var j=0; j<results[i].count -1 ; j++){
 											arr1.push(deleteDB(collectionName,object));
 										}
@@ -171,11 +168,11 @@ var dbHandler = {
 		return new Promise(function(resolve,reject){
 			MongoClient.connect(config.dbURI,function(err,db){
 				if(err!=null)
-					reject(500);
+					reject(400);
 				else{
 					db.dropCollection(collectionName,function(err,result){
 						if(err!=null)
-							reject(500);
+							reject(400);
 						else{
 							db.close();
 							resolve(200);
