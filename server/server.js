@@ -13,49 +13,6 @@ var url = config.dbURI;
 
 
 
-
-// app.listen(3000,function(){
-// 	// dbHandler.dbConnect()
-// 	// .then(common.printMsg)
-// 	// .catch(common.printMsg);
-
-// 	// dbHandler.dbQuery('localContacts', searchObj)
-// 	// .then(common.printMsg)
-// 	// .catch(common.printMsg);
-
-// 	// dbHandler.dbConnect(common.printMsg);
-
-// 	// dbHandler.dbDelete('localContacts',delObj)
-// 	// .then(common.printStuff)
-// 	// .catch(common.printStuff);
-
-// 	// dbHandler.dbUpdate('localContacts',searchObj,updateObj)
-// 	// .then(common.printStuff)
-// 	// .catch(common.printStuff);
-	
-// 	// dbHandler.dbRemoveDuplicate('localContacts' , 2)
-// 	// .then(function(msg){
-// 	// 	return dbHandler.dbQuery('localContacts',null);
-// 	// })
-// 	// .then(common.printStuff)
-// 	// .catch(common.printStuff);
-
-
-// 	// dbHandler.dbInsert('localContacts',obj)
-// 	// .then(common.printMsg)
-// 	// .catch(common.printMsg);
-
-// 	// dbHandler.dbQuery('localContacts',null)
-// 	// .then(common.printStuff)
-// 	// .catch(common.printStuff);
-
-
-// 	console.log('Starting the server');
-// });
-
-
-
-
 app.use('/', express.static('../client'));
 
 app.use('/api',apiRouter);
@@ -64,10 +21,10 @@ dbHandler.dbConnect(function(result){
 	if(result == config.successMsg)
 		app.listen(config.port ,function(){
 			console.log('Starting application server');
-			// ScrapManager.scrapCorporateGoogleCont('engineering','singapore')
-			// .then(common.printStuff)
-			// .catch(common.printStuff);
+
 		});
+	else
+		console.log('Could not connect to database');
 })
 
 

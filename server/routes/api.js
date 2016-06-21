@@ -1,8 +1,9 @@
 var express = require('express'),
 apiRouter = express.Router(),
 dbHandler = require('../database-handler'),
-jsonParser = require('body-parser').json();
-ContactsManager = require('../ContactsManager/contacts-manager');
+jsonParser = require('body-parser').json(),
+ContactsManager = require('../ContactsManager/contacts-manager'),
+ScrapManager = require('../ScrapingManager/scrap-manager');
 
 apiRouter.use('/',jsonParser,function(req,res,next){
 	console.log('Welcome to the API page');
@@ -43,9 +44,7 @@ apiRouter.route('/corporate/contacts/leadList/leads')
 CRUD on fields
 */
 apiRouter.route('/corporate/contacts/leadList/fields')
-	.get(function(req,res){
-		ContactsManager.displayLeadCB(res,'localCorporate',null,displayResultsCallback);
-	})
+
 	.post(function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
@@ -59,14 +58,40 @@ apiRouter.route('/corporate/contacts/leadList/fields')
 		else{
 			ContactsManager.deleteLeadsCB(res,'localCorporate',req.body,returnStatusCode);
 		}
-	})
-	.patch(function(req,res){
+	});
+
+
+apiRouter.route('/corporate/scrape/g/new')
+	.get(function(req,res){
+		if(!req.body)
+			returnStatusCode(res,400)
+		else{
+			index = 0
+			ScrapManager.scrapCorporateGoogleNew(index,'engineering')
+			.then(function(results){
+				res.json(results);
+			})
+			.catch(function(error){
+				res.sendStatus(400);
+			});
+		}
+	});
+
+	apiRouter.get('/corporate/scrape/g/cont',function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.updateLeadCB(res,'localCorporate',req.body,returnStatusCode);
+			index ++;
+			ScrapManager.scrapCorporateGoogleNew(index,'engineering')
+			.then(function(results){
+				res.json(results);
+			})
+			.catch(function(error){
+				res.sendStatus(400);
+			});
 		}
 	});
+
 
 
 var displayResultsCallback = function(res,results){
