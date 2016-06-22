@@ -1,0 +1,12 @@
+.material-icons {
+    border-style: solid;
+}
+
+.side-bar-title {
+    display: inline-block;
+}
+
+.active {
+    border-style: solid;
+    height: 40px;
+}
