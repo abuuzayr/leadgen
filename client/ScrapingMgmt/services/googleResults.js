@@ -4,7 +4,6 @@ app.factory('googleResults', ['$http', function($http) {
         return $http({
             method: 'GET',
             url: 'ScrapingMgmt/testFiles/scrapGoogle.json',
-            params: {user_id: user.id}
         });
     }
 
@@ -20,7 +19,7 @@ app.factory('googleResults', ['$http', function($http) {
         continueScrape: continueScrape
     }
 
-    //api to use:  'http://localhost:8080/api/corporate/scrape/g/new'
+    //api to use:  'http://localhost:8080/api/corporate/scrape/g/new' + "/" + country (for new only)
     // api to use: 'http://localhost:8080/api/corporate/scrape/g/cont'
 
     // when there is valid api, use this
