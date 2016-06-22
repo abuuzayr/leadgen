@@ -1,0 +1,14 @@
+<!-- sidebar -->
+<div class="col-xs-6 col-sm-2 sidebar-offcanvas" id="sidebar" role="navigation">
+    <h3>Company</h3>
+    <br>
+    <ul class="nav" ng-repeat="company in uc.companyList">
+        <!--<li class="active"><h3>Company</h3></li>-->
+        <li><a href="#">{{ company.name }}</a></li>
+    </ul>
+    <br>
+    <!-- Colored raised button -->
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+    Add New
+    </button>
+</div>

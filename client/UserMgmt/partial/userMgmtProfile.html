@@ -1,0 +1,36 @@
+<link rel="stylesheet" type="text/css" href="assets/css/userMgmtProfile.css">
+<div class="page-container">      
+    <div class="container" ng-controller="userMgmtController as uc">
+      <div class="row row-offcanvas row-offcanvas-left">
+        
+         <!--include sidebar 
+        <div ng-include = "'UserMgmt/partial/userMgmtSideBar.html'"></div>-->
+
+        <!--include tabs-->
+         <div ng-include = "'UserMgmt/partial/userMgmtTabs.html'"></div>
+        
+        <br>
+  	
+        <!-- main area -->
+        <!--<div class="col-xs-12 col-sm-9">-->
+            <div class="details">
+                <h4><b>Subscription Type:</b></h4>
+                <h4>Consumer</h4>
+                <br>
+                <h4>Company Name:</h4>
+                <br>
+                <h4>Email Address:</h4>
+                <br>
+                <h4>MailChimp API Key:</h4>
+                <br>
+                <h4>Google API Key:</h4>
+            </div>
+            <br>
+            <div class="moreDetails">
+                <input type="checkbox" name="showMore">Show Expiration Date
+            </div>
+        <!--</div>-->
+    </div>
+  </div>
+</div>
+  
