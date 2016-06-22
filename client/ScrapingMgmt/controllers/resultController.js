@@ -1,8 +1,25 @@
 app.controller('resultController', ['$scope', 'shareData', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', '$anchorScroll', function ($scope, shareData, $http, uiGridConstants, $q, $location, $timeout, $anchorScroll) {
-  
+
     var rc = this;
-    rc.displayResult = shareData.getData();
-    rc.resultsLength = rc.displayResult.length;
+    rc.gridOptions = {
+    enableSorting: true,
+    enableFiltering: true,
+    data:[],
+    columnDefs: [
+      { field: 'firstName', displayName: 'First Name', headerCellClass: rc.highlightFilteredHeader },
+      { field: 'lastName', displayName: 'Last Name', headerCellClass: rc.highlightFilteredHeader },
+      { field: 'email', displayName: 'Email', headerCellClass: rc.highlightFilteredHeader },
+      { field: 'company', displayName: 'Company', headerCellClass: rc.highlightFilteredHeader },
+      { field: 'number', displayName: 'Phone No.', headerCellClass: rc.highlightFilteredHeader },
+      { field: 'category', displayName: 'Category', headerCellClass: rc.highlightFilteredHeader },
+    ],
+    onRegisterApi: function( gridApi ) {
+      rc.gridApi = gridApi;
+    }
+  };
+
+    rc.gridOptions.data = shareData.getData();
+    rc.resultsLength = rc.gridOptions.data.length;
     //filter for ui-grid
     rc.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
     if( col.filters[0].term ){
@@ -18,19 +35,21 @@ app.controller('resultController', ['$scope', 'shareData', '$http', 'uiGridConst
     rc.showResult = true;
     $timeout(function () { 
       rc.showResult = false; 
-    }, 2000);
+    }, 1500);
   };
-
-  rc.deleteRow = function(row) {
-    var index = rc.gridOptions.data.indexOf(row.entity);
-    rc.gridOptions.data.splice(index, 1);
-  }
+  
+  rc.deleteSelected = function() {
+      angular.forEach(rc.gridApi.selection.getSelectedRows(), function (data, index) {
+        rc.gridOptions.data.splice(rc.gridOptions.data.lastIndexOf(data), 1);
+        rc.resultsLength -= 1;
+      });
+    }
 
   rc.responseMessage = "";
   rc.symbol = true;
 
   rc.saveToContacts = function() {
-    var myJsonString = JSON.stringify(rc.displayResult);
+    var myJsonString = JSON.stringify(rc.gridOptions.data);
     var response = $http.post('/api/Corporate/scrap',myJsonString);
     response.success(function(data) {
       rc.responseMessage = "Saved to Contacts!";
@@ -39,21 +58,5 @@ app.controller('resultController', ['$scope', 'shareData', '$http', 'uiGridConst
       rc.responseMessage = "Error Occured";
       rc.symbol = false;
     })
-  }
-  
-  rc.gridOptions = {
-    enableSorting: true,
-    enableFiltering: true,
-    data: 'rc.displayResult',
-    columnDefs: [
-      { field: 'select', enableSorting:false, enableFiltering:false, cellTemplate: '<input type="checkbox" name="selectCheckBox" ng-click="rc.deleteRow(row)">' },
-      { field: 'name', headerCellClass: rc.highlightFilteredHeader },
-      { field: 'email', headerCellClass: rc.highlightFilteredHeader  },
-      { field: 'company', enableSorting: false },
-      { field: 'number', headerCellClass: rc.highlightFilteredHeader }
-    ],
-    onRegisterApi: function( gridApi ) {
-      rc.gridApi = gridApi;
-    }
-  };
+  } 
 }]);
