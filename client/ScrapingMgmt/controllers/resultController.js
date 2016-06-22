@@ -1,4 +1,4 @@
-app.controller('resultController', ['$scope', 'shareData', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', '$anchorScroll', function ($scope, shareData, $http, uiGridConstants, $q, $location, $timeout, $anchorScroll) {
+app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', '$anchorScroll', function ($scope, shareData, sendResults, $http, uiGridConstants, $q, $location, $timeout, $anchorScroll) {
 
     var rc = this;
     rc.gridOptions = {
@@ -20,6 +20,7 @@ app.controller('resultController', ['$scope', 'shareData', '$http', 'uiGridConst
 
     rc.gridOptions.data = shareData.getData();
     rc.resultsLength = rc.gridOptions.data.length;
+    
     //filter for ui-grid
     rc.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
     if( col.filters[0].term ){
@@ -58,5 +59,20 @@ app.controller('resultController', ['$scope', 'shareData', '$http', 'uiGridConst
       rc.responseMessage = "Error Occured";
       rc.symbol = false;
     })
-  } 
+  }
+
+  // rc.print = function() {
+  //   console.log('print leads after delete');
+  //   console.log(rc.gridOptions.data);
+  // };
+  
+  rc.postResponse = ""; 
+
+  // sendResults.sendLeads(rc.gridOptions.data).then(function successCallback(res) {
+  //   rc.postResponse = "Saved to Contacts!";
+  // }), function errorCallback(err) {
+  //   rc.postResponse = "Unable to Save to Contacts";
+  //   rc.symbol = false;
+  // }
+
 }]);
