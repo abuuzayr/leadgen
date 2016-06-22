@@ -1,30 +1,45 @@
 app.factory('googleResults', ['$http', function($http) { 
-    return $http.get('ScrapingMgmt/testFiles/scrapGoogle.json')
-        .success(function(data) {
-            return data;
-        })
-        .error(function(err) {
-            return err;
+    
+    var firstTimeScrape = function(category,country) {
+        return $http({
+            method: 'GET',
+            url: 'ScrapingMgmt/testFiles/scrapGoogle.json',
+            params: {user_id: user.id}
         });
+    }
 
+    var continueScrape = function() {
+        return $http({
+            method: 'GET',
+            url: 'ScrapingMgmt/testFiles/scrapGoogle2.json'
+        });
+    }
+    
+    return {
+        firstTimeScrape: firstTimeScrape,
+        continueScrape: continueScrape
+    }
+
+    //api to use:  'http://localhost:8080/api/corporate/scrape/g/new'
+    // api to use: 'http://localhost:8080/api/corporate/scrape/g/cont'
 
     // when there is valid api, use this
-    // if this cannot pass the data, put this in google controller
-    // return $http.get('ScrapingMgmt/testFiles/scrapGoogle.json',{params:{"category": gc.input.category, "country": gc.input.country}})
-    //     .success(function(data) {
-    //         return data;
-    //     })
-    //     .error(function(err) {
-    //         return err;
+    // // var firstTimeScrape = function(category,country) {
+    //     return $http({
+    //         method: 'GET',
+    //         url: 'ScrapingMgmt/testFiles/scrapGoogle.json',
+    //         params: {country: country, category: category}
     //     });
-
-    // var getGoogleLeads = function(category,country) {
-    //     return $http.get('ScrapingMgmt/testFiles/scrapGoogle.json')
-    //         .success(function(data) {
-    //             return data;
-    //         })
-    //         .error(function(err) {
-    //             return err;
-    //         });
     // }
+
+    // var continueScrape = function(category,country) {
+    //     return $http({
+    //         method: 'GET',
+    //         url: 'ScrapingMgmt/testFiles/scrapGoogle2.json',
+    //         params: {country: country, category: category}
+    //     });
+    // }
+
+
+
 }]);
