@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
+var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection',] );
 
 	app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 	    $urlRouterProvider.otherwise('/');
@@ -42,5 +42,18 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router'] );
 		   .state('profile', {
                url: '/profile',
 			   templateUrl: 'ProfileMgmt/partial/profile.html',
+			   controller: 'profileController'
            })
+		   .state('userManagement', {
+               url: '/management',
+			   templateUrl: 'UserMgmt/partial/userMgmtMainView.html'
+           })
+		   .state('companyProfile', {
+			   url: '/companyProfile',
+			   templateUrl: 'UserMgmt/partial/userMgmtProfile.html'
+		   })
+		   .state('userManagementSA', {
+			   url: '/SAmanagement',
+			   templateUrl: 'UserMgmt/partial/userMgmtUsers.html'
+		   })
  	}]);
