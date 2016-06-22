@@ -1,4 +1,4 @@
-app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData','$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', 
+app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData','$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval',
                 function ($scope, googleResults, ypResults,shareData, $http, uiGridConstants, $q, $location, $timeout, $interval) {
   
     var gc = this;
@@ -19,6 +19,15 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
     }
   };
 
+  //filter for ui-grid
+    gc.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
+        if( col.filters[0].term ){
+         return 'header-filtered';
+        } else {
+          return '';
+        }
+    };
+
    gc.dataListForGoogle = [];
    gc.dataListForYP = [];
    gc.numScrap = 0;
@@ -26,42 +35,29 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
 
    gc.input = {};
 
-
-
     //get data from json file (google api)
-    console.log('getting data from google')
+    console.log('getting data from google');
     googleResults.firstTimeScrape().then(function successCallback(res) {
-        console.log('res is ' + res.data);
+        // console.log('res is ' + res.data);
         gc.dataListForGoogle = res.data;
-        console.log('length is ' + gc.dataListForGoogle.length);
+        // console.log('length is ' + gc.dataListForGoogle.length);
     }), function errorCallback(err) {
         console.log('err is ' + err);
     };
 
     console.log('getting data from yellow page');
     ypResults.scrapeYellowPageLeads().then(function successCallback(res) {
-        console.log('res is ' + res.data);
+        // console.log('res is ' + res.data);
         gc.dataListForYP = res.data;
-        console.log('length is ' + gc.dataListForGoogle.length);
+        // console.log('length is ' + gc.dataListForGoogle.length);
     }), function errorCallback(err) {
         console.log('err is ' + err);
     };
-
-        // .successCallback(data) {
-        //     gc.dataListForGoogle = data;
-        //     //gc.totalLeads = gc.dataListForGoogle.length;
-        // // console.log('total leads length is ' + gc.totalLeads);
-        // };
 
     //googleResults.getGoogleLeads(gc.input.category,gc.input.country);
     
     // get data from json file (yellow page)
     
-    // ypResults
-    //     .success(function(data) {
-    //         gc.dataListForYP = data;
-    //     })
-
     var stop;
     var count = 0;
 
@@ -102,11 +98,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
                     gc.stopScraping();
                     //show the 'view results' button
                     gc.showFunction();
-            };
-
-                // gc.stopScraping();
-                // //show the 'view results' button
-                // gc.showFunction();
+                };
             }
         },2000);
     };
@@ -129,16 +121,8 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
 
     gc.showResult = false;
     gc.scrapMessage = "Scraping Stopped";
+    
     gc.showFunction = function() {
         gc.showResult = true;
     };
-
-    //filter for ui-grid
-    gc.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
-    if( col.filters[0].term ){
-      return 'header-filtered';
-    } else {
-      return '';
-    }
-  }; 
 }]);
