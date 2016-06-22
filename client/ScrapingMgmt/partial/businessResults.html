@@ -1,13 +1,15 @@
+<div class="container">
 <div class="results">
     <h3>Results</h3>
-
+    <br>
     <div ng-controller="resultController as rc" >
-    <div id="grid2" ui-grid="rc.gridOptions" class="grid"></div>
+    <div id="grid2" ui-grid="rc.gridOptions" class="grid" ui-grid-selection></div>
 
     <h4>Total Contacts Scraped: {{rc.resultsLength}}</h4>
     
+    <br>
     <!-- Accent-colored raised button with ripple -->
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="rc.deleteRow(row)">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.deleteSelected()">
         Deleted Selected
     </button>
 
@@ -22,4 +24,5 @@
     </button>
 
     </div>
+</div>
 </div>
