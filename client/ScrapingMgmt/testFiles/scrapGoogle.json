@@ -1,38 +1,50 @@
 [
     {
-        "name": "Deadpool",
+        "firstName": "Deadpool",
+        "lastName": "and Venompool",
         "email": "dp@email.com",
         "company": "House",
-        "number": 921
+        "number": 921,
+        "category": "IT"
     },
     {
-        "name": "Now you see me 2",
+        "firstName": "Now you see me 2",
+        "lastName": "and again",
         "email": "nysm2@pirate.com",
         "company": "Magic",
-        "number": 777
+        "number": 777,
+        "category": "Retail"
     },
     {
-        "name": "Dr Stange",
+        "firstName": "Dr Stange",
+        "lastName": "Vincent",
         "email": "stephen@animal.com",
         "company": "Temple",
-        "number": 221
+        "number": 221,
+        "category": "IT"
     },
     {
-        "name": "Lord Of the Rings",
+        "firstName": "Lord Of the Rings",
+        "lastName": "Hobbit",
         "email": "lotr@email.com",
         "company": "Gandalf",
-        "number": 123
+        "number": 123,
+        "category": "F & B"
     },
     {
-        "name": "Pirates of the Caribbean",
+        "firstName": "Pirates of the Caribbean",
+        "lastName": "5",
         "email": "potc@pirate.com",
         "company": "Ahoy",
-        "number": 456
+        "number": 456,
+        "category": "Education"
     },
     {
-        "name": "Zootopia",
+        "firstName": "Zootopia",
+        "lastName": "2",
         "email": "fox@animal.com",
         "company": "Animal Kingdom",
-        "number": 789
+        "number": 789,
+        "category": "F & B"
     }
 ]
