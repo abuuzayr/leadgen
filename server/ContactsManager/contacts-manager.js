@@ -6,23 +6,55 @@ mongodb = require('mongodb'),
 Promise = require('bluebird');
 
 var ContactsManager = {
-	displayContacts : function(res,collectionName,obj,callback){
-		dbHandler.dbQuery(collectionName,obj)
-		.then(function(results){
-			callback(res,results);
-		})
-		.catch(function(error){
-			callback(res,error);
-		});	
-	},
-	addContacts : function(res,collectionName,obj,callback){
-		dbHandler.dbInsert(collectionName,obj)
-		.then(function(results){
-			callback(res,results);
-		})
-		.catch(function(error){
-			callback(res,error);
+	displayContacts : function(obj){
+		return new Promise(function(resolve,reject){
+			var arr = [];
+			dbHandler.dbQuery('localCorporate',obj)
+			.then(function(results){
+				arr = results;
+				return dbHandler.dbQuery('localConsumer',obj)
+			})
+			.then(function(results){
+				for(var i=0;i<results.length;i++){
+					arr.push(results[i]);
+				}
+				resolve(arr);
+			})
+			.catch(function(error){
+				reject(500);
+			});	
 		});
+	},
+	addContacts : function(obj){
+		return new Promise(function(resolve,reject){
+			if(obj.type != 1 && obj.type!=2)
+				reject(400);
+			else{
+				if(obj.origin != 1)
+					obj.origin = 1;
+				if(obj.type ==1){
+					dbHandler.dbInsert('localCorporate',obj)
+					.then(function(results){
+						resolve(results);
+					})
+					.catch(function(error){
+						reject(error);
+					});
+				}
+				else{
+					dbHandler.dbInsert('localConsumer',obj)
+					.then(function(results){
+						resolve(results);
+					})
+					.catch(function(error){
+						reject(error);
+					});
+				}
+
+			}
+
+		})
+
 	},
 	addScrapeContacts : function(res,collectionName,arr,callback){
 		var promiseArr = [];
@@ -40,7 +72,6 @@ var ContactsManager = {
 								break;
 							}
 						}
-
 					}
 					if(matchFlag){
 						promiseArr.push(dbHandler.dbInsert('blackList',arr[i]));
@@ -58,28 +89,56 @@ var ContactsManager = {
 			}
 		})
 	},
-	deleteContacts : function(res,collectionName,obj,callback){
-		if(!Array.isArray(obj)){
-			dbHandler.dbDelete(collectionName,obj)
-			.then(function(results){
-				callback(res,results);
-			})
-			.catch(function(error){
-				callback(res,error);
-			});
-		}else{
-			var arr = [];
-			for(var index in obj){
-				arr.push(dbHandler.dbDelete(collectionName,obj[index]));
+	deleteContacts : function(obj){
+		return new Promise(function(resolve,reject){
+			if(!Array.isArray(obj)){
+				if(obj.type != 1 && obj.type != 2)
+					reject(400);
+				else{
+
+					if(obj.type == 1){
+						dbHandler.dbDelete('localCorporate',obj)
+						.then(function(results){
+							resolve(results);
+						})
+						.catch(function(error){
+							reject(error);
+						});						
+					}else{
+						dbHandler.dbDelete('localConsumer',obj)
+						.then(function(results){
+							resolve(results);
+						})
+						.catch(function(error){
+							reject(error);
+						});						
+					}	
+
+				}	
+			}else{
+				var arr = [];
+				for(var index in obj){
+					var item = obj[index];
+					if(item.type != 1 && item.type != 2)
+						reject(400);
+					else{
+						if(item.type == 1){
+							arr.push(dbHandler.dbDelete('localCorporate',item));		
+						}else{
+							arr.push(dbHandler.dbDelete('localConsumer',item));				
+						}	
+					}
+				}
+				Promise.all(arr)
+				.then(function(results){
+					resolve(200);
+				})
+				.catch(function(error){
+					reject(error);
+				})
 			}
-			Promise.all(arr)
-			.then(function(results){
-				callback(res,200);
-			})
-			.catch(function(error){
-				callback(res,error);
-			})
-		}
+		});	
+
 	},
 	updateContacts : function(res,collectionName,obj,callback){
 		if((Array.isArray(obj)) && obj.length == 2){
@@ -99,6 +158,8 @@ var ContactsManager = {
 			var arr = [];
 			dbHandler.dbQuery(collectionName,null)
 			.then(function(results){
+				if (results.length == 0)
+					resolve(200);
 				console.log(results);
 				for(var i=0;i<results.length;i++){
 					var obj= results[i];
@@ -128,7 +189,9 @@ var ContactsManager = {
 			var arr = [];
 			dbHandler.dbQuery(collectionName,null)
 			.then(function(results){
-				console.log(results);
+				if(results.length == 0){
+					resolve(200);
+				}
 				for(var i=0;i<results.length;i++){
 					var obj= results[i];
 					if(obj[str] == undefined)

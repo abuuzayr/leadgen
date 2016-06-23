@@ -1,3 +1,8 @@
+//Origin 1 = from user , 2 = filter from yp
+
+//type 1 = corporate, 2 = consumer
+
+
 module.exports = {
 	'port': process.env.PORT || 8080,
 	'dbURI': 'mongodb://localhost:27017/app',

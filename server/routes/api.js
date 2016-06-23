@@ -19,27 +19,45 @@ CRUD on leads list
 */
 apiRouter.route('/contacts/leadList/leads')
 	.get(function(req,res){
-		ContactsManager.displayContacts(res,'localCorporate',null,displayResultsCallback);
+		ContactsManager.displayContacts(null)
+		.then(function(results){
+			res.json(results);
+		})
+		.catch(function(error){
+			res.sendStatus(error);
+		})
 	})
 	.post(jsonParser,function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.addContacts(res,'localCorporate',req.body,returnStatusCode);
+			ContactsManager.addContacts(req.body)
+			.then(function(results){
+				res.sendStatus(results);
+			})
+			.catch(function(error){
+				res.sendStatus(error);
+			})
 		}
 	})
 	.delete(jsonParser,function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.deleteContacts(res,'localCorporate',req.body,returnStatusCode);
+			ContactsManager.deleteContacts(req.body)
+			.then(function(results){
+				res.sendStatus(results);
+			})
+			.catch(function(error){	
+				res.sendStatus(error);
+			})
 		}
 	})
 	.patch(jsonParser,function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.updateContacts(res,'localCorporate',req.body,returnStatusCode);
+			ContactsManager.updateContacts(res,req.body,returnStatusCode);
 		}
 	});
 
@@ -58,9 +76,9 @@ apiRouter.route('/contacts/leadList/fields')
 			else{
 				var str = req.body.fieldName;	
 				ContactsManager.addField('localCorporate',str)
-				// .then(function(results){
-				// 	return ContactsManager.addField('localConsumer',str)
-				// })
+				.then(function(results){
+					return ContactsManager.addField('localConsumer',str)
+				})
 				.then(function(results){
 					console.log('hello');
 					res.sendStatus(200);
@@ -81,9 +99,9 @@ apiRouter.route('/contacts/leadList/fields')
 			else{
 				var str = req.body.fieldName;	
 				ContactsManager.removeField('localCorporate',str)
-				// .then(function(results){
-				// 	return ContactsManager.removeField('localConsumer',str)
-				// })
+				.then(function(results){
+					return ContactsManager.removeField('localConsumer',str)
+				})
 				.then(function(results){
 					res.sendStatus(200);
 				})
