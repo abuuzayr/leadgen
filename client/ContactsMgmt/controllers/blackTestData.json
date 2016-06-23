@@ -1,0 +1,51 @@
+[
+    {
+    "firstName": "Slade Wilson",
+    "lastName": "Deathstroke",
+    "company": "Suicide Squad",
+    "email": "slade@suicidesquad.com",
+    "phone": "91239911",
+    "category": "Skills",
+    "type": 1
+    },
+
+    {
+    "firstName": "Frank Castle",
+    "lastName": "Punisher",
+    "company": "Defendes",
+    "email": "frank@defenders.com",
+    "phone": "82318822",
+    "category": "Skills",
+    "type": 2
+    },
+
+    {
+    "firstName": "Thaddeus Ross",
+    "lastName": "Red Hulk",
+    "company": "Hulkbusters",
+    "email": "ross@hulkbuster.com",
+    "phone": "88889999",
+    "category": "Radiation",
+    "type": 1
+    },
+    
+    {
+    "firstName": "Loki",
+    "lastName": "Laufeyson",
+    "company": "Avengers",
+    "email": "loki@asgard.com",
+    "phone": "90998878",
+    "category": "Mystic",
+    "type": 2
+    },
+
+    {
+    "firstName": "En Sabah Nur",
+    "lastName": "Apocalypse",
+    "company": "Fourhoursemen",
+    "email": "apocalypse@evil.com",
+    "phone": "91128808",
+    "category": "Mutant",
+    "type": 2
+    }
+]

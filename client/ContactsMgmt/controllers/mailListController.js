@@ -1,11 +1,7 @@
-app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsData, historyData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('mailListController', ['$scope','mailListData','shareMailList','$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
-    leadsData.success(function(data) {
+    mailListData.success(function(data) {
     $scope.gridOptions.data = data;
-  });
-
-    historyData.success(function(data) {
-    $scope.history = data;
   });
 
      var viewContentLoaded = $q.defer();
@@ -33,43 +29,24 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     enableFiltering: true,
     showGridFooter:true,
     columnDefs: [
-      { field: 'firstName', displayName: 'First Name', enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'lastName', displayName: 'Last Name', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'company', displayName: 'Company', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'email', displayName: 'Email', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'phone', displayName: 'Phone', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'category', displayName: 'Category', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'type', displayName: 'Type', filter: {
-        type: uiGridConstants.filter.SELECT,
-        selectOptions: [ { value: '1', label: 'Corporate' }, { value: '2', label: 'Consumer' } ]
-        },
-        cellFilter: 'mapType', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'success', displayName: 'Success', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'failure', displayName: 'Failure', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'history', displayName: 'History', enableFiltering: false, enableSorting: false, enableEdit: false, cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity.firstName)">View</button>', headerCellClass: $scope.highlightFilteredHeader }
+      { field: 'listName', displayName: 'List Name', enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader, },
+      { field: 'subscribers', displayName: 'Subscribers', enableFiltering: false, enableCellEdit: false },
+      { field: 'details', displayName: 'Details', enableCellEdit: false, enableFiltering: false, enableSorting: false,  cellTemplate:' <a ui-sref="viewmaillist"><button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" ng-click="grid.appScope.showView(row.entity.listName)"><i class="material-icons md-48">zoom_in</i></button></a>'}
     ],
   };
-  
-    $scope.showMe = function(value){
-      $scope.userID = value;
-      var dialog = document.getElementById('historyData');
-      dialog.showModal();
-      };
 
-  //add new lead
-   $scope.addData = function() {
+
+  //view details
+   $scope.showView = function(value){
+                   shareMailList.setData(value);
+                };
+
+  //add new mailing list
+   $scope.addMailList = function() {
     var n = $scope.gridOptions.data.length + 1;
     $scope.gridOptions.data.push({
-                "firstName": $scope.lead.first,
-                "lastName": $scope.lead.last,
-                "company": $scope.lead.company,
-                "email": $scope.lead.email,
-                "phone": $scope.lead.phone,
-                "category": $scope.lead.category,
-                "type": $scope.lead.type,
-                "success": 0,
-                "failure": 0,
-                "history": '',
+                "listName": $scope.mailListName,
+                "subscribers": 0
               });
     $scope.addResult = "Success!";
   };
@@ -138,21 +115,4 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
         };
    
 }])
-
-
-//filter drop down option hashing
-.filter('mapType', function() {
-  var typeHash = {
-    1: 'Corporate',
-    2: 'Consumer'
-  };
-
-  return function(input) {
-    if (!input){
-      return 'error';
-    } else {
-      return typeHash[input];
-    }
-  };
-});
-
+;

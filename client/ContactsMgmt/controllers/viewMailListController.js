@@ -1,12 +1,10 @@
-app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsData, historyData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('viewMailListController', ['$scope','detailedMailListData','shareMailList','$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, detailedMailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
-    leadsData.success(function(data) {
+    detailedMailListData.success(function(data) {
     $scope.gridOptions.data = data;
   });
 
-    historyData.success(function(data) {
-    $scope.history = data;
-  });
+$scope.mailListResult = shareMailList.getData();
 
      var viewContentLoaded = $q.defer();
         $scope.$on('$viewContentLoaded', function () {
@@ -32,7 +30,7 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     enableSorting: true,
     enableFiltering: true,
     showGridFooter:true,
-    columnDefs: [
+      columnDefs: [
       { field: 'firstName', displayName: 'First Name', enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader },
       { field: 'lastName', displayName: 'Last Name', headerCellClass: $scope.highlightFilteredHeader },
       { field: 'company', displayName: 'Company', headerCellClass: $scope.highlightFilteredHeader },
@@ -44,18 +42,14 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
         selectOptions: [ { value: '1', label: 'Corporate' }, { value: '2', label: 'Consumer' } ]
         },
         cellFilter: 'mapType', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'success', displayName: 'Success', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'failure', displayName: 'Failure', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'history', displayName: 'History', enableFiltering: false, enableSorting: false, enableEdit: false, cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity.firstName)">View</button>', headerCellClass: $scope.highlightFilteredHeader }
+      { field: 'status', displayName: 'Status', filter: {
+        type: uiGridConstants.filter.SELECT,
+        selectOptions: [ { value: '1', label: 'Subscribed' }, { value: '2', label: 'Unsubscribed' } ]
+        },
+        cellFilter: 'mapStatus', headerCellClass: $scope.highlightFilteredHeader }
     ],
   };
   
-    $scope.showMe = function(value){
-      $scope.userID = value;
-      var dialog = document.getElementById('historyData');
-      dialog.showModal();
-      };
-
   //add new lead
    $scope.addData = function() {
     var n = $scope.gridOptions.data.length + 1;
@@ -63,13 +57,7 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
                 "firstName": $scope.lead.first,
                 "lastName": $scope.lead.last,
                 "company": $scope.lead.company,
-                "email": $scope.lead.email,
-                "phone": $scope.lead.phone,
-                "category": $scope.lead.category,
-                "type": $scope.lead.type,
-                "success": 0,
-                "failure": 0,
-                "history": '',
+                "employed": $scope.lead.employed,
               });
     $scope.addResult = "Success!";
   };
@@ -125,20 +113,36 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     };
 
     //popup dialog box
-    $scope.openDialog = function(dialogName) {
-        var dialog = document.querySelector('#' + dialogName);
-        if (! dialog.showModal) {
-          dialogPolyfill.registerDialog(dialog);
-        }
-            dialog.showModal();
-        };
-        $scope.closeDialog = function(dialogName) {
-            var dialog = document.querySelector('#' + dialogName);
-            dialog.close();
-        };
+    // $scope.openDialog = function(dialogName) {
+    //     var dialog = document.querySelector('#' + dialogName);
+    //     if (! dialog.showModal) {
+    //       dialogPolyfill.registerDialog(dialog);
+    //     }
+    //         dialog.showModal();
+    //     };
+    //     $scope.closeDialog = function(dialogName) {
+    //         var dialog = document.querySelector('#' + dialogName);
+    //         dialog.close();
+    //     };
    
 }])
 
+
+//filter drop down option hashing
+.filter('mapStatus', function() {
+  var statusHash = {
+    1: 'Subscribed',
+    2: 'Unsubscribed'
+  };
+
+  return function(input) {
+    if (!input){
+      return 'error';
+    } else {
+      return statusHash[input];
+    }
+  };
+})
 
 //filter drop down option hashing
 .filter('mapType', function() {
@@ -155,4 +159,3 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     }
   };
 });
-

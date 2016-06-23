@@ -1,13 +1,34 @@
-var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router']);
+var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.selection', 'ui.router', 'ui.grid.edit', 'ngAnimate', 'ui.grid.importer']);
 
-	app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
+app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 	    $urlRouterProvider.otherwise('/');
  	    $stateProvider
-	      .state('home', {
- 	        url: '/',
-	        views: {
-                LeadList: {templateUrl: 'ContactsMgmt/partials/contactsLeadList.html', controller: 'contactsMainController'},
-                BlackList: {templateUrl: 'ContactsMgmt/partials/contactsBlackList.html', controller: 'contactsMainController'}
-            }
- 	      })
+	     
+		 .state('home', {
+			 url: '/',
+			 templateUrl: "homepage.html"
+		 })
+
+		 .state('leadlist', {
+			 url: '/leadlist',
+			 templateUrl: 'ContactsMgmt/partials/contactsLeadList.html',
+			 controller: 'contactsMainController'
+		 })
+
+		 .state('blacklist', {
+			 url: '/blacklist',
+			 templateUrl: 'ContactsMgmt/partials/contactsBlackList.html',
+			 controller: 'blackListController'
+		 })
+
+		 .state('maillist', {
+			 url: '/maillist',
+			 templateUrl: 'ContactsMgmt/partials/contactsMailList.html',
+			 controller: 'mailListController'
+		 })
+		 .state('viewmaillist', {
+			 url: '/viewmaillist',
+			 templateUrl: 'ContactsMgmt/partials/viewMailList.html',
+			 controller: 'viewMailListController'
+		 })
  	}]);

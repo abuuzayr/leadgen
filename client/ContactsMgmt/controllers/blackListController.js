@@ -1,11 +1,11 @@
-app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsData, historyData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('blackListController', ['$scope','domainsData', 'blackLeadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, domainsData, blackLeadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
-    leadsData.success(function(data) {
-    $scope.gridOptions.data = data;
+ domainsData.success(function(data) {
+    $scope.domains = data;
   });
 
-    historyData.success(function(data) {
-    $scope.history = data;
+ blackLeadsData.success(function(data) {
+    $scope.gridOptions.data = data;
   });
 
      var viewContentLoaded = $q.defer();
@@ -40,21 +40,19 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
       { field: 'phone', displayName: 'Phone', headerCellClass: $scope.highlightFilteredHeader },
       { field: 'category', displayName: 'Category', headerCellClass: $scope.highlightFilteredHeader },
       { field: 'type', displayName: 'Type', filter: {
+        term: '1',
         type: uiGridConstants.filter.SELECT,
         selectOptions: [ { value: '1', label: 'Corporate' }, { value: '2', label: 'Consumer' } ]
         },
         cellFilter: 'mapType', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'success', displayName: 'Success', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'failure', displayName: 'Failure', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'history', displayName: 'History', enableFiltering: false, enableSorting: false, enableEdit: false, cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity.firstName)">View</button>', headerCellClass: $scope.highlightFilteredHeader }
     ],
   };
   
-    $scope.showMe = function(value){
-      $scope.userID = value;
-      var dialog = document.getElementById('historyData');
-      dialog.showModal();
-      };
+  //view blacklist domains
+  $scope.viewDomains = false;
+  $scope.toggleDetails = function() {
+      $scope.viewDomains = !$scope.viewDomains;
+  }
 
   //add new lead
    $scope.addData = function() {
@@ -63,13 +61,7 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
                 "firstName": $scope.lead.first,
                 "lastName": $scope.lead.last,
                 "company": $scope.lead.company,
-                "email": $scope.lead.email,
-                "phone": $scope.lead.phone,
-                "category": $scope.lead.category,
-                "type": $scope.lead.type,
-                "success": 0,
-                "failure": 0,
-                "history": '',
+                "employed": $scope.lead.employed,
               });
     $scope.addResult = "Success!";
   };
@@ -81,35 +73,26 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
       });
     }
 
-// add field
-  $scope.addField = function() {
-    var fieldName = $scope.field.name;
-    var arrName = fieldName.split(" ");
-    var editedField = "";
-    var editedDisplay = "";
+// add domain
+  $scope.addDomain = function() {
+    var domain = $scope.domainSelected;
+    var arrName = domain.split(" ");
+    var editedDomain = "";
     for (var x of arrName) {
-      if (y!== "") {
-        editedField += x;
+      if (x!== "") {
+        editedDomain += x;
         }
     } 
-    for (var y of arrName) {
-      if (y!== "") {
-        editedDisplay += y;
-        editedDisplay += " ";
-      }
-    } 
-    var display = editedDisplay.slice(0,editedDisplay.length-1);
-    var lowerName = editedField.toLowerCase();
-    $scope.gridOptions.columnDefs.push({field: lowerName, displayName: display, enableSorting: true });
+    $scope.domains.push(editedDomain);
     $scope.addResult = "Success!";
   }
 
-// delete field
-  $scope.deleteField = function() {
-    console.log($scope.gridOptions.columnDefs[0]);
-    for (var x in $scope.gridOptions.columnDefs) {
-      if(($scope.gridOptions.columnDefs[x].displayName === $scope.fieldSelected)) {
-        $scope.gridOptions.columnDefs.splice(x,1);
+// delete domain
+  $scope.deleteDomain = function() {
+    console.log($scope.domainSelected);
+    for (var x in $scope.domains) {
+      if(($scope.domains[x] === $scope.domainSelected)) {
+        $scope.domains.splice(x,1);
       } 
     }
   }
@@ -154,5 +137,5 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
       return typeHash[input];
     }
   };
-});
+})
 
