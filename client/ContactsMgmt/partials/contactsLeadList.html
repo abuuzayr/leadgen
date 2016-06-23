@@ -1,7 +1,7 @@
 <div ng-controller="contactsMainController" >
     <div class="mdl-tabs__tab-bar" ng-include = "'ContactsMgmt/partials/contactsTabs.html'"></div>
     <br>
-    <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit class="grid"></div>
+    <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-importer class="grid"></div>
 
     
     <button ng-click="openDialog('addData')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add lead</button>
@@ -12,6 +12,19 @@
     <button ng-click="openDialog('deleteField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent">
         <i class="material-icons md-48">remove_circle</i>
         </button>
+
+  <!-- History data -->
+        <dialog id="historyData" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                    <div>{{history}}{{userID}}</div>
+                    <div>
+                    <img src="http://vignette1.wikia.nocookie.net/despicableme/images/b/ba/Gru.jpg/revision/latest?cb=20130711023954">
+                        </div>
+                            <div class="mdl-dialog__actions">
+                                <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('historyData')">Close</button>
+                                </div>       
+                    </div>        
+            </dialog>
 
         <dialog id="addData" class="mdl-dialog" >
                 <div class="mdl-dialog__content">

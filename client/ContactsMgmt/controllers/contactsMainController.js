@@ -1,7 +1,11 @@
-app.controller('contactsMainController', ['$scope','leadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsData, historyData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
     leadsData.success(function(data) {
     $scope.gridOptions.data = data;
+  });
+
+    historyData.success(function(data) {
+    $scope.history = data;
   });
 
      var viewContentLoaded = $q.defer();
@@ -36,14 +40,22 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
       { field: 'phone', displayName: 'Phone', headerCellClass: $scope.highlightFilteredHeader },
       { field: 'category', displayName: 'Category', headerCellClass: $scope.highlightFilteredHeader },
       { field: 'type', displayName: 'Type', filter: {
-        term: '1',
         type: uiGridConstants.filter.SELECT,
         selectOptions: [ { value: '1', label: 'Corporate' }, { value: '2', label: 'Consumer' } ]
         },
         cellFilter: 'mapType', headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'success', displayName: 'Success', headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'failure', displayName: 'Failure', headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'history', displayName: 'History', enableFiltering: false, enableSorting: false, enableEdit: false, cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity.firstName)">View</button>', headerCellClass: $scope.highlightFilteredHeader }
     ],
   };
   
+    $scope.showMe = function(value){
+      $scope.userID = value;
+      var dialog = document.getElementById('historyData');
+      dialog.showModal();
+      };
+
   //add new lead
    $scope.addData = function() {
     var n = $scope.gridOptions.data.length + 1;
@@ -55,6 +67,9 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
                 "phone": $scope.lead.phone,
                 "category": $scope.lead.category,
                 "type": $scope.lead.type,
+                "success": 0,
+                "failure": 0,
+                "history": '',
               });
     $scope.addResult = "Success!";
   };

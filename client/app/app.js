@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.selection', 'ui.router', 'ui.grid.edit', 'ngAnimate']);
+var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.selection', 'ui.router', 'ui.grid.edit', 'ngAnimate', 'ui.grid.importer']);
 
 app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 	    $urlRouterProvider.otherwise('/');

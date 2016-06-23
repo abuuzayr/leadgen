@@ -46,7 +46,7 @@ $scope.mailListResult = shareMailList.getData();
         type: uiGridConstants.filter.SELECT,
         selectOptions: [ { value: '1', label: 'Subscribed' }, { value: '2', label: 'Unsubscribed' } ]
         },
-        cellFilter: 'mapStatus', headerCellClass: $scope.highlightFilteredHeader },
+        cellFilter: 'mapStatus', headerCellClass: $scope.highlightFilteredHeader }
     ],
   };
   
