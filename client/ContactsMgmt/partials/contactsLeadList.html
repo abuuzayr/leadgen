@@ -1,5 +1,6 @@
 <div ng-controller="contactsMainController" >
     <div class="mdl-tabs__tab-bar" ng-include = "'ContactsMgmt/partials/contactsTabs.html'"></div>
+    <br>
     <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit class="grid"></div>
 
     
@@ -34,8 +35,26 @@
                             </div>
 
                         <div class="mdl-textfield mdl-js-textfield">
-                            <label for="employed">Employed</label>
-                            <input class="mdl-textfield__input" type="text" id="employed" ng-model="lead.employed">
+                            <label for="email">Email</label>
+                            <input class="mdl-textfield__input" type="email" id="email" ng-model="lead.email">
+                            </div>
+
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="phone">Phone</label>
+                            <input class="mdl-textfield__input" type="number" id="phone" ng-model="lead.phone">
+                            </div>
+
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="category">Category</label>
+                            <input class="mdl-textfield__input" type="text" id="category" ng-model="lead.category">
+                            </div>
+
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="type">Type</label>
+                            <select ng-model="lead.type" id="type">
+                                <option value="1">Corporate</option>
+                                <option value="2">Consumer</option>
+                                </select>
                             </div>
 
                         <div class="mdl-dialog__actions">

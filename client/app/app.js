@@ -18,18 +18,17 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
 		 .state('blacklist', {
 			 url: '/blacklist',
 			 templateUrl: 'ContactsMgmt/partials/contactsBlackList.html',
-			 controller: 'contactsMainController'
-		 })
-
-		 .state('unsublist', {
-			 url: '/unsublist',
-			 templateUrl: 'ContactsMgmt/partials/contactsUnsubList.html',
-			 controller: 'contactsMainController'
+			 controller: 'blackListController'
 		 })
 
 		 .state('maillist', {
 			 url: '/maillist',
 			 templateUrl: 'ContactsMgmt/partials/contactsMailList.html',
 			 controller: 'mailListController'
+		 })
+		 .state('viewmaillist', {
+			 url: '/viewmaillist',
+			 templateUrl: 'ContactsMgmt/partials/viewMailList.html',
+			 controller: 'viewMailListController'
 		 })
  	}]);

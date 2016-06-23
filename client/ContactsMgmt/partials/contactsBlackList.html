@@ -1,5 +1,64 @@
-<div ng-controller="contactsMainController" >
+<div ng-controller="blackListController" >
 <div class="mdl-tabs__tab-bar" ng-include = "'ContactsMgmt/partials/contactsTabs.html'"></div>
-<h2>Black Panther!</h2>
-<img src="https://i.kinja-img.com/gawker-media/image/upload/v006q4ynkmbxcdfqo7fj.jpg" alt="Mountain View">
+<br>
+<div><button ng-click="toggleDetails()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+  Reveal my secrets!
+</button>
+ <button ng-click="openDialog('addDomain')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored"><i class="material-icons md-48">add_circle</i></button>
+ <button ng-click="openDialog('deleteDomain')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent"><i class="material-icons md-48">remove_circle</i></button>
+ <div class="toggleDomainsViewStyle" ng-show="viewDomains">
+     <ul class="demo-list-icon mdl-list">
+        <li class="mdl-list__item" ng-repeat="domain in domains">
+        <span class="mdl-list__item-primary-content">
+            <i class="material-icons mdl-list__item-icon">email</i>
+            {{domain}}
+        </span>
+        </li>
+    </ul>
+    <img src = "http://content.internetvideoarchive.com/content/photos/8281/273129_035.jpg">
+  </div>
+  </div>
+  <br>
+  <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit class="grid"></div>
+  <br>
+  <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Blacklead(s)</button>
+
+  <dialog id="addDomain" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                <p>
+                    Please enter the details.
+                </p>
+                <form class="add-domain-form" ng-submit="addDomain()">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="domain">Domain</label>
+                            <input class="mdl-textfield__input" type="text" id="domain" ng-model="domainSelected">
+                            </div>
+
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addDomain')">Close</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
+                            </div>     
+                    </form>
+                <p> {{addResult}} </p>  
+                </div>        
+            </dialog>
+
+  <dialog id="deleteDomain" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                <p>
+                    Please select the domain.
+                </p>
+                <form class="delete-domain-form" ng-submit="deleteDomain()">
+                            <select ng-model="domainSelected">
+                                <option ng-repeat="domain in domains">{{domain}}</option>
+                                </select>
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteDomain')">Close</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Delete</button> 
+                            </div>     
+                    </form>
+                <p> {{addResult}} </p>  
+                </div>        
+            </dialog>
+
 </div>

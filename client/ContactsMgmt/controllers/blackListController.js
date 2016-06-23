@@ -1,6 +1,10 @@
-app.controller('contactsMainController', ['$scope','leadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('blackListController', ['$scope','domainsData', 'blackLeadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, domainsData, blackLeadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
-    leadsData.success(function(data) {
+ domainsData.success(function(data) {
+    $scope.domains = data;
+  });
+
+ blackLeadsData.success(function(data) {
     $scope.gridOptions.data = data;
   });
 
@@ -44,6 +48,12 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
     ],
   };
   
+  //view blacklist domains
+  $scope.viewDomains = false;
+  $scope.toggleDetails = function() {
+      $scope.viewDomains = !$scope.viewDomains;
+  }
+
   //add new lead
    $scope.addData = function() {
     var n = $scope.gridOptions.data.length + 1;
@@ -51,10 +61,7 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
                 "firstName": $scope.lead.first,
                 "lastName": $scope.lead.last,
                 "company": $scope.lead.company,
-                "email": $scope.lead.email,
-                "phone": $scope.lead.phone,
-                "category": $scope.lead.category,
-                "type": $scope.lead.type,
+                "employed": $scope.lead.employed,
               });
     $scope.addResult = "Success!";
   };
@@ -66,35 +73,26 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
       });
     }
 
-// add field
-  $scope.addField = function() {
-    var fieldName = $scope.field.name;
-    var arrName = fieldName.split(" ");
-    var editedField = "";
-    var editedDisplay = "";
+// add domain
+  $scope.addDomain = function() {
+    var domain = $scope.domainSelected;
+    var arrName = domain.split(" ");
+    var editedDomain = "";
     for (var x of arrName) {
-      if (y!== "") {
-        editedField += x;
+      if (x!== "") {
+        editedDomain += x;
         }
     } 
-    for (var y of arrName) {
-      if (y!== "") {
-        editedDisplay += y;
-        editedDisplay += " ";
-      }
-    } 
-    var display = editedDisplay.slice(0,editedDisplay.length-1);
-    var lowerName = editedField.toLowerCase();
-    $scope.gridOptions.columnDefs.push({field: lowerName, displayName: display, enableSorting: true });
+    $scope.domains.push(editedDomain);
     $scope.addResult = "Success!";
   }
 
-// delete field
-  $scope.deleteField = function() {
-    console.log($scope.gridOptions.columnDefs[0]);
-    for (var x in $scope.gridOptions.columnDefs) {
-      if(($scope.gridOptions.columnDefs[x].displayName === $scope.fieldSelected)) {
-        $scope.gridOptions.columnDefs.splice(x,1);
+// delete domain
+  $scope.deleteDomain = function() {
+    console.log($scope.domainSelected);
+    for (var x in $scope.domains) {
+      if(($scope.domains[x] === $scope.domainSelected)) {
+        $scope.domains.splice(x,1);
       } 
     }
   }
@@ -139,5 +137,5 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
       return typeHash[input];
     }
   };
-});
+})
 

@@ -1,8 +1,10 @@
-app.controller('contactsMainController', ['$scope','leadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('viewMailListController', ['$scope','detailedMailListData','shareMailList','$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, detailedMailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
-    leadsData.success(function(data) {
+    detailedMailListData.success(function(data) {
     $scope.gridOptions.data = data;
   });
+
+$scope.mailListResult = shareMailList.getData();
 
      var viewContentLoaded = $q.defer();
         $scope.$on('$viewContentLoaded', function () {
@@ -28,7 +30,7 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
     enableSorting: true,
     enableFiltering: true,
     showGridFooter:true,
-    columnDefs: [
+      columnDefs: [
       { field: 'firstName', displayName: 'First Name', enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader },
       { field: 'lastName', displayName: 'Last Name', headerCellClass: $scope.highlightFilteredHeader },
       { field: 'company', displayName: 'Company', headerCellClass: $scope.highlightFilteredHeader },
@@ -36,11 +38,15 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
       { field: 'phone', displayName: 'Phone', headerCellClass: $scope.highlightFilteredHeader },
       { field: 'category', displayName: 'Category', headerCellClass: $scope.highlightFilteredHeader },
       { field: 'type', displayName: 'Type', filter: {
-        term: '1',
         type: uiGridConstants.filter.SELECT,
         selectOptions: [ { value: '1', label: 'Corporate' }, { value: '2', label: 'Consumer' } ]
         },
         cellFilter: 'mapType', headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'status', displayName: 'Status', filter: {
+        type: uiGridConstants.filter.SELECT,
+        selectOptions: [ { value: '1', label: 'Subscribed' }, { value: '2', label: 'Unsubscribed' } ]
+        },
+        cellFilter: 'mapStatus', headerCellClass: $scope.highlightFilteredHeader },
     ],
   };
   
@@ -51,10 +57,7 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
                 "firstName": $scope.lead.first,
                 "lastName": $scope.lead.last,
                 "company": $scope.lead.company,
-                "email": $scope.lead.email,
-                "phone": $scope.lead.phone,
-                "category": $scope.lead.category,
-                "type": $scope.lead.type,
+                "employed": $scope.lead.employed,
               });
     $scope.addResult = "Success!";
   };
@@ -110,20 +113,36 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
     };
 
     //popup dialog box
-    $scope.openDialog = function(dialogName) {
-        var dialog = document.querySelector('#' + dialogName);
-        if (! dialog.showModal) {
-          dialogPolyfill.registerDialog(dialog);
-        }
-            dialog.showModal();
-        };
-        $scope.closeDialog = function(dialogName) {
-            var dialog = document.querySelector('#' + dialogName);
-            dialog.close();
-        };
+    // $scope.openDialog = function(dialogName) {
+    //     var dialog = document.querySelector('#' + dialogName);
+    //     if (! dialog.showModal) {
+    //       dialogPolyfill.registerDialog(dialog);
+    //     }
+    //         dialog.showModal();
+    //     };
+    //     $scope.closeDialog = function(dialogName) {
+    //         var dialog = document.querySelector('#' + dialogName);
+    //         dialog.close();
+    //     };
    
 }])
 
+
+//filter drop down option hashing
+.filter('mapStatus', function() {
+  var statusHash = {
+    1: 'Subscribed',
+    2: 'Unsubscribed'
+  };
+
+  return function(input) {
+    if (!input){
+      return 'error';
+    } else {
+      return statusHash[input];
+    }
+  };
+})
 
 //filter drop down option hashing
 .filter('mapType', function() {
@@ -140,4 +159,3 @@ app.controller('contactsMainController', ['$scope','leadsData', '$http', '$inter
     }
   };
 });
-
