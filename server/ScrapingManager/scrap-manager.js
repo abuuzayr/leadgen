@@ -11,11 +11,10 @@ var ScrapManager = {
 		return new Promise(function(resolve,reject){
 			loadCoordinates(index)
 			.then(function(arr){
-				var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + arr[0] + ',' + arr[1] + '&radius=30000&keyword=' + type + '&key=' + apiKey;
+				var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + arr[0] + ',' + arr[1] + '&radius=3000&keyword=' + type + '&key=' + apiKey;
 				
 				requestGoogle(url)
 				.then(function(places){
-					//console.log(places);
 					var arr1 = [];
 					for(var i=0;i<places.results.length;i++){
 						var urlDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid='+ 
@@ -35,6 +34,7 @@ var ScrapManager = {
 							companyName : results[i].result.name,
 							phoneNumber : results[i].result.international_phone_number,
 							category : type,
+							type : 1,
 							origin : 1
 						};
 						arr.push(obj);
@@ -47,48 +47,7 @@ var ScrapManager = {
 				})
 			})
 			.catch(function(error){
-				resolve(error);
-			})
-				
-		});
-	},
-	scrapCorporateGoogleCont : function(index,type){
-		return new Promise(function(resolve,reject){
-			loadCoordinates(index)
-			.then(function(arr){
-				var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + arr[0] + ',' + arr[1] + '&radius=2000&keyword=' + type + '&key=' + apiKey;
-				
-				requestGoogle(url)
-				.then(function(places){
-					//console.log(places);
-					var arr1 = [];
-					for(var i=0;i<places.results.length;i++){
-						var urlDetails = 'https://maps.googleapis.com/maps/api/place/details/json?placeid='+ 
-						places.results[i].place_id +'&key=' + apiKey;
-						arr1.push(requestGoogle(urlDetails));
-					}
-					return Promise.all(arr1);	
-				})
-				.then(function(results){
-					var arr = [];
-					
-					for(var i=0;i<results.length;i++){
-						var obj = {
-							companyName : results[i].result.name,
-							phoneNumber : results[i].result.international_phone_number,
-							origin : 1
-						};
-						arr.push(obj);
-					}
-
-					resolve(arr);
-				})
-				.catch(function(error){
-					reject(error);
-				})
-			})
-			.catch(function(error){
-				resolve(error);
+				reject(error);
 			})
 				
 		});
@@ -120,11 +79,13 @@ var requestGoogle  = function(url){
 var loadCoordinates = function(index){
 	return new Promise(function(resolve,reject){
 		var arr = [];
+		console.log(config.coordinates.length);
 		if(index > config.coordinates.length)
-			reject('Wrong index');
+			reject('index out of bounds');
 		else{
 			arr.push(config.coordinates[index].Latitude);
 			arr.push(config.coordinates[index].Longitude);
+			console.log(arr);
 			resolve(arr);
 		}
 		

@@ -11,7 +11,7 @@ var deleteDB = function(collectionName,obj){
 					reject(500);
 				else{
 					if(obj._id != undefined)
-					 obj._id = new mongodb.ObjectID(obj._id);
+						obj._id = new mongodb.ObjectID(obj._id);
 					var col = db.collection(collectionName);
 					col.deleteOne(obj,function(err,results){
 						if(err!=null)
@@ -70,12 +70,12 @@ var dbHandler = {
 		return new Promise(function(resolve,reject){	
 			MongoClient.connect(config.dbURI,function(err,db){
 				if(err!=null)
-					reject(err);
+					reject(500);
 				else{
 					var col = db.collection(collectionName);
 					col.find(obj).toArray(function(err,docs){
 						if(err!=null)
-							reject(err);
+							reject(500);
 						else{
 							db.close();
 							resolve(docs);
@@ -168,11 +168,11 @@ var dbHandler = {
 		return new Promise(function(resolve,reject){
 			MongoClient.connect(config.dbURI,function(err,db){
 				if(err!=null)
-					reject(400);
+					reject(500);
 				else{
 					db.dropCollection(collectionName,function(err,result){
 						if(err!=null)
-							reject(400);
+							reject(500);
 						else{
 							db.close();
 							resolve(200);
