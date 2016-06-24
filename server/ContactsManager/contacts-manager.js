@@ -140,18 +140,41 @@ var ContactsManager = {
 		});	
 
 	},
-	updateContacts : function(res,collectionName,obj,callback){
-		if((Array.isArray(obj)) && obj.length == 2){
-			dbHandler.dbUpdate(collectionName,obj[0],obj[1])
-			.then(function(results){
-				callback(res,results);
-			})
-			.catch(function(error){
-				callback(res,error);
-			});
-		}else{
-			callback(res,400);
-		}
+	updateContacts : function(obj){
+		return new Promise(function(resolve,reject){
+			if((Array.isArray(obj)) && obj.length == 2){
+				var type = obj[0].type;
+				
+				if(obj[0].origin == 2)
+					obj[1].origin = 1;
+
+				if(type != 1 && type != 2)
+					reject(400);
+				
+				else{
+					if(type == 1){
+						dbHandler.dbUpdate('localCorporate',obj[0],obj[1])
+						.then(function(results){
+							resolve(results);
+						})
+						.catch(function(error){
+							reject(error);
+						});
+					}else{
+						dbHandler.dbUpdate('localConsumer',obj[0],obj[1])
+						.then(function(results){
+							resolve(results);
+						})
+						.catch(function(error){
+							reject(error);
+						});						
+					}
+
+				}
+			}else{
+				reject(400);
+			}
+		})
 	},
 	removeField : function(collectionName,str){
 		return new Promise(function(resolve,reject){

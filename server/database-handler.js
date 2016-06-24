@@ -90,7 +90,7 @@ var dbHandler = {
 		return new Promise(function(resolve,reject){	
 			MongoClient.connect(config.dbURI,function(err,db){
 				if(err!=null)
-					reject(400);
+					reject(500);
 				else{
 					var col = db.collection(collectionName);
 
@@ -105,7 +105,7 @@ var dbHandler = {
 					};
 					col.updateOne(originalObj,obj,function(err,results){
 						if(err!=null)
-							reject(400);
+							reject(500);
 						else{
 							db.close();
 							resolve(200);

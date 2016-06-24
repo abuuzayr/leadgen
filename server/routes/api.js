@@ -57,7 +57,14 @@ apiRouter.route('/contacts/leadList/leads')
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.updateContacts(res,req.body,returnStatusCode);
+			console.log(req.body);
+			ContactsManager.updateContacts(req.body)
+			.then(function(results){
+				res.sendStatus(results);
+			})
+			.catch(function(error){
+				res.sendStatus(error);
+			})
 		}
 	});
 
