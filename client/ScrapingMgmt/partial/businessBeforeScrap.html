@@ -16,10 +16,7 @@
       </select>
       <br>
       <select class="form-control" id="country" ng-model='gc.input.country'>
-        <option>Singapore</option>
-        <option>Hong Kong</option>
-        <option>Taiwan</option>
-        <option>Sweden</option>
+        <option ng-repeat="country in gc.listOfCountry">{{country}}</option>
       </select>
       <br>
 

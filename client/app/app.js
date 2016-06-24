@@ -56,4 +56,16 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.sel
 			   url: '/SAmanagement',
 			   templateUrl: 'UserMgmt/partial/userMgmtUsers.html'
 		   })
+		   .state('database', {
+			   url: '/database',
+			   templateUrl: 'DatabaseMgmt/partial/allDatabase.html'
+		   })
+		   .state('internalDB', {
+			   url: '/internalDB',
+			   templateUrl: 'DatabaseMgmt/partial/internalDB.html'
+		   })
+		   .state('externalDB', {
+			   url: '/externalDB',
+			   templateUrl: 'DatabaseMgmt/partial/externalDB.html'
+		   })
  	}]);

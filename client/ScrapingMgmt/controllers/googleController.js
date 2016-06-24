@@ -1,5 +1,5 @@
-app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData','$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval',
-                function ($scope, googleResults, ypResults,shareData, $http, uiGridConstants, $q, $location, $timeout, $interval) {
+app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData','sendCountry', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval',
+                function ($scope, googleResults, ypResults, shareData, sendCountry, $http, uiGridConstants, $q, $location, $timeout, $interval) {
   
     var gc = this;
     gc.gridOptions = {
@@ -125,4 +125,12 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
     gc.showFunction = function() {
         gc.showResult = true;
     };
+
+    gc.listOfCountry;
+    //get country data
+    sendCountry.success(function(data) {
+        gc.listOfCountry = data;
+        console.log(data);
+    });
+
 }]);
