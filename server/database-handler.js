@@ -74,6 +74,7 @@ var dbHandler = {
 				else{
 					var col = db.collection(collectionName);
 					col.find(obj).toArray(function(err,docs){
+						console.log('helo');
 						if(err!=null)
 							reject(500);
 						else{

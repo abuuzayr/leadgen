@@ -1,7 +1,8 @@
 var request = require('request'),
 fs = require('fs'),
 config = require('../config'),
-countries = require('../countries.json').geonames;
+dbHandler = require('../database-handler'),
+countries = require('../countries.json').geonames,
 apiKey = require('../apikey.json').googleAPI;
 
 var coord = [];
@@ -138,12 +139,28 @@ var ScrapManager = {
 		});		
 	},
 	scrapCorporateYellowPage : function(type){
-		//QUERY FROM SERVER CORPORATE DB
-		//RETURN objects that match type
+		return new Promise(function(resolve,reject){
+			console.log(type);
+			dbHandler.dbQuery('serverCorporate',null)
+			.then(function(results){
+				console.log(results);
+				resolve(results);
+			})
+			.catch(function(error){
+				reject(error);
+			})
+		});
 	},
-	scrapConsumersYellowPage : function(type){
-		//QUERY FROM SERVER CONSUMER DB
-		//RETURN objects that match type
+	scrapConsumerYellowPage : function(type){
+		return new Promise(function(resolve,reject){
+			dbHandler.dbQuery('serverConsumer',{category : type})
+			.then(function(results){
+				resolve(results);
+			})
+			.catch(function(error){
+				reject(error);
+			})
+		});
 	}
 
 };

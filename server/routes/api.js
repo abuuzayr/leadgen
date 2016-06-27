@@ -269,6 +269,36 @@ apiRouter.get('/corporate/scrape/g/cont/:category/:country',function(req,res){
 	}
 })
 
+apiRouter.get('/corporate/scrape/yp/:category',function(req,res){
+	if(!req.params.category)
+		returnStatusCode(res,400);
+	else{
+		var type = req.params.category;
+		ScrapManager.scrapCorporateYellowPage(type)
+		.then(function(results){
+			res.json(results);
+		})
+		.catch(function(error){
+			res.sendStatus(400);
+		});
+	}
+})
+
+apiRouter.get('/consumer/scrape/yp/:category',function(req,res){
+	if(!req.params.category)
+		returnStatusCode(res,400);
+	else{
+		var type = req.params.category;
+		ScrapManager.scrapConsumerYellowPage(type)
+		.then(function(results){
+			res.json(results);
+		})
+		.catch(function(error){
+			res.sendStatus(400);
+		});
+	}
+})
+
 apiRouter.post('/corporate/scrape/',jsonParser,function(req,res){
 	if(!req.body)
 		returnStatusCode(res,400);
