@@ -44,16 +44,12 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.sel
 			   templateUrl: 'ProfileMgmt/partial/profile.html',
 			   controller: 'profileController'
            })
-		   .state('userManagement', {
-               url: '/management',
-			   templateUrl: 'UserMgmt/partial/userMgmtMainView.html'
-           })
-		   .state('companyProfile', {
-			   url: '/companyProfile',
+		   .state('userManagementprofile', {
+               url: '/company-profile',
 			   templateUrl: 'UserMgmt/partial/userMgmtProfile.html'
-		   })
-		   .state('userManagementSA', {
-			   url: '/SAmanagement',
+           })
+		   .state('userManagementAdmin', {
+			   url: '/adminmanagement',
 			   templateUrl: 'UserMgmt/partial/userMgmtUsers.html'
 		   })
 		   .state('database', {
