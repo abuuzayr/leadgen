@@ -49,18 +49,6 @@ $scope.mailListResult = shareMailList.getData();
         cellFilter: 'mapStatus', headerCellClass: $scope.highlightFilteredHeader }
     ],
   };
-  
-  //add new lead
-   $scope.addData = function() {
-    var n = $scope.gridOptions.data.length + 1;
-    $scope.gridOptions.data.push({
-                "firstName": $scope.lead.first,
-                "lastName": $scope.lead.last,
-                "company": $scope.lead.company,
-                "employed": $scope.lead.employed,
-              });
-    $scope.addResult = "Success!";
-  };
 
 //delete selected leads
   $scope.deleteSelected = function(){
@@ -68,39 +56,6 @@ $scope.mailListResult = shareMailList.getData();
         $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
       });
     }
-
-// add field
-  $scope.addField = function() {
-    var fieldName = $scope.field.name;
-    var arrName = fieldName.split(" ");
-    var editedField = "";
-    var editedDisplay = "";
-    for (var x of arrName) {
-      if (y!== "") {
-        editedField += x;
-        }
-    } 
-    for (var y of arrName) {
-      if (y!== "") {
-        editedDisplay += y;
-        editedDisplay += " ";
-      }
-    } 
-    var display = editedDisplay.slice(0,editedDisplay.length-1);
-    var lowerName = editedField.toLowerCase();
-    $scope.gridOptions.columnDefs.push({field: lowerName, displayName: display, enableSorting: true });
-    $scope.addResult = "Success!";
-  }
-
-// delete field
-  $scope.deleteField = function() {
-    console.log($scope.gridOptions.columnDefs[0]);
-    for (var x in $scope.gridOptions.columnDefs) {
-      if(($scope.gridOptions.columnDefs[x].displayName === $scope.fieldSelected)) {
-        $scope.gridOptions.columnDefs.splice(x,1);
-      } 
-    }
-  }
 
   $scope.gridOptions.onRegisterApi= function ( gridApi ) {
       $scope.gridApi = gridApi;
@@ -111,19 +66,6 @@ $scope.mailListResult = shareMailList.getData();
             $scope.$apply();
           });
     };
-
-    //popup dialog box
-    // $scope.openDialog = function(dialogName) {
-    //     var dialog = document.querySelector('#' + dialogName);
-    //     if (! dialog.showModal) {
-    //       dialogPolyfill.registerDialog(dialog);
-    //     }
-    //         dialog.showModal();
-    //     };
-    //     $scope.closeDialog = function(dialogName) {
-    //         var dialog = document.querySelector('#' + dialogName);
-    //         dialog.close();
-    //     };
    
 }])
 

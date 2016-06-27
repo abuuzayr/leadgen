@@ -1,4 +1,4 @@
-app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsData, historyData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('contactsMainController', ['$scope','leadsData', 'historyData', 'mailListData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, leadsData, historyData, mailListData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
     leadsData.success(function(data) {
     $scope.gridOptions.data = data;
@@ -8,17 +8,25 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     $scope.history = data;
   });
 
-     var viewContentLoaded = $q.defer();
-        $scope.$on('$viewContentLoaded', function () {
-            $timeout(function () {
-                viewContentLoaded.resolve();
-            }, 0);
-        });
-        viewContentLoaded.promise.then(function () {
-            $timeout(function () {
-                componentHandler.upgradeDom();
-            }, 0);
-        });
+  mailListData.success(function(data) {
+    $scope.mailingList = data;
+  });
+
+  document.getElementById('get_file').onclick = function() {
+    document.getElementById('files').click();
+};
+
+    var viewContentLoaded = $q.defer();
+      $scope.$on('$viewContentLoaded', function () {
+          $timeout(function () {
+               viewContentLoaded.resolve();
+           }, 0);
+      });
+      viewContentLoaded.promise.then(function () {
+          $timeout(function () {
+              componentHandler.upgradeDom();
+                       }, 0);
+       });
 
     $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
     if( col.filters[0].term ){
@@ -32,6 +40,9 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     enableSorting: true,
     enableFiltering: true,
     showGridFooter:true,
+    importerDataAddCallback: function ( grid, newObjects ) {
+      $scope.gridOptions.data = $scope.gridOptions.data.concat( newObjects );
+    },
     columnDefs: [
       { field: 'firstName', displayName: 'First Name', enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader },
       { field: 'lastName', displayName: 'Last Name', headerCellClass: $scope.highlightFilteredHeader },
@@ -114,6 +125,13 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     }
   }
 
+// add leads to mailing list
+  $scope.addToMailingList = function() {
+    console.log($scope.listSelected);
+    var y = $scope.gridApi.selection.getSelectedRows();
+    console.log(y[0]);
+  }
+
   $scope.gridOptions.onRegisterApi= function ( gridApi ) {
       $scope.gridApi = gridApi;
 
@@ -134,8 +152,29 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
         };
         $scope.closeDialog = function(dialogName) {
             var dialog = document.querySelector('#' + dialogName);
+            $scope.addResult= "";
             dialog.close();
         };
+
+//import function
+  var handleFileSelect = function( event ){
+    var target = event.srcElement || event.target;
+    
+    if (target && target.files && target.files.length === 1) {
+      var fileObject = target.files[0];
+      console.log("abc");
+      $scope.gridApi.importer.importFile( fileObject );
+      target.form.reset();
+    }
+  };
+   
+  var fileChooser = document.querySelectorAll('.file-chooser');
+  if ( fileChooser.length !== 1 ){
+    console.log('Found > 1 or < 1 file choosers within the menu item, error, cannot continue');
+  } else {
+    fileChooser[0].addEventListener('change', handleFileSelect, false);  // TODO: why the false on the end?  Google  
+    console.log("def");
+  }
    
 }])
 

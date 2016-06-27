@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="assets/css/contactsLeadList.css" />
 <div ng-controller="contactsMainController" >
     <div class="mdl-tabs__tab-bar" ng-include = "'ContactsMgmt/partials/contactsTabs.html'"></div>
     <br>
@@ -12,6 +13,10 @@
     <button ng-click="openDialog('deleteField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent">
         <i class="material-icons md-48">remove_circle</i>
         </button>
+    <button ng-click="openDialog('addToMailingList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add to Mailing List</button>
+    
+    <input type="button" class="mdl-button mdl-js-button mdl-button--raised" id="get_file" value="Import"/>
+    <form><input type="file" id="files" class="file-chooser" name="files[]"/></form>
 
   <!-- History data -->
         <dialog id="historyData" class="mdl-dialog" >
@@ -111,6 +116,24 @@
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteField')">Close</button>
                             <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Delete</button> 
+                            </div>     
+                    </form>
+                <p> {{addResult}} </p>  
+                </div>        
+            </dialog>
+
+        <dialog id="addToMailingList" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                <p>
+                    Please select Mailing List.
+                </p>
+                <form class="add-to-mailinglist" ng-submit="addToMailingList()">
+                            <select ng-model="listSelected">
+                                <option ng-repeat="list in mailingList">{{list.listName}}</option>
+                                </select>
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addToMailingList')">Close</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
                             </div>     
                     </form>
                 <p> {{addResult}} </p>  

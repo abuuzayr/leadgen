@@ -54,18 +54,6 @@ app.controller('blackListController', ['$scope','domainsData', 'blackLeadsData',
       $scope.viewDomains = !$scope.viewDomains;
   }
 
-  //add new lead
-   $scope.addData = function() {
-    var n = $scope.gridOptions.data.length + 1;
-    $scope.gridOptions.data.push({
-                "firstName": $scope.lead.first,
-                "lastName": $scope.lead.last,
-                "company": $scope.lead.company,
-                "employed": $scope.lead.employed,
-              });
-    $scope.addResult = "Success!";
-  };
-
 //delete selected leads
   $scope.deleteSelected = function(){
       angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {

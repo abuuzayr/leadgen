@@ -58,39 +58,6 @@ app.controller('mailListController', ['$scope','mailListData','shareMailList','$
       });
     }
 
-// add field
-  $scope.addField = function() {
-    var fieldName = $scope.field.name;
-    var arrName = fieldName.split(" ");
-    var editedField = "";
-    var editedDisplay = "";
-    for (var x of arrName) {
-      if (y!== "") {
-        editedField += x;
-        }
-    } 
-    for (var y of arrName) {
-      if (y!== "") {
-        editedDisplay += y;
-        editedDisplay += " ";
-      }
-    } 
-    var display = editedDisplay.slice(0,editedDisplay.length-1);
-    var lowerName = editedField.toLowerCase();
-    $scope.gridOptions.columnDefs.push({field: lowerName, displayName: display, enableSorting: true });
-    $scope.addResult = "Success!";
-  }
-
-// delete field
-  $scope.deleteField = function() {
-    console.log($scope.gridOptions.columnDefs[0]);
-    for (var x in $scope.gridOptions.columnDefs) {
-      if(($scope.gridOptions.columnDefs[x].displayName === $scope.fieldSelected)) {
-        $scope.gridOptions.columnDefs.splice(x,1);
-      } 
-    }
-  }
-
   $scope.gridOptions.onRegisterApi= function ( gridApi ) {
       $scope.gridApi = gridApi;
 
