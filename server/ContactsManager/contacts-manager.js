@@ -54,9 +54,8 @@ var ContactsManager = {
 			}
 
 		})
-
 	},
-	addScrapeContacts : function(res,collectionName,arr,callback){
+	addBulkContacts : function(res,arr,callback){
 		var promiseArr = [];
 		fs.readFile('./domains.json' , function(err,data){
 			if(err != null)
@@ -65,6 +64,10 @@ var ContactsManager = {
 				var domains = JSON.parse(data);
 				for(var i=0; i<arr.length; i++){
 					var matchFlag = false;
+					if (arr[i].origins == undefined)
+						arr[i].origins = 1;
+					if(arr[i].type == undefined)
+						arr[i].type = 2;
 					for(var j=0;j<domains.length;j++){
 						if(arr[i].email != null || arr[i].email != undefined){
 							if( arr[i].email.indexOf(domains[j]) != -1 ){
@@ -76,8 +79,12 @@ var ContactsManager = {
 					if(matchFlag){
 						promiseArr.push(dbHandler.dbInsert('blackList',arr[i]));
 					}
-					else
-						promiseArr.push(dbHandler.dbInsert(collectionName,arr[i]));													
+					else{
+						if(arr[i].type == 1)
+							promiseArr.push(dbHandler.dbInsert('localCorporate',arr[i]));													
+						else
+							promiseArr.push(dbHandler.dbInsert('localConsumer',arr[i]));		
+					}
 				}
 				Promise.all(promiseArr)
 				.then(function(results){
@@ -138,7 +145,6 @@ var ContactsManager = {
 				})
 			}
 		});	
-
 	},
 	updateContacts : function(obj){
 		return new Promise(function(resolve,reject){

@@ -57,7 +57,6 @@ apiRouter.route('/contacts/leadList/leads')
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			console.log(req.body);
 			ContactsManager.updateContacts(req.body)
 			.then(function(results){
 				res.sendStatus(results);
@@ -69,6 +68,17 @@ apiRouter.route('/contacts/leadList/leads')
 	});
 
 
+apiRouter.post('/contacts/leadList/import',jsonParser,function(req,res){
+	if(!req.body)
+		returnStatusCode(res,400);
+	else{
+		if(!Array.isArray(req.body))
+			returnStatusCode(res,400);
+		else{
+			ContactsManager.addBulkContacts(res,req.body,returnStatusCode);
+		}
+	}
+});
 
 /*
 Add/remove on fields
@@ -226,13 +236,14 @@ apiRouter.route('/contacts/blackList')
 /*
 Scraping API
 */
-apiRouter.get('/corporate/scrape/g/new/:category', function(req,res){
-	if(!req.params.category)
-		returnStatusCode(res,400)
+apiRouter.get('/corporate/scrape/g/new/:category/:country', function(req,res){
+	if(!req.params.category || !req.params.country)
+		returnStatusCode(res,400);
 	else{
-		var str = req.params.category;
+		var type = req.params.category;
+		var country = req.params.country.replace('+' , ' ');
 		index = 0;
-		ScrapManager.scrapCorporateGoogleNew(index,str)
+		ScrapManager.scrapCorporateGoogleNew(type,country)
 		.then(function(results){
 			res.json(results);
 		})
@@ -241,13 +252,14 @@ apiRouter.get('/corporate/scrape/g/new/:category', function(req,res){
 		});
 	}
 })
-apiRouter.get('/corporate/scrape/g/cont/:category',function(req,res){
-	if(!req.params.category)
-		returnStatusCode(res,400)
+apiRouter.get('/corporate/scrape/g/cont/:category/:country',function(req,res){
+	if(!req.params.category || !req.params.country)
+		returnStatusCode(res,400);
 	else{
-		var str = req.params.category;
+		var type = req.params.category;
+		var country = req.params.country.replace('+', ' ');
 		index ++;
-		ScrapManager.scrapCorporateGoogleNew(index,str)
+		ScrapManager.scrapCorporateGoogleCont(index,type,country)
 		.then(function(results){
 			res.json(results);
 		})
@@ -264,7 +276,7 @@ apiRouter.post('/corporate/scrape/',jsonParser,function(req,res){
 		if(!Array.isArray(req.body))
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.addScrapeContacts(res,'localCorporate',req.body,returnStatusCode);
+			ContactsManager.addBulkContacts(res,req.body,returnStatusCode);
 		}
 	}
 })
