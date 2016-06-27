@@ -1,0 +1,41 @@
+[
+    {
+    "firstName": "Steve Rogers",
+    "lastName": "Captain America",
+    "role": 2,
+    "email": "steve@avengers.com",
+    "phone": "91239911"
+    },
+
+    {
+    "firstName": "Tony Stark",
+    "lastName": "Ironman",
+    "role": 1,
+    "email": "tony@avengers.com",
+    "phone": "82318822"
+    },
+
+    {
+    "firstName": "Oliver Queen",
+    "lastName": "Green Arrow",
+    "role": 2,
+    "email": "oliver@justiceleague.com",
+    "phone": "88889999"
+    },
+    
+    {
+    "firstName": "Dr Stephen Vincent Strange",
+    "lastName": "Dr Strange",
+    "role": 1,
+    "email": "strange@defenders.com",
+    "phone": "90998878"
+    },
+
+    {
+    "firstName": "Barry Allen",
+    "lastName": "Flash",
+    "role": 2,
+    "email": "barry@justiceleague.com",
+    "phone": "91128808"
+    }
+]
