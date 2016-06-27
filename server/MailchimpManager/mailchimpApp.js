@@ -64,10 +64,10 @@ var mailchimpApp ={
 		for(var i=0;i<memberInfo.length;i++)
 		{
 			batches.push({
-			    body: {
+			   body: {
 		      status        : 'subscribed',
-		      email_address : memberInfo[i].body.email_address,
-		      merge_fields: memberInfo[i].body.merge_fields
+		      email_address : memberInfo[i].email_address,
+		      merge_fields: memberInfo[i].merge_fields
 			    }
 			})
 		}
@@ -88,7 +88,7 @@ var mailchimpApp ={
 	{
 	return new Promise (function(resolve,reject) {
 		mailchimp.setApiKey(apiKey);
-		console.log(listName);
+		console.log("entered list" +listName);
 		mailchimp
 		  	.post('lists/', {
 		  		name  	: listName,
@@ -96,8 +96,8 @@ var mailchimpApp ={
 		  	 	company:'gro venture',
 		  	 	address1:'Singapore',
 		  	 	city: 'Singapore',
-		  	 	state:'nil',
-		  	 	zip:'000000',
+		  	 	state:'Singapore',
+		  	 	zip:'003000',
 		  	 	country:'Singapore'
 		  	 },
 		  	 permission_reminder:'nil',
@@ -192,10 +192,11 @@ var mailchimpApp ={
 	{
 	return new Promise (function(resolve,reject) {
 		mailchimp.setApiKey(apiKey);
+		console.log(memberInfo);
 		mailchimp
 		  	.patch('lists/'+listID+'/members/'+suscribeHash, {
-	    	  status : 'subscribed',
-		      email_address : memberInfo.email_address,
+	    	  status : memberInfo.status,
+		      email_address : memberInfo.email_addr,
 		      merge_fields: memberInfo.merge_fields
 		  	})
 		  	 .then(function(results){

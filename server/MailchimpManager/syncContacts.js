@@ -277,7 +277,7 @@ var mailchimpHandler ={
 			   			resolve(results);
 			   		})
 		  		.catch(function(error){
-		  	console.log('Sync Contact deleteList'error);
+		  	console.log('Sync Contact deleteList'+error);
 		  })
 		})
 	}
