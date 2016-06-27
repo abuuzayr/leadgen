@@ -130,7 +130,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
     //get country data
     sendCountry.success(function(data) {
         gc.listOfCountry = data;
-        console.log(data);
+        // console.log(data);
     });
 
 }]);
