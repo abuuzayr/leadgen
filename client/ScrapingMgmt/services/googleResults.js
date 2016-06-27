@@ -19,7 +19,7 @@ app.factory('googleResults', ['$http', function($http) {
         continueScrape: continueScrape
     }
 
-    //api to use:  'http://localhost:8080/api/corporate/scrape/g/new' + "/" + country (for new only)
+    //api to use:  'http://localhost:8080/api/corporate/scrape/g/new' + "/" + category + "/" + country(country if have space -> put '+' in between') (for new only)
     // api to use: 'http://localhost:8080/api/corporate/scrape/g/cont'
 
     // when there is valid api, use this
