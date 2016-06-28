@@ -53,6 +53,8 @@ var dbHandler = {
 				if(err!=null)
 					reject(500);
 				else{
+					if(obj._id != undefined)
+						delete obj._id;
 					var col = db.collection(collectionName);
 					col.insert(obj,function(err,r){
 						if(err!=null)
@@ -74,7 +76,6 @@ var dbHandler = {
 				else{
 					var col = db.collection(collectionName);
 					col.find(obj).toArray(function(err,docs){
-						console.log('helo');
 						if(err!=null)
 							reject(500);
 						else{
@@ -98,7 +99,10 @@ var dbHandler = {
 					/*
 						Wrap string to mongodb object id
 					*/
-					originalObj._id = new mongodb.ObjectID(originalObj._id); 
+					if(originalObj._id != undefined){
+						originalObj._id = new mongodb.ObjectID(originalObj._id); 
+					}
+					
 					delete updateObj._id;	
 
 					var obj = {

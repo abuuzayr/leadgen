@@ -6,7 +6,7 @@ mongodb = require('mongodb'),
 Promise = require('bluebird');
 
 var ContactsManager = {
-	displayContacts : function(obj){
+	displayLeads : function(obj){
 		return new Promise(function(resolve,reject){
 			var arr = [];
 			dbHandler.dbQuery('localCorporate',obj)
@@ -50,9 +50,7 @@ var ContactsManager = {
 						reject(error);
 					});
 				}
-
 			}
-
 		})
 	},
 	addBulkContacts : function(res,arr,callback){
@@ -64,8 +62,8 @@ var ContactsManager = {
 				var domains = JSON.parse(data);
 				for(var i=0; i<arr.length; i++){
 					var matchFlag = false;
-					if (arr[i].origins == undefined)
-						arr[i].origins = 1;
+					if (arr[i].origin == undefined)
+						arr[i].origin = 1;
 					if(arr[i].type == undefined)
 						arr[i].type = 2;
 					for(var j=0;j<domains.length;j++){
@@ -96,7 +94,7 @@ var ContactsManager = {
 			}
 		})
 	},
-	deleteContacts : function(obj){
+	deleteLeads : function(obj){
 		return new Promise(function(resolve,reject){
 			if(!Array.isArray(obj)){
 				if(obj.type != 1 && obj.type != 2)
@@ -280,7 +278,50 @@ var ContactsManager = {
 				reject(500);
 			})
 		});
+	},
+	displayBlackList : function(){
+		return new Promise(function(resolve,reject){
+			dbHandler.dbQuery('blackList',null)
+			.then(function(results){
+				resolve(results);
+			})
+			.catch(function(error){
+				reject(error);
+			})
+		})
+	},
+	deleteFromBlackList : function(obj){
+		return new Promise(function(resolve,reject){
+			if(Array.isArray(obj)){
+				console.log('hello');
+				console.log(obj);
+				var arr = [];
+				for(var i=0;i<obj.length;i++){
+					arr.push(dbHandler.dbDelete('blackList',obj[i]));
+				}
+				Promise.all(arr)
+				.then(function(results){
+					resolve(200);
+				})
+				.catch(function(error){
+					reject(500)
+				})
+			}else{
+				console.log('world');
+				console.log(obj);
+				dbHandler.dbDelete('blackList',obj)
+				.then(function(results){
+					resolve(200);
+				})
+				.catch(function(error){
+					reject(500);
+				})
+			}
+		})
 	}
+
+
+
 /*	
 	removeDomainChain : function(collectionName,str){
 		return new Promise(function(resolve,reject){

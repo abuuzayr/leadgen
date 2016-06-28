@@ -19,7 +19,7 @@ CRUD on leads list
 */
 apiRouter.route('/contacts/leadList/leads')
 	.get(function(req,res){
-		ContactsManager.displayContacts(null)
+		ContactsManager.displayLeads(null)
 		.then(function(results){
 			res.json(results);
 		})
@@ -44,7 +44,7 @@ apiRouter.route('/contacts/leadList/leads')
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.deleteContacts(req.body)
+			ContactsManager.deleteLeads(req.body)
 			.then(function(results){
 				res.sendStatus(results);
 			})
@@ -128,8 +128,6 @@ apiRouter.route('/contacts/leadList/fields')
 			}
 		}
 	});
-
-
 
 /*
 	BlackList API
@@ -221,17 +219,27 @@ apiRouter.route('/contacts/blackList/domain')
 
 apiRouter.route('/contacts/blackList')
 	.get(function(req,res){
-		ContactsManager.displayContacts(res,'blackList',null,displayResultsCallback);
+		ContactsManager.displayBlackList()
+		.then(function(results){
+			res.json(results);
+		})
+		.catch(function(error){
+			res.sendStatus(error);
+		});
 	})
 	.delete(jsonParser,function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.deleteContacts(res,'blackList',req.body,returnStatusCode);
+			ContactsManager.deleteFromBlackList(req.body)
+			.then(function(results){
+				res.sendStatus(results);
+			})
+			.catch(function(error){
+				res.sendStatus(error);
+			})
 		}
 	})
-
-
 
 /*
 Scraping API
@@ -268,7 +276,6 @@ apiRouter.get('/corporate/scrape/g/cont/:category/:country',function(req,res){
 		});
 	}
 })
-
 apiRouter.get('/corporate/scrape/yp/:category',function(req,res){
 	if(!req.params.category)
 		returnStatusCode(res,400);
@@ -283,7 +290,6 @@ apiRouter.get('/corporate/scrape/yp/:category',function(req,res){
 		});
 	}
 })
-
 apiRouter.get('/consumer/scrape/yp/:category',function(req,res){
 	if(!req.params.category)
 		returnStatusCode(res,400);
@@ -298,7 +304,6 @@ apiRouter.get('/consumer/scrape/yp/:category',function(req,res){
 		});
 	}
 })
-
 apiRouter.post('/corporate/scrape/',jsonParser,function(req,res){
 	if(!req.body)
 		returnStatusCode(res,400);
