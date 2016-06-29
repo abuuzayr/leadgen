@@ -1,11 +1,11 @@
-<div ng-controller="blackListController" >
+<div class="container" ng-controller="blackListController" >
 <div class="mdl-tabs__tab-bar" ng-include = "'ContactsMgmt/partials/contactsTabs.html'"></div>
 <br>
 <div><button ng-click="toggleDetails()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
   Reveal my secrets!
 </button>
- <button ng-click="openDialog('addDomain')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored"><i class="material-icons md-48">add_circle</i></button>
- <button ng-click="openDialog('deleteDomain')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent"><i class="material-icons md-48">remove_circle</i></button>
+ <button ng-click="openDialog('addDomain')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored pull-right"><i class="material-icons md-48">add_circle</i></button>
+ <button ng-click="openDialog('deleteDomain')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent pull-right"><i class="material-icons md-48">remove_circle</i></button>
  <div class="toggleDomainsViewStyle" ng-show="viewDomains">
      <ul class="demo-list-icon mdl-list">
         <li class="mdl-list__item" ng-repeat="domain in domains">
@@ -19,9 +19,10 @@
   </div>
   </div>
   <br>
-  <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit class="grid"></div>
+  <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"  style="background-color:#F2F1F1;"></div>
   <br>
   <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Blacklead(s)</button>
+  <br><br>
 
   <dialog id="addDomain" class="mdl-dialog" >
                 <div class="mdl-dialog__content">

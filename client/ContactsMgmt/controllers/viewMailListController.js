@@ -31,22 +31,31 @@ $scope.mailListResult = shareMailList.getData();
     enableFiltering: true,
     showGridFooter:true,
       columnDefs: [
-      { field: 'firstName', displayName: 'First Name', enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'lastName', displayName: 'Last Name', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'company', displayName: 'Company', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'email', displayName: 'Email', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'phone', displayName: 'Phone', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'category', displayName: 'Category', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'type', displayName: 'Type', filter: {
+      { field: 'firstName', displayName: 'First Name', minWidth:80, width:150, enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'lastName', displayName: 'Last Name', minWidth:80, width:150, headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'company', displayName: 'Company', minWidth:80, width:150, headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'email', displayName: 'Email', enableCellEdit: false, minWidth:80, width:200, headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'phone', displayName: 'Phone', enableCellEdit: false, minWidth:80, width:150, headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'category', displayName: 'Category', minWidth:80, width:120, headerCellClass: $scope.highlightFilteredHeader },
+      { field: "type", displayName: "Type", editableCellTemplate: "ui-grid/dropdownEditor", minWidth:80, width:120, 
+      filter: {
         type: uiGridConstants.filter.SELECT,
-        selectOptions: [ { value: '1', label: 'Corporate' }, { value: '2', label: 'Consumer' } ]
+        selectOptions: [ { value: "1", label: "Corporate" }, { value: "2", label: "Consumer"} ]
         },
-        cellFilter: 'mapType', headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'status', displayName: 'Status', filter: {
+        cellFilter: "mapType", editDropdownValueLabel: "type", headerCellClass: $scope.highlightFilteredHeader,
+        editDropdownOptionsArray: [
+          { id: 1, type: "Corporate" },
+          { id: 2, type: "Consumer" }
+        ]},
+      { field: 'status', displayName: 'Status', editableCellTemplate: "ui-grid/dropdownEditor", minWidth:80, width:150, filter: {
         type: uiGridConstants.filter.SELECT,
         selectOptions: [ { value: '1', label: 'Subscribed' }, { value: '2', label: 'Unsubscribed' } ]
         },
-        cellFilter: 'mapStatus', headerCellClass: $scope.highlightFilteredHeader }
+        cellFilter: 'mapStatus', editDropdownValueLabel: "status", headerCellClass: $scope.highlightFilteredHeader,
+        editDropdownOptionsArray: [
+          { id: 1, status: "Subscribed" },
+          { id: 2, status: "Unsubscribed" }
+        ] }
     ],
   };
 

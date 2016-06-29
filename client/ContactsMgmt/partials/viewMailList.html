@@ -1,7 +1,7 @@
-<div ng-controller="viewMailListController" >
+<div class="container" ng-controller="viewMailListController" >
 <div class="mdl-tabs__tab-bar" ng-include = "'ContactsMgmt/partials/contactsTabs.html'"></div>
 <br>
-<div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit class="grid"></div>
+<div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-edit class="grid"  style="background-color:#F2F1F1;"></div>
 <div><p> Mailing List: {{mailListResult}}</p></div>
 <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Selected</button>
 </div>

@@ -29,9 +29,9 @@ app.controller('mailListController', ['$scope','mailListData','shareMailList','$
     enableFiltering: true,
     showGridFooter:true,
     columnDefs: [
-      { field: 'listName', displayName: 'List Name', enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader, },
-      { field: 'subscribers', displayName: 'Subscribers', enableFiltering: false, enableCellEdit: false },
-      { field: 'details', displayName: 'Details', enableCellEdit: false, enableFiltering: false, enableSorting: false,  cellTemplate:' <a ui-sref="viewmaillist"><button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" ng-click="grid.appScope.showView(row.entity.listName)"><i class="material-icons md-48">zoom_in</i></button></a>'}
+      { field: 'listName', displayName: 'List Name', minWidth:150, width:540, enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader, },
+      { field: 'subscribers', displayName: 'Subscribers', minWidth:150, width:250, enableFiltering: false, enableCellEdit: false },
+      { field: 'details', displayName: 'Details', minWidth:100, width:100, enableCellEdit: false, enableFiltering: false, enableSorting: false,  cellTemplate:' <a ui-sref="viewmaillist"><button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" ng-click="grid.appScope.showView(row.entity.listName)"><i class="material-icons md-48">zoom_in</i></button></a>'}
     ],
   };
 
