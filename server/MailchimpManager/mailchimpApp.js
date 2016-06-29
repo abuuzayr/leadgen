@@ -63,6 +63,7 @@ var mailchimpApp ={
 	var batches = [];
 		for(var i=0;i<memberInfo.length;i++)
 		{
+			console.log(memberInfo[i].merge_fields);
 			batches.push({
 			   body: {
 		      status        : 'subscribed',
@@ -254,9 +255,9 @@ var getMembers = function(id,name,apiKey){
 					var uniqueEmailid= info.members[j].id;
 
 					var newUser = {
-						id : uniqueEmailid,
-					    email : emailAddress,
-						status : userStatus,
+						email_hash : uniqueEmailid,
+					    email_addr : emailAddress,
+						subscriberStatus : userStatus,
 						firstName : userFirstName,
 						lastName : userLastName
 					};
@@ -264,8 +265,8 @@ var getMembers = function(id,name,apiKey){
 					allUsers.push(newUser);
 				}
 				var obj = {
-					list_name : name,
-					list_id : id,
+					name : name,
+					listID : id,
 					members : allUsers
 				};
 				results = obj;

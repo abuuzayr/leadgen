@@ -61,6 +61,11 @@ var ContactsManager = {
 		}
 	},
 	// removefield : function(res,)
+	addContactMC : function(obj){
+	return new Promise (function(resolve,reject) {	
+			
+		})
+	}
 
 };
 
