@@ -76,7 +76,7 @@ apiRouter.delete('/contacts/leadList/leads/duplicate',jsonParser,function(req,re
 			res.sendStatus(200);
 		})
 		.catch(function(error){
-			res.sendStatus(500);
+			res.sendStatus(500	);
 		})
 	}
 })
@@ -170,13 +170,13 @@ apiRouter.route('/contacts/leadList/fields')
 */
 apiRouter.route('/contacts/blackList/domain')
 	.get(function(req,res){
-		fs.readFile('./domains.json',function(err,data){
-			if(err != null)
-				returnStatusCode(res,500);
-			else{
-				res.json(JSON.parse(data));
-			}
-		});
+		dbHandler.dbQuery('blackListDomains',null)
+		.then(function(results){
+			res.json(results);
+		})
+		.catch(function(error){
+			res.sendStatus(error);
+		})
 	})
 	.post(jsonParser,function(req,res){
 		if(!req.body)
@@ -185,29 +185,39 @@ apiRouter.route('/contacts/blackList/domain')
 			if(req.body.domainName == undefined || req.body.domainName == null || req.body.domainName == '')
 				returnStatusCode(res,400);
 			else{
-				var str = req.body.domainName;
-				fs.readFile('./domains.json',function(err,data){
-					if(err != null)
-						returnStatusCode(res,500);
-					else{
-						var arr = JSON.parse(data);
-						arr.push(str);
-						fs.writeFile('./domains.json',JSON.stringify(arr,null,4) , function(err){
-							if(err != null )
-								returnStatusCode(res,500);
-							else{
-								ContactsManager.addDomainChain('leadList',str)
-								.then(function(results){
-									returnStatusCode(res,200);
-								})
-								.catch(function(error){
-									returnStatusCode(res,200);
-								});
-							}
-						})						
-					}
+				ContactsManager.addDomain(req.body)
+				.then(function(results){
+					return ContactsManager.addDomainChain('leadList',req.body.domainName)
+				})
+				.then(function(results){
+					res.sendStatus(results);
+				})
+				.catch(function(error){
+					res.sendStatus(error);
+				});
+
+				// fs.readFile('./domains.json',function(err,data){
+				// 	if(err != null)
+				// 		returnStatusCode(res,500);
+				// 	else{
+				// 		var arr = JSON.parse(data);
+				// 		arr.push(str);
+				// 		fs.writeFile('./domains.json',JSON.stringify(arr,null,4) , function(err){
+				// 			if(err != null )
+				// 				returnStatusCode(res,500);
+				// 			else{
+				// 				ContactsManager.addDomainChain('leadList',str)
+				// 				.then(function(results){
+				// 					returnStatusCode(res,200);
+				// 				})
+				// 				.catch(function(error){
+				// 					returnStatusCode(res,200);
+				// 				});
+				// 			}
+				// 		})						
+				// 	}
 	
-				})	
+				// })	
 			}
 		}
 	})
@@ -219,7 +229,14 @@ apiRouter.route('/contacts/blackList/domain')
 				returnStatusCode(res,400);
 			else{
 				var str = req.body.domainName;
-				fs.readFile('./domains.json',function(err,data){
+				ContactsManager.deleteDomain(req.body)
+				.then(function(results){
+					res.sendStatus(results);
+				})
+				.catch(function(error){
+					res.sendStatus(error);
+				})
+				/*fs.readFile('./domains.json',function(err,data){
 					if(err != null)
 						returnStatusCode(res,500);
 					else{
@@ -239,7 +256,7 @@ apiRouter.route('/contacts/blackList/domain')
 						})						
 					}
 	
-				})	
+				})*/	
 			}
 		}
 	})

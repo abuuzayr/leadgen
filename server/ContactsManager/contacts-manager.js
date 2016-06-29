@@ -4,7 +4,7 @@ var common = require('../common');
 var fs = require('fs');
 var mongodb = require('mongodb');
 var Promise = require('bluebird');
-var domains = require('../domains.json');
+// var domains = require('../domains.json');
 
 var ContactsManager = {
 	displayLeads : function(obj){
@@ -24,46 +24,49 @@ var ContactsManager = {
 				reject(400);
 			else{
 				var matchFlag = false;
-				console.log(domains);
-				for(var i=0;i<domains.length;i++){
-					if(obj.email != null || obj.email != undefined){
-						if(obj.email.indexOf(domains[i]) != -1){
-							matchFlag = true;
-							break;
+				dbHandler.dbQuery('blackListDomains',null)
+				.then(function(domains){
+					for(var i=0;i<domains.length;i++){
+						if(obj.email != null || obj.email != undefined){
+							if(obj.email.indexOf(domains[i].domainName) != -1){
+								matchFlag = true;
+								break;
+							}
 						}
 					}
-				}
 
-				if(obj.origin != 1)
-					obj.origin = 1;
+					if(obj.origin != 1)
+						obj.origin = 1;
 
-				if(matchFlag){
-					dbHandler.dbInsert('blackList',obj)
-					.then(function(results){
-						resolve(results);
-					})
-					.catch(function(error){
-						reject(error);
-					});				
-				}else{
-					dbHandler.dbInsert('leadList',obj)
-					.then(function(results){
-						resolve(results);
-					})
-					.catch(function(error){
-						reject(error);
-					});					
-				}				
+					if(matchFlag){
+						dbHandler.dbInsert('blackList',obj)
+						.then(function(results){
+							resolve(results);
+						})
+						.catch(function(error){
+							reject(error);
+						});				
+					}else{
+						dbHandler.dbInsert('leadList',obj)
+						.then(function(results){
+							resolve(results);
+						})
+						.catch(function(error){
+							reject(error);
+						});					
+					}
+				})
+				.catch(function(error){
+					reject(error);
+				});
+				
 			}
 		})
 	},
 	addBulkContacts : function(res,arr,callback){
 		var promiseArr = [];
-		fs.readFile('./domains.json' , function(err,data){
-			if(err != null)
-				callback(res,500);
-			else{
-				var domains = JSON.parse(data);
+			dbHandler.dbQuery('blackListDomains',null)
+			.then(function(domains){
 				for(var i=0; i<arr.length; i++){
 					var matchFlag = false;
 
@@ -75,7 +78,7 @@ var ContactsManager = {
 
 					for(var j=0;j<domains.length;j++){
 						if(arr[i].email != null || arr[i].email != undefined){
-							if( arr[i].email.indexOf(domains[j]) != -1 ){
+							if( arr[i].email.indexOf(domains[j].domainName) != -1 ){
 								matchFlag = true;
 								break;
 							}
@@ -95,8 +98,10 @@ var ContactsManager = {
 				.catch(function(error){
 					callback(res,error);
 				});
-			}
-		})
+			})
+			.catch(function(error){
+				callback(res,error);
+			})
 	},
 	deleteLeads : function(obj){
 		return new Promise(function(resolve,reject){
@@ -310,6 +315,43 @@ var ContactsManager = {
 			.catch(function(error){
 				resolve(error);
 			})
+		})
+	},
+	addDomain :function(obj){
+		return new Promise(function(resolve,reject){
+			dbHandler.dbInsert('blackListDomains' , obj)
+			.then(function(results){
+				resolve(results);
+			})
+			.catch(function(error){
+				reject(error);
+			})
+		})
+	},
+	deleteDomain : function(obj){
+		return new Promise(function(resolve,reject){
+			if(Array.isArray(obj)){
+				var promiseArr = [];
+				for(var i=0; i<obj.length;i++){
+					promiseArr.push(dbHandler.dbDelete('blackListDomains', obj[i]));
+				}
+
+				Promise.all(promiseArr)
+				.then(function(results){
+					resolve(200);
+				})
+				.catch(function(error){
+					reject(500);
+				});
+			}else{
+				dbHandler.dbDelete('blackListDomains',obj)
+				.then(function(results){
+					resolve(results);
+				})
+				.catch(function(error){
+					reject(error);
+				});
+			}
 		})
 	}
 	

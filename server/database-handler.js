@@ -2,6 +2,7 @@ var MongoClient = require('mongodb').MongoClient;
 var mongodb = require('mongodb');
 var Promise = require('bluebird');
 var config = require('./config');
+var moment = require('moment');
 
 
 var deleteDB = function(collectionName,obj){
@@ -55,6 +56,8 @@ var dbHandler = {
 				else{
 					if(obj._id != undefined)
 						delete obj._id;
+					// obj.dateCreated = moment().zone("+00:00").format();
+					console.log(obj);
 					var col = db.collection(collectionName);
 					col.insert(obj,function(err,r){
 						if(err!=null)
@@ -104,7 +107,7 @@ var dbHandler = {
 					}
 					
 					delete updateObj._id;	
-
+					updateObj.dateModified = moment.toString();
 					var obj = {
 						$set : updateObj
 					};
