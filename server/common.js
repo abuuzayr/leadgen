@@ -1,5 +1,5 @@
 module.exports = {
-	printStuff : function(item){
-		console.log(item);
-	}
+  printStuff : function(item){
+    console.log(item);
+  }
 }
