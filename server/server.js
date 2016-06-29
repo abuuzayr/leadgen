@@ -1,11 +1,11 @@
-var express = require('express'),
-app = express(),
-config = require('./config'),
-common = require('./common'),
-assert = require('assert'),
-dbHandler = require('./database-handler'),
-apiRouter = require('./routes/api'),
-ScrapManager = require('./ScrapingManager/scrap-manager');
+var express = require('express');
+var app = express();
+var config = require('./config');
+var common = require('./common');
+var assert = require('assert');
+var dbHandler = require('./database-handler');
+var apiRouter = require('./routes/api');
+var ScrapManager = require('./ScrapingManager/scrap-manager');
 
 var mongodb = require('mongodb');
 

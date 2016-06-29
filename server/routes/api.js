@@ -1,18 +1,18 @@
-var express = require('express'),
-apiRouter = express.Router(),
-dbHandler = require('../database-handler'),
-jsonParser = require('body-parser').json(),
-ContactsManager = require('../ContactsManager/contacts-manager'),
-ScrapManager = require('../ScrapingManager/scrap-manager'),
-fs = require('fs');
+var express = require('express');
+var apiRouter = express.Router();
+var dbHandler = require('../database-handler');
+var jsonParser = require('body-parser').json();
+var ContactsManager = require('../ContactsManager/contacts-manager');
+var ScrapManager = require('../ScrapingManager/scrap-manager');
+var mongodb = require('mongodb');
+var fs = require('fs');
 
 var index = 0;
 
 apiRouter.use('/',function(req,res,next){
 	console.log('Welcome to the API page');
 	next();
-})
-
+});
 
 /*
 CRUD on leads list
@@ -67,7 +67,36 @@ apiRouter.route('/contacts/leadList/leads')
 		}
 	});
 
+apiRouter.delete('/contacts/leadList/leads/duplicate',jsonParser,function(req,res){
+	if(!req.body)
+		returnStatusCode(res,400);
+	else{
+		dbHandler.dbRemoveDuplicate('leadList',req.body.fieldName)
+		.then(function(results){
+			res.sendStatus(200);
+		})
+		.catch(function(error){
+			res.sendStatus(500);
+		})
+	}
+})
 
+apiRouter.get('/contacts/leadList/leads/:id',function(req,res){
+	//TODO return history of lead
+	if(!req.params.id)
+		res.sendStatus(400);
+	else{
+		var obj = {}
+		obj._id = new mongodb.ObjectID(req.params.id);
+		dbHandler.dbQuery('leadList',obj)
+		.then(function(results){
+			res.json(results);
+		})
+		.catch(function(error){
+			res.sendStatus(error);
+		})
+	}
+})
 apiRouter.post('/contacts/leadList/import',jsonParser,function(req,res){
 	if(!req.body)
 		returnStatusCode(res,400);
@@ -81,27 +110,34 @@ apiRouter.post('/contacts/leadList/import',jsonParser,function(req,res){
 });
 
 /*
-Add/remove on fields
+*API for ui grid fields
 */
 apiRouter.route('/contacts/leadList/fields')
+	.get(function(req,res){
+		ContactsManager.displayList('columnDef',null)
+		.then(function(results){
+			res.json(results);
+		})
+		.catch(function(error){
+			res.sendStatus(error);
+		});
+	})
 	.post(jsonParser,function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			if(req.body.fieldName == undefined || req.body.fieldName == null || req.body.fieldName == '')
+			if(req.body.field == undefined || req.body.field == null || req.body.field== '')
 				returnStatusCode(res,400);
 			else{
-				var str = req.body.fieldName;	
-				ContactsManager.addField('localCorporate',str)
+				var str = req.body.field;	
+				ContactsManager.addField('leadList',str)
 				.then(function(results){
-					return ContactsManager.addField('localConsumer',str)
+					return ContactsManager.insertColumnDef(req.body);
 				})
 				.then(function(results){
-					console.log('hello');
 					res.sendStatus(200);
 				})
 				.catch(function(error){
-					console.log('world');
 					res.sendStatus(500);
 				})				
 			}
@@ -111,13 +147,13 @@ apiRouter.route('/contacts/leadList/fields')
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			if(req.body.fieldName == undefined || req.body.fieldName == null || req.body.fieldName == '')
+			if(req.body.field == undefined || req.body.field == null || req.body.field == '')
 				returnStatusCode(res,400);
 			else{
-				var str = req.body.fieldName;	
-				ContactsManager.removeField('localCorporate',str)
+				var str = req.body.field;	
+				ContactsManager.removeField('leadList',str)
 				.then(function(results){
-					return ContactsManager.removeField('localConsumer',str)
+					return ContactsManager.deleteColumnDef(req.body);
 				})
 				.then(function(results){
 					res.sendStatus(200);
@@ -160,22 +196,13 @@ apiRouter.route('/contacts/blackList/domain')
 							if(err != null )
 								returnStatusCode(res,500);
 							else{
-								ContactsManager.addDomainChain('localCorporate',str)
+								ContactsManager.addDomainChain('leadList',str)
 								.then(function(results){
 									returnStatusCode(res,200);
 								})
 								.catch(function(error){
 									returnStatusCode(res,200);
 								});
-								// .then(function(results){
-								// 	return ContactsManager.addDomainChain('localConsumer',str);
-								// })
-								// .then(function(results){
-								// 	returnStatusCode(res,200);
-								// })
-								// .catch(function(error){
-								// 	returnStatusCode(res,500);
-								// })
 							}
 						})						
 					}
@@ -219,7 +246,7 @@ apiRouter.route('/contacts/blackList/domain')
 
 apiRouter.route('/contacts/blackList')
 	.get(function(req,res){
-		ContactsManager.displayBlackList()
+		ContactsManager.displayList('blackList',null)
 		.then(function(results){
 			res.json(results);
 		})
@@ -313,6 +340,21 @@ apiRouter.post('/corporate/scrape/',jsonParser,function(req,res){
 		else{
 			ContactsManager.addBulkContacts(res,req.body,returnStatusCode);
 		}
+	}
+})
+
+
+apiRouter.post('/test',jsonParser,function(req,res){
+	if(!req.body)
+		returnStatusCode(res,400);
+	else{
+		dbHandler.dbInsertReturnID('leadList',req.body)
+		.then(function(results){
+			res.json(results);
+		})
+		.catch(function(error){
+			res.sendStatus(error);
+		})
 	}
 })
 

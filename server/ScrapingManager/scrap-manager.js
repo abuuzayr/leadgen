@@ -1,9 +1,9 @@
-var request = require('request'),
-fs = require('fs'),
-config = require('../config'),
-dbHandler = require('../database-handler'),
-countries = require('../countries.json').geonames,
-apiKey = require('../apikey.json').googleAPI;
+var request = require('request');
+var fs = require('fs');
+var config = require('../config');
+var dbHandler = require('../database-handler');
+var countries = require('../countries.json').geonames;
+var apiKey = require('../apikey.json').googleAPI;
 
 var coord = [];
 
@@ -12,8 +12,9 @@ var ScrapManager = {
 		return new Promise(function(resolve,reject){
 			if(country == 'Singapore'){
 				loadLocalCoordinates();
+
 				var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + coord[0][0] + ',' + coord[0][1] + '&radius=3000&keyword=' + type + '&key=' + apiKey;	
-				console.log(url);
+				
 				requestGoogle(url)
 				.then(function(places){
 					var arr1 = [];
@@ -140,10 +141,8 @@ var ScrapManager = {
 	},
 	scrapCorporateYellowPage : function(type){
 		return new Promise(function(resolve,reject){
-			console.log(type);
 			dbHandler.dbQuery('serverCorporate',null)
 			.then(function(results){
-				console.log(results);
 				resolve(results);
 			})
 			.catch(function(error){
@@ -195,7 +194,6 @@ var loadForeignCoordinates = function (country){
 		}
 		if(id == undefined)
 			reject(400);
-		console.log(id);
 		var url = 'http://api.geonames.org/childrenJSON?geonameId='+id+'&username=groventuretest';
 		request(url,function(error,response,body){
 			if(error!=null)
@@ -206,7 +204,6 @@ var loadForeignCoordinates = function (country){
 				for(var i=0; i<arr.length;i++){
 					coord.push([arr[i].lat,arr[i].lng]);
 				}
-				console.log(coord);
 				resolve(200);
 			}
 

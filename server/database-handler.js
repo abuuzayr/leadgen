@@ -1,7 +1,7 @@
-var MongoClient = require('mongodb').MongoClient,
-mongodb = require('mongodb'),
-Promise = require('bluebird'),
-config = require('./config');
+var MongoClient = require('mongodb').MongoClient;
+var mongodb = require('mongodb');
+var Promise = require('bluebird');
+var config = require('./config');
 
 
 var deleteDB = function(collectionName,obj){
@@ -187,6 +187,28 @@ var dbHandler = {
 				}
 			})
 		})
+	},
+	dbInsertReturnID : function(collectionName,obj){
+		return new Promise(function(resolve,reject){	
+			MongoClient.connect(config.dbURI,function(err,db){
+				if(err!=null)
+					reject(500);
+				else{
+					if(obj._id != undefined)
+						delete obj._id;
+					var col = db.collection(collectionName);
+					col.insertOne(obj,function(err,r){
+						console.log(r);
+						if(err!=null)
+							reject(500);
+						else{
+							db.close();
+							resolve(r.insertedId);
+						}
+					});
+				}
+			});
+		});		
 	}
 }
 

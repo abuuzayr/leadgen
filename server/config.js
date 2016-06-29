@@ -1,4 +1,4 @@
-//Origin 1 = from user , 2 = filter from yp
+//origin 1 = from user , 2 = filter from yp
 
 //type 1 = corporate, 2 = consumer
 
