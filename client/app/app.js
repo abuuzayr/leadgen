@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection',] );
+var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection','ui.grid.edit'] );
 
 	app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 	    $urlRouterProvider.otherwise('/');
@@ -38,30 +38,31 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.sel
            .state('consumer', {
            		url: '/consumer',
 				templateUrl: 'ScrapingMgmt/partial/consumerBeforeScrap.html'
-           })    
+           })
+
+		   .state('consumer.consumerStartScrap', {
+           		url: '/consumerStartScraping',
+				templateUrl: 'ScrapingMgmt/partial/consumerScrap.html'
+           })
+
+		   .state('consumerResults', {
+			   url: '/consumerScrapResults',
+			   templateUrl: 'ScrapingMgmt/partial/consumerResults.html',
+		   })
+
 		   .state('profile', {
                url: '/profile',
 			   templateUrl: 'ProfileMgmt/partial/profile.html',
 			   controller: 'profileController'
            })
+
 		   .state('userManagementprofile', {
                url: '/company-profile',
 			   templateUrl: 'UserMgmt/partial/userMgmtProfile.html'
            })
+
 		   .state('userManagementAdmin', {
 			   url: '/adminmanagement',
 			   templateUrl: 'UserMgmt/partial/userMgmtUsers.html'
-		   })
-		   .state('database', {
-			   url: '/database',
-			   templateUrl: 'DatabaseMgmt/partial/allDatabase.html'
-		   })
-		   .state('internalDB', {
-			   url: '/internalDB',
-			   templateUrl: 'DatabaseMgmt/partial/internalDB.html'
-		   })
-		   .state('externalDB', {
-			   url: '/externalDB',
-			   templateUrl: 'DatabaseMgmt/partial/externalDB.html'
 		   })
  	}]);
