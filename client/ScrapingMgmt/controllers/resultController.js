@@ -1,4 +1,4 @@
-app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', '$anchorScroll', function ($scope, shareData, sendResults, $http, uiGridConstants, $q, $location, $timeout, $anchorScroll) {
+app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', function ($scope, shareData, sendResults, $http, uiGridConstants, $q, $location, $timeout) {
 
     var rc = this;
     rc.gridOptions = {
@@ -17,7 +17,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
       rc.gridApi = gridApi;
     }
   };
-
+    
     rc.gridOptions.data = shareData.getData();
     rc.resultsLength = rc.gridOptions.data.length;
     
@@ -49,8 +49,39 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
   rc.responseMessage = "";
   rc.symbol = true;
 
+  rc.clearData = function() {
+    // rc.gridOptions.data = [];
+    // rc.resultsLength = 0;
+    shareData.clearData();
+    // $route.reload();
+  }
+
+  var dataToContacts= [];
+
+  rc.addSelected = function () {
+    var dataToContacts= [];
+    angular.forEach(rc.gridApi.selection.getSelectedRows(), function (data, index) {
+      dataToContacts.push(data);
+      // dataToContacts = data;
+      console.log('selected data is ' + dataToContacts);
+      console.log('data is ' + data);
+
+      // callback();
+    });
+  }
+  
   rc.saveToContacts = function() {
-    var myJsonString = JSON.stringify(rc.gridOptions.data);
+    var myJsonString;
+    console.log('selected data is ' + dataToContacts);
+
+    // if none selected, save all
+    if (dataToContacts.length === 0) {
+        myJsonString = JSON.stringify(rc.gridOptions.data);
+    } else {
+      //save the selected contacts
+      myJsonString = JSON.stringify(dataToContacts);
+    }
+
     var response = $http.post('/api/Corporate/scrap',myJsonString);
     response.success(function(data) {
       rc.responseMessage = "Saved to Contacts!";
@@ -60,19 +91,5 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
       rc.symbol = false;
     })
   }
-
-  // rc.print = function() {
-  //   console.log('print leads after delete');
-  //   console.log(rc.gridOptions.data);
-  // };
-  
-  rc.postResponse = ""; 
-
-  // sendResults.sendLeads(rc.gridOptions.data).then(function successCallback(res) {
-  //   rc.postResponse = "Saved to Contacts!";
-  // }), function errorCallback(err) {
-  //   rc.postResponse = "Unable to Save to Contacts";
-  //   rc.symbol = false;
-  // }
 
 }]);
