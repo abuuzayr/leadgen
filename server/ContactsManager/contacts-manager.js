@@ -353,40 +353,6 @@ var ContactsManager = {
       }
     })
   }
-  
-
-/*  
-  removeDomainChain : function(collectionName,str){
-    return new Promise(function(resolve,reject){
-      var arr = [];
-      dbHandler.dbQuery(collectionName,null)
-      .then(function(results){
-        for(var i=0;i<results.length;i++){
-          var obj= results[i];
-          if(obj[str] == undefined)
-            obj[str] = null;
-          arr.push(obj);
-        }
-        return dbHandler.dbDropCollection(collectionName);
-      })
-      .then(function(results){
-        var promiseArr = [];
-        for(var i=0;i<arr.length;i++){
-          promiseArr.push(dbHandler.dbInsert(collectionName,arr[i]));
-        }
-        console.log(promiseArr);
-        return Promise.all(promiseArr);
-      })
-      .then(function(results){
-        resolve(200);
-      })
-      .catch(function(error){
-        reject(500);
-      });
-    })
-  }
-*/
-
 };
 
 module.exports = ContactsManager;
