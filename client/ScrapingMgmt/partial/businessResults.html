@@ -1,4 +1,5 @@
 <div class="container">
+    <div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>
 <div class="results">
     <h3>Results</h3>
     <br>
@@ -12,7 +13,7 @@
         Deleted Selected
     </button>
 
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.showFunction(); rc.saveToContacts()">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.showFunction(); rc.saveToContacts(); rc.clearData(); rc.addSelected()">
         Add to Contacts
     </button>
 
