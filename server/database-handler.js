@@ -57,7 +57,6 @@ var dbHandler = {
           if(obj._id != undefined)
             delete obj._id;
           // obj.dateCreated = moment().zone("+00:00").format();
-          console.log(obj);
           var col = db.collection(collectionName);
           col.insert(obj,function(err,r){
             if(err!=null)
@@ -201,7 +200,6 @@ var dbHandler = {
             delete obj._id;
           var col = db.collection(collectionName);
           col.insertOne(obj,function(err,r){
-            console.log(r);
             if(err!=null)
               reject(500);
             else{

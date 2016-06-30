@@ -11,6 +11,7 @@ var ScrapManager = {
   scrapCorporateGoogleNew : function(type,country){
     return new Promise(function(resolve,reject){
       if(country == 'Singapore'){
+        console.log('local');
         loadLocalCoordinates();
 
         var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + coord[0][0] + ',' + coord[0][1] + '&radius=3000&keyword=' + type + '&key=' + apiKey;  
@@ -48,6 +49,7 @@ var ScrapManager = {
           reject(error);
         })  
       }else{
+        console.log('foreign');
         loadForeignCoordinates(country)
         .then(function(results){
           var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + coord[0][0] + ',' + coord[0][1] + '&radius=10000&keyword=' + type + '&key=' + apiKey; 
@@ -178,6 +180,7 @@ var requestGoogle  = function(url){
 };
 
 var loadLocalCoordinates = function(){
+  coord = [];
   for(var i=0;i<config.coordinates.length;i++){
     coord.push([config.coordinates[i].Latitude , config.coordinates[i].Longitude]);
   }
@@ -185,6 +188,7 @@ var loadLocalCoordinates = function(){
 
 var loadForeignCoordinates = function (country){
   return new Promise(function(resolve,reject){
+    coord = [];
     var id;
     for(var i=0; i<countries.length;i++){
       if(countries[i].countryName == country){
