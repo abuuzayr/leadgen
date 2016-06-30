@@ -18,13 +18,13 @@ CRUD on leads
 */
 apiRouter.route('/contacts/leadList/contacts')
 	.get(function(req,res){
-		ContactsManager.displayLeadCB(res,'localCorporate',null,displayResultsCallback);
+		ContactsManager.displayLeadCB(res,'contacts',null,displayResultsCallback);
 	})
 	.post(function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
 		else{
-			ContactsManager.addLeadCB(res,'localCorporate',req.body,returnStatusCode);
+			ContactsManager.addLeadCB(res,'contacts',req.body,returnStatusCode);
 		}
 	})
 	.delete(function(req,res){
@@ -101,7 +101,6 @@ apiRouter.route('/contacts/leadList/contacts')
 					}else
 					{
 					returnStatusCode(res,200);
-					//ContactsManager.updateLeadCB(res,'localCorporate',req.body,returnStatusCode);
 				}
 			}).catch(function(error)
 			{
@@ -280,7 +279,6 @@ apiRouter.route('/contacts/mailingList')
 				        ]
 				    }
 			// */
-			//console.log(req.body.memberInfo);
 			var memberinfoMC=[];
 			for(var i=0;i<req.body.memberInfo.length;i++)
 			{
@@ -314,7 +312,6 @@ apiRouter.route('/contacts/mailingList')
 					console.log(temp);
 					obj.push(temp);
 				}
-				//console.log(obj);
 				MailinglistManager.addMemberToList(res,'mailinglists',obj,returnStatusCode);
 				})
 		}
@@ -340,15 +337,12 @@ apiRouter.route('/contacts/mailingList')
 								]
 							}
 						*/
-						//console.log("getMailingListMemberInfo Results:");
 						var promiseArr = [];
 						for(var i=0;i<req.body.delete.length;i++){
 							promiseArr.push(MailchimpManager.deleteMember(apiKey,req.body.delete[i].listID,req.body.delete[i].email_hash));
 						}
 						Promise.all(promiseArr)
-						.then(function(MCresults){
-						/*console.log("MailchimpManager.deleteMember PromiseArr Results:");
-						console.log(MCresults);             */          
+						.then(function(MCresults){    
 						MailinglistManager.deleteMember(res,'mailinglists',req.body.delete,returnStatusCode);
 						}).catch(function(MCerror)
 							{
@@ -357,15 +351,28 @@ apiRouter.route('/contacts/mailingList')
 						}
 		}
 	});
+apiRouter.route('/mailinglist/getSubscriber')
+	.post(function(req,res){
+		if(!req.body)
+			returnStatusCode(res,400)
+		else{
+			/*=====Sample Post=== //get members base on list ID
+			 	{
+					"listID":"",
+					"name" : ""
+			 	}
+			*/
+			MailinglistManager.getSubscribers(res,'mailinglists',req.body,displayResultsCallback);
+				}
+			});
 apiRouter.route('/dropcollection')
 	.get(function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400)
 		else{
-			MailinglistManager.dbDropCollection(res,'mailinglists',returnStatusCode);
+			MailinglistManager.dbDropCollection(res,'contacts',returnStatusCode);
 				}
 			});
-
 apiRouter.route('/corporate/scrape/g/new')
 	.get(function(req,res){
 		if(!req.body)
@@ -414,8 +421,6 @@ apiRouter.route('/corporate/contacts/leadList/fields')
 			ContactsManager.deleteLeadsCB(res,'localCorporate',req.body,returnStatusCode);
 		}
 	});
-
-
 apiRouter.route('/corporate/scrape/g/new')
 	.get(function(req,res){
 		if(!req.body)
@@ -431,7 +436,6 @@ apiRouter.route('/corporate/scrape/g/new')
 			});
 		}
 	});
-
 	apiRouter.get('/corporate/scrape/g/cont',function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
@@ -446,7 +450,6 @@ apiRouter.route('/corporate/scrape/g/new')
 			});
 		}
 	});
-
 		apiRouter.post('/populateTest',function(req,res){
 		if(!req.body)
 			returnStatusCode(res,400);
@@ -461,17 +464,12 @@ apiRouter.route('/corporate/scrape/g/new')
 			});
 		}
 	});
-
-
-
 var displayResultsCallback = function(res,results){
 	res.json(results);
 };
-
 var returnStatusCode = function(res,statusCode){
 	res.sendStatus(statusCode);
 };
-
 var deleteContact = function(cid)
 	{
 		return new Promise (function(resolve,reject) {
@@ -498,10 +496,7 @@ var deleteContact = function(cid)
 							MailinglistManager.deleteListv2('mailinglists',temp)
 							.then(function(MLResults){				
 								console.log("Delete from contacts");
-								resolve(MLResults);			
-								//ContactsManager.deleteLeadsCB(res,'localCorporate',req.body,returnStatusCode);
-								//Add a then method here
-								//returnStatusCode(res,200);
+								resolve(MLResults);	
 							}).catch(function(MLerror)
 								{
 									console.log(MLerror);
@@ -514,7 +509,6 @@ var deleteContact = function(cid)
 						{
 					Console.log("Delete from contacts");	
 					resolve(results);
-					//ContactsManager.deleteLeadsCB(res,'localCorporate',req.body,returnStatusCode);
 					//add a then function
 				}
 			}).catch(function(error)
@@ -524,8 +518,6 @@ var deleteContact = function(cid)
 
 	})
 	}
-
-
 var updateContact = function(results,firstName,lastName,body)
 	{
 		return new Promise (function(resolve,reject) {
@@ -546,7 +538,6 @@ var updateContact = function(results,firstName,lastName,body)
 						.then(function(MLResults){
 							console.log("update success");
 							resolve(MLResults);
-							//ContactsManager.updateLeadCB(res,'localCorporate',req.body,returnStatusCode);
 							}).catch(function(MLerror)
 							{
 							console.log(MLerror);

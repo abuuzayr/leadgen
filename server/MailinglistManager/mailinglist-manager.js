@@ -17,7 +17,7 @@ var MailinglistManager = {
 				console.log(error);
 			})
 		})
-	},//('mailinglists',req.body,results.listID,results.suscribeHash)
+	},
 	updateMemberInfo: function(collectionName, obj, lID, sHash){
 	return new Promise (function(resolve,reject) {
 			var object1={
@@ -143,9 +143,6 @@ var MailinglistManager = {
 	{		
 			return new Promise (function(resolve,reject) {
 			//This is to allow us to filter out mailing list names only.
-			console.log('aaaa');
-			console.log(obj[0]);
-			console.log(obj[1]);
 			dbHandler.dbQuery(collectionName,obj[0])
 			.then(function(results){
 							console.log('bb');
@@ -159,19 +156,18 @@ var MailinglistManager = {
 					lastName:obj[1].lastName,
 					subscriberStatus:obj[1].subscriberStatus
 				}];
-								console.log('cccc');
 				console.log(temp[0]);
 				console.log(temp[1]);
 				dbHandler.dbUpdateMany(collectionName,temp[0],temp[1])
 				.then(function(results1){
 					//After integration
 					/*var temp2=[{
-						contactID:results.contactID
+						_id:results.contactID
 					},{
 						firstName:object[1].firstName,
 						lastName:object[1].lastName
 					}];
-					dbHandler.dbUpdateMany(collectionName,temp2[0],temp2[1])
+					dbHandler.dbUpdateMany('contacts',temp2[0],temp2[1])
 						.then(function(results2)
 						{
 							resolve(results2);
@@ -308,6 +304,19 @@ var MailinglistManager = {
 			callback(res,400);
 		}
 	},
+		getSubscribers : function(res,collectionName,obj,callback){
+
+			var temp ={
+				listID : obj.listID
+			}
+			dbHandler.dbQuery(collectionName,temp)
+			.then(function(results){
+				callback(res,results);
+			})
+			.catch(function(error){
+				callback(res,error);
+			});
+	},
 	updateListMC : function(collectionName,obj){
 
 		return new Promise (function(resolve,reject) {
@@ -391,14 +400,16 @@ var MailinglistManager = {
 		})
 	},
 	updateActivity : function(collectionName,obj){
-
 		return new Promise (function(resolve,reject) {
+
 				var obj1=[{
-					contactID:obj.contactID
+					_id:obj._id
 				},{
 					history:obj.history
-				}]
-
+				}];
+				console.log('test');
+				console.log(obj1[0]);
+				console.log(obj1[1]);
 				dbHandler.dbUpdateMany(collectionName,obj1[0],obj1[1])
 				.then(function(results){
 					resolve(results);

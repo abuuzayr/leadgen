@@ -13,34 +13,6 @@ var mailchimpHandler ={
 			var fakeDatabase;
 			//step one, retrieve results from mailchimp
 			mailchimplist = results;
-			//fake data
-		//	fakeDatabase=results;
-		/*
-		 	fakeDatabase = JSON.parse(JSON.stringify(results));
-			fakeDatabase[0].name ='updated name 2';
-			fakeDatabase[0].members[0].email_addr='aaaaaaaaaaa'
-			//fakeDatabase[1].list_name = 'Updated name 1';
-			fakeDatabase.pop();
-			fakeDatabase[0].members.pop();
-			var fakeObj = {
-				name : 'Deleted at mailchimp',
-				listId : 'aaaaaaaaaaa',
-				members : []
-			};
-			var fakemember={
-			email_hash : '11111',
-			email_addr : '22222',
-			subscriberStatus : '33333',
-			firstName : '44444',
-			lastName : '55555'
-			}
-			fakeDatabase.push(fakeObj);
-			fakeDatabase[0].members.push(fakemember);
-			fakeDatabase[fakeDatabase.length-2].members.push(fakemember);
-			console.log("====================Fake Database ========================================");
-			for(var i =0;i<fakeDatabase.length;i++){
-			console.log(fakeDatabase[i]);
-			}*/
 			mailinglistmanager.getListNamesMC('mailinglists')
 			.then(function(dbResults){
 			var databaselist=[];
@@ -378,7 +350,6 @@ var mailchimpHandler ={
 			})
 					})
 				})
-
 		})
 	},
 	updateList: function(apiKey,listID, tempInfo)
@@ -482,21 +453,21 @@ module.exports = mailchimpHandler;
 	//Now we want to collate all these information and save them into another array
 	//mailing list ID and mc id will get us the contact id so we can add the relevant data.
 	//if there are duplicate action and timestamp we add action else, dont add action
-	for(var i=0;i<results.length;i++){
-	 	for(var j=0;j<results[i].emails.length;j++){
-	 		var temp={
-				listID: results[i].emails[j].list_id,//The unique id for the list.
-				campid:  results[i].campaign_id,
-				email_addr: results[i].emails[j].email_address,
-				email_hash: results[i].emails[j].email_id,
-				action: results[i].emails[j].activity,
-				//One of the following actions: ‘open’, ‘click’, or ‘bounce’ and the date and time recorded for the action.
-				contactID: ''
+		for(var i=0;i<results.length;i++){
+		 	for(var j=0;j<results[i].emails.length;j++){
+		 		var temp={
+					listID: results[i].emails[j].list_id,//The unique id for the list.
+					campid:  results[i].campaign_id,
+					email_addr: results[i].emails[j].email_address,
+					email_hash: results[i].emails[j].email_id,
+					action: results[i].emails[j].activity,
+					//One of the following actions: ‘open’, ‘click’, or ‘bounce’ and the date and time recorded for the action.
+					contactID: ''
+				}
+				if(results[i].emails[j].activity.length!=0){
+					activityArr.push(temp);
+			 	}
 			}
-			if(results[i].emails[j].activity.length!=0){
-				activityArr.push(temp);
-		 	}
-		}
 		}
 		mailinglistmanager.getAllData('mailinglists')
 			.then(function(mlResults){
@@ -511,19 +482,23 @@ module.exports = mailchimpHandler;
 				}
 				mailinglistmanager.getAllData('contacts')
 					.then(function(cResults){
+						//console.log(cResults);
+
+							console.log(activityArr);
 						for(var j=0;j<cResults.length;j++){
 							cResults[j].history=[];
 						}
 						for(var i=0;i<activityArr.length;i++){
 							for(var j=0;j<cResults.length;j++){
-								if(activityArr[i].contactID == cResults[j].contactID){
+								if(activityArr[i].contactID == cResults[j]._id){
 									cResults[j].history.push(activityArr[i].action);
 								}
 							}
 						}
-						var activityArr = [];
+						console.log(cResults);
+						var promiseActivityArr = [];
 						for(var k =0;k<cResults.length;k++){
-							activityArr.push(mailinglistsmanager.updateActivity('contacts',cResults[k]));
+							promiseActivityArr.push(mailinglistmanager.updateActivity('contacts',cResults[k]));
 						}
 						Promise.all(activityArr)
 							.then(function(activityResults){
@@ -538,28 +513,7 @@ module.exports = mailchimpHandler;
 					})
 			}).catch(function(mlError){
 				console.log('mlError'+mlError);
-				})
-
-	/*var promiseActivityArr=[];
-	for(var i=0;i<activityArr.length;i++){	
-		promiseActivityArr.push(mailinglistmanager.addReportActivity('contacts',activityArr[i]));
-	}
-	// after populating the activity array, we get the contact id so that we can save the contact activity to the contact
-	for(var i=0;i<activityArr.length;i++){	
-		var contID=1;//getContactID(activityArr[i].mailingListID,activityArr[i].mcID);
-		activityArr[i].contactID= contID;
-		}
-		console.log(activityArr);
-	//now that we have the contactID we can add the activity into the Contacts table
-	//after adding the activity, be sure to remove duplicates so that we wont have excessive information
-	for(var i=0;i<activityArr.length;i++){
-		//clear that field first to []
-		//then update 1 by 1 add Contact activity addContactActivity(activityArr[i].contactID,activityArr[i].action);
-		//update the old field with the latest data
-		}
-		console.log(activityArr);//add to database
-	*/
-
+			})
 		resolve('true');
 		//return to front end
 	}
