@@ -1,4 +1,5 @@
-app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout) {
+app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 
+                function ($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout) {
     var uc = this;
 
     uc.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
@@ -8,6 +9,11 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
       return '';
     }
   };
+
+  allUsersData.success(function(data) {
+    uc.gridOptions.data = data;
+    console.log(data);
+  });
 
   uc.gridOptions = {
     enableSorting: true,
@@ -24,12 +30,11 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
       { field: 'email', displayName: 'Email', headerCellClass: uc.highlightFilteredHeader },
       { field: 'phone', displayName: 'Phone', headerCellClass: uc.highlightFilteredHeader },
     ],
+    // onRegisterApi: function(gridApi){
+    //   uc.gridApi = gridApi;
+    //   // gridApi.rowEdit.on.saveRow(allDB, allDB.saveRow);
+    // }
   };
-
-  allUsersData.success(function(data) {
-    uc.gridOptions.data = data;
-    console.log(data);
-  });
   
   //add new lead
    uc.addData = function() {
@@ -89,7 +94,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 
       //save after edit
       gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
-            console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
+            // console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
             $scope.$apply();
           });
     };
