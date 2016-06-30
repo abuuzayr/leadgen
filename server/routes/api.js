@@ -86,8 +86,9 @@ apiRouter.get('/contacts/leadList/leads/:id',function(req,res){
   if(!req.params.id)
     res.sendStatus(400);
   else{
-    var obj = {}
-    obj._id = new mongodb.ObjectID(req.params.id);
+    var obj = {
+      _id  : req.params.id
+    }
     dbHandler.dbQuery('leadList',obj)
     .then(function(results){
       res.json(results);

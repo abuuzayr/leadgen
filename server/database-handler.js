@@ -77,6 +77,9 @@ var dbHandler = {
           reject(500);
         else{
           var col = db.collection(collectionName);
+
+          if(obj != null && obj._id != undefined)
+            obj._id = new mongodb.ObjectID(obj._id);
           col.find(obj).toArray(function(err,docs){
             if(err!=null)
               reject(500);
