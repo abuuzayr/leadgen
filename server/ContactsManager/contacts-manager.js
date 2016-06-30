@@ -354,10 +354,16 @@ var ContactsManager = {
     })
   },
   addContactMC : function(obj){
-	return new Promise (function(resolve,reject) {	
-			
+  	return new Promise (function(resolve,reject) {	
+  	  dbHandler.dbInsertReturnID('leadList',obj)
+      .then(function(results){
+        resolve(results);
+      })
+      .catch(function(error){
+        reject(error);
+      });		
 		})
-	}
+  }
 };
 
 module.exports = ContactsManager;

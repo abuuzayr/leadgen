@@ -70,12 +70,10 @@ var MailinglistManager = {
 				lastName:obj.lastName,
 				email:obj.email_addr
 			}
-			//After integration
-			/*contactsHandler.addContactMC(tempC)
-			.then(function(results){*/
+			contactsHandler.addContactMC(tempC)
+			.then(function(results){
 				var tempML={
-					//contactID: results,
-					contactID: '12345',
+					contactID: results,
 					listID: obj.listID,
 					name: obj.name,
 					email_addr: obj.email_addr,
@@ -93,10 +91,10 @@ var MailinglistManager = {
 					}).catch(function(MLerror){
 						console.log('insertML'+error)
 					})
-			/*})
+			})
 			.catch(function(error){
 				console.log('insertcontacts error'+error);
-			});*/
+			});
 		})
 	},	
 	deleteList: function(res,collectionName,obj,callback)
@@ -161,20 +159,20 @@ var MailinglistManager = {
 				dbHandler.dbUpdateMany(collectionName,temp[0],temp[1])
 				.then(function(results1){
 					//After integration
-					/*var temp2=[{
+					var temp2=[{
 						_id:results.contactID
 					},{
 						firstName:object[1].firstName,
 						lastName:object[1].lastName
 					}];
-					dbHandler.dbUpdateMany('contacts',temp2[0],temp2[1])
+					dbHandler.dbUpdateMany('leadList',temp2[0],temp2[1])
 						.then(function(results2)
 						{
 							resolve(results2);
 						})
 						.catch(function(error2){
 							console.log("updatecontact2"+ error2)
-						})*/
+						})
 						console.log('update success!');
 						resolve(results1);
 				}).catch(function(error)

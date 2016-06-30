@@ -425,13 +425,17 @@ apiRouter.route('/dropcollection')
 		if(!req.body)
 			returnStatusCode(res,400)
 		else{
-			MailinglistManager.dbDropCollection(res,'contacts',returnStatusCode);
+			MailinglistManager.dbDropCollection(res,'leadList',returnStatusCode);
 				}
 			});
+
+
+
 
 /*
 CRUD on fields
 */
+
 apiRouter.route('/contacts/leadList/fields')
   .get(function(req,res){
     ContactsManager.displayList('columnDef',null)
@@ -484,6 +488,8 @@ apiRouter.route('/contacts/leadList/fields')
       }
     }
   });
+
+
 /*
   BlackList API
 */
@@ -560,6 +566,7 @@ apiRouter.route('/contacts/blackList')
     }
   })
 
+
 /*
 Scraping API
 */
@@ -634,6 +641,8 @@ apiRouter.post('/corporate/scrape/',jsonParser,function(req,res){
     }
   }
 })
+
+
 
 
 apiRouter.post('/populateTest',function(req,res){
