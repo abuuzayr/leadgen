@@ -1,33 +1,34 @@
-<!--<link rel="stylesheet" type="text/css" href="assets/css/scrapBiz.css">-->
-<div ng-controller="googleController as gc2" >
+<div>
     <br>
     <!--<h4>{{gc.input.category}}</h4>
     <h4>Countey is {{gc.input.country}}</h4>-->
+    
     <h3> <i class="material-icons" ng-hide="rc.symbol">cached</i> {{gc.numScrap}} Contacts Scraped...</h3>
     
     <div id="grid2" ui-grid="gc.gridOptions" class="grid"></div>
  
     <br>
     <div class='controlButtons'>
-      <!--<button type='button' class="btn btn-info" id = 'scrollArea' data-ng-click="gc.transfer()">Scrape</button>
-      <button type='button' class="btn btn-info" data-ng-click="gc.pauseScraping()">Pause</button>
-      <button type='button' class="btn btn-info" data-ng-click="gc.stopScraping(); gc.showFunction()">Stop</button>-->
       <!-- Colored mini FAB button -->
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.transfer()">
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.transfer()" ng-disabled="gc.pressStop">
         <i class="material-icons">play_arrow</i>
       </button>
 
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.pauseScraping()">
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.pauseScraping()" ng-disabled="gc.pressStop">
         <i class="material-icons">pause</i>
       </button>
 
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.stopScraping(); gc.showFunction()">
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.stopScraping(); gc.showFunction();">
         <i class="material-icons">stop</i>
       </button>
       
       <!-- Raised button -->
       <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="gc.showResult">
-        {{gc.scrapMessage}}
+        <!--{{gc.scrapMessage}}--> Scraping Stopped
+      </button>
+
+      <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="gc.status">
+        Scraping Stopped. There is no Internet Connection
       </button>
 
       <!-- Colored raised button -->
@@ -37,5 +38,6 @@
         View Results
         </button>
       </a>
+      
       </div>
 </div>
