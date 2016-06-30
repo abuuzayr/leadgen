@@ -105,28 +105,18 @@ var ContactsManager = {
   deleteLeads : function(obj){
     return new Promise(function(resolve,reject){
       if(!Array.isArray(obj)){
-        if(obj.type != 1 && obj.type != 2)
-          reject(400);
-        else{
-
           dbHandler.dbDelete('leadList',obj)
           .then(function(results){
             resolve(results);
           })
           .catch(function(error){
             reject(error);
-          });           
-
-        } 
+          });            
       }else{
         var arr = [];
         for(var index in obj){
           var item = obj[index];
-          if(item.type != 1 && item.type != 2)
-            reject(400);
-          else{
             arr.push(dbHandler.dbDelete('leadList',item));    
-          }
         }
         Promise.all(arr)
         .then(function(results){

@@ -14,7 +14,7 @@ var MailinglistManager = {
 				resolve(results);
 			})
 			.catch(function(error){
-				console.log(error);
+				reject(error);
 			})
 		})
 	},
