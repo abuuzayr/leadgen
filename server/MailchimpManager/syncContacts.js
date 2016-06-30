@@ -1,5 +1,6 @@
 
 var mailchimpClass= require('./mailchimpApp');
+var mailinglistmanager=require('../MailinglistManager/mailinglist-manager');
 var Promise = require('bluebird');
 var mailchimpHandler ={
 	syncContacts: function(apiKey){
@@ -12,195 +13,343 @@ var mailchimpHandler ={
 			var fakeDatabase;
 			//step one, retrieve results from mailchimp
 			mailchimplist = results;
-			//fake data
-			
-		//	fakeDatabase=results;
-		 	fakeDatabase = JSON.parse(JSON.stringify(results));
-			fakeDatabase[0].list_name ='updated name 2';
-			fakeDatabase[0].members[0].email='aaaaaaaaaaa'
-			//fakeDatabase[1].list_name = 'Updated name 1';
-			fakeDatabase.pop();
-			fakeDatabase[0].members.pop();
-			var fakeObj = {
-				list_name : 'Deleted at mailchimp',
-				list_id : 'aaaaaaaaaaa',
-				members : []
-			};
-			var fakemember={
-			id : '11111',
-			email : '22222',
-			status : '33333',
-			firstName : '44444',
-			lastName : '55555'
-			}
-			fakeDatabase.push(fakeObj);
-			fakeDatabase[0].members.push(fakemember);
-			fakeDatabase[fakeDatabase.length-2].members.push(fakemember);
-			console.log("====================Fake Database ========================================");
-			for(var i =0;i<fakeDatabase.length;i++){
-			console.log(fakeDatabase[i]);
-			}
-			console.log("=========================================================");
-			console.log("====================mailchimp Database ========================================");
-			for(var i =0;i<mailchimplist.length;i++){
-			console.log(mailchimplist[i]);
-			}
-			console.log("=========================================================");
-			var returnArr=[];
-			returnArr.push(mailchimplist);
-			returnArr.push(fakeDatabase);
-			return returnArr;
-		})
-		.then(function(returnArr){
-			//Now that we have both results, we compare them to see if there are the same,
-			//firstly we want to check that we have the most updated listname.
-			//Since when CRUD is performed at MC, contacts will not be updated immediately, we assume that MC will have the most updated ver.
-			var differenceArr=[];// this is detect and record down any difference found while comparing the two array
-			var mailchimplist=returnArr[0];
-			var fakeDatabase=returnArr[1];
-			//start looping
-			var i,j;
-			for(i=0;i<mailchimplist.length;i++)
+			mailinglistmanager.getListNamesMC('mailinglists')
+			.then(function(dbResults){
+			var databaselist=[];
+			//create object with a array of list information.
+			for(var i = 0;i<dbResults.length;i++)
 			{
-				var listfound = false;
-				for(j=0;j<fakeDatabase.length;j++)
+				var temp={
+					name: dbResults[i].name,
+				    listID: dbResults[i].listID,
+				    members: []
+				};
+				databaselist.push(temp);
+			}
+				mailinglistmanager.getAllMembers('mailinglists')
+				.then(function(dbResults2){
+				//poplating the members field
+				for(var i=0;i<dbResults2.length;i++)
 				{
-					if(fakeDatabase[j].list_id == mailchimplist[i].list_id)
+					if(dbResults2[i].email_addr!='-')
 					{
-					listfound=true; //we've found the same list!
-					var temp={
-						list_name : mailchimplist[i].list_name,
-						list_id : mailchimplist[i].list_id,
-						members : [],
-						action : '0' // 0 - default, 1 - update list name only, 2- update members info only, 3 update both member and list name
+						var listID=dbResults2[i].listID;
+						var member={
+							email_hash: dbResults2[i].email_hash,
+					       email_addr: dbResults2[i].email_addr,
+					       subscriberStatus: dbResults2[i].subscriberStatus,
+					       firstName:dbResults2[i].firstName,
+					       lastName: dbResults2[i].lastName
+					  	}
+					  	for(var j=0;j<databaselist.length;j++)
+					  	{
+					  		if(databaselist[j].listID==listID)
+					  		{
+								databaselist[j].members.push(member);
+					  		}
+					  	}
+					}
+				}
+				return databaselist;
+				}).then(function(databaselist){
+						//Now we need arrange he dbResults to fit mailchimp object format
+						console.log("====================App Database ========================================");
+						for(var i =0;i<databaselist.length;i++){
+						console.log(databaselist[i]);
 						}
-						//check if their name is still the same
-						if(fakeDatabase[j].list_name != mailchimplist[i].list_name)
-						{
-							//user has changed the name of the list a mailchimp side!
-							temp.action = '1';
+						console.log("=========================================================");
+						console.log("====================mailchimp Database ========================================");
+						for(var i =0;i<mailchimplist.length;i++){
+						console.log(mailchimplist[i]);
 						}
-						var membTemp=[];// Array of objects
-						membTemp = compareMemberLists(mailchimplist[i].members, fakeDatabase[i].members);
-
-						if(membTemp.length != '0')
+						console.log("=========================================================");
+						var returnArr=[];
+						returnArr.push(mailchimplist);
+						returnArr.push(databaselist);
+						return returnArr;
+						}).then(function(returnArr){
+					return returnArr;
+					})
+				.then(function(returnArr){
+				//Now that we have both results, we compare them to see if there are the same,
+				//firstly we want to check that we have the most updated listname.
+				//Since when CRUD is performed at MC, contacts will not be updated immediately, we assume that MC will have the most updated ver.
+				var differenceArr=[];// this is detect and record down any difference found while comparing the two array
+				var mailchimplist=returnArr[0];
+				var fakeDatabase=returnArr[1];
+				//start looping
+				var i,j;
+				for(i=0;i<mailchimplist.length;i++)
+				{
+					var listfound = false;
+					for(j=0;j<fakeDatabase.length;j++)
+					{
+						if(fakeDatabase[j].listID == mailchimplist[i].listID)
 						{
-							if(temp.action == '1')
-							{
-								temp.action = '3';
-							}else
-							{
-								temp.action = '2';
+						listfound=true; //we've found the same list!
+						var temp={
+							name : mailchimplist[i].name,
+							listID : mailchimplist[i].listID,
+							members : [],
+							action : '0' // 0 - default, 1 - update list name only, 2- update members info only, 3 update both member and list name
 							}
-							temp.members= membTemp;
+							//check if their name is still the same
+							if(fakeDatabase[j].name != mailchimplist[i].name)
+							{
+								//user has changed the name of the list a mailchimp side!
+								temp.action = '1';
+							}
+							var membTemp=[];// Array of objects
+							membTemp = compareMemberLists(mailchimplist[i].members, fakeDatabase[j].members);
+							//1 - update member, 2- create member, 3 delete remove
+							if(membTemp.length != '0')
+							{
+								if(temp.action == '1')
+								{
+									temp.action = '3';
+								}else
+								{
+									temp.action = '2';
+								}
+								temp.members= membTemp;
+							}
+							if(temp.action!= '0')
+							{	
+								differenceArr.push(temp);
+							}					
 						}
-						if(temp.action!= '0')
-						{	
-							differenceArr.push(temp);
-						}					
-					}
-				}//check if users has created lists in mailchimp side!
-				if(listfound==false)
-				{
-				var tempt={
-					list_name : mailchimplist[i].list_name,
-					list_id : mailchimplist[i].list_id,
-					members : mailchimplist[i].members,
-					action : '4'//to denote an create
-					}
-				differenceArr.push(tempt);	
-				}
-			}
-			//now to detect if the user deletes on the mailchimp side
-			for(i=0;i<fakeDatabase.length;i++)
-			{
-				var listfound = false;
-				for(j=0;j<mailchimplist.length;j++)
-				{	
-					if(fakeDatabase[i].list_id == mailchimplist[j].list_id)
+					}//check if users has created lists in mailchimp side!
+					if(listfound==false)
 					{
-						//to denote that the list exist at both severs
-						 listfound = true;
-					}
-				}
-				if(!listfound)
-				{
-					//if not found, it means that user has deleted the list on the mailchimp server
-					//we will attempt to remove from our side as well.
 					var tempt={
-					list_name : fakeDatabase[i].list_name,
-					list_id : fakeDatabase[i].list_id,
-					members : fakeDatabase[i].members,
-					action : '5'//to denote an delete
+						name : mailchimplist[i].name,
+						listID : mailchimplist[i].listID,
+						members : mailchimplist[i].members,
+						action : '4'//to denote an create
+						}
+					differenceArr.push(tempt);	
 					}
-						differenceArr.push(tempt);
-					}
-			}
-			return differenceArr;
-		}).then(function(differenceArr){
-			console.log("====================Update Database ========================================");
-			for(var i =0;i<differenceArr.length;i++){
-				console.log(differenceArr[i]);
 				}
-			console.log("=====================================================================");
-			//filter the different actions to perform, when the update array is completed
-			for(var i =0;i<differenceArr.length;i++){
-				//go through everylist check the action, perform the action.
-				if(differenceArr[i].action == '5')
+				//now to detect if the user deletes on the mailchimp side
+				for(i=0;i<fakeDatabase.length;i++)
 				{
-					//start delete call
-
-				}else if(differenceArr[i].action == '4')
-					{
-						//its a create call
-						//method call to create ML
-						if(differenceArr[i].members != '0')
+					var listfound = false;
+					for(j=0;j<mailchimplist.length;j++)
+					{	
+						if(fakeDatabase[i].listID == mailchimplist[j].listID)
 						{
-							for(var j =0;j<differenceArr[j].members;j++)
-							{
-								//create mmembers mehod here
-
-							}
-						}
-					}else if(differenceArr[i].action == '3')
-					{
-						//update members and listname
-						//include list method
-						//loop members
-						for(var j =0;j<differenceArr[j].members;j++)
-						{
-							//identify the type of update C/U/D
-							if(differenceArr[j].members[j].action=='3')
-							{
-								//update member
-
-							}else if(differenceArr[j].members[j].action=='2')
-							{
-								//create member
-
-							}else if(differenceArr[j].members[j].action=='1')
-							{ 
-								//delete member
-							}
+							//to denote that the list exist at both severs
+							 listfound = true;
 						}
 					}
-					else if(differenceArr[i].action == '2')
+					if(!listfound)
 					{
-						//update members only
-
+						//if not found, it means that user has deleted the list on the mailchimp server
+						//we will attempt to remove from our side as well.
+						var tempt={
+						name : fakeDatabase[i].name,
+						listID : fakeDatabase[i].listID,
+						members : fakeDatabase[i].members,
+						action : '5'//to denote an delete
+						}
+							differenceArr.push(tempt);
+						}
+				}
+				return differenceArr;
+			}).then(function(differenceArr){
+				console.log("====================Update Database ========================================");
+				for(var i =0;i<differenceArr.length;i++){
+					console.log(differenceArr[i]);
 					}
-					else if(differenceArr[i].action == '1')
-					{
-						//updatelistname only
+				console.log("=====================================================================");
+				
+				//filter the different actions to perform, when the update array is completed
+					var promiseArr=[];
+					for(var i =0;i<differenceArr.length;i++){
+						//go through everylist check the action, perform the action.
+						if(differenceArr[i].action == '5')
+						{
+							//start delete call
+							var deleteListTemp={
+								listID:differenceArr[i].listID,
+								name:differenceArr[i].name
+							}
+							promiseArr.push(mailinglistmanager.deleteListv2('mailinglists',deleteListTemp));
+						}else if(differenceArr[i].action == '4')
+							{
+								//its a create call
+								//method call to create ML
+								var createListTemp={
+									contactID:'-',
+									listID: differenceArr[i].listID,
+									name: differenceArr[i].name,
+									email_addr: '-',
+									email_hash: '-',
+									firstName: '-',
+									lastName: '-',
+									subscriberStatus: '-'
+									//_id will be auto generated
+								}
+								promiseArr.push(mailinglistmanager.addListMC('mailinglists',createListTemp));
+								if(differenceArr[i].members != '0')
+								{
+									for(var j =0;j<differenceArr[j].members;j++)
+									{
+										//add the member inside the
+										var createContactTemp={
+											listID: differenceArr[i].listID,
+											name: differenceArr[i].name,
+											email_addr: differenceArr[i].members[j].email_addr,
+											email_hash:differenceArr[i].members[j].email_hash,
+											firstName: differenceArr[i].members[j].firstName,
+											lastName: differenceArr[i].members[j].lastName,
+											subscriberStatus: differenceArr[i].members[j].subscriberStatus
+										}
+									promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp));
+									}
+								}
+							}else if(differenceArr[i].action == '3')
+							{
+								//update members and listname
+								//include list method
+								//loop members
+								var updateListNameTemp=[
+										{
+											listID:differenceArr[i].listID
+										},
+										{
+											name:differenceArr[i].name
+										}
+									]
+								promiseArr.push(mailinglistmanager.updateListMC('mailinglists',updateListNameTemp));
+								for(var j =0;j<differenceArr[i].members.length;j++)
+								{
+									console.log(differenceArr[i].members[j].action);
+									//identify the type of update C/U/D
+									if(differenceArr[i].members[j].action=='1')
+									{
+										//update member
+										var updateListNameTemp=[
+											{
+											listID:differenceArr[i].listID,
+											email_hash:differenceArr[i].members[j].email_hash
+											},
+											{
+											firstName: differenceArr[i].members[j].firstName,
+											lastName: differenceArr[i].members[j].lastName,
+											subscriberStatus: differenceArr[i].members[j].subscriberStatus
+											}
+										];
+										promiseArr.push(mailinglistmanager.updateContactMC('mailinglists',updateListNameTemp));
+									}else if(differenceArr[i].members[j].action=='2')
+									{
+										//create member
+										var createContactTemp={
+											listID: differenceArr[i].listID,
+											name: differenceArr[i].name,
+											email_addr: differenceArr[i].members[j].email_addr,
+											email_hash:differenceArr[i].members[j].email_hash,
+											firstName: differenceArr[i].members[j].firstName,
+											lastName: differenceArr[i].members[j].lastName,
+											subscriberStatus: differenceArr[i].members[j].subscriberStatus
+										}
+										promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp));
+									}else if(differenceArr[i].members[j].action=='3')
+									{ 
+										//delete member
+										var deleteContactTemp= {
+											listID: differenceArr[i].listID,
+											name: differenceArr[i].name,
+											email_addr: differenceArr[i].members[j].email_addr,
+											email_hash:differenceArr[i].members[j].email_hash,
+											firstName: differenceArr[i].members[j].firstName,
+											lastName: differenceArr[i].members[j].lastName,
+											subscriberStatus: differenceArr[i].members[j].subscriberStatus
+										}
+										promiseArr.push(mailinglistmanager.deleteMemberMC('mailinglists',deleteContactTemp));
+									}
+								}
+							}
+							else if(differenceArr[i].action == '2')
+							{	
+								//update members only
+								for(var j =0;j<differenceArr[i].members.length;j++)
+								{
+									if(differenceArr[i].members[j].action=='1')
+									{
+										//update member
+										var updateListNameTemp=[
+											{
+											listID:differenceArr[i].listID,
+											email_hash:differenceArr[i].members[j].email_hash
+											},
+											{
+											firstName: differenceArr[i].members[j].firstName,
+											lastName: differenceArr[i].members[j].lastName,
+											subscriberStatus: differenceArr[i].members[j].subscriberStatus
+											}
+										];
+										promiseArr.push(mailinglistmanager.updateContactMC('mailinglists',updateListNameTemp));
+									}else if(differenceArr[i].members[j].action=='2')
+									{
+										//create member
+										var createContactTemp={
+											listID: differenceArr[i].listID,
+											name: differenceArr[i].name,
+											email_addr: differenceArr[i].members[j].email_addr,
+											email_hash:differenceArr[i].members[j].email_hash,
+											firstName: differenceArr[i].members[j].firstName,
+											lastName: differenceArr[i].members[j].lastName,
+											subscriberStatus: differenceArr[i].members[j].subscriberStatus
+										}
+										promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp));
+									}else if(differenceArr[i].members[j].action=='3')
+									{ 
+										//delete member
+										var deleteContactTemp= {
+											listID: differenceArr[i].listID,
+											name: differenceArr[i].name,
+											email_addr: differenceArr[i].members[j].email_addr,
+											email_hash:differenceArr[i].members[j].email_hash,
+											firstName: differenceArr[i].members[j].firstName,
+											lastName: differenceArr[i].members[j].lastName,
+											subscriberStatus: differenceArr[i].members[j].subscriberStatus
+										}
+										promiseArr.push(mailinglistmanager.deleteMemberMC('mailinglists',deleteContactTemp));
+									}
+								}
+							}
+							else if(differenceArr[i].action == '1')
+							{
+								//updatelistname only
+								var updateListNameTemp=[
+									{
+										listID:differenceArr[i].listID
+									},
+									{
+										name:differenceArr[i].name
+									}
+								];
+							promiseArr.push(mailinglistmanager.updateListMC('mailinglists',updateListNameTemp));
+							}
 					}
-			}		
-		})
-		.catch(function(error){
-			console.log('error getting information :' + error);
-		}).done(function()
-		{
-		 	mailchimpClass.getReports(getReportDetails, resolve, reject);
-		})
+					Promise.all(promiseArr)
+						.then(function(result){
+							console.log('We are done with sync');
+						})
+						.catch(function(error)
+						{
+							console.log(error);
+						})
+			})
+			.catch(function(error){
+				console.log('error getting information :' + error);
+			}).done(function()
+			{
+			 	mailchimpClass.getReports(getReportDetails, resolve, reject);
+			})
+					})
+				})
 		})
 	},
 	updateList: function(apiKey,listID, tempInfo)
@@ -296,47 +445,75 @@ var mailchimpHandler ={
 }
 module.exports = mailchimpHandler;
 
-	var getReportDetails = function(results, resolve, reject)
-	{
+	var getReportDetails = function(results, resolve, reject){
 		//Sort to handle email activity information
 		var activityArr=[];
 		console.log("===================Report activity ==============================");
 	//console.log(results[0].emails[0].activity);// retrieve activity information.
-	//Now we want to collate allthese information and save them into another array
+	//Now we want to collate all these information and save them into another array
 	//mailing list ID and mc id will get us the contact id so we can add the relevant data.
 	//if there are duplicate action and timestamp we add action else, dont add action
-	for(var i=0;i<results.length;i++){
-	 	for(var j=0;j<results[i].emails.length;j++){
-	 		var temp={
-				mailingListID: results[i].emails[j].list_id,//The unique id for the list.
-				campid:  results[i].campaign_id,
-				email: results[i].emails[j].email_address,
-				mcID: results[i].emails[j].email_id,
-				action: results[i].emails[j].activity,
-				//One of the following actions: ‘open’, ‘click’, or ‘bounce’ and the date and time recorded for the action.
-				contactID: ''
-			}
-			if(results[i].emails[j].activity.length!=0)
-		 		{
-				activityArr.push(temp);
-		 		}
+		for(var i=0;i<results.length;i++){
+		 	for(var j=0;j<results[i].emails.length;j++){
+		 		var temp={
+					listID: results[i].emails[j].list_id,//The unique id for the list.
+					campid:  results[i].campaign_id,
+					email_addr: results[i].emails[j].email_address,
+					email_hash: results[i].emails[j].email_id,
+					action: results[i].emails[j].activity,
+					//One of the following actions: ‘open’, ‘click’, or ‘bounce’ and the date and time recorded for the action.
+					contactID: ''
+				}
+				if(results[i].emails[j].activity.length!=0){
+					activityArr.push(temp);
+			 	}
 			}
 		}
+		mailinglistmanager.getAllData('mailinglists')
+			.then(function(mlResults){
+				for(var i=0;i<activityArr.length;i++){
+					for(var j=0;j<mlResults.length;j++){
+						if(activityArr[i].listID == mlResults[j].listID){
+							if(activityArr[i].email_hash == mlResults[j].email_hash){
+								activityArr[i].contactID = mlResults[j].contactID;
+							}
+						}
+					}
+				}
+				mailinglistmanager.getAllData('contacts')
+					.then(function(cResults){
+						//console.log(cResults);
 
-	// after populating the activity array, we get the contact id so that we can save the contact activity to the contact
-	for(var i=0;i<activityArr.length;i++){	
-		var contID=1;//getContactID(activityArr[i].mailingListID,activityArr[i].mcID);
-		activityArr[i].contactID= contID;
-		}
-		console.log(activityArr);
-	//now that we have the contactID we can add the activity into the Contacts table
-	//after adding the activity, be sure to remove duplicates so that we wont have excessive information
-	for(var i=0;i<activityArr.length;i++){
-		//clear that field first to []
-		//then update 1 by 1 add Contact activity addContactActivity(activityArr[i].contactID,activityArr[i].action);
-		//update the old field with the latest data
-		}
-		console.log(activityArr);
+							console.log(activityArr);
+						for(var j=0;j<cResults.length;j++){
+							cResults[j].history=[];
+						}
+						for(var i=0;i<activityArr.length;i++){
+							for(var j=0;j<cResults.length;j++){
+								if(activityArr[i].contactID == cResults[j]._id){
+									cResults[j].history.push(activityArr[i].action);
+								}
+							}
+						}
+						console.log(cResults);
+						var promiseActivityArr = [];
+						for(var k =0;k<cResults.length;k++){
+							promiseActivityArr.push(mailinglistmanager.updateActivity('contacts',cResults[k]));
+						}
+						Promise.all(activityArr)
+							.then(function(activityResults){
+								resolve(activityResults);
+							})
+							.catch(function(activityError){
+								console.log('activityError'+activityError);
+							})
+					})
+					.catch(function(cError){
+						console.log('cError'+cError);
+					})
+			}).catch(function(mlError){
+				console.log('mlError'+mlError);
+			})
 		resolve('true');
 		//return to front end
 	}
@@ -349,14 +526,14 @@ module.exports = mailchimpHandler;
 			var memberFound=false;
 			for(var j =0;j<membersDatabase.length;j++)
 			{
-				if(membersDatabase[j].id == mailchimpMembers[i].id)
+				if(membersDatabase[j].email_hash == mailchimpMembers[i].email_hash)
 				{
 					memberFound=true; //we've found the same list!
 					var temp={
 						 // 0 - default, 1 - update member, 2- create member, 3 delete remove
-					 	id : mailchimpMembers[i].id,
-					    email : mailchimpMembers[i].email,
-						status : mailchimpMembers[i].status,
+					 	email_hash : mailchimpMembers[i].email_hash,
+					    email_addr : mailchimpMembers[i].email_addr,
+						subscriberStatus : mailchimpMembers[i].subscriberStatus,
 						firstName : mailchimpMembers[i].firstName,
 						lastName : mailchimpMembers[i].lastName,
 						action: '0'
@@ -374,9 +551,9 @@ module.exports = mailchimpHandler;
 			{
 				var temp={
 						 // 0 - default, 1 - update member, 2- create member, 3 delete remove
-					id : mailchimpMembers[i].id,
-					email : mailchimpMembers[i].email,
-					status : mailchimpMembers[i].status,
+					email_hash : mailchimpMembers[i].email_hash,
+					email_addr : mailchimpMembers[i].email_addr,
+					subscriberStatus : mailchimpMembers[i].subscriberStatus,
 					firstName : mailchimpMembers[i].firstName,
 					lastName : mailchimpMembers[i].lastName,
 					action: '2'
@@ -390,7 +567,7 @@ module.exports = mailchimpHandler;
 			var memberFound=false;
 			for(var j =0;j<mailchimpMembers.length;j++)
 			{
-				if(membersDatabase[i].id == mailchimpMembers[j].id)
+				if(membersDatabase[i].email_hash == mailchimpMembers[j].email_hash)
 				{
 					memberFound=true; //we've found the same list!
 				}
@@ -400,9 +577,9 @@ module.exports = mailchimpHandler;
 				//member got removed at mailchimp
 					var temp={
 						 // 0 - default, 1 - update member, 2- create member, 3 delete remove
-					 	id : membersDatabase[i].id,
-					    email : membersDatabase[i].email,
-						status : membersDatabase[i].status,
+					 	email_hash : membersDatabase[i].email_hash,
+					    email_addr : membersDatabase[i].email_addr,
+						subscriberStatus : membersDatabase[i].subscriberStatus,
 						firstName : membersDatabase[i].firstName,
 						lastName : membersDatabase[i].lastName,
 						action: '3'

@@ -352,7 +352,12 @@ var ContactsManager = {
         });
       }
     })
-  }
+  },
+  addContactMC : function(obj){
+	return new Promise (function(resolve,reject) {	
+			
+		})
+	}
 };
 
 module.exports = ContactsManager;
