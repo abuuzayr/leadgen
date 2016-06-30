@@ -30,6 +30,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
 
    gc.dataListForGoogle = [];
    gc.dataListForYP = [];
+//    gc.forContinueScraping = [];
    gc.numScrap = 0;
    gc.messageNoScrap = "No more websites available";
 
@@ -38,8 +39,8 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
     //get data from json file (google api)
     console.log('getting data from google');
     googleResults.firstTimeScrape().then(function successCallback(res) {
-        // console.log('res is ' + res.data);
         gc.dataListForGoogle = res.data;
+        // console.log('res is ' + res.data);
         // console.log('length is ' + gc.dataListForGoogle.length);
     }), function errorCallback(err) {
         console.log('err is ' + err);
@@ -47,39 +48,54 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
 
     console.log('getting data from yellow page');
     ypResults.scrapeYellowPageLeads().then(function successCallback(res) {
-        // console.log('res is ' + res.data);
         gc.dataListForYP = res.data;
+        // console.log('res is ' + res.data);
         // console.log('length is ' + gc.dataListForGoogle.length);
     }), function errorCallback(err) {
         console.log('err is ' + err);
     };
-
-    //googleResults.getGoogleLeads(gc.input.category,gc.input.country);
-    
-    // get data from json file (yellow page)
     
     var stop;
     var count = 0;
 
     gc.transfer = function() {
-        if(angular.isDefined(stop) /*&& stop !== 1*/) return;
+        console.log('the server is ' + navigator.onLine);
+        if (angular.isDefined(stop) /*&& stop !== 1*/) {
+            return;
+        
+        } else if(navigator.onLine === false) {
+            console.log('2.the server is ' + navigator.onLine);
+            gc.pauseScraping();
+
+        } else if (navigator.onLine === true) {
+
+            showInternet(navigator.onLine);
 
         stop = $interval(function() {
-            if (gc.dataListForGoogle.length > 0) {
+            if (gc.dataListForGoogle.length > 0 && navigator.onLine === true) {
                 var popLead = gc.dataListForGoogle.pop();
-                console.log('pop lead is ' + popLead);
-                
+                // console.log('pop lead is ' + popLead.firstName);
+                // console.log('obj in listForGoogle is ' + gc.dataListForGoogle);
+
                 gc.gridOptions.data.push(popLead);
                 gc.numScrap = gc.gridOptions.data.length;
                 shareData.addLead(popLead);
+                // gc.forContinueScraping = gc.dataListForGoogle.slice();
+                // console.log('obj in continueScrape is ' + gc.forContinueScraping);
 
-            } else if (gc.dataListForYP.length > 0) {
+            } else if (gc.dataListForYP.length > 0 && navigator.onLine === true) {
                 var popYPLead = gc.dataListForYP.pop();
-                console.log('yp pop lead is ' + popLead);
+                console.log('yp pop lead is ' + popYPLead.firstName);
                 
                 gc.gridOptions.data.push(popYPLead);
                 gc.numScrap = gc.gridOptions.data.length;
                 shareData.addLead(popYPLead);
+            
+            // if there is no internet connection, stop scraping, ask for internet
+            } else if (navigator.onLine === false) {
+                console.log('3.the server is ' + navigator.onLine);
+                gc.pauseScraping();
+                showInternet(navigator.onLine);
 
             } else {
                 console.log('continue scraping');
@@ -102,6 +118,8 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             }
         },2000);
     };
+    }
+    
 
     gc.pauseScraping = function() {
         if(angular.isDefined(stop) /*&& stop !== 1*/) {
@@ -112,19 +130,33 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
     }
 
     //if press stop button, cannot continue scraping
+    gc.pressStop = false;
     gc.stopScraping = function() {
         if(angular.isDefined(stop)) {
             $interval.cancel(stop);
+            gc.pressStop = true;
             //stop = 1;
         }
     }
 
     gc.showResult = false;
-    gc.scrapMessage = "Scraping Stopped";
+    // gc.scrapMessage = "Scraping Stopped";
     
     gc.showFunction = function() {
         gc.showResult = true;
     };
+
+    //online = true, offline = false
+    var checkOnline = navigator.onLine;
+    gc.status = false;
+
+    var showInternet = function(checkOnline) {
+        if (checkOnline === true) {
+            gc.status = false;
+        } else if (checkOnline === false) {
+            gc.status = true;
+        }
+    }
 
     gc.listOfCountry;
     //get country data
