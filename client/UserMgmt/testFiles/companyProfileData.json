@@ -1,0 +1,11 @@
+[
+    {
+    "type": "Consumer",
+    "companyName": "Company A",
+    "email": "companyA@email.com",
+    "mailChimpAPI": "123456789",
+    "googleAPI": "987654321",
+    "expiry": "29/07/2016",
+    "storage": 80
+    }
+]
