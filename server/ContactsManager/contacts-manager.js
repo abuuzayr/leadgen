@@ -213,7 +213,7 @@ var ContactsManager = {
       });
     })
   },
-  addDomainChain : function(collectionName,str){
+  addDomainChain : function(collectionName,str,callback){
     return new Promise(function(resolve,reject){ 
       var leadsArr = [];
       dbHandler.dbQuery(collectionName,null)
@@ -224,11 +224,11 @@ var ContactsManager = {
             if(emailAddr.indexOf(str) != -1){
               leadsArr.push(results[i]);
             }
-          } 
+          }            
         }
         var promiseArr = [];
         for(var i=0;i<leadsArr.length;i++){
-          promiseArr.push(dbHandler.dbDelete(collectionName,leadsArr[i]));
+          promiseArr.push(callback(leadsArr[i]._id));
         }
         return Promise.all(promiseArr);
       })

@@ -72,10 +72,10 @@ apiRouter.route('/contacts/leadList/leads')
         res.sendStatus(500);
       })
     }
-  })
-  .patch(function(req,res){
+  })  .patch(function(req,res){
     if(!req.body)
       returnStatusCode(res,400);
+
     else{
       /*Required Steps: (Mailchimp Server, App Server)
         1) Check origin of the contact
@@ -545,7 +545,7 @@ apiRouter.route('/contacts/blackList/domain')
       else{
         ContactsManager.addDomain(req.body)
         .then(function(results){
-          return ContactsManager.addDomainChain('leadList',req.body.domainName)
+          return ContactsManager.addDomainChain('leadList',req.body.domainName,deleteContact)
         })
         .then(function(results){
           res.sendStatus(results);
