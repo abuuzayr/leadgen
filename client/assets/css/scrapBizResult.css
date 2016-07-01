@@ -1,0 +1,9 @@
+.buttons {
+    float: right
+}
+
+.results {
+  width: 980px;
+  height: 400px;
+  margin: auto;
+}

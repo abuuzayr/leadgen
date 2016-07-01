@@ -1,0 +1,30 @@
+<link rel="stylesheet" type="text/css" href="assets/css/scrapBizResult.css">
+<!--<div class="container">-->
+
+<div class="results">
+    <h3>Results</h3>
+    <br>
+    <div ng-controller="resultController as rc" >
+
+    <div id="grid2" ui-grid="rc.gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns></div>
+
+    <h4>Total Contacts Scraped: {{rc.resultsLength}}</h4>
+    
+    <!-- Accent-colored raised button with ripple -->
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.deleteSelected()">
+        Deleted Selected
+    </button>
+
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.showFunction(); rc.addSelected(); rc.saveToContacts(); rc.clearData()">
+        Add to Contacts
+    </button>
+
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-show="rc.showResult">
+    {{ rc.responseMessage }}
+    <i class="material-icons" ng-show="rc.symbol">done</i>
+    <i class="material-icons" ng-hide="rc.symbol">clear</i>
+    </button>
+    </div>
+    <br><br>
+</div>
+<!--</div>-->

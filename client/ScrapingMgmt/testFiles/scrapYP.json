@@ -1,0 +1,26 @@
+[
+    {
+        "firstName": "Hello",
+        "lastName": "It's me",
+        "email": "hello@email.com",
+        "company": "House",
+        "number": 921,
+        "category": "F & B"
+    },
+    {
+        "firstName": "Bye",
+        "lastName": "Now",
+        "email": "bye@pirate.com",
+        "company": "Magic",
+        "number": 777,
+        "category": "Retail"
+    },
+    {
+        "firstName": "Again",
+        "lastName": "Now",
+        "email": "again@animal.com",
+        "company": "Temple",
+        "number": 221,
+        "category": "IT"
+    }
+]

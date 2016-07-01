@@ -1,0 +1,41 @@
+
+ 
+  <!--<div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>-->
+  
+  <div ng-controller="consumerScrapController as cs">
+
+    <ul class="nav nav-tabs">
+      <li><a ui-sref="corporate" data-toggle="tab">Corporate</a></li>
+      <li class="active"><a ui-sref="consumer" data-toggle="tab">Consumer</a></li>
+    </ul>
+  <div class="container">  
+  <form role="form">
+    <div class="form-group">
+        <br>
+      <h3>Scrap By:</h3>
+      <br>
+      <select class="form-control" id="category" ng-model='cs.input.category'>
+        <option>F & B</option>
+        <option>Retail</option>
+        <option>IT</option>
+        <option>Education</option>
+      </select>
+      <br>
+
+      <!--{{gc.input.category}}
+      {{gc.input.country}} -->
+
+      <!-- Accent-colored raised button with ripple -->
+      <a ui-sref=".consumerStartScrap">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        Proceed to Scrape
+        </button>
+      </a>
+    </div>
+  </form>
+  <div ui-view></div>
+  <br>
+  <br>
+  </div>
+</div>
+

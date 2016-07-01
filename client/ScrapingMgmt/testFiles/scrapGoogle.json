@@ -1,0 +1,50 @@
+[
+    {
+        "firstName": "Deadpool",
+        "lastName": "and Venompool",
+        "email": "dp@email.com",
+        "company": "House",
+        "number": 921,
+        "category": "IT"
+    },
+    {
+        "firstName": "Now you see me 2",
+        "lastName": "and again",
+        "email": "nysm2@pirate.com",
+        "company": "Magic",
+        "number": 777,
+        "category": "Retail"
+    },
+    {
+        "firstName": "Dr Stange",
+        "lastName": "Vincent",
+        "email": "stephen@animal.com",
+        "company": "Temple",
+        "number": 221,
+        "category": "IT"
+    },
+    {
+        "firstName": "Lord Of the Rings",
+        "lastName": "Hobbit",
+        "email": "lotr@email.com",
+        "company": "Gandalf",
+        "number": 123,
+        "category": "F & B"
+    },
+    {
+        "firstName": "Pirates of the Caribbean",
+        "lastName": "5",
+        "email": "potc@pirate.com",
+        "company": "Ahoy",
+        "number": 456,
+        "category": "Education"
+    },
+    {
+        "firstName": "Zootopia",
+        "lastName": "2",
+        "email": "fox@animal.com",
+        "company": "Animal Kingdom",
+        "number": 789,
+        "category": "F & B"
+    }
+]

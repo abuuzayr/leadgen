@@ -1,0 +1,19 @@
+.resultButton {
+    width: 134px;
+    height: 40px;
+    float:left;
+}
+
+.controlButtons {
+    /*border-style: solid;*/
+    width: 150px;
+    /*float: left;*/
+}
+
+.showMessage {
+    /*text-align: center;
+    margin-bottom: 10px;
+    margin-left: 50px;*/
+    font-size: 20px;
+    color: #0099FF
+}
