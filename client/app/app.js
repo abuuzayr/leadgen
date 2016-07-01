@@ -5,7 +5,7 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.sel
  	    $stateProvider
 	      .state('home', {
  	        url: '/',
-			 templateUrl: 'views/pages/view.html'
+			 templateUrl: 'homepage.html'
  	      })
 		   .state('leadlist', {
  	        url: '/leadlist',
