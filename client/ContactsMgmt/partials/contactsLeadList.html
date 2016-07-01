@@ -1,0 +1,168 @@
+<link rel="stylesheet" href="assets/css/contactsLeadList.css" />
+
+<div ng-controller="contactsMainController">
+    <br>
+    <ul class="nav nav-tabs">
+        <li class="active"><a ui-sref="leadlist" data-toggle="tab">LeadList</a></li>
+        <li class=""><a ui-sref="maillist" data-toggle="tab">Mailing List</a></li>
+        <li class=""><a ui-sref="blacklist" data-toggle="tab">BlackList</a></li>
+    </ul>
+    <br>
+    <div id="myTabContent" class="tab-content">
+        <div class="container">
+            <br>
+            <button ng-click="openDialog('addData')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add lead</button>
+            <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> REMOVE LEAD(S) </button>  
+            <button ng-click="openDialog('addField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored pull-right">
+                <i class="material-icons md-48">add_circle</i>
+            </button>
+            <button ng-click="openDialog('deleteField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent pull-right">
+                <i class="material-icons md-48">remove_circle</i>
+            </button>
+            <br><br>
+            <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-importer ui-grid-resize-columns class="grid"></div>
+            <br>
+            <button ng-click="openDialog('addToMailingList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add to Mailing List</button>
+            <button ng-click="openDialog('removeDuplicate')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Remove Duplicate</button>
+            <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored pull-right" id="get_file" value="Import"/>
+            <form><input type="file" id="files" class="file-chooser" name="files[]"/></form>
+
+            <dialog id="historyData" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                    <div>{{history}}{{userID}}</div>
+                    <div>
+                        <img src="http://vignette1.wikia.nocookie.net/despicableme/images/b/ba/Gru.jpg/revision/latest?cb=20130711023954">
+                    </div>
+                    <div class="mdl-dialog__actions">
+                        <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('historyData')">Close</button>
+                    </div>       
+                            </div>        
+            </dialog>
+
+            <dialog id="addData" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                    <p>
+                        Please enter the details.
+                    </p>
+                    <form class="add-leads-form" ng-submit="addData()">
+                        <div class="mdl-textfield mdl-js-textfield">
+                                <label for="firstName">First Name</label>
+                                <input class="mdl-textfield__input" type="text" id="firstName" ng-model="lead.first">
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="lastName">Last Name</label>
+                            <input class="mdl-textfield__input" type="text" id="lastName" ng-model="lead.last">
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="company">Company</label>
+                            <input class="mdl-textfield__input" type="text" id="company" ng-model="lead.company">
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="email">Email</label>
+                            <input class="mdl-textfield__input" type="email" id="email" ng-model="lead.email">
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="phone">Phone</label>
+                            <input class="mdl-textfield__input" type="number" id="phone" ng-model="lead.phone">
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="category">Category</label>
+                            <input class="mdl-textfield__input" type="text" id="category" ng-model="lead.category">
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="type">Type</label>
+                            <select ng-model="lead.type" id="type">
+                                <option value="1">Corporate</option>
+                                <option value="2">Consumer</option>
+                            </select>
+                        </div>
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addData')">Close</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
+                        </div>     
+                    </form>
+                    <p> {{addResult}} </p>  
+                </div>        
+            </dialog>
+
+            <dialog id="addField" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                    <p>
+                        Please enter the details.
+                    </p>
+                    <form class="add-field-form" ng-submit="addField()">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="fieldName">Field Name</label>
+                            <input class="mdl-textfield__input" type="text" id="fieldName" ng-model="field.name">
+                        </div>
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addField')">Close</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
+                        </div>     
+                    </form>
+                    <p> {{addResult}} </p>  
+                </div>        
+            </dialog>
+
+            <dialog id="deleteField" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                    <p>
+                        Please select the field.
+                    </p>
+                    <form class="delete-field-form" ng-submit="deleteField()">
+                        <select ng-model="fieldSelected">
+                            <option ng-repeat="field in gridOptions.columnDefs">{{field.displayName}}</option>
+                        </select> 
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteField')">Close</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Delete</button> 
+                        </div>     
+                    </form>
+                    <p> {{addResult}} </p>  
+                </div>        
+            </dialog>
+
+            <dialog id="addToMailingList" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                    <p>
+                        Please select Mailing List.
+                    </p>
+                    <form class="add-to-mailinglist" ng-submit="addToMailingList()">
+                        <select ng-model="listSelected">
+                            <option ng-repeat="list in mailingList">{{list.listName}}</option>
+                        </select>
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addToMailingList')">Close</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
+                        </div>     
+                    </form>
+                    <p> {{addResult}} </p>  
+                </div>        
+            </dialog>
+                
+            <dialog id="removeDuplicate" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                    <p>
+                        Please select the field.
+                    </p>
+                    <form class="remove-duplicate-form" ng-submit="removeDuplicate()">
+                        <select ng-model="fieldSelected">
+                            <option ng-repeat="field in gridOptions.columnDefs">{{field.displayName}}</option>
+                        </select> 
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('removeDuplicate')">Close</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Remove</button> 
+                        </div>     
+                    </form>
+                    <p> {{addResult}} </p>  
+                </div>        
+            </dialog>
+        </div>
+    </div>
+</div>
+
+    
+
+
+
+    

@@ -1,0 +1,21 @@
+[
+      { "field": "firstName", "displayName": "First Name",  "minWidth":80, "width":150, "headerCellClass": "$scope.highlightFilteredHeader" },
+      { "field": "lastName", "displayName": "Last Name",  "minWidth":80, "width":150, "headerCellClass": "$scope.highlightFilteredHeader" },
+      { "field": "company", "displayName": "Company", "minWidth":80, "width":150, "headerCellClass": "$scope.highlightFilteredHeader" },
+      { "field": "email", "displayName": "Email", "minWidth":80, "width":200, "enableCellEdit": false, "headerCellClass": "$scope.highlightFilteredHeader" },
+      { "field": "phone", "displayName": "Phone", "minWidth":80, "width":80, "enableCellEdit": false, "headerCellClass": "$scope.highlightFilteredHeader" },
+      { "field": "category", "displayName": "Category", "minWidth":80, "width":120, "headerCellClass": "$scope.highlightFilteredHeader" },
+      { "field": "type", "displayName": "Type", "editableCellTemplate": "ui-grid/dropdownEditor", "minWidth":80, "width":120, 
+      "filter": {
+        "type": "uiGridConstants.filter.SELECT",
+        "selectOptions": [ { "value": "1", "label": "Corporate" }, { "value": "2", "label": "Consumer"} ]
+        },
+        "cellFilter": "mapType", "editDropdownValueLabel": "type", "headerCellClass": "$scope.highlightFilteredHeader",
+        "editDropdownOptionsArray": [
+          { "id": 1, "type": "Corporate" },
+          { "id": 2, "type": "Consumer" }
+        ]},
+      { "field": "success", "displayName": "Success", "minWidth":80, "width":120, "headerCellClass": "$scope.highlightFilteredHeader" },
+      { "field": "failure", "displayName": "Failure", "minWidth":80, "width":120, "headerCellClass": "$scope.highlightFilteredHeader" },
+      { "field": "history", "displayName": "History", "minWidth":80, "width":120, "enableCellEdit": false, "enableFiltering": false, "enableSorting": false, "enableEdit": false, "cellTemplate": "<button class=\"btn primary\" ng-click=\"grid.appScope.showMe(row.entity.firstName)\">View</button>", "headerCellClass": "$scope.highlightFilteredHeader" }
+    ]

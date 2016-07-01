@@ -1,0 +1,15 @@
+<div ng-controller="viewMailListController" >
+    <br>
+    <ul class="nav nav-tabs">
+        <li class=""><a ui-sref="leadlist" data-toggle="tab">LeadList</a></li>
+        <li class=""><a ui-sref="maillist" data-toggle="tab">Mailing List</a></li>
+        <li class="active"><a ui-sref="blacklist" data-toggle="tab">BlackList</a></li>
+    </ul>
+	<br><br>
+    <div class="container">
+        <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-edit class="grid"></div>
+        <div><p> Mailing List: {{mailListResult}}</p></div>
+        <br>
+        <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Selected</button>
+    </div>
+</div>
