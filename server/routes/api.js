@@ -226,12 +226,9 @@ apiRouter.route('/contacts/mailingList')
     }
   })
   /*  ===SAMPLE POST JSON===
-  [
       {
-      "listName": "PostingList1",
-    //  "apiKey": "a21a2e3e5898ad6e1d50046f8c33b8ff-us13"
+        "listName": "PostingList1"
       }
-  ]
   */
   .post(function(req,res){
     if(!req.body)
@@ -267,7 +264,11 @@ apiRouter.route('/contacts/mailingList')
     else{
       /*Required Steps: (Mailchimp Server, App Server)
         1) Remove mailing list from mailchimp
-        2) When completed remove the list from app server*/
+        2) When completed remove the list from app server
+        {
+          "listID": ""
+        }
+        */
         MailchimpManager.deleteList(apiKey,req.body.listID)//1-
           .then(function(MCResults)
           {
@@ -286,35 +287,36 @@ apiRouter.route('/contacts/mailingList')
         1) Update mailchimp with new name
         2) Update app server with new name*/
         /* ===SAMPLE JSON POST ===
+          
+        [
           {
-              "update":
-              [{
             "listID":"ba458816f3",
             "name":"PL3"
-            },{
+          },
+          {
             "listID":"ba458816f3",
             "name":"PL4test"
-            }
-            ]
           }
+        ]
+          
         */
-        MailchimpManager.getListInformation(apiKey,req.body.update[1].listID).then(function(results)
+        MailchimpManager.getListInformation(apiKey,req.body[1].listID).then(function(results)
         {
           console.log(results);
           var temp ={
-                listID: results.id,
-                name: req.body.update[1].name,
-                  contact : results.contact,
-                 permission_reminder:results.permission_reminder,
-                 campaign_defaults:results.campaign_defaults,
-                 email_type_option: results.email_type_option
+            listID: results.id,
+            name: req.body[1].name,
+            contact : results.contact,
+            permission_reminder:results.permission_reminder,
+            campaign_defaults:results.campaign_defaults,
+            email_type_option: results.email_type_option
           }
     //package the retrieve information
         console.log(temp);
-        MailchimpManager.updateList(apiKey,req.body.update[1].listID, temp)
+        MailchimpManager.updateList(apiKey,req.body[1].listID, temp)
           .then(function(MCResults)
           {
-            MailinglistManager.updateList(res,'mailinglists',req.body.update,returnStatusCode);
+            MailinglistManager.updateList(res,'mailinglists',req.body,returnStatusCode);
           }).catch(function(MCError)
           {
             console.log(MCError);
