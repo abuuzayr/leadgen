@@ -24,9 +24,15 @@ var MailinglistManager = {
 				listID:lID,
 				email_hash:sHash
 			}
+			var object2={
+				firstName:obj.firstName,
+				lastName:obj.lastName
+			}
+			console.log('updating');
 			console.log(object1);
-			console.log(obj);
-			dbHandler.dbUpdate(collectionName,object1,obj)
+			console.log('with');
+			console.log(object2);
+			dbHandler.dbUpdate(collectionName,object1,object2)
 			.then(function(results){
 				resolve(results);
 			})

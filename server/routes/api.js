@@ -120,7 +120,7 @@ apiRouter.route('/contacts/leadList/leads')
             var promiseArr = [];
             for(var i=0;i<results.length;i++)
             {
-              promiseArr.push(updateContact(results[i],originObj.firstName,originObj.lastName,req.body));
+              promiseArr.push(updateContact(results[i],newObj.firstName,newObj.lastName,newObj));
               console.log(results[i]);
             }
             Promise.all(promiseArr)
@@ -778,16 +778,14 @@ var updateContact = function(results,firstName,lastName,body)
           .then(function(MCresults){
             MailinglistManager.updateMemberInfo('mailinglists',body,results.listID,results.email_hash)
             .then(function(MLResults){
-              console.log("update success");
-              resolve(MLResults);
-              }).catch(function(MLerror)
-              {
+	              console.log("update success");
+	              resolve(MLResults);
+              }).catch(function(MLerror){
               console.log(MLerror);
               })
-            }).catch(function(MCerror)
-              {
+            }).catch(function(MCerror){
                 console.log(MCerror);
-              })
+             })
 
   })
   }
