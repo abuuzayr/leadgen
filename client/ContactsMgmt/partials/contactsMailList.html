@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="assets/css/mailList.css" />
+
 <div ng-controller="mailListController" > 
     <br> 
     <ul class="nav nav-tabs">
@@ -5,12 +7,14 @@
         <li class="active"><a ui-sref="maillist" data-toggle="tab">Mailing List</a></li>
         <li class=""><a ui-sref="blacklist" data-toggle="tab">BlackList</a></li>
     </ul>
-    <br>
-    <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"  style="background-color:#F2F1F1;"></div>
-    <br>
-    <button ng-click="openDialog('addMailList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Mailing List</button>
-    <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Mailing List</button>
-    
+    <br><br>
+    <div class="mailGrid">
+        <div class="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns></div>
+        <br>
+        <button ng-click="openDialog('addMailList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Mailing List</button>
+        <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Mailing List</button>
+    </div>
+
     <dialog id="addMailList" class="mdl-dialog" >
         <div class="mdl-dialog__content">
             <p>

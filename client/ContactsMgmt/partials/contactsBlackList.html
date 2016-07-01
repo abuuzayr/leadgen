@@ -14,14 +14,16 @@
             <button ng-click="openDialog('addDomain')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored pull-right"><i class="material-icons md-48">add_circle</i></button>
             <button ng-click="openDialog('deleteDomain')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent pull-right"><i class="material-icons md-48">remove_circle</i></button>
             <br><br>
-            <div ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns style="background-color:#F2F1F1;"></div>
+            <div ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns></div>
         </div>
     </div>
     <br><br><br><br><br><br>
-    <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"  style="background-color:#F2F1F1;"></div>
-    <br>
-    <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Blacklead(s)</button>
-    <br><br>
+    <div class="container">
+        <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"></div>
+        <br>
+        <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Blacklead(s)</button>
+        <br><br>
+    </div>
 
     <dialog id="addDomain" class="mdl-dialog" >
         <div ng-controller="domainsController" class="mdl-dialog__content">
