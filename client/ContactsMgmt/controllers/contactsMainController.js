@@ -44,15 +44,14 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     importerDataAddCallback: function ( grid, newObjects ) {
       $scope.gridOptions.data = $scope.gridOptions.data.concat( newObjects );
     },
-  };
-
-  $scope.gridOptions.onRegisterApi= function ( gridApi ) {
+    onRegisterApi: function (gridApi) {
     $scope.gridApi = gridApi;
     //save after edit
     gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
       console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
       $scope.$apply();
     });
+  }
   };
 
   //Get columndefs
