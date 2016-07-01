@@ -41,7 +41,6 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     enableSorting: true,
     enableFiltering: true,
     showGridFooter:true,
-    minWidth: 500,
     importerDataAddCallback: function ( grid, newObjects ) {
       $scope.gridOptions.data = $scope.gridOptions.data.concat( newObjects );
     },
