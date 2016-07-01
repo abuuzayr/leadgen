@@ -15,7 +15,7 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.sel
 		   .state('blacklist', {
  	        url: '/blacklist',
 			 templateUrl: 'ContactsMgmt/partials/contactsBlackList.html',
-			 controller: 'contactsMainController'
+			 controller: 'blackListController'
  	      })
 			.state('maillist', {
 			 url: '/maillist',
