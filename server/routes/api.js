@@ -9,11 +9,12 @@ md5 = require('blueimp-md5'),
 MailinglistManager = require('../MailinglistManager/mailinglist-manager'),
 MailchimpManager= require('../MailchimpManager/syncContacts');
 
+var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
+
 apiRouter.use('/',jsonParser,function(req,res,next){
   console.log('Welcome to the API page');
   next();
-})
-var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
+});
 
 /*
 CRUD on leads
@@ -83,25 +84,43 @@ apiRouter.route('/contacts/leadList/leads')
         4) Update mail chimp server then app server
         6) Update the contacts 
         === SAMPLE POST ===
+       [
         {
-          "contact":"",
-          "firstName":"",
-          "lastName":"",
-          "origin": ""
+          "_id": "5775cd2213c50d6605ef938e",
+          "firstName": "GRU",
+          "lastName": "TEST",
+          "email": null,
+          "companyName": "Fichtner (Asia) Pte Ltd",
+          "phoneNumber": "+65 6227 0227",
+          "category": "engineering",
+          "type": 1,
+          "origin": 1
+        },
+        {
+          "_id": "5775cd3013c50d6605ef938f",
+          "firstName": null,
+          "lastName": null,
+          "email": null,
+          "companyName": "Fichtner (Asia) Pte Ltd",
+          "phoneNumber": "+65 6227 0227",
+          "category": "engineering",
+          "type": 1,
+          "origin": 1
         }
-        */
-    var cid= req.body.contactID;
+      ]*/
+    var originObj = req.body[0];
+    var newObj = req.body[1];
+    var cid= originObj._id;
     var temp={
       contactID:cid
     }
     MailinglistManager.getMailingListMemberInfo('mailinglists',temp)
         .then(function(results){    
-          if(results.length!=0)
-          {
+          if(results.length!=0){
             var promiseArr = [];
             for(var i=0;i<results.length;i++)
             {
-              promiseArr.push(updateContact(results[i],req.body.firstName,req.body.lastName,req.body));
+              promiseArr.push(updateContact(results[i],originObj.firstName,originObj.lastName,req.body));
               console.log(results[i]);
             }
             Promise.all(promiseArr)
@@ -115,10 +134,16 @@ apiRouter.route('/contacts/leadList/leads')
             {
               console.log(error);
             })
-          }else
-          {
-          returnStatusCode(res,200);
-        }
+          }else{
+            ContactsManager.updateContacts(req.body)
+            .then(function(results){
+              res.sendStatus(results);
+            })
+            .catch(function(error){
+              res.sendStatus(error);
+            })
+            
+          }
       }).catch(function(error)
       {
         console.log(error);   
