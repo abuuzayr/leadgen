@@ -150,7 +150,6 @@ apiRouter.route('/contacts/leadList/leads')
       })
     }
   });
-
 apiRouter.delete('/contacts/leadList/leads/duplicate',jsonParser,function(req,res){
   if(!req.body)
     res.sendStatus(400);
@@ -164,7 +163,6 @@ apiRouter.delete('/contacts/leadList/leads/duplicate',jsonParser,function(req,re
     })
   }
 })
-
 apiRouter.get('/contacts/leadList/leads/:id',function(req,res){
   //TODO return history of lead
   if(!req.params.id)
@@ -182,7 +180,6 @@ apiRouter.get('/contacts/leadList/leads/:id',function(req,res){
     })
   }
 })
-
 apiRouter.post('/contacts/leadList/import',jsonParser,function(req,res){
   if(!req.body)
     res.sendStatus(400);
@@ -194,7 +191,6 @@ apiRouter.post('/contacts/leadList/import',jsonParser,function(req,res){
     }
   }
 });
-
 /*
 CRUD on leads list
 */
@@ -298,7 +294,6 @@ apiRouter.route('/contacts/mailingList')
             "name":"PL4test"
           }
         ]
-          
         */
         MailchimpManager.getListInformation(apiKey,req.body[1].listID).then(function(results)
         {
@@ -334,6 +329,18 @@ apiRouter.route('/contacts/mailingList')
       /* 1) Add subscriber into mailchimp according to list 
          2) After creating the batch, add the members in mailing list table
          addMemberToList: function(apiKey,listID,memberInfo)
+        
+		{
+			"listID": "",
+			"name": "",
+			"memberInfo" : "[
+			{
+                    "_id" : "21345",
+             	   "email" : "aaa@jobs.com",
+                  "firstName": "aa",
+                  "lastName": "AA"
+               },,,,,,,]"
+		}
         =====SAMPLE POST =====
              {
             "listID": "4467d29715",
@@ -368,14 +375,13 @@ apiRouter.route('/contacts/mailingList')
             }
       // */
       var memberinfoMC=[];
-      for(var i=0;i<req.body.memberInfo.length;i++)
-      {
+      for(var i=0;i<req.body.memberInfo.length;i++){
         var temp={
-          status:req.body.memberInfo[i].subscriberStatus,
-          email_address:req.body.memberInfo[i].email_addr,
+          status: 'subscribed',
+          email_address:req.body.memberInfo[i].email,
           merge_fields:{
-            FNAME:req.body.memberInfo[i].merge_fields.firstName,
-            LNAME:req.body.memberInfo[i].merge_fields.lastName
+            FNAME:req.body.memberInfo[i].firstName,
+            LNAME:req.body.memberInfo[i].lastName
           }
         }
         memberinfoMC.push(temp);
@@ -388,13 +394,13 @@ apiRouter.route('/contacts/mailingList')
         for(var i = 0; i<req.body.memberInfo.length;i++)
         {
           var temp={
-            contactID:req.body.memberInfo[i].contactID,
+            contactID:req.body.memberInfo[i]._id,
             listID: req.body.listID,
             name: req.body.name,
-            email_addr: req.body.memberInfo[i].email_addr,
-            email_hash: md5(req.body.memberInfo[i].email_addr),
-            firstName: req.body.memberInfo[i].merge_fields.firstName,
-            lastName: req.body.memberInfo[i].merge_fields.lastName,
+            email_addr: req.body.memberInfo[i].email,
+            email_hash: md5(req.body.memberInfo[i].email),
+            firstName: req.body.memberInfo[i].firstName,
+            lastName: req.body.memberInfo[i].lastName,
             subscriberStatus: 'subscribed'
           }
           console.log(temp);
@@ -427,11 +433,11 @@ apiRouter.route('/contacts/mailingList')
             */
             var promiseArr = [];
             for(var i=0;i<req.body.delete.length;i++){
-              promiseArr.push(MailchimpManager.deleteMember(apiKey,req.body.delete[i].listID,req.body.delete[i].email_hash));
+              promiseArr.push(MailchimpManager.deleteMember(apiKey,req.body[i].listID,req.body[i].email_hash));
             }
             Promise.all(promiseArr)
             .then(function(MCresults){    
-            MailinglistManager.deleteMember(res,'mailinglists',req.body.delete,returnStatusCode);
+            MailinglistManager.deleteMember(res,'mailinglists',req.body,returnStatusCode);
             }).catch(function(MCerror)
               {
                 console.log(MCerror);
@@ -461,10 +467,6 @@ apiRouter.route('/dropcollection')
       MailinglistManager.dbDropCollection(res,'leadList',returnStatusCode);
         }
       });
-
-
-
-
 /*
 CRUD on fields
 */
@@ -521,8 +523,6 @@ apiRouter.route('/contacts/leadList/fields')
       }
     }
   });
-
-
 /*
   BlackList API
 */
@@ -574,7 +574,6 @@ apiRouter.route('/contacts/blackList/domain')
       }
     }
   })
-
 apiRouter.route('/contacts/blackList')
   .get(function(req,res){
     ContactsManager.displayList('blackList',null)
@@ -598,8 +597,6 @@ apiRouter.route('/contacts/blackList')
       })
     }
   })
-
-
 /*
 Scraping API
 */
@@ -674,10 +671,6 @@ apiRouter.post('/corporate/scrape/',jsonParser,function(req,res){
     }
   }
 })
-
-
-
-
 apiRouter.post('/populateTest',function(req,res){
     if(!req.body)
       returnStatusCode(res,400);
@@ -692,16 +685,13 @@ apiRouter.post('/populateTest',function(req,res){
       });
     }
   });
-
-
 var displayResultsCallback = function(res,results){
   res.json(results);
 };
 var returnStatusCode = function(res,statusCode){
   res.sendStatus(statusCode);
 };
-var deleteContact = function(cid)
-  {
+var deleteContact = function(cid){
     return new Promise (function(resolve,reject) {
       /* User removes user from contacts, ripple effects to mailchimp and mailing list
       Required Steps: (Mailchimp Server, App Server)
@@ -759,7 +749,6 @@ var deleteContact = function(cid)
       {
         reject(500);    
       })
-
   })
   }
 var updateContact = function(results,firstName,lastName,body)
