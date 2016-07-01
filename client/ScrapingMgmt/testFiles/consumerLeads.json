@@ -1,0 +1,18 @@
+[
+    {
+        "firstName": "Black Panther",
+        "lastName": "and Captain America",
+        "email": "dp@email.com",
+        "company": "House",
+        "number": 921,
+        "category": "IT"
+    },
+    {
+        "firstName": "Finding Dory",
+        "lastName": "and finding nemo",
+        "email": "nysm2@pirate.com",
+        "company": "Magic",
+        "number": 777,
+        "category": "Retail"
+    }
+]

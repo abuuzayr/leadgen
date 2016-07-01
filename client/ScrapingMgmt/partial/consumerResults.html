@@ -1,28 +1,30 @@
-<div class="container">
-    <div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>
-<div class="results">
-    <h3>Results</h3>
-    <br>
-    <div ng-controller="consumerResultController as cr" >
-    <div id="grid2" ui-grid="cr.gridOptions" class="grid" ui-grid-selection></div>
-
-    <h4>Total Contacts Scraped: {{cr.resultsLength}}</h4>
+<link rel="stylesheet" type="text/css" href="assets/css/scrapConsumerResult.css">
+<!--<div class="container">    -->
+    <!--<div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>-->
     
-    <!-- Accent-colored raised button with ripple -->
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="cr.deleteSelected()">
-        Deleted Selected
-    </button>
+    <div class="results">
+        <h3>Results</h3>
+        <br>
+        <div ng-controller="consumerResultController as cr" >
+        <div id="grid2" ui-grid="cr.gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns></div>
 
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="cr.showFunction(); cr.saveToContacts()">
-        Add to Contacts
-    </button>
+        <h4>Total Contacts Scraped: {{cr.resultsLength}}</h4>
+    
+        <!-- Accent-colored raised button with ripple -->
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="cr.deleteSelected()">
+            Deleted Selected
+        </button>
 
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-show="cr.showResult">
-    {{ cr.responseMessage }}
-    <i class="material-icons" ng-show="cr.symbol">done</i>
-    <i class="material-icons" ng-hide="cr.symbol">clear</i>
-    </button>
-    </div>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="cr.showFunction(); cr.saveToContacts(); cr.clearData(); cr.addSelected()">
+            Add to Contacts
+        </button>
+
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-show="cr.showResult">
+            {{ cr.responseMessage }}
+            <i class="material-icons" ng-show="cr.symbol">done</i>
+            <i class="material-icons" ng-hide="cr.symbol">clear</i>
+        </button>
+        </div>
     <br><br>
-</div>
-</div>
+    </div>
+<!--</div>-->

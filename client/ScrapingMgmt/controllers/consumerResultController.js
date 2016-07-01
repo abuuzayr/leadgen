@@ -1,23 +1,25 @@
-app.controller('consumerResultController', ['$scope', 'consumerShareData', 'sendResults', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', '$anchorScroll', function ($scope, consumerShareData, sendResults, $http, uiGridConstants, $q, $location, $timeout, $anchorScroll) {
+app.controller('consumerResultController', ['$scope', 'consumerShareData', 'sendResults', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', function ($scope, consumerShareData, sendResults, $http, uiGridConstants, $q, $location, $timeout) {
 
     var cr = this;
+    
     cr.gridOptions = {
     enableSorting: true,
     enableFiltering: true,
+    minRowsToShow: 10,
     data:[],
     columnDefs: [
-      { field: 'firstName', displayName: 'First Name', headerCellClass: cr.highlightFilteredHeader },
-      { field: 'lastName', displayName: 'Last Name', headerCellClass: cr.highlightFilteredHeader },
-      { field: 'email', displayName: 'Email', headerCellClass: cr.highlightFilteredHeader },
-      { field: 'company', displayName: 'Company', headerCellClass: cr.highlightFilteredHeader },
-      { field: 'number', displayName: 'Phone No.', headerCellClass: cr.highlightFilteredHeader },
-      { field: 'category', displayName: 'Category', headerCellClass: cr.highlightFilteredHeader },
+      { field: 'firstName', displayName: 'First Name', minWidth:80, width:150, headerCellClass: cr.highlightFilteredHeader },
+      { field: 'lastName', displayName: 'Last Name', minWidth:80, width:150, headerCellClass: cr.highlightFilteredHeader },
+      { field: 'email', displayName: 'Email', minWidth:80, width:200, headerCellClass: cr.highlightFilteredHeader },
+      { field: 'company', displayName: 'Company', minWidth:80, width:150, headerCellClass: cr.highlightFilteredHeader },
+      { field: 'number', displayName: 'Phone No.', minWidth:80, width:150, headerCellClass: cr.highlightFilteredHeader },
+      { field: 'category', displayName: 'Category', minWidth:80, width:150, headerCellClass: cr.highlightFilteredHeader },
     ],
     onRegisterApi: function( gridApi ) {
       cr.gridApi = gridApi;
     }
   };
-
+  
     cr.gridOptions.data = consumerShareData.getData();
     cr.resultsLength = cr.gridOptions.data.length;
     
@@ -49,9 +51,37 @@ app.controller('consumerResultController', ['$scope', 'consumerShareData', 'send
   cr.responseMessage = "";
   cr.symbol = true;
 
+  cr.clearData = function() {
+    consumerShareData.clearData();
+  }
+
+  var dataToContacts = [];
+
+  cr.addSelected = function () {
+    dataToContacts= [];
+    angular.forEach(cr.gridApi.selection.getSelectedRows(), function (data, index) {
+      dataToContacts.push(data);
+      // dataToContacts = data;
+      console.log('1.selected data is ' + dataToContacts);
+      console.log('2.data is ' + data);
+
+      // callback();
+    });
+  }
+
   cr.saveToContacts = function() {
-    var myJsonString = JSON.stringify(cr.gridOptions.data);
-    var response = $http.post('/api/Corporate/scrap',myJsonString);
+    var myJsonString;
+    console.log('3.selected data is ' + dataToContacts);
+
+    // if none selected, save all
+    if (dataToContacts.length === 0) {
+        myJsonString = JSON.stringify(cr.gridOptions.data);
+    } else {
+      //save the selected contacts
+      myJsonString = JSON.stringify(dataToContacts);
+    }
+
+    var response = $http.post('/api/Consumer/scrap',myJsonString);
     response.success(function(data) {
       cr.responseMessage = "Saved to Contacts!";
     });
@@ -60,19 +90,5 @@ app.controller('consumerResultController', ['$scope', 'consumerShareData', 'send
       cr.symbol = false;
     })
   }
-
-  // rc.print = function() {
-  //   console.log('print leads after delete');
-  //   console.log(rc.gridOptions.data);
-  // };
-  
-  cr.postResponse = ""; 
-
-  // sendResults.sendLeads(rc.gridOptions.data).then(function successCallback(res) {
-  //   rc.postResponse = "Saved to Contacts!";
-  // }), function errorCallback(err) {
-  //   rc.postResponse = "Unable to Save to Contacts";
-  //   rc.symbol = false;
-  // }
 
 }]);

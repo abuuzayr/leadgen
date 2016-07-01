@@ -9,11 +9,11 @@
     <br>
     <div class='controlButtons'>
       <!-- Colored mini FAB button -->
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.transfer()">
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.transfer()" ng-disabled="cs.pressStop">
         <i class="material-icons">play_arrow</i>
       </button>
 
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.pauseScraping()">
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.pauseScraping()" ng-disabled="cs.pressStop">
         <i class="material-icons">pause</i>
       </button>
 
@@ -23,7 +23,11 @@
       
       <!-- Raised button -->
       <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="cs.showResult">
-        {{cs.scrapMessage}}
+        Scraping Stopped
+      </button>
+
+      <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="cs.status">
+        Scraping Stopped. There is no Internet Connection
       </button>
 
       <!-- Colored raised button -->

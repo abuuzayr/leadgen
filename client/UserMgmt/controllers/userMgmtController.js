@@ -19,16 +19,21 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
     enableSorting: true,
     enableFiltering: true,
     showGridFooter:true,
+    minRowsToShow: 10,
     columnDefs: [
-      { field: 'firstName', displayName: 'First Name', enableCellEdit: true,  headerCellClass: uc.highlightFilteredHeader },
-      { field: 'lastName', displayName: 'Last Name', headerCellClass: uc.highlightFilteredHeader },
-      { field: 'role', displayName: 'Role', filter: {
+      { field: 'firstName', displayName: 'First Name', minWidth:80, width:150, enableCellEdit: true,  headerCellClass: uc.highlightFilteredHeader },
+      { field: 'lastName', displayName: 'Last Name', minWidth:80, width:150, headerCellClass: uc.highlightFilteredHeader },
+      { field: 'role', displayName: 'Role', minWidth:80, width:120, filter: {
         type: uiGridConstants.filter.SELECT,
         selectOptions: [ { value: '1', label: 'Admin' }, { value: '2', label: 'User' } ]
         },
-        cellFilter: 'mapType', headerCellClass: uc.highlightFilteredHeader },
-      { field: 'email', displayName: 'Email', headerCellClass: uc.highlightFilteredHeader },
-      { field: 'phone', displayName: 'Phone', headerCellClass: uc.highlightFilteredHeader },
+        cellFilter: 'mapType', headerCellClass: uc.highlightFilteredHeader, 
+        editDropdownValueLabel: 'gender', editableCellTemplate: 'ui-grid/dropdownEditor',
+        editDropdownOptionsArray: [
+          { id: 1, gender: 'Admin' },
+          { id: 2, gender: 'User' } ]},
+      { field: 'email', displayName: 'Email', minWidth:80, width:200, headerCellClass: uc.highlightFilteredHeader },
+      { field: 'phone', displayName: 'Phone', minWidth:80, width:150, headerCellClass: uc.highlightFilteredHeader },
     ],
     // onRegisterApi: function(gridApi){
     //   uc.gridApi = gridApi;
@@ -94,7 +99,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 
       //save after edit
       gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
-            // console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
+            console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
             $scope.$apply();
           });
     };

@@ -1,8 +1,14 @@
-<div class="container">
+
  
-  <div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>
+  <!--<div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>-->
   
   <div ng-controller="consumerScrapController as cs">
+
+    <ul class="nav nav-tabs">
+      <li><a ui-sref="corporate" data-toggle="tab">Corporate</a></li>
+      <li class="active"><a ui-sref="consumer" data-toggle="tab">Consumer</a></li>
+    </ul>
+  <div class="container">  
   <form role="form">
     <div class="form-group">
         <br>
@@ -18,12 +24,6 @@
 
       <!--{{gc.input.category}}
       {{gc.input.country}} -->
-
-      <!--input type="submit" class="btn btn-info" value="Scrap"-->
-      <!--<div ng-controller="googleController as gc">
-      <a ui-sref=".businessStartScrap">
-        <button type="button" class="btn btn-info">Proceed to Scrape</button>
-      </a>-->
 
       <!-- Accent-colored raised button with ripple -->
       <a ui-sref=".consumerStartScrap">

@@ -6,12 +6,12 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
     enableFiltering: true,
     data:[],
     columnDefs: [
-      { field: 'firstName', displayName: 'First Name', headerCellClass: rc.highlightFilteredHeader },
-      { field: 'lastName', displayName: 'Last Name', headerCellClass: rc.highlightFilteredHeader },
-      { field: 'email', displayName: 'Email', headerCellClass: rc.highlightFilteredHeader },
-      { field: 'company', displayName: 'Company', headerCellClass: rc.highlightFilteredHeader },
-      { field: 'number', displayName: 'Phone No.', headerCellClass: rc.highlightFilteredHeader },
-      { field: 'category', displayName: 'Category', headerCellClass: rc.highlightFilteredHeader },
+      { field: 'firstName', displayName: 'First Name', minWidth:80, width:150, headerCellClass: rc.highlightFilteredHeader },
+      { field: 'lastName', displayName: 'Last Name', minWidth:80, width:150, headerCellClass: rc.highlightFilteredHeader },
+      { field: 'email', displayName: 'Email', minWidth:80, width:200, headerCellClass: rc.highlightFilteredHeader },
+      { field: 'company', displayName: 'Company', minWidth:80, width:150, headerCellClass: rc.highlightFilteredHeader },
+      { field: 'number', displayName: 'Phone No.', minWidth:80, width:150, headerCellClass: rc.highlightFilteredHeader },
+      { field: 'category', displayName: 'Category', minWidth:80, width:150, headerCellClass: rc.highlightFilteredHeader },
     ],
     onRegisterApi: function( gridApi ) {
       rc.gridApi = gridApi;
@@ -53,18 +53,17 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
     // rc.gridOptions.data = [];
     // rc.resultsLength = 0;
     shareData.clearData();
-    // $route.reload();
   }
 
   var dataToContacts= [];
 
   rc.addSelected = function () {
-    var dataToContacts= [];
+    dataToContacts= [];
     angular.forEach(rc.gridApi.selection.getSelectedRows(), function (data, index) {
       dataToContacts.push(data);
       // dataToContacts = data;
-      console.log('selected data is ' + dataToContacts);
-      console.log('data is ' + data);
+      console.log('1.selected data is ' + dataToContacts);
+      console.log('2.data is ' + data);
 
       // callback();
     });
@@ -72,7 +71,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
   
   rc.saveToContacts = function() {
     var myJsonString;
-    console.log('selected data is ' + dataToContacts);
+    console.log('3.selected data is ' + dataToContacts);
 
     // if none selected, save all
     if (dataToContacts.length === 0) {

@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection','ui.grid.edit'] );
+var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection','ui.grid.edit', 'ui.grid.autoResize', 'ui.grid.resizeColumns'] );
 
 	app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 	    $urlRouterProvider.otherwise('/');
@@ -17,21 +17,25 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.sel
 			 templateUrl: 'ContactsMgmt/partials/contactsBlackList.html',
 			 controller: 'contactsMainController'
  	      })
-           .state('business', {
-               url: '/business',
-			   templateUrl: 'ScrapingMgmt/partial/businessBeforeScrap.html',
+		   .state('leadFinder', {
+               url: '/lead-finder',
+			   templateUrl: 'ScrapingMgmt/partial/leadsFinderMain.html',
 			   controller: 'googleController'
            })
+           .state('corporate', {
+               url: '/corporate',
+			   templateUrl: 'ScrapingMgmt/partial/corporateBeforeScrap.html',
+           })
 
-		   .state('business.businessStartScrap', {
-			   url: '/startScraping',
-			   templateUrl: 'ScrapingMgmt/partial/businessScrap.html',
+		   .state('corporate.corporateStartScrap', {
+			   url: '/scraping',
+			   templateUrl: 'ScrapingMgmt/partial/corporateScrap.html',
 			   controller: 'googleController'
 		   })
 
-		   .state('businessResults', {
-			   url: '/scrapResults',
-			   templateUrl: 'ScrapingMgmt/partial/businessResults.html',
+		   .state('corporateResults', {
+			   url: '/corporate-results',
+			   templateUrl: 'ScrapingMgmt/partial/corporateResults.html',
 			   controller: 'resultController'
 		   })
 
@@ -41,12 +45,12 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.sel
            })
 
 		   .state('consumer.consumerStartScrap', {
-           		url: '/consumerStartScraping',
+           		url: '/scraping',
 				templateUrl: 'ScrapingMgmt/partial/consumerScrap.html'
            })
 
 		   .state('consumerResults', {
-			   url: '/consumerScrapResults',
+			   url: '/consumer-results',
 			   templateUrl: 'ScrapingMgmt/partial/consumerResults.html',
 		   })
 

@@ -1,10 +1,12 @@
-<div class="container">
-    <div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>
+<link rel="stylesheet" type="text/css" href="assets/css/scrapBizResult.css">
+<!--<div class="container">-->
+
 <div class="results">
     <h3>Results</h3>
     <br>
     <div ng-controller="resultController as rc" >
-    <div id="grid2" ui-grid="rc.gridOptions" class="grid" ui-grid-selection></div>
+
+    <div id="grid2" ui-grid="rc.gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns></div>
 
     <h4>Total Contacts Scraped: {{rc.resultsLength}}</h4>
     
@@ -13,7 +15,7 @@
         Deleted Selected
     </button>
 
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.showFunction(); rc.saveToContacts(); rc.clearData(); rc.addSelected()">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.showFunction(); rc.addSelected(); rc.saveToContacts(); rc.clearData()">
         Add to Contacts
     </button>
 
@@ -25,4 +27,4 @@
     </div>
     <br><br>
 </div>
-</div>
+<!--</div>-->

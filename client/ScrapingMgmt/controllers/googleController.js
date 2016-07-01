@@ -63,7 +63,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
         if (angular.isDefined(stop) /*&& stop !== 1*/) {
             return;
         
-        } else if(navigator.onLine === false) {
+        } else if (navigator.onLine === false) {
             console.log('2.the server is ' + navigator.onLine);
             gc.pauseScraping();
 
@@ -100,7 +100,12 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             } else {
                 console.log('continue scraping');
                 googleResults.continueScrape().then(function successCallback(res) {
-                    if (angular.isDefined(res.data.status)) {
+                    // signal to stop scraping
+                    if (angular.isDefined(res.data.status) && res.data.status === 205) {
+                        gc.stopScraping();
+                        //show the 'view results' button
+                        gc.showFunction();
+                    } else if (angular.isDefined(res.data.status)) {
                         gc.stopScraping();
                         //show the 'view results' button
                         gc.showFunction();
@@ -140,8 +145,6 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
     }
 
     gc.showResult = false;
-    // gc.scrapMessage = "Scraping Stopped";
-    
     gc.showFunction = function() {
         gc.showResult = true;
     };

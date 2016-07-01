@@ -6,7 +6,6 @@ app.factory('consumerShareData',function() {
     }
 
     var getData = function() {
-        //console.log(saveData);
         return savedData;
     }
 
@@ -15,9 +14,14 @@ app.factory('consumerShareData',function() {
         console.log('new lead is ' + newLead);
     }
 
+    var clearData = function() {
+        savedData = [];
+    }
+
     return {
         setData: setData,
         getData: getData,
-        addLead: addLead
+        addLead: addLead,
+        clearData: clearData
     }
 });

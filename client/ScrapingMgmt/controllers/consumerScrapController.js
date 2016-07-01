@@ -1,7 +1,8 @@
-app.controller('consumerScrapController', ['$scope', 'googleResults', 'ypResults', 'consumerShareData', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval',
-                function ($scope, googleResults, ypResults, consumerShareData, $http, uiGridConstants, $q, $location, $timeout, $interval) {
+app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerShareData', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval',
+                function ($scope, consumerLeads, consumerShareData, $http, uiGridConstants, $q, $location, $timeout, $interval) {
   
     var cs = this;
+    
     cs.gridOptions = {
     enableSorting: true,
     enableFiltering: true,
@@ -28,70 +29,59 @@ app.controller('consumerScrapController', ['$scope', 'googleResults', 'ypResults
         }
     };
 
-   cs.dataListForGoogle = [];
-   cs.dataListForYP = [];
+   cs.dataList = [];
    cs.numScrap = 0;
    cs.messageNoScrap = "No more websites available";
 
    cs.input = {};
 
-    //get data from json file (google api)
-    console.log('getting data from google');
-    googleResults.firstTimeScrape().then(function successCallback(res) {
+    //get data from json file
+    consumerLeads.getConsumerLeads().then(function successCallback(res) {
+        cs.dataList = res.data;
         // console.log('res is ' + res.data);
-        cs.dataListForGoogle = res.data;
         // console.log('length is ' + gc.dataListForGoogle.length);
     }), function errorCallback(err) {
         console.log('err is ' + err);
     };
-
-    console.log('getting data from yellow page');
-    ypResults.scrapeYellowPageLeads().then(function successCallback(res) {
-        // console.log('res is ' + res.data);
-        cs.dataListForYP = res.data;
-        // console.log('length is ' + gc.dataListForGoogle.length);
-    }), function errorCallback(err) {
-        console.log('err is ' + err);
-    };
-
-    //googleResults.getGoogleLeads(gc.input.category,gc.input.country);
-    
-    // get data from json file (yellow page)
     
     var stop;
     var count = 0;
 
     cs.transfer = function() {
-        if(angular.isDefined(stop) /*&& stop !== 1*/) return;
+        if(angular.isDefined(stop)) {
+            return;
 
-        stop = $interval(function() {
-            if (cs.dataListForGoogle.length > 0) {
-                var popLead = cs.dataListForGoogle.pop();
-                console.log('pop lead is ' + popLead);
-                
+        } else if (navigator.onLine === false) {
+            // console.log('2.the server is ' + navigator.onLine);
+            gc.pauseScraping();
+
+        } else if (navigator.onLine === true) {
+            showInternet(navigator.onLine);
+
+            stop = $interval(function() {
+            if (cs.dataList.length > 0) {
+                var popLead = cs.dataList.pop();           
                 cs.gridOptions.data.push(popLead);
                 cs.numScrap = cs.gridOptions.data.length;
                 consumerShareData.addLead(popLead);
-
-            } else if (cs.dataListForYP.length > 0) {
-                var popYPLead = cs.dataListForYP.pop();
-                console.log('yp pop lead is ' + popLead);
-                
-                cs.gridOptions.data.push(popYPLead);
-                cs.numScrap = cs.gridOptions.data.length;
-                consumerShareData.addLead(popYPLead);
-
+ 
+            // if there is no internet connection, stop scraping, ask for internet
+            } else if (navigator.onLine === false) {
+                // console.log('3.the server is ' + navigator.onLine);
+                gc.pauseScraping();
+                showInternet(navigator.onLine);
+            
             } else {
-                console.log('continue scraping');
-                googleResults.continueScrape().then(function successCallback(res) {
+                // console.log('continue scraping');
+                consumerLeads.continueScrape().then(function successCallback(res) {
                     if (angular.isDefined(res.data.status)) {
                         cs.stopScraping();
                         //show the 'view results' button
                         cs.showFunction();
                     } else {
-                        console.log('res is ' + res.data);
-                        cs.dataListForGoogle = res.data;
-                        console.log('length is ' + cs.dataListForGoogle.length);
+                        // console.log('res is ' + res.data);
+                        cs.dataList = res.data;
+                        // console.log('length is ' + cs.dataListForGoogle.length);
                     }     
             }), function errorCallback(err) {
                     console.log('err is ' + err);
@@ -100,11 +90,12 @@ app.controller('consumerScrapController', ['$scope', 'googleResults', 'ypResults
                     cs.showFunction();
                 };
             }
-        },2000);
-    };
+            },2000);
+        };
+    }
 
     cs.pauseScraping = function() {
-        if(angular.isDefined(stop) /*&& stop !== 1*/) {
+        if(angular.isDefined(stop)) {
             $interval.cancel(stop);
             stop = undefined;
             
@@ -112,18 +103,29 @@ app.controller('consumerScrapController', ['$scope', 'googleResults', 'ypResults
     }
 
     //if press stop button, cannot continue scraping
+    cs.pressStop = false;
     cs.stopScraping = function() {
         if(angular.isDefined(stop)) {
             $interval.cancel(stop);
-            //stop = 1;
+            cs.pressStop = true;
         }
     }
 
-    cs.showResult = false;
-    cs.scrapMessage = "Scraping Stopped";
-    
+    cs.showResult = false; 
     cs.showFunction = function() {
         cs.showResult = true;
     };
+
+    //online = true, offline = false
+    var checkOnline = navigator.onLine;
+    cs.status = false;
+
+    var showInternet = function(checkOnline) {
+        if (checkOnline === true) {
+            cs.status = false;
+        } else if (checkOnline === false) {
+            cs.status = true;
+        }
+    }
 
 }]);

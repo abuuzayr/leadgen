@@ -1,8 +1,9 @@
-<div class="container">
- 
-  <div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>
-  
-  <div ng-controller="googleController as gc">
+<div ng-controller="googleController as gc">
+    <ul class="nav nav-tabs">
+      <li class="active"><a ui-sref="corporate" data-toggle="tab">Corporate</a></li>
+      <li><a ui-sref="consumer" data-toggle="tab">Consumer</a></li>
+    </ul>
+  <div class="container">
   <form role="form">
     <div class="form-group">
         <br>
@@ -23,14 +24,8 @@
       <!--{{gc.input.category}}
       {{gc.input.country}} -->
 
-      <!--input type="submit" class="btn btn-info" value="Scrap"-->
-      <!--<div ng-controller="googleController as gc">
-      <a ui-sref=".businessStartScrap">
-        <button type="button" class="btn btn-info">Proceed to Scrape</button>
-      </a>-->
-
       <!-- Accent-colored raised button with ripple -->
-      <a ui-sref=".businessStartScrap">
+      <a ui-sref=".corporateStartScrap">
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
         Proceed to Scrape
         </button>
@@ -40,6 +35,7 @@
   <div ui-view></div>
   <br>
   <br>
+  </div>
   </div>
 </div>
 

@@ -1,24 +1,15 @@
-<style>
-    .mdl-dialog__content {
-        height: 580px;
-    }
-
-    .mdl-textfield mdl-js-textfield {
-        margin-bottom: 10px;
-    }
-</style>
-
-<div class="page-container">      
-    <div class="container" ng-controller="userMgmtController as uc">
-      <div class="row row-offcanvas row-offcanvas-left">
-        
-         <!--include sidebar 
-        <div ng-include = "'UserMgmt/partial/userMgmtSideBar.html'"></div>-->
+<div class="page-container" ng-controller="userMgmtController as uc">      
 
         <!--include tabs-->
-         <div ng-include = "'UserMgmt/partial/userMgmtTabs.html'"></div>  
-         <br>
-         <div id="grid1" ui-grid="uc.gridOptions" ui-grid-selection ui-grid-edit class="grid"></div>
+         <!--<div ng-include = "'UserMgmt/partial/userMgmtTabs.html'"></div>-->
+         <ul class="nav nav-tabs">
+             <li><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
+             <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
+        </ul>
+         <div class="container">
+             <h3>Users</h3>
+             <div class="row row-offcanvas row-offcanvas-left">
+         <div id="grid1" ui-grid="uc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"></div>
          <br>
 
          <button ng-click="uc.openDialog('addData')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add lead</button>
