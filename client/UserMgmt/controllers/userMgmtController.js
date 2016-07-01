@@ -27,7 +27,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         type: uiGridConstants.filter.SELECT,
         selectOptions: [ { value: '1', label: 'Admin' }, { value: '2', label: 'User' } ]
         },
-        cellFilter: 'mapType', headerCellClass: uc.highlightFilteredHeader, 
+        cellFilter: 'mapRole', headerCellClass: uc.highlightFilteredHeader, 
         editDropdownValueLabel: 'gender', editableCellTemplate: 'ui-grid/dropdownEditor',
         editDropdownOptionsArray: [
           { id: 1, gender: 'Admin' },
@@ -121,8 +121,8 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 
 
 //filter drop down option hashing
-.filter('mapType', function() {
-  var typeHash = {
+.filter('mapRole', function() {
+  var roleHash = {
     1: 'Admin',
     2: 'User'
   };
@@ -132,7 +132,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
       console.log('input is ' + input);
       return 'error';
     } else {
-      return typeHash[input];
+      return roleHash[input];
     }
   };
 });
