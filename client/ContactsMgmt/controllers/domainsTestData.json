@@ -1,6 +1,5 @@
 [
-    
-    "@justiceleague.com",
-    "@minions.com",
-    "@unstoppablecolossus.com"
+  {"domain": "@inhumans.com"},
+  {"domain": "@defenders.com"},
+  {"domain": "@guardians.com"}
 ]

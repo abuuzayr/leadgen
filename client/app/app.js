@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.selection', 'ui.router', 'ui.grid.edit', 'ui.grid.resizeColumns', 'ngAnimate', 'ui.grid.importer']);
+var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.grid.selection', 'ui.router', 'ui.grid.edit', 'ui.grid.autoResize', 'ui.grid.resizeColumns', 'ngAnimate', 'ui.grid.importer']);
 
 app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
 	    $urlRouterProvider.otherwise('/');

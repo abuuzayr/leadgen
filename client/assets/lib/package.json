@@ -1,5 +1,5 @@
 {
-  "name": "uigrid_install",
+  "name": "lib",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,5 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "angular-ui-grid": "^3.2.3",
+    "angular-ui-router": "^0.3.1",
+    "dialog-polyfill": "^0.4.3"
+  }
 }

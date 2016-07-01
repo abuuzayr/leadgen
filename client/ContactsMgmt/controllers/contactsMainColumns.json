@@ -15,7 +15,7 @@
           { "id": 1, "type": "Corporate" },
           { "id": 2, "type": "Consumer" }
         ]},
-      { "field": "success", "displayName": "Success", "minWidth":80, "width":100, "headerCellClass": "$scope.highlightFilteredHeader" },
-      { "field": "failure", "displayName": "Failure", "minWidth":80, "width":100, "headerCellClass": "$scope.highlightFilteredHeader" },
-      { "field": "history", "displayName": "History", "minWidth":80, "width":80, "enableCellEdit": false, "enableFiltering": false, "enableSorting": false, "enableEdit": false, "cellTemplate": "<button class=\"btn primary\" ng-click=\"grid.appScope.showMe(row.entity.firstName)\">View</button>", "headerCellClass": "$scope.highlightFilteredHeader" }
+      { "field": "success", "displayName": "Success", "minWidth":80, "width":120, "headerCellClass": "$scope.highlightFilteredHeader" },
+      { "field": "failure", "displayName": "Failure", "minWidth":80, "width":120, "headerCellClass": "$scope.highlightFilteredHeader" },
+      { "field": "history", "displayName": "History", "minWidth":80, "width":120, "enableCellEdit": false, "enableFiltering": false, "enableSorting": false, "enableEdit": false, "cellTemplate": "<button class=\"btn primary\" ng-click=\"grid.appScope.showMe(row.entity.firstName)\">View</button>", "headerCellClass": "$scope.highlightFilteredHeader" }
     ]

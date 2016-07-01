@@ -1,29 +1,36 @@
-<div class="container" ng-controller="mailListController" >
-<div class="mdl-tabs__tab-bar" ng-include = "'ContactsMgmt/partials/contactsTabs.html'"></div>
-<br>
-<div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"  style="background-color:#F2F1F1;"></div>
-<br>
-<button ng-click="openDialog('addMailList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Mailing List</button>
-<button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Mailing List</button>
-<dialog id="addMailList" class="mdl-dialog" >
-                <div class="mdl-dialog__content">
-                <p>
-                    Please enter the details.
-                </p>
-                <form class="add-maillist-form" ng-submit="addMailList()">
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <label for="mailListName">Name</label>
-                            <input class="mdl-textfield__input" type="text" id="mailListName" ng-model="mailListName">
-                            </div>
+<div ng-controller="mailListController" > 
+    <br> 
+    <ul class="nav nav-tabs">
+        <li class=""><a ui-sref="leadlist" data-toggle="tab">LeadList</a></li>
+        <li class="active"><a ui-sref="maillist" data-toggle="tab">Mailing List</a></li>
+        <li class=""><a ui-sref="blacklist" data-toggle="tab">BlackList</a></li>
+    </ul>
+    <br>
+    <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"  style="background-color:#F2F1F1;"></div>
+    <br>
+    <button ng-click="openDialog('addMailList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Mailing List</button>
+    <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Mailing List</button>
+    
+    <dialog id="addMailList" class="mdl-dialog" >
+        <div class="mdl-dialog__content">
+            <p>
+                Please enter the details.
+            </p>
+            <form class="add-maillist-form" ng-submit="addMailList()">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <label for="mailListName">Name</label>
+                    <input class="mdl-textfield__input" type="text" id="mailListName" ng-model="mailListName">
+                </div>
 
-                        <div class="mdl-dialog__actions">
-                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addMailList')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
-                            </div>     
-                    </form>
-                <p> {{addResult}} </p>  
-                </div>        
-            </dialog>
+                <div class="mdl-dialog__actions">
+                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addMailList')">Close</button>
+                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
+                </div>     
+            </form>
+            <p> {{addResult}} </p>  
+        </div>        
+    </dialog>
+    
 </div>
 
 

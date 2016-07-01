@@ -48,14 +48,13 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
   };
 
   $scope.gridOptions.onRegisterApi= function ( gridApi ) {
-      $scope.gridApi = gridApi;
-
-      //save after edit
-      gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
-            console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
-            $scope.$apply();
-          });
-    };
+    $scope.gridApi = gridApi;
+    //save after edit
+    gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
+      console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
+      $scope.$apply();
+    });
+  };
 
   //Get columndefs
   // var columns = $http.get("Gru's url");
@@ -70,24 +69,24 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
   $scope.showMe = function(value){
     $scope.userID = value;
     var dialog = document.getElementById('historyData');
-   dialog.showModal();
+    dialog.showModal();
   };
 
   //add new lead
-   $scope.addData = function() {
+  $scope.addData = function() {
     var n = $scope.gridOptions.data.length + 1;
     $scope.gridOptions.data.push({
-                "firstName": $scope.lead.first,
-                "lastName": $scope.lead.last,
-                "company": $scope.lead.company,
-                "email": $scope.lead.email,
-                "phone": $scope.lead.phone,
-                "category": $scope.lead.category,
-                "type": $scope.lead.type,
-                "success": 0,
-                "failure": 0,
-                "history": '',
-              });
+    "firstName": $scope.lead.first,
+    "lastName": $scope.lead.last,
+    "company": $scope.lead.company,
+    "email": $scope.lead.email,
+    "phone": $scope.lead.phone,
+    "category": $scope.lead.category,
+    "type": $scope.lead.type,
+    "success": 0,
+    "failure": 0,
+    "history": '',
+  });
     // var lead = {
     //             "firstName": $scope.lead.first,
     //             "lastName": $scope.lead.last,
@@ -106,12 +105,12 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
 
   //delete selected leads
   $scope.deleteSelected = function(){
-      angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
-        $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
-      });
+    angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
+    $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+  });
       // var leads = $scope.gridApi.selection.getSelectedRows();
       // var deleteStatus = $http.delete("GRU's URL", leads);
-    }
+  }
 
   // add field
   $scope.addField = function() {
@@ -186,11 +185,11 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
 
   //Open popup dialog box
   $scope.openDialog = function(dialogName) {
-      var dialog = document.querySelector('#' + dialogName);
-       if (! dialog.showModal) {
-         dialogPolyfill.registerDialog(dialog);
-       }
-      dialog.showModal();
+    var dialog = document.querySelector('#' + dialogName);
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
   };
 
   //Close popup dialog box
@@ -199,9 +198,7 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
      $scope.addResult= "";
      dialog.close();
   };
-   
 }])
-
 
 //filter drop down option hashing
 .filter('mapType', function() {
@@ -210,12 +207,11 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     2: 'Consumer'
   };
 
-  return function(input) {
-    if (!input){
-      return 'error';
-    } else {
+return function(input) {
+  if (!input){
+    return 'error';
+  } else {
       return typeHash[input];
     }
   };
 });
-
