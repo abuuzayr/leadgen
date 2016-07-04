@@ -1,33 +1,27 @@
-
- 
-  <!--<div ng-include = "'ScrapingMgmt/partial/scrapTabs.html'"></div>-->
+<div ng-controller="beforeConsumerController as beforeConsumer">
   
-  <div ng-controller="consumerScrapController as cs">
-
-    <ul class="nav nav-tabs">
-      <li><a ui-sref="corporate" data-toggle="tab">Corporate</a></li>
-      <li class="active"><a ui-sref="consumer" data-toggle="tab">Consumer</a></li>
-    </ul>
-  <div class="container">  
-  <form role="form">
-    <div class="form-group">
+  <ul class="nav nav-tabs">
+    <li><a ui-sref="corporate" data-toggle="tab">Corporate</a></li>
+    <li class="active"><a ui-sref="consumer" data-toggle="tab">Consumer</a></li>
+  </ul>
+  
+  <div class="container">
+    <form role="form">
+      <div class="form-group">
         <br>
-      <h3>Scrap By:</h3>
-      <br>
-      <select class="form-control" id="category" ng-model='cs.input.category'>
-        <option>F & B</option>
-        <option>Retail</option>
-        <option>IT</option>
-        <option>Education</option>
-      </select>
-      <br>
-
-      <!--{{gc.input.category}}
-      {{gc.input.country}} -->
+        <h3>Scrap By:</h3>
+        <br>
+        <select class="form-control" id="category" ng-model='beforeConsumer.category'>
+          <option>F & B</option>
+          <option>Retail</option>
+          <option>IT</option>
+          <option>Education</option>
+        </select>
+        <br>
 
       <!-- Accent-colored raised button with ripple -->
       <a ui-sref=".consumerStartScrap">
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="beforeConsumer.setInput()">
         Proceed to Scrape
         </button>
       </a>
