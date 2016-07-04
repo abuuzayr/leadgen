@@ -660,7 +660,7 @@ apiRouter.get('/consumer/scrape/yp/:category',function(req,res){
     });
   }
 })
-apiRouter.post('/corporate/scrape/',jsonParser,function(req,res){
+apiRouter.post('/scrape/',jsonParser,function(req,res){
   if(!req.body)
     res.sendStatus(400);
   else{
