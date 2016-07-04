@@ -1,4 +1,4 @@
-<div ng-controller="googleController as gc">
+<div ng-controller="beforeScrapeController as beforeCorporate">
     <ul class="nav nav-tabs">
       <li class="active"><a ui-sref="corporate" data-toggle="tab">Corporate</a></li>
       <li><a ui-sref="consumer" data-toggle="tab">Consumer</a></li>
@@ -9,15 +9,16 @@
         <br>
       <h3>Scrap By:</h3>
       <br>
-      <select class="form-control" id="category" ng-model='gc.input.category'>
+  
+      <select class="form-control" id="category" ng-model='beforeCorporate.category'>
         <option>F & B</option>
         <option>Retail</option>
         <option>IT</option>
         <option>Education</option>
       </select>
       <br>
-      <select class="form-control" id="country" ng-model='gc.input.country'>
-        <option ng-repeat="country in gc.listOfCountry">{{country}}</option>
+      <select class="form-control" id="country" ng-model='beforeCorporate.country'>
+        <option ng-repeat="country in beforeCorporate.listOfCountry">{{country}}</option>
       </select>
       <br>
 
@@ -26,7 +27,7 @@
 
       <!-- Accent-colored raised button with ripple -->
       <a ui-sref=".corporateStartScrap">
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="beforeCorporate.setInput()">
         Proceed to Scrape
         </button>
       </a>
