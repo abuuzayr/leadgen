@@ -81,14 +81,12 @@ app.controller('consumerResultController', ['$scope', 'consumerShareData', 'send
       myJsonString = JSON.stringify(dataToContacts);
     }
 
-    var response = $http.post('/api/Consumer/scrap',myJsonString);
-    response.success(function(data) {
+    sendResults.sendLeads(myJsonString).then(function successCallback(res) {
       cr.responseMessage = "Saved to Contacts!";
-    });
-    response.error(function(data) {
+    }), function errorCallback(err) {
       cr.responseMessage = "Error Occured";
       cr.symbol = false;
-    })
+    };
   }
 
 }]);
