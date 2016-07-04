@@ -36,7 +36,7 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
    cs.input = {};
 
     //get data from json file
-    consumerLeads.getConsumerLeads().then(function successCallback(res) {
+    consumerLeads.getConsumerLeads(cs.input.category).then(function successCallback(res) {
         cs.dataList = res.data;
         // console.log('res is ' + res.data);
         // console.log('length is ' + gc.dataListForGoogle.length);
@@ -73,7 +73,7 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
             
             } else {
                 // console.log('continue scraping');
-                consumerLeads.continueScrape().then(function successCallback(res) {
+                consumerLeads.getConsumerLeads(cs.input.category).then(function successCallback(res) {
                     if (angular.isDefined(res.data.status)) {
                         cs.stopScraping();
                         //show the 'view results' button
