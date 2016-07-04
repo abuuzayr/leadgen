@@ -301,7 +301,7 @@ apiRouter.route('/contacts/mailingList')
           }
         ]
         */
-        MailchimpManager.getListInformation(apiKey,req.body[1].listID).then(function(results)
+        MailchimpManager.getListInformation(apiKey,req.body[0].listID).then(function(results)
         {
           console.log(results);
           var temp ={
@@ -314,7 +314,7 @@ apiRouter.route('/contacts/mailingList')
           }
     //package the retrieve information
         console.log(temp);
-        MailchimpManager.updateList(apiKey,req.body[1].listID, temp)
+        MailchimpManager.updateList(apiKey,req.body[0].listID, temp)
           .then(function(MCResults)
           {
             MailinglistManager.updateList(res,'mailinglists',req.body,returnStatusCode);

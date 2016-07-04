@@ -86,6 +86,32 @@ var dbHandler = {
       });
     });
   },
+  dbAggreateML: function(collectionName)
+  {
+        return new Promise(function(resolve,reject){  
+      MongoClient.connect(config.dbURI,function(err,db){
+        if(err!=null)
+          reject(err);
+        else{
+          var col = db.collection(collectionName);
+          col.aggregate([{$group:
+                             {
+                              "_id": "$listID",
+                              "count":{$sum:1}
+                             }
+                          }
+                          ]).toArray(function(err,docs){
+            if(err!=null)
+              reject(err);
+            else{
+              db.close();
+              resolve(docs);
+            }
+          })
+        }
+      });
+    });
+  },
   dbQuery : function(collectionName,obj){
     return new Promise(function(resolve,reject){  
       MongoClient.connect(config.dbURI,function(err,db){

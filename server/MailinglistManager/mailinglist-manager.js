@@ -74,7 +74,15 @@ var MailinglistManager = {
 			var tempC={
 				firstName:obj.firstName,
 				lastName:obj.lastName,
-				email:obj.email_addr
+				email:obj.email_addr,
+				company:null,
+				success:0,
+				failure:0,
+				history:null,
+				type:null,
+				category:null,
+				origin:1,
+				phone:null
 			}
 			contactsHandler.addContactMC(tempC)
 			.then(function(results){
@@ -134,10 +142,33 @@ var MailinglistManager = {
 				email_hash:'-',
 				email_addr:'-'
 			}
+			var returnResults=[];
 			dbHandler.dbQuery(collectionName,obj)
 			.then(function(results){
-				results = getUniqueLists(results);
-				callback(res,results);
+				for(var i =0;i<results.length;i++){
+					var temp ={
+						listID:results[i].listID,
+						name: results[i].name,
+						subscribers:''
+					}
+					returnResults.push(temp);
+				}
+				dbHandler.dbAggreateML(collectionName)
+					.then(function(resultsA)
+					{
+					console.log(resultsA);
+					for(var i=0;i<resultsA.length;i++)
+					{
+						for(var j=0;j<returnResults.length;j++)
+						{
+							if(resultsA[i]._id== returnResults[j].listID)
+							{
+								returnResults[j].subscribers=resultsA[i].count-1;
+							}
+						}
+					}
+					callback(res,returnResults);
+					})
 			})
 			.catch(function(error){
 				callback(res,error);
@@ -315,7 +346,15 @@ var MailinglistManager = {
 			}
 			dbHandler.dbQuery(collectionName,temp)
 			.then(function(results){
-				callback(res,results);
+				var returnResults= [];
+				for(var i=0;i<results.length;i++)
+				{
+					if(results[i].email_hash!='-')
+					{
+						returnResults.push(results[i]);
+					}
+				}
+				callback(res,returnResults);
 			})
 			.catch(function(error){
 				callback(res,error);
@@ -426,8 +465,3 @@ var MailinglistManager = {
 }
 
 module.exports = MailinglistManager;
-
-function getUniqueLists(results){
-		//get the unique lists
-		return results;
-	}
