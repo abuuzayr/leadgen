@@ -70,7 +70,7 @@ var ContactsManager = {
           var matchFlag = false;
 
           if (arr[i].origin == undefined)
-            arr[i].origin = 1;
+            arr[i].origin = 2;
 
           if(arr[i].type == undefined)
             arr[i].type = 2;
@@ -104,6 +104,7 @@ var ContactsManager = {
   },
   deleteLeads : function(obj){
     return new Promise(function(resolve,reject){
+      console.log(obj);
       if(!Array.isArray(obj)){
           dbHandler.dbDelete('leadList',obj)
           .then(function(results){
@@ -261,6 +262,7 @@ var ContactsManager = {
   },
   deleteFromBlackList : function(obj){
     return new Promise(function(resolve,reject){
+      console.log(obj);
       if(Array.isArray(obj)){
         var arr = [];
         for(var i=0;i<obj.length;i++){

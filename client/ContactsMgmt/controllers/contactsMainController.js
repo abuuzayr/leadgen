@@ -57,6 +57,7 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
   //Get columndefs
   // var columns = $http.get("Gru's url");
   contactsColumnData.success(function(data) {
+    console.log(data);
     $scope.gridOptions.columnDefs = [];
     for (var x of data) {
       $scope.gridOptions.columnDefs.push(x);
@@ -111,7 +112,8 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
   });
     var leads = $scope.gridApi.selection.getSelectedRows();
-    var deleteStatus = $http.delete("http://localhost:8080/api/contacts/leadList/leads", leads);
+    console.log(leads);
+    var deleteStatus = $http.put("http://localhost:8080/api/contacts/leadList/leads",leads);
   }
 
   // add field
@@ -147,7 +149,7 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
         $scope.gridOptions.columnDefs.splice(x,1);
         var field = $scope.gridOptions.columnDefs[x].field;
         var fieldObj = {fieldName: field};
-        var deleteStatus = $http.delete("http://localhost:8080/api/contacts/leadList/fields", fieldObj);
+        var deleteStatus = $http.put("http://localhost:8080/api/contacts/leadList/fields", fieldObj);
       } 
     }
   }
@@ -170,7 +172,7 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
       }
     }
     var fieldObj = {fieldName: field};
-    var removeStatus = $http.delete("http://localhost:8080/api/contacts/leadList/leads/duplicates", fieldObj);
+    var removeStatus = $http.put("http://localhost:8080/api/contacts/leadList/leads/duplicates", fieldObj);
   }
 
 //import function

@@ -29,7 +29,7 @@ app.controller('mailListController', ['$scope','mailListData','shareMailList','$
     enableFiltering: true,
     showGridFooter:true,
     columnDefs: [
-      { field: 'listName', displayName: 'List Name', minWidth:150, width:540, enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader, },
+      { field: 'name', displayName: 'List Name', minWidth:150, width:540, enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader, },
       { field: 'subscribers', displayName: 'Subscribers', minWidth:150, width:250, enableFiltering: false, enableCellEdit: false },
       { field: 'details', displayName: 'Details', minWidth:100, width:120, enableCellEdit: false, enableFiltering: false, enableSorting: false,  cellTemplate:' <a ui-sref="viewmaillist"><button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" ng-click="grid.appScope.showView(row.entity)"><i class="material-icons md-48">zoom_in</i></button></a>'}
     ],
@@ -62,7 +62,7 @@ app.controller('mailListController', ['$scope','mailListData','shareMailList','$
       $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
     });
     var mailingLists = $scope.gridApi.selection.getSelectedRows();
-    var deleteStatus = $http.delete("http://localhost:8080/api/contacts/mailingList", mailingLists);
+    var deleteStatus = $http.put("http://localhost:8080/api/contacts/mailingList", mailingLists);
   }
 
   $scope.gridOptions.onRegisterApi= function ( gridApi ) {

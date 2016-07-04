@@ -21,6 +21,7 @@ CRUD on leads
 */
 apiRouter.route('/contacts/leadList/leads')
   .get(function(req,res){
+    console.log('get leads');
     ContactsManager.displayLeads(null)
       .then(function(results){
           res.json(results);
@@ -30,6 +31,8 @@ apiRouter.route('/contacts/leadList/leads')
       })
   })
   .post(function(req,res){
+    console.log('add leads');
+    console.log(req.body);
     if(!req.body)
           res.sendStatus(400);
       else{
@@ -42,7 +45,10 @@ apiRouter.route('/contacts/leadList/leads')
          })
       }
   })
-  .delete(function(req,res){
+  .put(jsonParser, function(req,res){
+    console.log('delete api');
+    console.log(req.body);
+    // console.log(req.body);
     if(!req.body)
       returnStatusCode(res,400);
     else{
@@ -150,7 +156,7 @@ apiRouter.route('/contacts/leadList/leads')
       })
     }
   });
-apiRouter.delete('/contacts/leadList/leads/duplicate',jsonParser,function(req,res){
+apiRouter.put('/contacts/leadList/leads/duplicate',jsonParser,function(req,res){
   if(!req.body)
     res.sendStatus(400);
   else{
@@ -254,7 +260,7 @@ apiRouter.route('/contacts/mailingList')
         })
     }
   })
-  .delete(function(req,res){
+  .put(function(req,res){
     if(!req.body)
       returnStatusCode(res,400);
     else{
@@ -411,7 +417,7 @@ apiRouter.route('/contacts/mailingList')
     }
   })
   //Remove member from mailing list
-  .delete(function(req,res){
+  .put(function(req,res){
     if(!req.body)
       returnStatusCode(res,400);
     else{
@@ -473,6 +479,7 @@ CRUD on fields
 
 apiRouter.route('/contacts/leadList/fields')
   .get(function(req,res){
+    console.log('get columns');
     ContactsManager.displayList('columnDef',null)
     .then(function(results){
       res.json(results);
@@ -502,7 +509,7 @@ apiRouter.route('/contacts/leadList/fields')
       }
     }
   })
-  .delete(jsonParser,function(req,res){
+  .put(jsonParser,function(req,res){
     if(!req.body)
       res.sendStatus(400);
     else{
@@ -556,7 +563,7 @@ apiRouter.route('/contacts/blackList/domain')
       }
     }
   })
-  .delete(jsonParser,function(req,res){
+  .put(jsonParser,function(req,res){
     if(!req.body)
       res.sendStatus(400);
     else{
@@ -584,7 +591,7 @@ apiRouter.route('/contacts/blackList')
       res.sendStatus(error);
     });
   })
-  .delete(jsonParser,function(req,res){
+  .put(jsonParser,function(req,res){
     if(!req.body)
       res.sendStatus(400);
     else{

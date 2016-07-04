@@ -34,11 +34,14 @@ var ScrapManager = {
               firstName : null,
               lastName : null,
               email : null,
-              companyName : results[i].result.name,
-              phoneNumber : results[i].result.international_phone_number,
+              company : results[i].result.name,
+              phone : results[i].result.international_phone_number,
               category : type,
               type : 1,
-              origin : 1
+              origin : 1,
+              success : 0,
+              failure : 0,
+              history : null
             };
             arr.push(obj);
           }
@@ -72,11 +75,14 @@ var ScrapManager = {
                 firstName : null,
                 lastName : null,
                 email : null,
-                companyName : results[i].result.name,
-                phoneNumber : results[i].result.international_phone_number,
+                company : results[i].result.name,
+                phone : results[i].result.international_phone_number,
                 category : type,
                 type : 1,
-                origin : 1
+                origin : 1,
+                success : 0,
+                failure : 0,
+                history : null
               };
               arr.push(obj);
             }
@@ -125,11 +131,14 @@ var ScrapManager = {
             firstName : null,
             lastName : null,
             email : null,
-            companyName : results[i].result.name,
-            phoneNumber : results[i].result.international_phone_number,
+            company : results[i].result.name,
+            phone : results[i].result.international_phone_number,
             category : type,
             type : 1,
-            origin : 1
+            origin : 1,
+            success : 0,
+            failure : 0,
+            history : null
           };
           arr.push(obj);
         }

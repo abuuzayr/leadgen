@@ -58,7 +58,7 @@ app.controller('domainsController', ['$scope','domainsData', '$http', '$interval
       if(($scope.gridOptions.data[x].domain === $scope.domainSelected)) {
         $scope.gridOptions.data.splice(x,1);
         var domain = $scope.gridOptions.data[x];
-        var deleteStatus = $http.delete("http://localhost:8080/api/contacts/blackList/domain", domain);
+        var deleteStatus = $http.put("http://localhost:8080/api/contacts/blackList/domain", domain);
       } 
     }
   }
