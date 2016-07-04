@@ -1,21 +1,13 @@
 app.factory('consumerLeads', ['$http', function($http) { 
   
-    var getConsumerLeads = function() {
+    var getConsumerLeads = function(category) {
         return $http({
             method: 'GET',
-            url: 'ScrapingMgmt/testFiles/consumerLeads.json',
-        });
-    }
-
-    var continueScrape = function() {
-        return $http({
-            method: 'GET',
-            url: 'ScrapingMgmt/testFiles/scrapGoogle.json'
+            url: 'http://localhost:8080/api/consumer/scrape/yp/:' + category
         });
     }
 
     return {
-        getConsumerLeads: getConsumerLeads,
-        continueScrape: continueScrape
+        getConsumerLeads: getConsumerLeads
     } 
 }]);
