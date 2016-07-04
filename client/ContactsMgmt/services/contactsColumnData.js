@@ -1,5 +1,5 @@
 app.factory('contactsColumnData', ['$http', function($http) { 
-  return $http.get('ContactsMgmt/controllers/contactsMainColumns.json') 
+  return $http.get('http://localhost:8080/api/contacts/leadList/fields') 
     .success(function(data) { 
         return data; 
     }) 

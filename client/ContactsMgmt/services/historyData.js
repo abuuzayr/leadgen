@@ -1,9 +1,11 @@
 app.factory('historyData', ['$http', function($http) { 
-  return $http.get('ContactsMgmt/controllers/historyTestData.json') 
-    .success(function(data) { 
-        return data; 
-    }) 
-    .error(function(err) { 
-        return err; 
-    }); 
+    var getHistory = function(fieldID) {
+        return $http({
+            method: 'GET',
+            url: 'http://localhost:8080/api/contacts/leadList/leads/' + fieldID
+        })
+    }
+    return {
+        getHistory: getHistory
+    }
 }]);

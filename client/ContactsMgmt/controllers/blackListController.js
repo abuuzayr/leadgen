@@ -55,6 +55,8 @@ app.controller('blackListController', ['$scope','domainsData', 'blackLeadsData',
     angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
     $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
     });
+    var leads = $scope.gridApi.selection.getSelectedRows();
+    var deleteStatus = $http.delete("http://localhost:8080/api/contacts/blackList", leads);
   }
 
   $scope.gridOptions.onRegisterApi= function ( gridApi ) {

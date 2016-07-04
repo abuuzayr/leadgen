@@ -4,10 +4,6 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     $scope.gridOptions.data = data;
   });
 
-  historyData.success(function(data) {
-    $scope.history = data;
-  });
-
   mailListData.success(function(data) {
     $scope.mailingList = data;
   });
@@ -50,8 +46,12 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
       console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
       $scope.$apply();
+      var obj = {};
+      obj[colDef.name] = newValue;
+      var editData = [rowEntity,obj]
+      var editStatus = $http.patch("http://localhost:8080/api/contacts/leadList/leads", editData);
     });
-  }
+    }
   };
 
   //Get columndefs
@@ -65,7 +65,11 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
   
   //show history dialog
   $scope.showMe = function(value){
-    $scope.userID = value;
+    historyData.getHistory(value._id).then(function successCallback(res) {
+      $scope.history = res.data;
+    }), function errorCallback(err) {
+      console.log('err is ' + err);
+    };
     var dialog = document.getElementById('historyData');
     dialog.showModal();
   };
@@ -85,19 +89,19 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     "failure": 0,
     "history": '',
   });
-    // var lead = {
-    //             "firstName": $scope.lead.first,
-    //             "lastName": $scope.lead.last,
-    //             "company": $scope.lead.company,
-    //             "email": $scope.lead.email,
-    //             "phone": $scope.lead.phone,
-    //             "category": $scope.lead.category,
-    //             "type": $scope.lead.type,
-    //             "success": 0,
-    //             "failure": 0,
-    //             "history": '',
-    //           };
-    // var addStatus = $http.post("GRUS's URL",lead);      
+    var lead = {
+                "firstName": $scope.lead.first,
+                "lastName": $scope.lead.last,
+                "company": $scope.lead.company,
+                "email": $scope.lead.email,
+                "phone": $scope.lead.phone,
+                "category": $scope.lead.category,
+                "type": $scope.lead.type,
+                "success": 0,
+                "failure": 0,
+                "history": '',
+              };
+    var addStatus = $http.post("http://localhost:8080/api/contacts/leadList/leads",lead);      
     $scope.addResult = "Success!";
   };
 
@@ -106,8 +110,8 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
     $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
   });
-      // var leads = $scope.gridApi.selection.getSelectedRows();
-      // var deleteStatus = $http.delete("GRU's URL", leads);
+    var leads = $scope.gridApi.selection.getSelectedRows();
+    var deleteStatus = $http.delete("http://localhost:8080/api/contacts/leadList/leads", leads);
   }
 
   // add field
@@ -130,18 +134,20 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     var display = editedDisplay.slice(0,editedDisplay.length-1);
     var lowerName = editedField.toLowerCase();
     $scope.gridOptions.columnDefs.push({field: lowerName, displayName: display});
-    // var field = {field: lowerName, displayName: display};
-    // var addStatus = $http.post("GRUs URL", data);
+    var field = {field: lowerName, displayName: display};
+    var addStatus = $http.post("http://localhost:8080/api/contacts/leadList/fields", field);
     $scope.addResult = "Success!";
   }
 
   // delete field
   $scope.deleteField = function() {
     console.log($scope.gridOptions.columnDefs[0]);
-    // var deleteStatus = $http.delete("GRU's URL", data);
     for (var x in $scope.gridOptions.columnDefs) {
       if(($scope.gridOptions.columnDefs[x].displayName === $scope.fieldSelected)) {
         $scope.gridOptions.columnDefs.splice(x,1);
+        var field = $scope.gridOptions.columnDefs[x].field;
+        var fieldObj = {fieldName: field};
+        var deleteStatus = $http.delete("http://localhost:8080/api/contacts/leadList/fields", fieldObj);
       } 
     }
   }
@@ -151,13 +157,20 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     console.log($scope.listSelected);
     var y = $scope.gridApi.selection.getSelectedRows();
     console.log(y[0]);
-    // var addStatus = $http.post("GRU's URL", y);
+    var addStatus = $http.post("http://localhost:8080/api/contacts/mailingList/subscriber", y);
   }
 
   //Remove duplicates
   $scope.removeDuplicate = function() {
     console.log($scope.fieldSelected);
-    // var removeStatus = $http.delete("GRU's URL", data);
+    var field = "";
+    for (var x of $scope.gridOptions.columnDefs) {
+      if (x.displayName === $scope.fieldSelected) {
+        field = x.field;
+      }
+    }
+    var fieldObj = {fieldName: field};
+    var removeStatus = $http.delete("http://localhost:8080/api/contacts/leadList/leads/duplicates", fieldObj);
   }
 
 //import function
@@ -168,7 +181,7 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
       var fileObject = target.files[0];
       console.log("abc");
       $scope.gridApi.importer.importFile( fileObject );
-      // var importStatus = $http.post("GRU's URL", fileObject);
+      var importStatus = $http.post("http://localhost:8080/api/contacts/leadList/import", fileObject);
       target.form.reset();
     }
   };

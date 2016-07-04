@@ -46,6 +46,9 @@ app.controller('domainsController', ['$scope','domainsData', '$http', '$interval
     } 
     $scope.gridOptions.data.push({"domain" : editedDomain});
     $scope.addResult = "Success!";
+    var domain = {"domain" : editedDomain};
+    var addStatus = $http.post("http://localhost:8080/api/contacts/blackList/domain",domain);
+
   }
 
   // delete domain
@@ -54,6 +57,8 @@ app.controller('domainsController', ['$scope','domainsData', '$http', '$interval
     for (var x in $scope.gridOptions.data) {
       if(($scope.gridOptions.data[x].domain === $scope.domainSelected)) {
         $scope.gridOptions.data.splice(x,1);
+        var domain = $scope.gridOptions.data[x];
+        var deleteStatus = $http.delete("http://localhost:8080/api/contacts/blackList/domain", domain);
       } 
     }
   }

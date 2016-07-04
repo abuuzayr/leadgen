@@ -31,7 +31,7 @@ app.controller('mailListController', ['$scope','mailListData','shareMailList','$
     columnDefs: [
       { field: 'listName', displayName: 'List Name', minWidth:150, width:540, enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader, },
       { field: 'subscribers', displayName: 'Subscribers', minWidth:150, width:250, enableFiltering: false, enableCellEdit: false },
-      { field: 'details', displayName: 'Details', minWidth:100, width:120, enableCellEdit: false, enableFiltering: false, enableSorting: false,  cellTemplate:' <a ui-sref="viewmaillist"><button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" ng-click="grid.appScope.showView(row.entity.listName)"><i class="material-icons md-48">zoom_in</i></button></a>'}
+      { field: 'details', displayName: 'Details', minWidth:100, width:120, enableCellEdit: false, enableFiltering: false, enableSorting: false,  cellTemplate:' <a ui-sref="viewmaillist"><button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" ng-click="grid.appScope.showView(row.entity)"><i class="material-icons md-48">zoom_in</i></button></a>'}
     ],
   };
 
@@ -47,14 +47,22 @@ app.controller('mailListController', ['$scope','mailListData','shareMailList','$
       "listName": $scope.mailListName,
       "subscribers": 0
     });
+    var mailingList = {
+      "listName": $scope.mailListName,
+      "subscribers": 0
+    };
+    var addStatus = $http.post("http://localhost:8080/api/contacts/mailingList",mailingList);
     $scope.addResult = "Success!";
+    
   };
 
-//delete selected leads
+//delete selected lists
   $scope.deleteSelected = function(){
     angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
       $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
     });
+    var mailingLists = $scope.gridApi.selection.getSelectedRows();
+    var deleteStatus = $http.delete("http://localhost:8080/api/contacts/mailingList", mailingLists);
   }
 
   $scope.gridOptions.onRegisterApi= function ( gridApi ) {
@@ -63,6 +71,10 @@ app.controller('mailListController', ['$scope','mailListData','shareMailList','$
     gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
       console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
       $scope.$apply();
+      var obj = {};
+      obj[colDef.name] = newValue;
+      var editData = [rowEntity,obj]
+      var editStatus = $http.patch("http://localhost:8080/api/contacts/mailingList", editData);
     });
   };
 

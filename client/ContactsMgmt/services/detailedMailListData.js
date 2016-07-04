@@ -1,9 +1,12 @@
 app.factory('detailedMailListData', ['$http', function($http) { 
-  return $http.get('ContactsMgmt/controllers/mailListData.json') 
-    .success(function(data) { 
-        return data; 
-    }) 
-    .error(function(err) { 
-        return err; 
-    }); 
+  var getMailListData = function(row) {
+        return $http({
+            method: 'POST',
+            url: 'http://localhost:8080/api/mailinglist/getSubscriber',
+            data: row
+        })
+    }
+    return {
+        getMailListData: getMailListData
+    }
 }]);

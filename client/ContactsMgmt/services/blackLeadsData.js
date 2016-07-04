@@ -1,5 +1,5 @@
 app.factory('blackLeadsData', ['$http', function($http) { 
-  return $http.get('ContactsMgmt/controllers/blackTestData.json') 
+  return $http.get('http://localhost:8080/api/contacts/blackList') 
     .success(function(data) {
         return data; 
     }) 

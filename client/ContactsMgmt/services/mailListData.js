@@ -1,5 +1,5 @@
 app.factory('mailListData', ['$http', function($http) { 
-  return $http.get('ContactsMgmt/controllers/testMail.json') 
+  return $http.get('http://localhost:8080/api/contacts/mailingList') 
     .success(function(data) { 
         return data; 
     }) 

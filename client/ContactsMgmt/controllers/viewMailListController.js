@@ -1,10 +1,12 @@
 app.controller('viewMailListController', ['$scope','detailedMailListData','shareMailList','$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, detailedMailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
-  detailedMailListData.success(function(data) {
-    $scope.gridOptions.data = data;
-  });
-
   $scope.mailListResult = shareMailList.getData();
+
+  detailedMailListData.getMailListData($scope.mailListResult).then(function successCallback(res) {
+    $scope.gridOptions.data = res.data;
+    }), function errorCallback(err) {
+      console.log('err is ' + err);
+    };
 
   var viewContentLoaded = $q.defer();
   $scope.$on('$viewContentLoaded', function () {
@@ -67,6 +69,8 @@ app.controller('viewMailListController', ['$scope','detailedMailListData','share
     angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
       $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
     });
+    var leads = $scope.gridApi.selection.getSelectedRows();
+    var deleteStatus = $http.delete("http://localhost:8080/api/contacts/mailingList/subscriber", leads);
   }
 
   $scope.gridOptions.onRegisterApi= function ( gridApi ) {
