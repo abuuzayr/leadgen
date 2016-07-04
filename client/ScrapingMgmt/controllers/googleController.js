@@ -38,7 +38,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
 
     //get data from json file (google api)
     console.log('getting data from google');
-    googleResults.firstTimeScrape().then(function successCallback(res) {
+    googleResults.firstTimeScrape(gc.input.category,gc.input.country).then(function successCallback(res) {
         gc.dataListForGoogle = res.data;
         // console.log('res is ' + res.data);
         // console.log('length is ' + gc.dataListForGoogle.length);
@@ -47,7 +47,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
     };
 
     console.log('getting data from yellow page');
-    ypResults.scrapeYellowPageLeads().then(function successCallback(res) {
+    ypResults.scrapeYellowPageLeads(gc.input.category).then(function successCallback(res) {
         gc.dataListForYP = res.data;
         // console.log('res is ' + res.data);
         // console.log('length is ' + gc.dataListForGoogle.length);
@@ -99,7 +99,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
 
             } else {
                 console.log('continue scraping');
-                googleResults.continueScrape().then(function successCallback(res) {
+                googleResults.continueScrape(gc.input.category,gc.input.country).then(function successCallback(res) {
                     // signal to stop scraping
                     if (angular.isDefined(res.data.status) && res.data.status === 205) {
                         gc.stopScraping();
