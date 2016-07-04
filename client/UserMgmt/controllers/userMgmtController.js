@@ -28,10 +28,10 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         selectOptions: [ { value: '1', label: 'Admin' }, { value: '2', label: 'User' } ]
         },
         cellFilter: 'mapRole', headerCellClass: uc.highlightFilteredHeader, 
-        editDropdownValueLabel: 'gender', editableCellTemplate: 'ui-grid/dropdownEditor',
+        editDropdownValueLabel: 'role', editableCellTemplate: 'ui-grid/dropdownEditor',
         editDropdownOptionsArray: [
-          { id: 1, gender: 'Admin' },
-          { id: 2, gender: 'User' } ]},
+          { id: 1, role: 'Admin' },
+          { id: 2, role: 'User' } ]},
       { field: 'email', displayName: 'Email', minWidth:80, width:200, headerCellClass: uc.highlightFilteredHeader },
       { field: 'phone', displayName: 'Phone', minWidth:80, width:150, headerCellClass: uc.highlightFilteredHeader },
     ],
