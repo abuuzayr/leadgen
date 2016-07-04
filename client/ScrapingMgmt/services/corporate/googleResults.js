@@ -3,14 +3,14 @@ app.factory('googleResults', ['$http', function($http) {
     var firstTimeScrape = function(category,country) {
         return $http({
             method: 'GET',
-            url: 'ScrapingMgmt/testFiles/scrapGoogle.json',
+            url: 'http://localhost:8080/api/corporate/scrape/g/new/:' + category + '/:' + country
         });
     }
 
-    var continueScrape = function() {
+    var continueScrape = function(category,country) {
         return $http({
             method: 'GET',
-            url: 'ScrapingMgmt/testFiles/scrapGoogle2.json'
+            url: 'http://localhost:8080/api/corporate/scrape/g/cont/:' + category + '/:' + country
         });
     }
     
