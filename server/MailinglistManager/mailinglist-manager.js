@@ -1,9 +1,11 @@
 var dbHandler = require('../database-handler'),
 config = require('../config'),
 common = require('../common'),
-mongodb = require('mongodb')
+mongodb = require('mongodb'),
 contactsHandler = require('../ContactsManager/contacts-manager'),
 Promise = require('bluebird');
+
+var _ = require('lodash');
 
 var MailinglistManager = {
 
@@ -368,8 +370,12 @@ var MailinglistManager = {
 					var finalResults=[];
 					for(var i=0;i<returnResults.length;i++){
 						for(var j=0;j<promiseResults.length;j++){
-							if(returnResults[i].contactID==promiseResults[j][0]._id){
+							if(_.isEqual(returnResults[i].contactID,promiseResults[j][0]._id)){
 								var temp = Object.assign(returnResults[i],promiseResults[j][0]);
+								if(temp.subscriberStatus === 'subscribed')
+									temp.status = 1;
+								else
+									temp.status = 2;
 								finalResults.push(temp);
 							}
 						}
