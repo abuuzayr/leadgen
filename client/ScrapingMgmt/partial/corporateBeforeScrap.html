@@ -10,7 +10,7 @@
       <h3>Scrap By:</h3>
       <br>
   
-      <select class="form-control" id="category" ng-model='beforeCorporate.category'>
+      <select class="form-control" id="category" ng-model='beforeCorporate.category' ng-change="beforeCorporate.continueScraping()">
         <option>F & B</option>
         <option>Retail</option>
         <option>IT</option>
@@ -22,12 +22,9 @@
       </select>
       <br>
 
-      <!--{{gc.input.category}}
-      {{gc.input.country}} -->
-
       <!-- Accent-colored raised button with ripple -->
       <a ui-sref=".corporateStartScrap">
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="beforeCorporate.setInput()">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="beforeCorporate.setInput()" ng-disabled="beforeCorporate.continue">
         Proceed to Scrape
         </button>
       </a>
