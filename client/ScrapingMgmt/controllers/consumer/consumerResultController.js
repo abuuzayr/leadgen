@@ -88,4 +88,19 @@ app.controller('consumerResultController', ['$scope', 'consumerShareData', 'send
     };
   }
 
+  //Open popup dialog box
+  cr.openDialog = function(dialogName) {
+    var dialog = document.querySelector('#' + dialogName);
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+  };
+
+  //Close popup dialog box
+  cr.closeDialog = function(dialogName) {
+     var dialog = document.querySelector('#' + dialogName);
+     dialog.close();
+  };
+
 }]);
