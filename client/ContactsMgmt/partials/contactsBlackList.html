@@ -25,46 +25,73 @@
         <h3>Blocked Leads</h3>
         <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"></div>
         <br>
-        <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Blacklead(s)</button>
+        <button ng-click="openDialog('deleteLeads')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Blacklead(s)</button>
         <br><br>
     </div>
+        <div>
+            <dialog id="deleteLeads" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                    <p>
+                        Are you sure?
+                    </p>
+                    <div class="mdl-dialog__actions">
+                        <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteLeads')">No</button>
+                        <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="deleteSelected(); closeDialog('deleteLeads')">Yes</button> 
+                    </div>     
+                </div>        
+            </dialog>
+        </div>
 
-    <dialog id="addDomain" class="mdl-dialog" >
-        <div ng-controller="domainsController" class="mdl-dialog__content">
-            <p>
-                Please enter the details.
-            </p>
-            <form class="add-domain-form" ng-submit="addDomain()">
-                <div class="mdl-textfield mdl-js-textfield">
-                    <label for="domain">Domain</label>
-                    <input class="mdl-textfield__input" type="text" id="domain" ng-model="domainSelected">
-                </div>
+        <div ng-controller="domainsController">
+            <dialog id="addDomain" class="mdl-dialog" >
+                <div class="mdl-dialog__content">
+                    <p>
+                        Please enter the details.
+                    </p>
+                    <form class="add-domain-form" ng-submit="addDomain()">
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="domain">Domain</label>
+                            <input class="mdl-textfield__input" type="text" id="domain" ng-model="domainSelected">
+                        </div>
 
-                <div class="mdl-dialog__actions">
-                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addDomain')">Close</button>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
-                </div>     
-            </form>
-            <p> {{addResult}} </p>  
-        </div>        
-    </dialog>
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addDomain')">Close</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
+                        </div>     
+                    </form>
+                </div>        
+            </dialog>
 
-    <dialog id="deleteDomain" class="mdl-dialog">
-        <div ng-controller="domainsController" class="mdl-dialog__content">
-            <p>
-                Please select the domain.
-            </p>
-            <form class="delete-domain-form" ng-submit="deleteDomain()">
-                <select ng-model="domainSelected">
-                    <option ng-repeat="domain in gridOptions.data">{{domain.domain}}</option>
-                </select>
-                <div class="mdl-dialog__actions">
-                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteDomain')">Close</button>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Delete</button> 
-                </div>     
-            </form>
-            <p> {{addResult}} </p>  
-        </div>        
-    </dialog>
+            <dialog id="deleteDomain" class="mdl-dialog">
+                <div class="mdl-dialog__content">
+                    <p>
+                        Please select the domain.
+                    </p>
+                    <form class="delete-domain-form" ng-submit="selectDeleteDomain()">
+                        <select ng-model="domainSelected">
+                            <option ng-repeat="domain in gridOptions.data">{{domain.domain}}</option>
+                        </select>
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteDomain')">Close</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="openDialog('deleteDomainConfirmation')">Delete</button> 
+                        </div>     
+                    </form> 
+                </div>        
+            </dialog>
+
+            <dialog id="deleteDomainConfirmation" class="mdl-dialog">
+                <div ng-controller="domainsController" class="mdl-dialog__content">
+                    <p>
+                        Are you sure?
+                    </p>
+                    <form class="delete-domain-form" ng-submit="deleteDomain()">
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteDomainConfirmation')">No</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="closeDialog('deleteDomainConfirmation'); closeDialog('deleteDomain')">Yes</button> 
+                        </div>
+                    </form>     
+                </div>        
+            </dialog>
+        </div>
     </div>
 </div>

@@ -81,6 +81,20 @@ app.controller('viewMailListController', ['$scope','detailedMailListData','share
       $scope.$apply();
     });
   };  
+
+  //popup dialog box
+  $scope.openDialog = function(dialogName) {
+    var dialog = document.querySelector('#' + dialogName);
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+  };
+
+  $scope.closeDialog = function(dialogName) {
+    var dialog = document.querySelector('#' + dialogName);
+      dialog.close();
+    };
 }])
 
 //filter drop down option hashing
@@ -108,7 +122,7 @@ app.controller('viewMailListController', ['$scope','detailedMailListData','share
 
   return function(input) {
     if (!input){
-      return 'error';
+      return 'Unselected';
     } else {
       return typeHash[input];
     }
