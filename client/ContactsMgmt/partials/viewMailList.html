@@ -10,6 +10,18 @@
         <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-edit class="grid"></div>
         <div><p> Mailing List: {{mailListResult}}</p></div>
         <br>
-        <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Selected</button>
+        <button ng-click="openDialog('deleteMailLeads')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Selected</button>
     </div>
+
+    <dialog id="deleteMailLeads" class="mdl-dialog" >
+        <div class="mdl-dialog__content">
+            <p>
+                Are you sure?
+            </p>
+            <div class="mdl-dialog__actions">
+                <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteMailLeads')">No</button>
+                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="deleteSelected(); closeDialog('deleteMailLeads')">Yes</button> 
+            </div>     
+        </div>        
+    </dialog>
 </div>

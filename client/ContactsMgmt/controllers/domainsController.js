@@ -51,14 +51,17 @@ app.controller('domainsController', ['$scope','domainsData', '$http', '$interval
 
   }
 
+  $scope.selectDeleteDomain = function() {
+    $scope.selectedDeleteDomain = $scope.domainSelected;
+    console.log($scope.selectedDeleteDomain);
+  }
+
   // delete domain
   $scope.deleteDomain = function() {
-    console.log($scope.domainSelected);
+    console.log($scope.selectedDeleteDomain);
     for (var x in $scope.gridOptions.data) {
-      if(($scope.gridOptions.data[x].domain === $scope.domainSelected)) {
-        var domain = ($scope.gridOptions.data.splice(x,1))[0];
-        console.log(domain);
-        // var domain = arr[0];
+      if(($scope.gridOptions.data[x].domain === $scope.selectedDeleteDomain)) {
+        var domain = $scope.gridOptions.data.splice(x,1);
         var deleteStatus = $http.put("http://localhost:8080/api/contacts/blackList/domain", domain);
       } 
     }

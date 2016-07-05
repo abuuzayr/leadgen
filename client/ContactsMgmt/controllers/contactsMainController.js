@@ -37,6 +37,28 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     enableSorting: true,
     enableFiltering: true,
     showGridFooter:true,
+    columnDefs: [
+      { field: 'firstName', displayName: 'First Name', minWidth:80, width:200, enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'lastName', displayName: 'Last Name', minWidth:80, width:200, headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'company', displayName: 'Company', minWidth:80, width:200, headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'email', displayName: 'Email', enableCellEdit: false, minWidth:80, width:250, headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'phone', displayName: 'Phone', enableCellEdit: false, minWidth:80, width:100, headerCellClass: $scope.highlightFilteredHeader },
+      { field: 'category', displayName: 'Category', minWidth:80, width:150, headerCellClass: $scope.highlightFilteredHeader },
+      { field: "type", displayName: "Type", editableCellTemplate: "ui-grid/dropdownEditor", minWidth:80, width:150, 
+        filter: {
+          type: uiGridConstants.filter.SELECT,
+          selectOptions: [ { value: "1", label: "Corporate" }, { value: "2", label: "Consumer"} ]
+          },
+        cellFilter: "mapType", editDropdownValueLabel: "type", headerCellClass: $scope.highlightFilteredHeader,
+        editDropdownOptionsArray: [
+          { id: 1, type: "Corporate" },
+          { id: 2, type: "Consumer" }
+        ]
+      },
+      { field: "success", displayName: "Success", minWidth:80, width:120, headerCellClass: $scope.highlightFilteredHeader },
+      { field: "failure", displayName: "Failure", minWidth:80, width:120, headerCellClass: $scope.highlightFilteredHeader },
+      { field: "history", displayName: "History", minWidth:80, width:120, enableCellEdit: false, enableFiltering: false, enableSorting: false, enableEdit: false, cellTemplate: '<button class="btn primary" ng-click="grid.appScope.showMe(row.entity)">View</button>, headerCellClass: $scope.highlightFilteredHeader' }
+    ],
     importerDataAddCallback: function ( grid, newObjects ) {
       $scope.gridOptions.data = $scope.gridOptions.data.concat( newObjects );
     },
@@ -55,10 +77,8 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
   };
 
   //Get columndefs
-  // var columns = $http.get("Gru's url");
   contactsColumnData.success(function(data) {
     console.log(data);
-    $scope.gridOptions.columnDefs = [];
     for (var x of data) {
       $scope.gridOptions.columnDefs.push(x);
     }
@@ -112,7 +132,6 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
   });
     var leads = $scope.gridApi.selection.getSelectedRows();
-    console.log(leads);
     var deleteStatus = $http.put("http://localhost:8080/api/contacts/leadList/leads",leads);
   }
 
@@ -138,17 +157,24 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
     $scope.gridOptions.columnDefs.push({field: lowerName, displayName: display});
     var field = {field: lowerName, displayName: display};
     var addStatus = $http.post("http://localhost:8080/api/contacts/leadList/fields", field);
+    $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.ALL);
+    $scope.gridApi.core.refresh();
+    var x = $scope.gridOptions.columnDefs.length - 1;
+    console.log($scope.gridOptions.columnDefs);
     $scope.addResult = "Success!";
+  }
+
+  $scope.selectDeleteField = function() {
+    $scope.selectedDeleteField = $scope.fieldSelected;
   }
 
   // delete field
   $scope.deleteField = function() {
-    console.log($scope.gridOptions.columnDefs[0]);
     for (var x in $scope.gridOptions.columnDefs) {
-      if(($scope.gridOptions.columnDefs[x].displayName === $scope.fieldSelected)) {
+      if(($scope.gridOptions.columnDefs[x].displayName === $scope.selectedDeleteField)) {
+        var fieldName = $scope.gridOptions.columnDefs[x].field;
         $scope.gridOptions.columnDefs.splice(x,1);
-        var field = $scope.gridOptions.columnDefs[x].field;
-        var fieldObj = {fieldName: field};
+        var fieldObj = {field: fieldName};
         var deleteStatus = $http.put("http://localhost:8080/api/contacts/leadList/fields", fieldObj);
       } 
     }
@@ -156,18 +182,28 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
 
   // add leads to mailing list
   $scope.addToMailingList = function() {
-    console.log($scope.listSelected);
+    var id = "";
+    for (var x of $scope.mailingList) {
+      if (x.name === $scope.listSelected) {
+         id = x.listID;
+      }
+    }
     var y = $scope.gridApi.selection.getSelectedRows();
-    console.log(y[0]);
-    var addStatus = $http.post("http://localhost:8080/api/contacts/mailingList/subscriber", y);
+    var obj = [{y},{listID: id, name: $scope.listSelected}];
+    console.log(obj);
+    var addStatus = $http.post("http://localhost:8080/api/contacts/mailingList/subscriber", obj);
+  }
+
+  $scope.removeDuplicateField = function() {
+    $scope.selectedDuplicateField = $scope.fieldSelected;
   }
 
   //Remove duplicates
   $scope.removeDuplicate = function() {
-    console.log($scope.fieldSelected);
+    console.log($scope.selectedDuplicateField);
     var field = "";
     for (var x of $scope.gridOptions.columnDefs) {
-      if (x.displayName === $scope.fieldSelected) {
+      if (x.displayName === $scope.selectedDuplicateField) {
         field = x.field;
       }
     }
@@ -222,7 +258,7 @@ app.controller('contactsMainController', ['$scope','leadsData', 'historyData', '
 
 return function(input) {
   if (!input){
-    return 'error';
+    return 'Unselected';
   } else {
       return typeHash[input];
     }

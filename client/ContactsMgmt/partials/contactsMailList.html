@@ -12,8 +12,20 @@
         <div class="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns></div>
         <br>
         <button ng-click="openDialog('addMailList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Mailing List</button>
-        <button ng-click="deleteSelected()" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Mailing List</button>
+        <button ng-click="openDialog('deleteConfirmation')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Mailing List</button>
     </div>
+
+    <dialog id="deleteConfirmation" class="mdl-dialog" >
+        <div class="mdl-dialog__content">
+            <p>
+                Are you sure?
+            </p>
+            <div class="mdl-dialog__actions">
+                <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteConfirmation')">No</button>
+                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="deleteSelected(); closeDialog('deleteConfirmation')">Yes</button> 
+            </div>     
+        </div>        
+    </dialog>
 
     <dialog id="addMailList" class="mdl-dialog" >
         <div class="mdl-dialog__content">
@@ -30,8 +42,7 @@
                     <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addMailList')">Close</button>
                     <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
                 </div>     
-            </form>
-            <p> {{addResult}} </p>  
+            </form> 
         </div>        
     </dialog>
     

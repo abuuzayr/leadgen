@@ -93,7 +93,7 @@ app.controller('blackListController', ['$scope','domainsData', 'blackLeadsData',
 
   return function(input) {
     if (!input){
-      return 'error';
+      return 'Unselected';
     } else {
       return typeHash[input];
     }
