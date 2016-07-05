@@ -1,5 +1,5 @@
-app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerShareData', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval',
-                function ($scope, consumerLeads, consumerShareData, $http, uiGridConstants, $q, $location, $timeout, $interval) {
+app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerShareData', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', 'consumerShareInput',
+                function ($scope, consumerLeads, consumerShareData, $http, uiGridConstants, $q, $location, $timeout, $interval, consumerShareInput) {
   
     var cs = this;
     
@@ -33,13 +33,13 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
    cs.numScrap = 0;
    cs.messageNoScrap = "No more websites available";
 
-   cs.input = {};
+   cs.category = consumerShareInput.getCategory();
 
     //get data from json file
-    consumerLeads.getConsumerLeads(cs.input.category).then(function successCallback(res) {
+    consumerLeads.getConsumerLeads(cs.category).then(function successCallback(res) {
         cs.dataList = res.data;
         // console.log('res is ' + res.data);
-        // console.log('length is ' + gc.dataListForGoogle.length);
+
     }), function errorCallback(err) {
         console.log('err is ' + err);
     };
@@ -73,7 +73,7 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
             
             } else {
                 // console.log('continue scraping');
-                consumerLeads.getConsumerLeads(cs.input.category).then(function successCallback(res) {
+                consumerLeads.getConsumerLeads(cs.category).then(function successCallback(res) {
                     if (angular.isDefined(res.data.status)) {
                         cs.stopScraping();
                         //show the 'view results' button
@@ -81,7 +81,6 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
                     } else {
                         // console.log('res is ' + res.data);
                         cs.dataList = res.data;
-                        // console.log('length is ' + cs.dataListForGoogle.length);
                     }     
             }), function errorCallback(err) {
                     console.log('err is ' + err);

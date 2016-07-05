@@ -1,5 +1,5 @@
-app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData','sendCountry', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval',
-                function ($scope, googleResults, ypResults, shareData, sendCountry, $http, uiGridConstants, $q, $location, $timeout, $interval) {
+app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData','sendCountry', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', 'shareInput',
+                function ($scope, googleResults, ypResults, shareData, sendCountry, $http, uiGridConstants, $q, $location, $timeout, $interval, shareInput) {
   
     var gc = this;
     gc.gridOptions = {
@@ -18,39 +18,40 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
       gc.gridApi = gridApi;
     }
   };
-
-  //filter for ui-grid
+  
+    //filter for ui-grid
     gc.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
-        if( col.filters[0].term ){
-         return 'header-filtered';
+        if ( col.filters[0].term ) {
+            return 'header-filtered';
         } else {
           return '';
         }
     };
 
-   gc.dataListForGoogle = [];
-   gc.dataListForYP = [];
-//    gc.forContinueScraping = [];
-   gc.numScrap = 0;
-   gc.messageNoScrap = "No more websites available";
-
-   gc.input = {};
+    //get user input
+    gc.category = shareInput.getCategory();
+    gc.country = shareInput.getCountry();
+    
+    gc.dataListForGoogle = [];
+    gc.dataListForYP = [];
+    // gc.forContinueScraping = [];
+    gc.numScrap = 0;
+    gc.messageNoScrap = "No more websites available";
 
     //get data from json file (google api)
-    console.log('getting data from google');
-    googleResults.firstTimeScrape(gc.input.category,gc.input.country).then(function successCallback(res) {
+    // console.log('getting data from google');
+    googleResults.firstTimeScrape(gc.category,gc.country).then(function successCallback(res) {
         gc.dataListForGoogle = res.data;
-        // console.log('res is ' + res.data);
-        // console.log('length is ' + gc.dataListForGoogle.length);
+        // console.log('google res is ' + res.data);
     }), function errorCallback(err) {
         console.log('err is ' + err);
     };
 
-    console.log('getting data from yellow page');
-    ypResults.scrapeYellowPageLeads(gc.input.category).then(function successCallback(res) {
+    // console.log('getting data from yellow page');
+    ypResults.scrapeYellowPageLeads(gc.category).then(function successCallback(res) {
         gc.dataListForYP = res.data;
-        // console.log('res is ' + res.data);
-        // console.log('length is ' + gc.dataListForGoogle.length);
+        // console.log('yellow page res is ' + res.data);
+
     }), function errorCallback(err) {
         console.log('err is ' + err);
     };
@@ -74,14 +75,9 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
         stop = $interval(function() {
             if (gc.dataListForGoogle.length > 0 && navigator.onLine === true) {
                 var popLead = gc.dataListForGoogle.pop();
-                // console.log('pop lead is ' + popLead.firstName);
-                // console.log('obj in listForGoogle is ' + gc.dataListForGoogle);
-
                 gc.gridOptions.data.push(popLead);
                 gc.numScrap = gc.gridOptions.data.length;
                 shareData.addLead(popLead);
-                // gc.forContinueScraping = gc.dataListForGoogle.slice();
-                // console.log('obj in continueScrape is ' + gc.forContinueScraping);
 
             } else if (gc.dataListForYP.length > 0 && navigator.onLine === true) {
                 var popYPLead = gc.dataListForYP.pop();
@@ -99,7 +95,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
 
             } else {
                 console.log('continue scraping');
-                googleResults.continueScrape(gc.input.category,gc.input.country).then(function successCallback(res) {
+                googleResults.continueScrape(gc.category,gc.country).then(function successCallback(res) {
                     // signal to stop scraping
                     if (angular.isDefined(res.data.status) && res.data.status === 205) {
                         gc.stopScraping();
@@ -107,12 +103,10 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
                         gc.showFunction();
                     } else if (angular.isDefined(res.data.status)) {
                         gc.stopScraping();
-                        //show the 'view results' button
                         gc.showFunction();
                     } else {
                         console.log('res is ' + res.data);
                         gc.dataListForGoogle = res.data;
-                        console.log('length is ' + gc.dataListForGoogle.length);
                     }     
             }), function errorCallback(err) {
                     console.log('err is ' + err);
@@ -160,12 +154,5 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             gc.status = true;
         }
     }
-
-    gc.listOfCountry;
-    //get country data
-    sendCountry.success(function(data) {
-        gc.listOfCountry = data;
-        // console.log(data);
-    });
 
 }]);

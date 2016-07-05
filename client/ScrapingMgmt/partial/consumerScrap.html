@@ -1,7 +1,5 @@
-<div>
+<div ng-controller="consumerScrapController as cs">
     <br>
-    <!--<h4>{{gc.input.category}}</h4>
-    <h4>Countey is {{gc.input.country}}</h4>-->
     <h3> <i class="material-icons" ng-hide="rc.symbol">cached</i> {{cs.numScrap}} Contacts Scraped...</h3>
     
     <div id="grid2" ui-grid="cs.gridOptions" class="grid"></div>

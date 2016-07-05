@@ -30,11 +30,11 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.sel
 		   .state('leadFinder', {
                url: '/lead-finder',
 			   templateUrl: 'ScrapingMgmt/partial/leadsFinderMain.html',
-			   controller: 'googleController'
            })
            .state('corporate', {
                url: '/corporate',
 			   templateUrl: 'ScrapingMgmt/partial/corporateBeforeScrap.html',
+			   controller: 'beforeScrapeController'
            })
 
 		   .state('corporate.corporateStartScrap', {
@@ -51,17 +51,20 @@ var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.sel
 
            .state('consumer', {
            		url: '/consumer',
-				templateUrl: 'ScrapingMgmt/partial/consumerBeforeScrap.html'
+				templateUrl: 'ScrapingMgmt/partial/consumerBeforeScrap.html',
+				controller: 'beforeConsumerController'
            })
 
 		   .state('consumer.consumerStartScrap', {
            		url: '/scraping',
-				templateUrl: 'ScrapingMgmt/partial/consumerScrap.html'
+				templateUrl: 'ScrapingMgmt/partial/consumerScrap.html',
+				controller: 'consumerScrapController'
            })
 
 		   .state('consumerResults', {
 			   url: '/consumer-results',
 			   templateUrl: 'ScrapingMgmt/partial/consumerResults.html',
+			   controller: 'consumerResultController'
 		   })
 
 		   .state('profile', {

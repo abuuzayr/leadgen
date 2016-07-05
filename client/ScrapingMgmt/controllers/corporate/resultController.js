@@ -61,7 +61,6 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
     dataToContacts= [];
     angular.forEach(rc.gridApi.selection.getSelectedRows(), function (data, index) {
       dataToContacts.push(data);
-      // dataToContacts = data;
       console.log('1.selected data is ' + dataToContacts);
       console.log('2.data is ' + data);
 
