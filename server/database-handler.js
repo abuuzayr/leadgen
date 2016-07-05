@@ -69,14 +69,13 @@ var dbHandler = {
         if(err!=null)
           reject(500);
         else{
-
-                if(obj._id != undefined)
-                  delete obj._id;
-
+          if(obj._id != undefined)
+            delete obj._id;
           var col = db.collection(collectionName);
           col.insert(obj,function(err,r){
-            if(err!=null)
+            if(err!=null){
               reject(500);
+            }
             else{
               db.close();
               resolve(201);
@@ -213,9 +212,7 @@ var dbHandler = {
             }
           };
           var arr = [obj];
-          console.log(arr);
           col.aggregate(arr).toArray(function(err,results){
-            console.log(results); 
             if(err!=null)
               reject(err);
             else{
@@ -224,8 +221,7 @@ var dbHandler = {
                 if(results[i].count > 1){
                   if(results[i]._id != null && results[i]._id != undefined && results[i]._id != '' ){
                     var object = {}; 
-                    object[field] = results[i]._id
-                    console.log(object);
+                    object[field] = results[i]._id;
                     for(var j=0; j<results[i].count -1 ; j++){
                       arr1.push(deleteDB(collectionName,object));
                     }

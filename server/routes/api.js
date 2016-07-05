@@ -78,7 +78,8 @@ apiRouter.route('/contacts/leadList/leads')
         res.sendStatus(500);
       })
     }
-  })  .patch(function(req,res){
+  })  
+  .patch(function(req,res){
     if(!req.body)
       returnStatusCode(res,400);
 
@@ -129,34 +130,42 @@ apiRouter.route('/contacts/leadList/leads')
               promiseArr.push(updateContact(results[i],newObj.firstName,newObj.lastName,newObj));
               console.log(results[i]);
             }
-            Promise.all(promiseArr)
-            .then(function(results1){
+            return Promise.all(promiseArr);
+            // Promise.all(promiseArr)
+            // .then(function(results1){
 
-              console.log('aaaa');
-              console.log(results1);
-              returnStatusCode(res,200);
-            })
-            .catch(function(error)
-            {
-              console.log(error);
-            })
+            //   console.log('aaaa');
+            //   console.log(results1);
+            //   returnStatusCode(res,200);
+            // })
+            // .catch(function(error)
+            // {
+            //   console.log(error);
+            // })
           }else{
-            ContactsManager.updateContacts(req.body)
-            .then(function(results){
-              res.sendStatus(results);
-            })
-            .catch(function(error){
-              res.sendStatus(error);
-            })
+            return ContactsManager.updateContacts(req.body);
+            // ContactsManager.updateContacts(req.body)
+            // .then(function(results){
+            //   res.sendStatus(results);
+            // })
+            // .catch(function(error){
+            //   res.sendStatus(error);
+            // })
             
           }
-      }).catch(function(error)
-      {
-        console.log(error);   
+      })
+      .then(function(results){
+        res.sendStatus(200);
+      })
+      .catch(function(error){
+        console.log(error);
+        res.sendStatus(500);
       })
     }
   });
-apiRouter.put('/contacts/leadList/leads/duplicate',jsonParser,function(req,res){
+apiRouter.put('/contacts/leadList/leads/duplicates',jsonParser,function(req,res){
+  console.log('removing duplicate');
+  console.log(req.body);
   if(!req.body)
     res.sendStatus(400);
   else{
@@ -510,6 +519,8 @@ apiRouter.route('/contacts/leadList/fields')
     }
   })
   .put(jsonParser,function(req,res){
+    console.log('removing fields');
+    console.log(req.body);
     if(!req.body)
       res.sendStatus(400);
     else{
@@ -544,15 +555,16 @@ apiRouter.route('/contacts/blackList/domain')
     })
   })
   .post(jsonParser,function(req,res){
+    console.log(req.body);
     if(!req.body)
       res.sendStatus(400);
     else{
-      if(req.body.domainName == undefined || req.body.domainName == null || req.body.domainName == '')
+      if(req.body.domain == undefined || req.body.domain == null || req.body.domain == '')
         res.sendStatus(400);
       else{
         ContactsManager.addDomain(req.body)
         .then(function(results){
-          return ContactsManager.addDomainChain('leadList',req.body.domainName,deleteContact)
+          return ContactsManager.addDomainChain('leadList',req.body.domain,deleteContact)
         })
         .then(function(results){
           res.sendStatus(results);
@@ -564,13 +576,14 @@ apiRouter.route('/contacts/blackList/domain')
     }
   })
   .put(jsonParser,function(req,res){
+    console.log(req.body);
     if(!req.body)
       res.sendStatus(400);
     else{
-      if(req.body.domainName == undefined || req.body.domainName == null || req.body.domainName == '')
+      if(req.body.domain == undefined || req.body.domain == null || req.body.domain == '')
         res.sendStatus(400);
       else{
-        var str = req.body.domainName;
+        var str = req.body.domain;
         ContactsManager.deleteDomain(req.body)
         .then(function(results){
           res.sendStatus(results);
@@ -668,6 +681,7 @@ apiRouter.get('/consumer/scrape/yp/:category',function(req,res){
   }
 })
 apiRouter.post('/scrape/',jsonParser,function(req,res){
+  console.log(req.body);
   if(!req.body)
     res.sendStatus(400);
   else{

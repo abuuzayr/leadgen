@@ -131,27 +131,20 @@ var ContactsManager = {
   },
   updateContacts : function(obj){
     return new Promise(function(resolve,reject){
-      if((Array.isArray(obj)) && obj.length == 2){
-        var type = obj[0].type;
+        // console.log('hello from the other side');
+        // console.log(obj[0]._id);
+        var originalObj = {}
+        originalObj._id = obj[0]._id;
 
-        obj[1].origin = 1;
+        dbHandler.dbUpdate('leadList',originalObj,obj[1])
+        .then(function(results){
+          resolve(200);
+        })
+        .catch(function(error){
+          reject(500);
+        });  
 
-        if(type != 1 && type != 2)
-          reject(400);
-        else{
-        
-          dbHandler.dbUpdate('leadList',obj[0],obj[1])
-          .then(function(results){
-            resolve(results);
-          })
-          .catch(function(error){
-            reject(error);
-          });         
-
-        }
-      }else{
-        reject(400);
-      }
+      
     })
   },
   removeField : function(collectionName,str){
