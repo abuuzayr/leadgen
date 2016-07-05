@@ -11,7 +11,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
       { field: 'lastName', displayName: 'Last Name', headerCellClass: gc.highlightFilteredHeader },
       { field: 'email', displayName: 'Email', headerCellClass: gc.highlightFilteredHeader },
       { field: 'company', displayName: 'Company', headerCellClass: gc.highlightFilteredHeader },
-      { field: 'number', displayName: 'Phone No.', headerCellClass: gc.highlightFilteredHeader },
+      { field: 'phone', displayName: 'Phone No.', headerCellClass: gc.highlightFilteredHeader },
       { field: 'category', displayName: 'Category', headerCellClass: gc.highlightFilteredHeader },
     ],
     onRegisterApi: function( gridApi ) {

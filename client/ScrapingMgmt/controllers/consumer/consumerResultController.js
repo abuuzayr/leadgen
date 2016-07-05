@@ -12,7 +12,7 @@ app.controller('consumerResultController', ['$scope', 'consumerShareData', 'send
       { field: 'lastName', displayName: 'Last Name', minWidth:80, width:150, headerCellClass: cr.highlightFilteredHeader },
       { field: 'email', displayName: 'Email', minWidth:80, width:200, headerCellClass: cr.highlightFilteredHeader },
       { field: 'company', displayName: 'Company', minWidth:80, width:150, headerCellClass: cr.highlightFilteredHeader },
-      { field: 'number', displayName: 'Phone No.', minWidth:80, width:150, headerCellClass: cr.highlightFilteredHeader },
+      { field: 'phone', displayName: 'Phone No.', minWidth:80, width:150, headerCellClass: cr.highlightFilteredHeader },
       { field: 'category', displayName: 'Category', minWidth:80, width:150, headerCellClass: cr.highlightFilteredHeader },
     ],
     onRegisterApi: function( gridApi ) {

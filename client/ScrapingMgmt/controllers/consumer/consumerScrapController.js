@@ -12,7 +12,7 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
       { field: 'lastName', displayName: 'Last Name', headerCellClass: cs.highlightFilteredHeader },
       { field: 'email', displayName: 'Email', headerCellClass: cs.highlightFilteredHeader },
       { field: 'company', displayName: 'Company', headerCellClass: cs.highlightFilteredHeader },
-      { field: 'number', displayName: 'Phone No.', headerCellClass: cs.highlightFilteredHeader },
+      { field: 'phone', displayName: 'Phone No.', headerCellClass: cs.highlightFilteredHeader },
       { field: 'category', displayName: 'Category', headerCellClass: cs.highlightFilteredHeader },
     ],
     onRegisterApi: function( gridApi ) {

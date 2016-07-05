@@ -10,7 +10,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
       { field: 'lastName', displayName: 'Last Name', minWidth:80, width:150, headerCellClass: rc.highlightFilteredHeader },
       { field: 'email', displayName: 'Email', minWidth:80, width:200, headerCellClass: rc.highlightFilteredHeader },
       { field: 'company', displayName: 'Company', minWidth:80, width:150, headerCellClass: rc.highlightFilteredHeader },
-      { field: 'number', displayName: 'Phone No.', minWidth:80, width:150, headerCellClass: rc.highlightFilteredHeader },
+      { field: 'phone', displayName: 'Phone No.', minWidth:80, width:150, headerCellClass: rc.highlightFilteredHeader },
       { field: 'category', displayName: 'Category', minWidth:80, width:150, headerCellClass: rc.highlightFilteredHeader },
     ],
     onRegisterApi: function( gridApi ) {
