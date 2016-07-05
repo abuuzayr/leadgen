@@ -449,17 +449,15 @@ module.exports = mailchimpHandler;
 						}
 					}
 				}
-				mailinglistmanager.getAllData('contacts')
+				mailinglistmanager.getAllData('leadList')
 					.then(function(cResults){
-						//console.log(cResults);
-
-							console.log(activityArr);
 						for(var j=0;j<cResults.length;j++){
 							cResults[j].history=[];
 						}
 						for(var i=0;i<activityArr.length;i++){
 							for(var j=0;j<cResults.length;j++){
-								if(activityArr[i].contactID == cResults[j]._id){
+								var itemID=cResults[j]._id+'';
+								if(activityArr[i].contactID == itemID){
 									cResults[j].history.push(activityArr[i].action);
 								}
 							}
@@ -467,7 +465,7 @@ module.exports = mailchimpHandler;
 						console.log(cResults);
 						var promiseActivityArr = [];
 						for(var k =0;k<cResults.length;k++){
-							promiseActivityArr.push(mailinglistmanager.updateActivity('contacts',cResults[k]));
+							promiseActivityArr.push(mailinglistmanager.updateActivity('leadList',cResults[k]));
 						}
 						Promise.all(activityArr)
 							.then(function(activityResults){
