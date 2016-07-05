@@ -20,15 +20,15 @@ var MailinglistManager = {
 			})
 		})
 	},
-	updateMemberInfo: function(collectionName, obj, lID, sHash){
+	updateMemberInfo: function(collectionName,lname,fname, lID, sHash){
 	return new Promise (function(resolve,reject) {
 			var object1={
 				listID:lID,
 				email_hash:sHash
 			}
 			var object2={
-				firstName:obj.firstName,
-				lastName:obj.lastName
+				firstName:fname,
+				lastName:lname
 			}
 			console.log('updating');
 			console.log(object1);
@@ -89,7 +89,7 @@ var MailinglistManager = {
 			contactsHandler.addContactMC(tempC)
 			.then(function(results){
 				var tempML={
-					contactID: results,
+					contactID: results+'',
 					listID: obj.listID,
 					name: obj.name,
 					email_addr: obj.email_addr,
@@ -368,9 +368,12 @@ var MailinglistManager = {
 				Promise.all(pArr)
 				.then(function(promiseResults){
 					var finalResults=[];
+					console.log(returnResults);
+					console.log(promiseResults);
 					for(var i=0;i<returnResults.length;i++){
 						for(var j=0;j<promiseResults.length;j++){
-							if(_.isEqual(returnResults[i].contactID,promiseResults[j][0]._id)){
+							var itemID=promiseResults[j][0]._id+'';
+							if(_.isEqual(returnResults[i].contactID,itemID)){
 								var temp = Object.assign(returnResults[i],promiseResults[j][0]);
 								if(temp.subscriberStatus === 'subscribed')
 									temp.status = 1;
@@ -430,7 +433,7 @@ var MailinglistManager = {
 				callback(res,error);
 			})
 		}
-		},
+	},
 	deleteMemberMC: function(collectionName,obj)
 	{
 		return new Promise (function(resolve,reject) {

@@ -47,23 +47,14 @@ apiRouter.route('/contacts/leadList/leads')
   })
   .put(jsonParser, function(req,res){
     console.log('delete api');
-    console.log(req.body);
     // console.log(req.body);
     if(!req.body)
       returnStatusCode(res,400);
     else{
-      /*===SAMPLE JSON POST===
-      {
-              "deleteFromC":["111","222","333"]
-          }
-      */
-
       var arr = [];
-      
       for(var i=0;i<req.body.length;i++){
         arr.push(req.body[i]._id);
       }
-
       var promiseArr = [];
       for(var i=0;i<arr.length;i++)
       {
@@ -78,7 +69,8 @@ apiRouter.route('/contacts/leadList/leads')
         res.sendStatus(500);
       })
     }
-  })  .patch(function(req,res){
+  })  
+  .patch(function(req,res){
     if(!req.body)
       returnStatusCode(res,400);
 
@@ -114,45 +106,47 @@ apiRouter.route('/contacts/leadList/leads')
           "origin": 1
         }
       ]*/
+    console.log(req.body);
     var originObj = req.body[0];
     var newObj = req.body[1];
     var cid= originObj._id;
+    var lname,fname;
     var temp={
       contactID:cid
     }
+    if(newObj.firstName!=undefined){
+      fname=newObj.firstName;
+    }else
+    {
+      fname= originObj.firstName;
+    }
+    if(newObj.lastName!=undefined){
+      lname=newObj.lastName;
+    }else
+    {
+     lname = originObj.lastName;
+    }
     MailinglistManager.getMailingListMemberInfo('mailinglists',temp)
-        .then(function(results){    
+        .then(function(results){
           if(results.length!=0){
             var promiseArr = [];
+            console.log(results);
             for(var i=0;i<results.length;i++)
             {
-              promiseArr.push(updateContact(results[i],newObj.firstName,newObj.lastName,newObj));
+              promiseArr.push(updateContact(results[i],fname,lname,req.body));
               console.log(results[i]);
             }
-            Promise.all(promiseArr)
-            .then(function(results1){
-
-              console.log('aaaa');
-              console.log(results1);
-              returnStatusCode(res,200);
-            })
-            .catch(function(error)
-            {
-              console.log(error);
-            })
+            return Promise.all(promiseArr);
           }else{
-            ContactsManager.updateContacts(req.body)
-            .then(function(results){
-              res.sendStatus(results);
-            })
-            .catch(function(error){
-              res.sendStatus(error);
-            })
-            
+            return ContactsManager.updateContacts(req.body);
           }
-      }).catch(function(error)
-      {
-        console.log(error);   
+      })
+      .then(function(results){
+        res.sendStatus(200);
+      })
+      .catch(function(error){
+        console.log(error);
+        res.sendStatus(500);
       })
     }
   });
@@ -237,7 +231,7 @@ apiRouter.route('/contacts/mailingList')
       returnStatusCode(res,400);
     else{
       //create mailinglist
-      MailchimpManager.addList(apiKey,req.body.name) //1- 
+      MailchimpManager.addList(apiKey,req.body.listName) //1- 
         .then(function(MCResults)
         {
         console.log("Mailchimp.addList Results:");
@@ -264,17 +258,19 @@ apiRouter.route('/contacts/mailingList')
     if(!req.body)
       returnStatusCode(res,400);
     else{
+      console.log(req.body);
       /*Required Steps: (Mailchimp Server, App Server)
         1) Remove mailing list from mailchimp
         2) When completed remove the list from app server
         {
           "listID": ""
         }
+        [ { listID: '3a365442aa', name: 'PostingList7', subscribers: 4 } ]
         */
-        MailchimpManager.deleteList(apiKey,req.body.listID)//1-
+        MailchimpManager.deleteList(apiKey,req.body[0].listID)//1-
           .then(function(MCResults)
           {
-          MailinglistManager.deleteList(res,'mailinglists',req.body,returnStatusCode);//1-        
+          MailinglistManager.deleteList(res,'mailinglists',req.body[0],returnStatusCode);//1-        
           }).catch(function(MCError)
           {
             console.log(MCError);
@@ -331,82 +327,39 @@ apiRouter.route('/contacts/mailingList')
     if(!req.body)
       returnStatusCode(res,400);
     else{
+        console.log(req.body);
       //Suppose to sort incoming json file into merge fields so that it will be easier to add to mailchimp
       /* 1) Add subscriber into mailchimp according to list 
          2) After creating the batch, add the members in mailing list table
-         addMemberToList: function(apiKey,listID,memberInfo)
-        
-		{
-			"listID": "",
-			"name": "",
-			"memberInfo" : "[
-			{
-                    "_id" : "21345",
-             	   "email" : "aaa@jobs.com",
-                  "firstName": "aa",
-                  "lastName": "AA"
-               },,,,,,,]"
-		}
-        =====SAMPLE POST =====
-             {
-            "listID": "4467d29715",
-            "name" : "PostingList2",
-             "memberInfo" : [
-                  {
-                    "contactID" : "21345",
-                "subscriberStatus"        : "subscribed",
-                "email_addr" : "aaa@jobs.com",
-                  "merge_fields": {
-                  "firstName": "aa",
-                  "lastName": "AA"
-               }
-               }, { 
-               "contactID" : "21345",
-              "subscriberStatus"        : "subscribed",
-                "email_addr" : "cccc@jobs.com",
-                  "merge_fields": {
-                  "firstName": "cccc",
-                  "lastName": "cccc"
-               }
-              }, {
-                "contactID" : "21345",
-                "subscriberStatus"        : "subscribed",
-                "email_addr" : "bbbbb@jobs.com",
-                  "merge_fields": {
-                  "firstName": "bbb",
-                  "lastName": "bbb"
-               }
-              }
-                ]
-            }
-      // */
+         addMemberToList: function(apiKey,listID,memberInfo)      
+*/
       var memberinfoMC=[];
-      for(var i=0;i<req.body.memberInfo.length;i++){
+      for(var i=0;i<req.body[0].y.length;i++){
         var temp={
           status: 'subscribed',
-          email_address:req.body.memberInfo[i].email,
+          email_address:req.body[0].y[i].email,
           merge_fields:{
-            FNAME:req.body.memberInfo[i].firstName,
-            LNAME:req.body.memberInfo[i].lastName
+            FNAME:req.body[0].y[i].firstName,
+            LNAME:req.body[0].y[i].lastName
           }
         }
         memberinfoMC.push(temp);
       }
-      MailchimpManager.addMemberToList(apiKey,req.body.listID,memberinfoMC)
+      MailchimpManager.addMemberToList(apiKey,req.body[1].listID,memberinfoMC)
         .then(function(MCResults)
         {
         console.log(MCResults);
         var obj=[];
-        for(var i = 0; i<req.body.memberInfo.length;i++)
+        for(var i = 0; i<req.body[0].y.length;i++)
         {
           var temp={
-            contactID:req.body.memberInfo[i]._id,
-            listID: req.body.listID,
-            name: req.body.name,
-            email_addr: req.body.memberInfo[i].email,
-            email_hash: md5(req.body.memberInfo[i].email),
-            firstName: req.body.memberInfo[i].firstName,
-            lastName: req.body.memberInfo[i].lastName,
+            contactID:req.body[0].y[i]._id+'',
+            listID: req.body[1].listID,
+            name: req.body[1].name,
+            email_addr: req.body[0].y[i].email,
+            email_hash: md5(req.body[0].y[i].email),
+            firstName: req.body[0].y[i].firstName,
+            lastName: req.body[0].y[i].lastName,
             subscriberStatus: 'subscribed'
           }
           console.log(temp);
@@ -421,11 +374,12 @@ apiRouter.route('/contacts/mailingList')
     if(!req.body)
       returnStatusCode(res,400);
     else{
-          if(req.body.delete.length!=0)
-          {//there is a contact in mailing list that need to be deleted.
+          if(req.body.length!=0)
+          {
+            console.log(req.body);
+          //there is a contact in mailing list that need to be deleted.
             /*  ====SAMPLE POST====
               {
-                 "delete":
                   [{"listID": "6b444f37c4",
                 "email_hash": "91bb87a98edc7e2f45c605a46d12d65b",
                 "_id":"aaaaa"
@@ -435,10 +389,9 @@ apiRouter.route('/contacts/mailingList')
                      "_id":"aaaaa"
                      }    
                 ]
-              }
-            */
+              }*/
             var promiseArr = [];
-            for(var i=0;i<req.body.delete.length;i++){
+            for(var i=0;i<req.body.length;i++){
               promiseArr.push(MailchimpManager.deleteMember(apiKey,req.body[i].listID,req.body[i].email_hash));
             }
             Promise.all(promiseArr)
@@ -470,7 +423,7 @@ apiRouter.route('/dropcollection')
     if(!req.body)
       returnStatusCode(res,400)
     else{
-      MailinglistManager.dbDropCollection(res,'leadList',returnStatusCode);
+      MailinglistManager.dbDropCollection(res,'mailinglists',returnStatusCode);
         }
       });
 /*
@@ -707,7 +660,7 @@ var deleteContact = function(cid){
         3) when both completed delete from app server database.*/
         var CID= cid;
         var temp ={
-          contactID:cid
+          contactID:cid+''
         }
         var obj = {
           _id : cid
@@ -774,17 +727,24 @@ var updateContact = function(results,firstName,lastName,body)
           console.log(temp);
           MailchimpManager.updateMember(apiKey,results.listID,results.email_hash,temp)
           .then(function(MCresults){
-            MailinglistManager.updateMemberInfo('mailinglists',body,results.listID,results.email_hash)
+            MailinglistManager.updateMemberInfo('mailinglists',lastName,firstName,results.listID,results.email_hash)
             .then(function(MLResults){
 	              console.log("update success");
 	              resolve(MLResults);
-              }).catch(function(MLerror){
+                ContactsManager.updateContacts(body)
+                      .then(function(cResults){
+                        resolve(cResults);
+                      }).catch(function(cError)
+                      {
+                          console.log(cError);
+                      })
+              })
+            .catch(function(MLerror){
               console.log(MLerror);
               })
             }).catch(function(MCerror){
                 console.log(MCerror);
              })
-
   })
   }
 module.exports = apiRouter;
