@@ -354,7 +354,32 @@ var MailinglistManager = {
 						returnResults.push(results[i]);
 					}
 				}
-				callback(res,returnResults);
+				var pArr=[];
+				for(var i=0;i<returnResults.length;i++)
+				{
+					console.log(returnResults[i].contactID);
+					var queryID={
+						_id : returnResults[i].contactID
+					}
+					pArr.push(dbHandler.getSubscriberContact('leadList',queryID));
+				}
+				Promise.all(pArr)
+				.then(function(promiseResults){
+					var finalResults=[];
+					for(var i=0;i<returnResults.length;i++){
+						for(var j=0;j<promiseResults.length;j++){
+							if(returnResults[i].contactID==promiseResults[j][0]._id){
+								var temp = Object.assign(returnResults[i],promiseResults[j][0]);
+								finalResults.push(temp);
+							}
+						}
+					}
+					console.log("finalResults");
+					console.log(finalResults);
+					callback(res,finalResults);
+				}).catch(function(pAllError){
+					console.log(pAllError);
+				})
 			})
 			.catch(function(error){
 				callback(res,error);
@@ -461,7 +486,8 @@ var MailinglistManager = {
 					console.log('updateListMC'+error);
 				});
 			})
-	}
+	},
+
 }
 
 module.exports = MailinglistManager;

@@ -119,6 +119,10 @@ var dbHandler = {
           reject(err);
         else{
           var col = db.collection(collectionName);
+          if(obj!=null){
+            if(obj._id != undefined)
+              obj._id = new mongodb.ObjectID(obj._id);
+          }
           col.find(obj).toArray(function(err,docs){
             if(err!=null)
               reject(err);
@@ -257,6 +261,30 @@ var dbHandler = {
               resolve(200);
             } 
           });
+        }
+      });
+    });
+  },
+    getSubscriberContact : function(collectionName,obj)
+  {
+        return new Promise(function(resolve,reject){  
+      MongoClient.connect(config.dbURI,function(err,db){
+        if(err!=null)
+          reject(err);
+        else{
+          var col = db.collection(collectionName);
+          if(obj!=null){
+            if(obj._id != undefined)
+              obj._id = new mongodb.ObjectID(obj._id);
+          }
+          col.find(obj).toArray(function(err,docs){
+            if(err!=null)
+              reject(err);
+            else{
+              db.close();
+              resolve(docs);
+            }
+          })
         }
       });
     });
