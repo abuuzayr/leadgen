@@ -163,7 +163,9 @@ apiRouter.route('/contacts/leadList/leads')
       })
     }
   });
-apiRouter.put('/contacts/leadList/leads/duplicate',jsonParser,function(req,res){
+apiRouter.put('/contacts/leadList/leads/duplicates',jsonParser,function(req,res){
+  console.log('removing duplicate');
+  console.log(req.body);
   if(!req.body)
     res.sendStatus(400);
   else{
@@ -517,6 +519,8 @@ apiRouter.route('/contacts/leadList/fields')
     }
   })
   .put(jsonParser,function(req,res){
+    console.log('removing fields');
+    console.log(req.body);
     if(!req.body)
       res.sendStatus(400);
     else{
@@ -551,15 +555,16 @@ apiRouter.route('/contacts/blackList/domain')
     })
   })
   .post(jsonParser,function(req,res){
+    console.log(req.body);
     if(!req.body)
       res.sendStatus(400);
     else{
-      if(req.body.domainName == undefined || req.body.domainName == null || req.body.domainName == '')
+      if(req.body.domain == undefined || req.body.domain == null || req.body.domain == '')
         res.sendStatus(400);
       else{
         ContactsManager.addDomain(req.body)
         .then(function(results){
-          return ContactsManager.addDomainChain('leadList',req.body.domainName,deleteContact)
+          return ContactsManager.addDomainChain('leadList',req.body.domain,deleteContact)
         })
         .then(function(results){
           res.sendStatus(results);
@@ -571,13 +576,14 @@ apiRouter.route('/contacts/blackList/domain')
     }
   })
   .put(jsonParser,function(req,res){
+    console.log(req.body);
     if(!req.body)
       res.sendStatus(400);
     else{
-      if(req.body.domainName == undefined || req.body.domainName == null || req.body.domainName == '')
+      if(req.body.domain == undefined || req.body.domain == null || req.body.domain == '')
         res.sendStatus(400);
       else{
-        var str = req.body.domainName;
+        var str = req.body.domain;
         ContactsManager.deleteDomain(req.body)
         .then(function(results){
           res.sendStatus(results);
