@@ -70,7 +70,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
 
         } else if (navigator.onLine === true) {
 
-            showInternet(navigator.onLine);
+            showInternet(navigator.onLine);         //to make gc.status
             
             stop = $interval(function() {
                 if (gc.dataListForGoogle.length > 0 && navigator.onLine === true) {
