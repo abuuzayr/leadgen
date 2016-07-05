@@ -11,7 +11,7 @@
         <br>
         <h3>Scrap By:</h3>
         <br>
-        <select class="form-control" id="category" ng-model='beforeConsumer.category'>
+        <select class="form-control" id="category" ng-model='beforeConsumer.category' ng-change="beforeConsumer.continueScraping()">
           <option>F & B</option>
           <option>Retail</option>
           <option>IT</option>
@@ -21,7 +21,7 @@
 
       <!-- Accent-colored raised button with ripple -->
       <a ui-sref=".consumerStartScrap">
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="beforeConsumer.setInput()">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="beforeConsumer.setInput()" ng-disabled="beforeConsumer.continue">
         Proceed to Scrape
         </button>
       </a>
