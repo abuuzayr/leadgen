@@ -69,14 +69,13 @@ var dbHandler = {
         if(err!=null)
           reject(500);
         else{
-
-                if(obj._id != undefined)
-                  delete obj._id;
-
+          if(obj._id != undefined)
+            delete obj._id;
           var col = db.collection(collectionName);
           col.insert(obj,function(err,r){
-            if(err!=null)
+            if(err!=null){
               reject(500);
+            }
             else{
               db.close();
               resolve(201);

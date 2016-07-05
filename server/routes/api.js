@@ -78,7 +78,8 @@ apiRouter.route('/contacts/leadList/leads')
         res.sendStatus(500);
       })
     }
-  })  .patch(function(req,res){
+  })  
+  .patch(function(req,res){
     if(!req.body)
       returnStatusCode(res,400);
 
@@ -129,30 +130,36 @@ apiRouter.route('/contacts/leadList/leads')
               promiseArr.push(updateContact(results[i],newObj.firstName,newObj.lastName,newObj));
               console.log(results[i]);
             }
-            Promise.all(promiseArr)
-            .then(function(results1){
+            return Promise.all(promiseArr);
+            // Promise.all(promiseArr)
+            // .then(function(results1){
 
-              console.log('aaaa');
-              console.log(results1);
-              returnStatusCode(res,200);
-            })
-            .catch(function(error)
-            {
-              console.log(error);
-            })
+            //   console.log('aaaa');
+            //   console.log(results1);
+            //   returnStatusCode(res,200);
+            // })
+            // .catch(function(error)
+            // {
+            //   console.log(error);
+            // })
           }else{
-            ContactsManager.updateContacts(req.body)
-            .then(function(results){
-              res.sendStatus(results);
-            })
-            .catch(function(error){
-              res.sendStatus(error);
-            })
+            return ContactsManager.updateContacts(req.body);
+            // ContactsManager.updateContacts(req.body)
+            // .then(function(results){
+            //   res.sendStatus(results);
+            // })
+            // .catch(function(error){
+            //   res.sendStatus(error);
+            // })
             
           }
-      }).catch(function(error)
-      {
-        console.log(error);   
+      })
+      .then(function(results){
+        res.sendStatus(200);
+      })
+      .catch(function(error){
+        console.log(error);
+        res.sendStatus(500);
       })
     }
   });
@@ -668,6 +675,7 @@ apiRouter.get('/consumer/scrape/yp/:category',function(req,res){
   }
 })
 apiRouter.post('/scrape/',jsonParser,function(req,res){
+  console.log(req.body);
   if(!req.body)
     res.sendStatus(400);
   else{
