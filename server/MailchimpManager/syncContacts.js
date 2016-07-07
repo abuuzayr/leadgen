@@ -35,7 +35,7 @@ var mailchimpHandler ={
 					       subscriberStatus: dbResults2[i].subscriberStatus,
 					       firstName:dbResults2[i].firstName,
 					       lastName: dbResults2[i].lastName
-					  	}
+					  	};
 					  	for(var j=0;j<databaselist.length;j++){
 					  		if(databaselist[j].listID==listID){
 								databaselist[j].members.push(member);
@@ -82,7 +82,7 @@ var mailchimpHandler ={
 							listID : mailchimplist[i].listID,
 							members : [],
 							action : '0' // 0 - default, 1 - update list name only, 2- update members info only, 3 update both member and list name
-							}
+							};
 							//check if their name is still the same
 							if(appDatabase[j].name != mailchimplist[i].name){
 								//user has changed the name of the list a mailchimp side!
@@ -105,13 +105,13 @@ var mailchimpHandler ={
 							}					
 						}
 					}//check if users has created lists in mailchimp side!
-					if(listfound==false){
+					if(listfound===false){
 					var tempt={
 						name : mailchimplist[i].name,
 						listID : mailchimplist[i].listID,
 						members : mailchimplist[i].members,
 						action : '4'//to denote an create
-						}
+						};
 					differenceArr.push(tempt);	
 					}
 				}
@@ -128,11 +128,11 @@ var mailchimpHandler ={
 						//if not found, it means that user has deleted the list on the mailchimp server
 						//we will attempt to remove from our side as well.
 						var tempt={
-						name : appDatabase[i].name,
+						name :appDatabase[i].name,
 						listID : appDatabase[i].listID,
 						members : appDatabase[i].members,
 						action : '5'//to denote an delete
-						}
+						};
 							differenceArr.push(tempt);
 						}
 				}
@@ -154,7 +154,7 @@ var mailchimpHandler ={
 							var deleteListTemp={
 								listID:differenceArr[i].listID,
 								name:differenceArr[i].name
-							}
+							};
 							promiseArr.push(mailinglistmanager.deleteListv2('mailinglists',deleteListTemp));
 						}else if(differenceArr[i].action == '4'){
 								//its a create call
@@ -169,7 +169,7 @@ var mailchimpHandler ={
 									lastName: '-',
 									subscriberStatus: '-'
 									//_id will be auto generated
-								}
+								};
 								promiseArr.push(mailinglistmanager.addListMC('mailinglists',createListTemp));
 								if(differenceArr[i].members != '0')
 								{
@@ -184,7 +184,7 @@ var mailchimpHandler ={
 											firstName: differenceArr[i].members[j].firstName,
 											lastName: differenceArr[i].members[j].lastName,
 											subscriberStatus: differenceArr[i].members[j].subscriberStatus
-										}
+										};
 									promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp,apiKey));
 									}
 								}
@@ -199,15 +199,15 @@ var mailchimpHandler ={
 										},
 										{
 											name: differenceArr[i].name
-										}]
+										}];
 								promiseArr.push(mailinglistmanager.updateListMC('mailinglists',updateListNameTemp));
 								for(var j =0;j<differenceArr[i].members.length;j++){
 									console.log(differenceArr[i].members[j].action);
 									//identify the type of update C/U/D
 									if(differenceArr[i].members[j].action=='1'){
 										//update member
-										var updateListNameTemp=[
-											{
+										var updateListNameTemp=
+										[{
 											listID:differenceArr[i].listID,
 											email_hash:differenceArr[i].members[j].email_hash
 											},
@@ -228,7 +228,7 @@ var mailchimpHandler ={
 											firstName: differenceArr[i].members[j].firstName,
 											lastName: differenceArr[i].members[j].lastName,
 											subscriberStatus: differenceArr[i].members[j].subscriberStatus
-										}
+										};
 										promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp,apiKey));
 									}else if(differenceArr[i].members[j].action=='3'){ 
 										//delete member
@@ -240,7 +240,7 @@ var mailchimpHandler ={
 											firstName: differenceArr[i].members[j].firstName,
 											lastName: differenceArr[i].members[j].lastName,
 											subscriberStatus: differenceArr[i].members[j].subscriberStatus
-										}
+										};
 										promiseArr.push(mailinglistmanager.deleteMemberMC('mailinglists',deleteContactTemp));
 									}
 								}
@@ -272,7 +272,7 @@ var mailchimpHandler ={
 											firstName: differenceArr[i].members[j].firstName,
 											lastName: differenceArr[i].members[j].lastName,
 											subscriberStatus: differenceArr[i].members[j].subscriberStatus
-										}
+										};
 										promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp,apiKey));
 									}else if(differenceArr[i].members[j].action=='3'){ 
 										//delete member
@@ -284,7 +284,7 @@ var mailchimpHandler ={
 											firstName: differenceArr[i].members[j].firstName,
 											lastName: differenceArr[i].members[j].lastName,
 											subscriberStatus: differenceArr[i].members[j].subscriberStatus
-										}
+										};
 										promiseArr.push(mailinglistmanager.deleteMemberMC('mailinglists',deleteContactTemp));
 									}
 								}
@@ -309,17 +309,17 @@ var mailchimpHandler ={
 						.catch(function(error)
 						{
 							console.log(error);
-						})
+						});
 			})
 			.catch(function(error){
 				console.log('error getting information :' + error);
 			}).done(function()
 			{
 			 	mailchimpClass.getReports(getReportDetails, resolve, reject);
-			})
-					})
-				})
-		})
+			});
+					});
+				});
+		});
 	},
 	updateList: function(apiKey,listID, tempInfo)
 	{
@@ -332,8 +332,8 @@ var mailchimpHandler ={
 			}).catch(function(error)
 			{
 				console.log("Sync Contact update Error"+error);
-			})
-		})
+			});
+		});
 	},addList: function(apiKey,listName)
 	{
 	return new Promise (function(resolve,reject) {
@@ -345,8 +345,8 @@ var mailchimpHandler ={
 			}).catch(function(error)
 			{
 				console.log("Sync Contact add list Error"+error);
-			})
-		})		
+			});
+		});
 
 	},addMemberToList: function(apiKey,listID,memberInfo)
 	{
@@ -359,8 +359,8 @@ var mailchimpHandler ={
 			.catch(function(error)
 			{
 				console.log("Sync Contact addMemberToList "+error);
-			})
-		})
+			});
+		});
 		},
 	getListInformation : function(apiKey,listID)
 	{
@@ -372,8 +372,8 @@ var mailchimpHandler ={
 			}).catch(function(error)
 			{
 				console.log("Sync contact update Error"+error);
-			})
-	})
+			});
+	});
 	},
 	deleteMember: function(apiKey,listID,suscribeHash)
 	{
@@ -384,8 +384,8 @@ var mailchimpHandler ={
 			   		})
 		  		.catch(function(error){
 		  	console.log('Sync Contact deleteMember'+error);
-		  })
-		})
+		  });
+		});
 	},
 	deleteList: function(apiKey,listID)
 	{
@@ -396,10 +396,9 @@ var mailchimpHandler ={
 			   		})
 		  		.catch(function(error){
 		  	console.log('Sync Contact deleteList'+error);
-		  })
-		})
-	}
-	,updateMember: function(apiKey,listID,suscribeHash,memberInfo )
+		  });
+		});
+	},updateMember: function(apiKey,listID,suscribeHash,memberInfo )
 	{
 	return new Promise (function(resolve,reject) {
 			mailchimpClass.updateMember(apiKey,listID,suscribeHash,memberInfo)	
@@ -408,10 +407,10 @@ var mailchimpHandler ={
 			}).catch(function(error)
 			{
 				console.log("Sync contact update Member Error"+error);
-			})
-		})
+			});
+		});
 	}
-}
+};
 module.exports = mailchimpHandler;
 
 	var getReportDetails = function(results, resolve, reject){
@@ -432,9 +431,9 @@ module.exports = mailchimpHandler;
 					action: results[i].emails[j].activity,
 					//One of the following actions: ‘open’, ‘click’, or ‘bounce’ and the date and time recorded for the action.
 					contactID: ''
-				}
+				};
 				if(results[i].emails[j].activity.length!=0){
-					activityArr.push(temp);
+									activityArr.push(temp);
 			 	}
 			}
 		}
@@ -473,18 +472,17 @@ module.exports = mailchimpHandler;
 							})
 							.catch(function(activityError){
 								console.log('activityError'+activityError);
-							})
+							});
 					})
 					.catch(function(cError){
 						console.log('cError'+cError);
-					})
+					});
 			}).catch(function(mlError){
 				console.log('mlError'+mlError);
-			})
+			});
 		resolve('true');
 		//return to front end
-	}
-
+	};
 	function compareMemberLists(mailchimpMembers, membersDatabase){
 		var differenceMemArr = [];
 		//console.log("===========================In compareMember lists=====================");
@@ -501,7 +499,7 @@ module.exports = mailchimpHandler;
 						firstName : mailchimpMembers[i].firstName,
 						lastName : mailchimpMembers[i].lastName,
 						action: '0'
-					}
+					};
 					//check if their name is still the same
 					if(JSON.stringify(mailchimpMembers[i]) != JSON.stringify(membersDatabase[j])){
 						//user has changed the name of the list a mailchimp side!
@@ -519,7 +517,7 @@ module.exports = mailchimpHandler;
 					firstName : mailchimpMembers[i].firstName,
 					lastName : mailchimpMembers[i].lastName,
 					action: '2'
-				}	
+				};
 				differenceMemArr.push(temp);			
 			}
 		}
@@ -541,7 +539,7 @@ module.exports = mailchimpHandler;
 						firstName : membersDatabase[i].firstName,
 						lastName : membersDatabase[i].lastName,
 						action: '3'
-					}	
+					};
 					differenceMemArr.push(temp);
 			}
 		}

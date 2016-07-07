@@ -17,19 +17,19 @@ var MailinglistManager = {
 			})
 			.catch(function(error){
 				reject(error);
-			})
-		})
+			});
+		});
 	},
 	updateMemberInfo: function(collectionName,lname,fname, lID, sHash){
 	return new Promise (function(resolve,reject) {
 			var object1={
 				listID:lID,
 				email_hash:sHash
-			}
+			};
 			var object2={
 				firstName:fname,
 				lastName:lname
-			}
+			};
 			console.log('updating');
 			console.log(object1);
 			console.log('with');
@@ -40,8 +40,8 @@ var MailinglistManager = {
 			})
 			.catch(function(error){
 				console.log(error);
-			})
-	})
+			});
+	});
 	},
 	addList: function(res,collectionName,obj,callback)
 	{
@@ -66,9 +66,8 @@ var MailinglistManager = {
 		})
 		.catch(function(error){
 			console.log('addList'+error);
-		})
-	})
-
+		});
+	});
 	},
 	addContactsChain: function(collectionName,obj,apiKey)
 	{
@@ -85,7 +84,7 @@ var MailinglistManager = {
 				category:null,
 				origin:1,
 				phone:null
-			}
+			};
 			contactsHandler.addContactMC(tempC,obj.email_hash,obj.listID,apiKey)
 			.then(function(results){
 				var tempML={
@@ -97,7 +96,7 @@ var MailinglistManager = {
 					firstName: obj.firstName,
 					lastName: obj.lastName,
 					subscriberStatus: obj.subscriberStatus
-				}
+				};
 				console.log(tempC);
 				console.log(tempML);
 				dbHandler.dbInsert(collectionName,tempML)
@@ -105,13 +104,13 @@ var MailinglistManager = {
 					{
 						resolve(result);
 					}).catch(function(MLerror){
-						console.log('insertML'+error)
-					})
+						console.log('insertML'+error);
+					});
 			})
 			.catch(function(error){
 				console.log('insertcontacts error'+error);
 			});
-		})
+		});
 	},	
 	deleteList: function(res,collectionName,obj,callback)
 	{
@@ -134,8 +133,8 @@ var MailinglistManager = {
 			})
 			.catch(function(error){
 				reject(error);
-			})
-	})
+			});
+	});
 	},
 	getListNames: function(res,collectionName,callback)
 	{		
@@ -143,7 +142,7 @@ var MailinglistManager = {
 			var obj={
 				email_hash:'-',
 				email_addr:'-'
-			}
+			};
 			var returnResults=[];
 			dbHandler.dbQuery(collectionName,obj)
 			.then(function(results){
@@ -152,7 +151,7 @@ var MailinglistManager = {
 						listID:results[i].listID,
 						name: results[i].name,
 						subscribers:''
-					}
+					};
 					returnResults.push(temp);
 				}
 				dbHandler.dbAggreateML(collectionName)
@@ -170,11 +169,11 @@ var MailinglistManager = {
 						}
 					}
 					callback(res,returnResults);
-					})
+					});
 			})
 			.catch(function(error){
 				callback(res,error);
-			})	
+			});
 	},
 	updateContactMC: function(collectionName,obj)
 	{		
@@ -210,19 +209,19 @@ var MailinglistManager = {
 							resolve(results2);
 						})
 						.catch(function(error2){
-							console.log("updatecontact2"+ error2)
-						})
+							console.log("updatecontact2"+ error2);
+						});
 						console.log('update success!');
 						resolve(results1);
 				}).catch(function(error)
 				{
 					console.log('updateContactMC updateML'+error);
-				})
+				});
 			})
 			.catch(function(error){
 				console.log('updateContactMC query',error);
-			})	
-		})
+			});
+		});
 	},
 	getListNamesMC: function(collectionName)
 	{		
@@ -231,15 +230,15 @@ var MailinglistManager = {
 			var obj={
 				email_hash:'-',
 				email_addr:'-'
-			}
+			};
 			dbHandler.dbQuery(collectionName,obj)
 			.then(function(results){
 				 resolve(results);
 			})
 			.catch(function(error){
 				console.log('trying getListNamesMC failed :'+error);
-			})
-		})
+			});
+		});
 	},
 	getAllMembers: function(collectionName)
 	{		
@@ -250,8 +249,8 @@ var MailinglistManager = {
 			})
 			.catch(function(error){
 				console.log('trying to get all members failed :'+error);
-			})
-		})
+			});
+		});
 	},
 	populate: function(obj,collectionName)
 	{		
@@ -275,10 +274,9 @@ var MailinglistManager = {
 			})
 			.catch(function(error){
 				resolve(results);
-			})
+			});
 		}
-		}
-	,
+	},
 	addMemberToList: function(res,collectionName,obj,callback)
 	{
 			if(!Array.isArray(obj)){
@@ -300,7 +298,7 @@ var MailinglistManager = {
 			})
 			.catch(function(error){
 				callback(res,error);
-			})
+			});
 		}
 	},
 	addMemberToListMC: function(collectionName,obj)
@@ -311,10 +309,9 @@ var MailinglistManager = {
 				resolve(results);
 			})
 			.catch(function(error){
-				console.log('addMemberToListMC'+error)
-			})
-		})
-
+				console.log('addMemberToListMC'+error);
+			});
+		});
 	},
 	dbDropCollection: function(res,collectionName,callback)
 	{
@@ -324,7 +321,7 @@ var MailinglistManager = {
 		})
 		.catch(function(error){
 			callback(res,error);
-		})
+		});
 	},
 	updateList : function(res,collectionName,obj,callback){
 		if((Array.isArray(obj)) && obj.length == 2){
@@ -345,7 +342,7 @@ var MailinglistManager = {
 
 			var temp ={
 				listID : obj.listID
-			}
+			};
 			dbHandler.dbQuery(collectionName,temp)
 			.then(function(results){
 				var returnResults= [];
@@ -362,7 +359,7 @@ var MailinglistManager = {
 					console.log(returnResults[i].contactID);
 					var queryID={
 						_id : returnResults[i].contactID
-					}
+					};
 					pArr.push(dbHandler.getSubscriberContact('leadList',queryID));
 				}
 				Promise.all(pArr)
@@ -388,7 +385,7 @@ var MailinglistManager = {
 					callback(res,finalResults);
 				}).catch(function(pAllError){
 					console.log(pAllError);
-				})
+				});
 			})
 			.catch(function(error){
 				callback(res,error);
@@ -408,7 +405,7 @@ var MailinglistManager = {
 				console.log('updateListMC'+error);
 			});
 		}
-			})
+			});
 	},
 	deleteMember: function(res,collectionName,obj,callback)
 	{
@@ -431,7 +428,7 @@ var MailinglistManager = {
 			})
 			.catch(function(error){
 				callback(res,error);
-			})
+			});
 		}
 	},
 	deleteMemberMC: function(collectionName,obj)
@@ -442,9 +439,9 @@ var MailinglistManager = {
 				resolve(results);
 			})
 			.catch(function(error){
-				console.log("deleteMemberMC"+error)	
-			})
-		})
+				console.log("deleteMemberMC"+error);
+			});
+		});
 	},
 	addReportActivity: function(collectionName,obj)
 	{
@@ -452,7 +449,7 @@ var MailinglistManager = {
 			var queryTemp={
 				listID:obj.listID,
 				email_hash:obj.email_hash
-			}
+			};
 		dbHandler.dbQuery(collectionName,queryTemp)
 		.then(function(results){//containing contactid
 			obj.contactID=results[0].contactID;
@@ -460,8 +457,8 @@ var MailinglistManager = {
 		})
 		.catch(function(error){
 			console.log('addList'+error);
-		})
-		})
+		});
+		});
 	},
 	getAllData: function(collectionName)
 	{
@@ -473,8 +470,8 @@ var MailinglistManager = {
 		})
 		.catch(function(error){
 			console.log('addList'+error);
-		})
-		})
+		});
+		});
 	},
 	updateActivity : function(collectionName,obj){
 		return new Promise (function(resolve,reject) {
@@ -494,9 +491,7 @@ var MailinglistManager = {
 				.catch(function(error){
 					console.log('updateListMC'+error);
 				});
-			})
+			});
 	},
-
-}
-
+};
 module.exports = MailinglistManager;
