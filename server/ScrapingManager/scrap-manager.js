@@ -50,7 +50,7 @@ var ScrapManager = {
         })
         .catch(function(error){
           reject(error);
-        })  
+        });  
       }else{
         console.log('foreign');
         loadForeignCoordinates(country)
@@ -91,11 +91,11 @@ var ScrapManager = {
           })
           .catch(function(error){
             reject(error);
-          })
+          });
         })
         .catch(function(error){
           reject(error);
-        })
+        });
       }
     });   
   },
@@ -147,7 +147,7 @@ var ScrapManager = {
       })
       .catch(function(error){
         reject(error);
-      })  
+      });  
     });   
   },
   scrapCorporateYellowPage : function(type){
@@ -158,7 +158,7 @@ var ScrapManager = {
       })
       .catch(function(error){
         reject(error);
-      })
+      });
     });
   },
   scrapConsumerYellowPage : function(type){
@@ -169,7 +169,7 @@ var ScrapManager = {
       })
       .catch(function(error){
         reject(error);
-      })
+      });
     });
   }
 
@@ -179,7 +179,7 @@ var ScrapManager = {
 var requestGoogle  = function(url){
   return new Promise(function(resolve,reject){
     request(url,function(error,response,body){
-      if(error!=null)
+      if(error!==null)
         reject(error);
       else{
         resolve(JSON.parse(body));
@@ -193,7 +193,7 @@ var loadLocalCoordinates = function(){
   for(var i=0;i<config.coordinates.length;i++){
     coord.push([config.coordinates[i].Latitude , config.coordinates[i].Longitude]);
   }
-}
+};
 
 var loadForeignCoordinates = function (country){
   return new Promise(function(resolve,reject){
@@ -205,11 +205,11 @@ var loadForeignCoordinates = function (country){
         break;
       }
     }
-    if(id == undefined)
+    if(id === undefined)
       reject(400);
     var url = 'http://api.geonames.org/childrenJSON?geonameId='+id+'&username=groventuretest';
     request(url,function(error,response,body){
-      if(error!=null)
+      if(error!==null)
         reject(500);
       else{
         var obj = JSON.parse(body);
@@ -219,11 +219,9 @@ var loadForeignCoordinates = function (country){
         }
         resolve(200);
       }
-
-    }) 
-
+    }); 
   });
-}
+};
 
 
 

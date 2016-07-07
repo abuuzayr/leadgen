@@ -4,14 +4,14 @@ var common = require('../common');
 var fs = require('fs');
 var mongodb = require('mongodb');
 var Promise = require('bluebird');
-var mailchimp = require('../MailchimpManager/mailchimpApp')
+var mailchimp = require('../MailchimpManager/mailchimpApp');
 
 var ContactsManager = {
   displayLeads : function(obj){
     return new Promise(function(resolve,reject){
       dbHandler.dbQuery('leadList',obj)
       .then(function(results){
-        resolve(results)
+        resolve(results);
       })
       .catch(function(error){
         reject(500);
@@ -27,7 +27,7 @@ var ContactsManager = {
         dbHandler.dbQuery('blackListDomains',null)
         .then(function(domains){
           for(var i=0;i<domains.length;i++){
-            if(obj.email != null || obj.email != undefined){
+            if(obj.email !== null || obj.email !== undefined){
               if(obj.email.indexOf(domains[i].domain) != -1){
                 matchFlag = true;
                 break;
@@ -61,7 +61,7 @@ var ContactsManager = {
         });
         
       }
-    })
+    });
   },
   addBulkContacts : function(res,arr,callback){
     var promiseArr = [];
@@ -70,14 +70,14 @@ var ContactsManager = {
         for(var i=0; i<arr.length; i++){
           var matchFlag = false;
 
-          if (arr[i].origin == undefined)
+          if (arr[i].origin === undefined)
             arr[i].origin = 2;
 
-          if(arr[i].type == undefined)
+          if(arr[i].type === undefined)
             arr[i].type = 2;
 
           for(var j=0;j<domains.length;j++){
-            if(arr[i].email != null || arr[i].email != undefined){
+            if(arr[i].email !== null || arr[i].email !== undefined){
               if( arr[i].email.indexOf(domains[j].domain) != -1 ){
                 matchFlag = true;
                 break;
@@ -101,7 +101,7 @@ var ContactsManager = {
       })
       .catch(function(error){
         callback(res,error);
-      })
+      });
   },
   deleteLeads : function(obj){
     return new Promise(function(resolve,reject){
@@ -126,7 +126,7 @@ var ContactsManager = {
         })
         .catch(function(error){
           reject(error);
-        })
+        });
       }
     }); 
   },
@@ -134,7 +134,7 @@ var ContactsManager = {
     return new Promise(function(resolve,reject){
         // console.log('hello from the other side');
         // console.log(obj[0]._id);
-        var originalObj = {}
+        var originalObj = {};
         originalObj._id = obj[0]._id;
 
         dbHandler.dbUpdate('leadList',originalObj,obj[1])
@@ -146,14 +146,14 @@ var ContactsManager = {
         });  
 
       
-    })
+    });
   },
   removeField : function(collectionName,str){
     return new Promise(function(resolve,reject){
       var arr = [];
       dbHandler.dbQuery(collectionName,null)
       .then(function(results){
-        if (results.length == 0)
+        if (results.length === 0)
           resolve(200);
         for(var i=0;i<results.length;i++){
           var obj= results[i];
@@ -175,19 +175,19 @@ var ContactsManager = {
       .catch(function(error){
         reject(500);
       });
-    })  
+    }); 
   },
   addField : function(collectionName,str){
     return new Promise(function(resolve,reject){
       var arr = [];
       dbHandler.dbQuery(collectionName,null)
       .then(function(results){
-        if(results.length == 0){
+        if(results.length === 0){
           resolve(200);
         }
         for(var i=0;i<results.length;i++){
           var obj= results[i];
-          if(obj[str] == undefined)
+          if(obj[str] === undefined)
             obj[str] = null;
           arr.push(obj);
         }
@@ -206,7 +206,7 @@ var ContactsManager = {
       .catch(function(error){
         reject(500);
       });
-    })
+    });
   },
   addDomainChain : function(collectionName,str,callback){
     return new Promise(function(resolve,reject){ 
@@ -215,7 +215,7 @@ var ContactsManager = {
       .then(function(results){
         for(var i=0;i<results.length;i++){
           var emailAddr = results[i].email;
-          if(emailAddr != null || emailAddr != undefined){
+          if(emailAddr !== null || emailAddr !== undefined){
             if(emailAddr.indexOf(str) != -1){
               leadsArr.push(results[i]);
             }
@@ -240,7 +240,7 @@ var ContactsManager = {
       })
       .catch(function(error){
         reject(500);
-      })
+      });
     });
   },
   displayList : function(collectionName,obj){
@@ -251,8 +251,8 @@ var ContactsManager = {
       })
       .catch(function(error){
         reject(error);
-      })
-    })
+      });
+    });
   },
   deleteFromBlackList : function(obj){
     return new Promise(function(resolve,reject){
@@ -267,8 +267,8 @@ var ContactsManager = {
           resolve(200);
         })
         .catch(function(error){
-          reject(500)
-        })
+          reject(500);
+        });
       }else{
         dbHandler.dbDelete('blackList',obj)
         .then(function(results){
@@ -276,9 +276,9 @@ var ContactsManager = {
         })
         .catch(function(error){
           reject(500);
-        })
+        });
       }
-    })
+    });
   },
   insertColumnDef : function(obj){
     return new Promise(function(resolve,reject){
@@ -288,8 +288,8 @@ var ContactsManager = {
       })
       .catch(function(error){
         resolve(error);
-      })
-    })
+      });
+    });
   },
   deleteColumnDef : function(obj){
     return new Promise(function(resolve,reject){
@@ -299,8 +299,8 @@ var ContactsManager = {
       })
       .catch(function(error){
         resolve(error);
-      })
-    })
+      });
+    });
   },
   addDomain :function(obj){
     return new Promise(function(resolve,reject){
@@ -310,8 +310,8 @@ var ContactsManager = {
       })
       .catch(function(error){
         reject(error);
-      })
-    })
+      });
+    });
   },
   deleteDomain : function(obj){
     return new Promise(function(resolve,reject){
@@ -337,7 +337,7 @@ var ContactsManager = {
           reject(error);
         });
       }
-    })
+    });
   },
   addContactMC : function(obj,hash,id,apiKey){
   	return new Promise (function(resolve,reject) {	
@@ -348,7 +348,7 @@ var ContactsManager = {
           var matchFlag = false;
 
           for(var i=0;i<domains.length;i++){
-             if(obj.email != null || obj.email != undefined){
+             if(obj.email !== null || obj.email !== undefined){
               if(obj.email.indexOf(domains[i].domain) != -1){
                 matchFlag = true;
                 break;
@@ -365,7 +365,7 @@ var ContactsManager = {
               return dbHandler.dbInsert('blackList',obj);
             })
             .then(function(success){
-              return mailchimp.deleteMember(apiKey,id,hash)
+              return mailchimp.deleteMember(apiKey,id,hash);
             })
             .then(function(success){
               console.log('delete from mailchimp');
@@ -373,17 +373,17 @@ var ContactsManager = {
             })
             .catch(function(error){
               reject(error);
-            })
+            });
           }else{
             resolve(results);
           }
 
-        })
+        });
       })
       .catch(function(error){
         reject(error);
       });		
-		})
+		});
   }
 };
 

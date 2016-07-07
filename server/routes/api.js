@@ -28,7 +28,7 @@ apiRouter.route('/contacts/leadList/leads')
       })
       .catch(function(error){
           res.sendStatus(error);
-      })
+      });
   })
   .post(function(req,res){
     console.log('add leads');
@@ -42,7 +42,7 @@ apiRouter.route('/contacts/leadList/leads')
           })
           .catch(function(error){
             res.sendStatus(error);
-         })
+         });
       }
   })
   .put(jsonParser, function(req,res){
@@ -67,7 +67,7 @@ apiRouter.route('/contacts/leadList/leads')
       })
       .catch(function(error){ 
         res.sendStatus(500);
-      })
+      });
     }
   })  
   .patch(function(req,res){
@@ -112,14 +112,14 @@ apiRouter.route('/contacts/leadList/leads')
     var lname,fname;
     var temp={
       contactID:cid
-    }
-    if(newObj.firstName!=undefined){
+    };
+    if(newObj.firstName!==undefined){
       fname=newObj.firstName;
     }else
     {
       fname= originObj.firstName;
     }
-    if(newObj.lastName!=undefined){
+    if(newObj.lastName!==undefined){
       lname=newObj.lastName;
     }else
     {
@@ -127,7 +127,7 @@ apiRouter.route('/contacts/leadList/leads')
     }
     MailinglistManager.getMailingListMemberInfo('mailinglists',temp)
         .then(function(results){
-          if(results.length!=0){
+          if(results.length!==0){
             var promiseArr = [];
             for(var i=0;i<results.length;i++)
             {
@@ -145,7 +145,7 @@ apiRouter.route('/contacts/leadList/leads')
       .catch(function(error){
         console.log(error);
         res.sendStatus(500);
-      })
+      });
     }
   });
 apiRouter.put('/contacts/leadList/leads/duplicates',jsonParser,function(req,res){
@@ -158,9 +158,9 @@ apiRouter.put('/contacts/leadList/leads/duplicates',jsonParser,function(req,res)
     })
     .catch(function(error){
       res.sendStatus(500  );
-    })
+    });
   }
-})
+});
 apiRouter.get('/contacts/leadList/leads/:id',function(req,res){
   //TODO return history of lead
   if(!req.params.id)
@@ -168,17 +168,18 @@ apiRouter.get('/contacts/leadList/leads/:id',function(req,res){
   else{
     var obj = {
       _id  : req.params.id
-    }
+    };
     dbHandler.dbQuery('leadList',obj)
     .then(function(results){
       res.json(results[0].history);
     })
     .catch(function(error){
       res.sendStatus(error);
-    })
+    });
   }
-})
+});
 apiRouter.post('/contacts/leadList/import',jsonParser,function(req,res){
+  console.log(req.body);
   if(!req.body)
     res.sendStatus(400);
   else{
@@ -216,7 +217,7 @@ apiRouter.route('/contacts/mailingList')
         }).catch(function(error)
         {
           console.log("sync Error"+error);
-        })
+        });
     }
   })
   /*  ===SAMPLE POST JSON===
@@ -244,12 +245,12 @@ apiRouter.route('/contacts/mailingList')
             firstName: '-',
             lastName: '-',
             subscriberStatus: '-'
-          }
+          };
         MailinglistManager.addList(res,'mailinglists',addObject,returnStatusCode);//1
         }).catch(function(MCerror)
         {
           console.log(MCerror);
-        })
+        });
     }
   })
   .put(function(req,res){
@@ -271,7 +272,7 @@ apiRouter.route('/contacts/mailingList')
           }).catch(function(MCError)
           {
             console.log(MCError);
-          })
+          });
     }
   })
   .patch(function(req,res){
@@ -304,7 +305,7 @@ apiRouter.route('/contacts/mailingList')
             permission_reminder:results.permission_reminder,
             campaign_defaults:results.campaign_defaults,
             email_type_option: results.email_type_option
-          }
+          };
     //package the retrieve information
         console.log(temp);
         MailchimpManager.updateList(apiKey,req.body[0].listID, temp)
@@ -314,8 +315,8 @@ apiRouter.route('/contacts/mailingList')
           }).catch(function(MCError)
           {
             console.log(MCError);
-          })
-    })
+          });
+    });
   }
 });
 
@@ -339,7 +340,7 @@ apiRouter.route('/contacts/mailingList')
             FNAME:req.body[0].y[i].firstName,
             LNAME:req.body[0].y[i].lastName
           }
-        }
+        };
         memberinfoMC.push(temp);
       }
       MailchimpManager.addMemberToList(apiKey,req.body[1].listID,memberinfoMC)
@@ -358,12 +359,12 @@ apiRouter.route('/contacts/mailingList')
             firstName: req.body[0].y[i].firstName,
             lastName: req.body[0].y[i].lastName,
             subscriberStatus: 'subscribed'
-          }
+          };
           console.log(temp);
           obj.push(temp);
         }
         MailinglistManager.addMemberToList(res,'mailinglists',obj,returnStatusCode);
-        })
+        });
     }
   })
   //Remove member from mailing list
@@ -371,7 +372,7 @@ apiRouter.route('/contacts/mailingList')
     if(!req.body)
       returnStatusCode(res,400);
     else{
-          if(req.body.length!=0)
+          if(req.body.length!==0)
           {
             console.log(req.body);
           //there is a contact in mailing list that need to be deleted.
@@ -397,14 +398,14 @@ apiRouter.route('/contacts/mailingList')
             }).catch(function(MCerror)
               {
                 console.log(MCerror);
-              })
+              });
             }
     }
   });
 apiRouter.route('/mailinglist/getSubscriber')
   .post(function(req,res){
     if(!req.body)
-      returnStatusCode(res,400)
+      returnStatusCode(res,400);
     else{
       /*=====Sample Post=== //get members base on list ID
         {
@@ -418,7 +419,7 @@ apiRouter.route('/mailinglist/getSubscriber')
 apiRouter.route('/dropcollection')
   .get(function(req,res){
     if(!req.body)
-      returnStatusCode(res,400)
+      returnStatusCode(res,400);
     else{
       MailinglistManager.dbDropCollection(res,'mailinglists',returnStatusCode);
         }
@@ -442,7 +443,7 @@ apiRouter.route('/contacts/leadList/fields')
     if(!req.body)
       res.sendStatus(400);
     else{
-      if(req.body.field == undefined || req.body.field == null || req.body.field== '')
+      if(req.body.field === undefined || req.body.field === null || req.body.field=== '')
         res.sendStatus(400);
       else{
         var str = req.body.field; 
@@ -455,7 +456,7 @@ apiRouter.route('/contacts/leadList/fields')
         })
         .catch(function(error){
           res.sendStatus(500);
-        })        
+        });    
       }
     }
   })
@@ -463,7 +464,7 @@ apiRouter.route('/contacts/leadList/fields')
     if(!req.body)
       res.sendStatus(400);
     else{
-      if(req.body.field == undefined || req.body.field == null || req.body.field == '')
+      if(req.body.field === undefined || req.body.field === null || req.body.field === '')
         res.sendStatus(400);
       else{
         var str = req.body.field; 
@@ -476,7 +477,7 @@ apiRouter.route('/contacts/leadList/fields')
         })
         .catch(function(error){
           res.sendStatus(500);
-        })        
+        });        
       }
     }
   });
@@ -491,18 +492,18 @@ apiRouter.route('/contacts/blackList/domain')
     })
     .catch(function(error){
       res.sendStatus(error);
-    })
+    });
   })
   .post(jsonParser,function(req,res){
     if(!req.body)
       res.sendStatus(400);
     else{
-      if(req.body.domain == undefined || req.body.domain == null || req.body.domain == '')
+      if(req.body.domain === undefined || req.body.domain === null || req.body.domain === '')
         res.sendStatus(400);
       else{
         ContactsManager.addDomain(req.body)
         .then(function(results){
-          return ContactsManager.addDomainChain('leadList',req.body.domain,deleteContact)
+          return ContactsManager.addDomainChain('leadList',req.body.domain,deleteContact);
         })
         .then(function(results){
           res.sendStatus(results);
@@ -518,7 +519,7 @@ apiRouter.route('/contacts/blackList/domain')
     if(!req.body)
       res.sendStatus(400);
     else{
-      if(req.body.domain == undefined || req.body.domain == null || req.body.domain == '')
+      if(req.body.domain === undefined || req.body.domain === null || req.body.domain === '')
         res.sendStatus(400);
       else{
         var str = req.body.domain;
@@ -528,10 +529,10 @@ apiRouter.route('/contacts/blackList/domain')
         })
         .catch(function(error){
           res.sendStatus(error);
-        })  
+        });  
       }
     }
-  })
+  });
 apiRouter.route('/contacts/blackList')
   .get(function(req,res){
     ContactsManager.displayList('blackList',null)
@@ -552,9 +553,9 @@ apiRouter.route('/contacts/blackList')
       })
       .catch(function(error){
         res.sendStatus(error);
-      })
+      });
     }
-  })
+  });
 /*
 Scraping API
 */
@@ -573,7 +574,7 @@ apiRouter.get('/corporate/scrape/g/new/:category/:country', function(req,res){
       res.sendStatus(400);
     });
   }
-})
+});
 apiRouter.get('/corporate/scrape/g/cont/:category/:country',function(req,res){
   if(!req.params.category || !req.params.country)
     res.sendStatus(400);
@@ -589,7 +590,7 @@ apiRouter.get('/corporate/scrape/g/cont/:category/:country',function(req,res){
       res.sendStatus(400);
     });
   }
-})
+});
 apiRouter.get('/corporate/scrape/yp/:category',function(req,res){
   if(!req.params.category)
     res.sendStatus(400);
@@ -603,7 +604,7 @@ apiRouter.get('/corporate/scrape/yp/:category',function(req,res){
       res.sendStatus(400);
     });
   }
-})
+});
 apiRouter.get('/consumer/scrape/yp/:category',function(req,res){
   if(!req.params.category)
     res.sendStatus(400);
@@ -617,7 +618,7 @@ apiRouter.get('/consumer/scrape/yp/:category',function(req,res){
       res.sendStatus(400);
     });
   }
-})
+});
 apiRouter.post('/scrape/',jsonParser,function(req,res){
   if(!req.body)
     res.sendStatus(400);
@@ -628,7 +629,7 @@ apiRouter.post('/scrape/',jsonParser,function(req,res){
       ContactsManager.addBulkContacts(res,req.body,returnStatusCode);
     }
   }
-})
+});
 apiRouter.post('/populateTest',function(req,res){
     if(!req.body)
       returnStatusCode(res,400);
@@ -659,19 +660,19 @@ var deleteContact = function(cid){
         var CID= cid;
         var temp ={
           contactID:cid+''
-        }
+        };
         var obj = {
           _id : cid
-        }
+        };
         console.log(obj);
         MailinglistManager.getMailingListMemberInfo('mailinglists',temp)// 1 -
         .then(function(results){
-          if(results.length!=0)
+          if(results.length!==0)
           {//there is a contact in mailing list that need to be deleted.
             console.log(results);
             var promiseArr = [];
             for(var i=0;i<results.length;i++){
-              promiseArr.push(MailchimpManager.deleteMember(apiKey,results[i].listID,results[i].email_hash))
+              promiseArr.push(MailchimpManager.deleteMember(apiKey,results[i].listID,results[i].email_hash));
             }
             Promise.all(promiseArr)
             .then(function(MCresults){
@@ -684,15 +685,15 @@ var deleteContact = function(cid){
                 })
                 .catch(function(error){
                   reject(error);
-                })
+                });
               }).catch(function(MLerror)
                 {
                   console.log(MLerror);
-                })
+                });
             }).catch(function(MCerror)
               {
                 console.log(MCerror);
-              })
+              });
             }else{
               ContactsManager.deleteLeads(obj)
               .then(function(results){
@@ -700,15 +701,15 @@ var deleteContact = function(cid){
               })
               .catch(function(error){
                 reject(error);
-              })
+              });
           //add a then function
         }
       }).catch(function(error)
       {
         reject(500);    
-      })
-  })
-  }
+      });
+  });
+  };
 var updateContact = function(results,firstName,lastName,body)
   {
     return new Promise (function(resolve,reject) {
@@ -721,7 +722,7 @@ var updateContact = function(results,firstName,lastName,body)
               FNAME: firstName,
                 LNAME: lastName
               }
-          }
+          };
           console.log(temp);
           MailchimpManager.updateMember(apiKey,results.listID,results.email_hash,temp)
           .then(function(MCresults){
@@ -735,14 +736,14 @@ var updateContact = function(results,firstName,lastName,body)
                       }).catch(function(cError)
                       {
                           console.log(cError);
-                      })
+                      });
               })
             .catch(function(MLerror){
               console.log(MLerror);
-              })
+              });
             }).catch(function(MCerror){
                 console.log(MCerror);
-             })
-  })
-  }
+             });
+  });
+  };
 module.exports = apiRouter;
