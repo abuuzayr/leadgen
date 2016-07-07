@@ -1,5 +1,5 @@
-app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackService',
-    function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackService) {
+app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices',
+    function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackServices) {
         var uc = this;
 
         uc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
@@ -165,7 +165,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         };
 
         uc.addUserFeedback = function() {
-            feedbackService.successFeedback("Added!", '#addUserFeedbackID');
+            feedbackServices.successFeedback("Added!", '#addUserFeedbackID');
         }
 
     }

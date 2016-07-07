@@ -2,7 +2,7 @@
     'use strict';
 
 
-    app.service('feedbackService', feedbackServices);
+    app.service('feedbackServices', feedbackServices);
 
     feedbackServices.$inject = ['$q', '$timeout'];
 
