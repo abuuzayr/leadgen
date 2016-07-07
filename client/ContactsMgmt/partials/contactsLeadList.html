@@ -7,12 +7,18 @@
         <li class=""><a ui-sref="maillist" data-toggle="tab">Mailing List</a></li>
         <li class=""><a ui-sref="blacklist" data-toggle="tab">BlackList</a></li>
     </ul>
+
+    <div id='addLeadFeedbackID' class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+
     <br>
     <div id="myTabContent" class="tab-content">
         <div class="container">
             <br>
             <button ng-click="openDialog('addData')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add lead</button>
-            <button ng-click="openDialog('deleteLeads')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> REMOVE LEAD(S) </button>  
+            <button ng-click="openDialog('deleteLeads')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> REMOVE LEAD(S) </button>
             <button ng-click="openDialog('addField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored pull-right">
                 <i class="material-icons md-48">add_circle</i>
             </button>
@@ -24,10 +30,10 @@
             <br>
             <button ng-click="openDialog('addToMailingList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add to Mailing List</button>
             <button ng-click="openDialog('removeDuplicate')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Remove Duplicate</button>
-            <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored pull-right" id="get_file" value="Import"/>
-            <form><input type="file" id="files" class="file-chooser" name="files[]"/></form>
+            <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored pull-right" id="get_file" value="Import" />
+            <form><input type="file" id="files" class="file-chooser" name="files[]" /></form>
 
-            <dialog id="historyData" class="mdl-dialog" >
+            <dialog id="historyData" class="mdl-dialog">
                 <div class="mdl-dialog__content">
                     <div>{{history}}</div>
                     <div>
@@ -35,31 +41,31 @@
                     </div>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('historyData')">Close</button>
-                    </div>       
-                </div>        
+                    </div>
+                </div>
             </dialog>
 
-            <dialog id="deleteLeads" class="mdl-dialog" >
+            <dialog id="deleteLeads" class="mdl-dialog">
                 <div class="mdl-dialog__content">
                     <p>
                         Are you sure?
                     </p>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteLeads')">No</button>
-                        <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="deleteSelected(); closeDialog('deleteLeads')">Yes</button> 
-                    </div>     
-                </div>        
+                        <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="deleteSelected(); closeDialog('deleteLeads')">Yes</button>
+                    </div>
+                </div>
             </dialog>
 
-            <dialog id="addData" class="mdl-dialog" >
+            <dialog id="addData" class="mdl-dialog">
                 <div class="mdl-dialog__content">
                     <p>
                         Please enter the details.
                     </p>
                     <form class="add-leads-form" ng-submit="addData()">
                         <div class="mdl-textfield mdl-js-textfield">
-                                <label for="firstName">First Name</label>
-                                <input class="mdl-textfield__input" type="text" id="firstName" ng-model="lead.first" required>
+                            <label for="firstName">First Name</label>
+                            <input class="mdl-textfield__input" type="text" id="firstName" ng-model="lead.first" required>
                         </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="lastName">Last Name</label>
@@ -91,14 +97,14 @@
                         </div>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addData')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
-                        </div>     
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="addLeadFeedback(); closeDialog('addData')">Add</button>
+                        </div>
                     </form>
-                    <p> {{addResult}} </p>  
-                </div>        
+                    <p> {{addResult}} </p>
+                </div>
             </dialog>
 
-            <dialog id="addField" class="mdl-dialog" >
+            <dialog id="addField" class="mdl-dialog">
                 <div class="mdl-dialog__content">
                     <p>
                         Please enter the details.
@@ -110,14 +116,14 @@
                         </div>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addField')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
-                        </div>     
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button>
+                        </div>
                     </form>
-                    <p> {{addResult}} </p>  
-                </div>        
+                    <p> {{addResult}} </p>
+                </div>
             </dialog>
 
-            <dialog id="deleteField" class="mdl-dialog" >
+            <dialog id="deleteField" class="mdl-dialog">
                 <div class="mdl-dialog__content">
                     <p>
                         Please select the field.
@@ -126,17 +132,17 @@
                         <select ng-model="fieldSelected" required>
                             <option value="">Please select</option>
                             <option ng-repeat="field in gridOptions.columnDefs">{{field.displayName}}</option>
-                        </select> 
+                        </select>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteField')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="openDialog('deleteFieldConfirmation')">Delete</button> 
-                        </div>     
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="openDialog('deleteFieldConfirmation')">Delete</button>
+                        </div>
                     </form>
-                    <p> {{addResult}} </p>  
-                </div>        
+                    <p> {{addResult}} </p>
+                </div>
             </dialog>
 
-            <dialog id="addToMailingList" class="mdl-dialog" >
+            <dialog id="addToMailingList" class="mdl-dialog">
                 <div class="mdl-dialog__content">
                     <p>
                         Please select Mailing List.
@@ -148,13 +154,13 @@
                         </select>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addToMailingList')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
-                        </div>     
-                    </form> 
-                </div>        
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button>
+                        </div>
+                    </form>
+                </div>
             </dialog>
-                
-            <dialog id="removeDuplicate" class="mdl-dialog" >
+
+            <dialog id="removeDuplicate" class="mdl-dialog">
                 <div class="mdl-dialog__content">
                     <p>
                         Please select the field.
@@ -163,16 +169,16 @@
                         <select ng-model="fieldSelected" required>
                             <option value="">Please select</option>
                             <option ng-repeat="field in gridOptions.columnDefs">{{field.displayName}}</option>
-                        </select> 
+                        </select>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('removeDuplicate')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="openDialog('removeDuplicateConfirmation')">Remove</button> 
-                        </div>     
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="openDialog('removeDuplicateConfirmation')">Remove</button>
+                        </div>
                     </form>
-                </div>        
+                </div>
             </dialog>
 
-            <dialog id="deleteFieldConfirmation" class="mdl-dialog" >
+            <dialog id="deleteFieldConfirmation" class="mdl-dialog">
                 <div class="mdl-dialog__content">
                     <p>
                         Are you sure?
@@ -180,13 +186,13 @@
                     <form class="delete-field-form" ng-submit="deleteField()">
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteFieldConfirmation')">No</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="closeDialog('deleteFieldConfirmation'); closeDialog('deleteField')">Yes</button> 
-                        </div>     
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="closeDialog('deleteFieldConfirmation'); closeDialog('deleteField')">Yes</button>
+                        </div>
                     </form>
-                </div>        
+                </div>
             </dialog>
 
-             <dialog id="removeDuplicateConfirmation" class="mdl-dialog" >
+            <dialog id="removeDuplicateConfirmation" class="mdl-dialog">
                 <div class="mdl-dialog__content">
                     <p>
                         Are you sure?
@@ -194,19 +200,13 @@
                     <form class="delete-field-form" ng-submit="removeDuplicate()">
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('removeDuplicateConfirmation')">No</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="closeDialog('removeDuplicateConfirmation'); closeDialog('removeDuplicate')">Yes</button> 
-                        </div>     
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="closeDialog('removeDuplicateConfirmation'); closeDialog('removeDuplicate')">Yes</button>
+                        </div>
                     </form>
-                    <p> {{addResult}} </p>  
-                </div>        
+                    <p> {{addResult}} </p>
+                </div>
             </dialog>
 
         </div>
     </div>
 </div>
-
-    
-
-
-
-    

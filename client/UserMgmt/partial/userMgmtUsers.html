@@ -1,118 +1,142 @@
 <br>
-<div class="page-container" ng-controller="userMgmtController as uc">      
+<div class="page-container" ng-controller="userMgmtController as uc">
 
-        <!--include tabs-->
-         <ul class="nav nav-tabs">
-             <li><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
-             <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
-        </ul>
-         <div class="container">
-             <h3>Users</h3>
-             <div class="row row-offcanvas row-offcanvas-left">
-         <div id="grid1" ui-grid="uc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"></div>
-         <br>
+    <!--include tabs-->
+    <ul class="nav nav-tabs">
+        <li><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
+        <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
+    </ul>
 
-         <button ng-click="uc.openDialog('addUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add New User</button>
-         <button ng-click="uc.openDialog('deleteUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> Remove User(S) </button>  
-         <button ng-click="uc.openDialog('addField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored">
+    <div id='addUserFeedbackID' class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+
+    <div class="container">
+        <h3>Users</h3>
+        <div class="row row-offcanvas row-offcanvas-left">
+            <div id="grid1" ui-grid="uc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"></div>
+            <br>
+
+            <button ng-click="uc.openDialog('addUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add New User</button>
+            <button ng-click="uc.openDialog('deleteUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> Remove User(S) </button>
+            <button ng-click="uc.openDialog('addField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored">
            <i class="material-icons md-48">add_circle</i>
          </button>
-         <button ng-click="uc.openDialog('deleteField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent">
+            <button ng-click="uc.openDialog('deleteField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent">
            <i class="material-icons md-48">remove_circle</i>
          </button>
-         <br><br>
+            <br><br>
 
-        <dialog id="addUser" class="mdl-dialog" >
+            <dialog id="addUser" class="mdl-dialog">
                 <div class="mdl-dialog__content">
-                <p>
-                    Please enter the details.
-                </p>
-                <form class="add-leads-form" ng-submit="uc.addData()">
+                    <p>
+                        Please enter the details.
+                    </p>
+                    <form class="add-leads-form" ng-submit="uc.addData()">
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="firstName">First Name</label>
-                            <input class="mdl-textfield__input" type="text" id="firstName" ng-model="uc.lead.first">
-                            </div>
+                            <input class="mdl-textfield__input" type="text" id="firstName" ng-model="uc.lead.first" required>
+                        </div>
 
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="lastName">Last Name</label>
-                            <input class="mdl-textfield__input" type="text" id="lastName" ng-model="uc.lead.last">
-                            </div>
+                            <input class="mdl-textfield__input" type="text" id="lastName" ng-model="uc.lead.last" required>
+                        </div>
 
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="role">Role</label>
-                            <select ng-model="uc.lead.role" id="role">
+                            <select ng-model="uc.lead.role" id="role" required>
+                                <option value="">Please select</option>
                                 <option value="1">Admin</option>
                                 <option value="2">User</option>
                                 </select>
-                            </div>
+                        </div>
 
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="email">Email</label>
-                            <input class="mdl-textfield__input" type="email" id="email" ng-model="uc.lead.email">
-                            </div>
+                            <input class="mdl-textfield__input" type="email" id="email" ng-model="uc.lead.email" required>
+                        </div>
 
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="phone">Phone</label>
                             <input class="mdl-textfield__input" type="number" id="phone" ng-model="uc.lead.phone">
-                            </div>
+                        </div>
 
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addUser')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser')">Add</button> 
-                            </div>     
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.addUserFeedback()">Add</button>
+                        </div>
                     </form>
-                <p> {{uc.addResult}} </p>  
-                </div>        
+                </div>
             </dialog>
 
-        <dialog id="addField" class="mdl-dialog" >
+            <dialog id="addField" class="mdl-dialog">
                 <div class="mdl-dialog__content">
-                <p>
-                    Please enter the details.
-                </p>
-                <form class="add-field-form" ng-submit="uc.addField()">
+                    <p>
+                        Please enter the details.
+                    </p>
+                    <form class="add-field-form" ng-submit="uc.addField()">
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="fieldName">Field Name</label>
                             <input class="mdl-textfield__input" type="text" id="fieldName" ng-model="uc.field.name">
-                            </div>
+                        </div>
 
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addField')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
-                            </div>     
+                            <button id="demo-show-toast" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addField')">Add</button>
+
+                            <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+                                <div class="mdl-snackbar__text"></div>
+                                <button class="mdl-snackbar__action" type="button"></button>
+                            </div>
+                        </div>
                     </form>
-                <p> {{uc.addResult}} </p>  
-                </div>        
+                </div>
             </dialog>
 
-        <dialog id="deleteField" class="mdl-dialog" >
+            <dialog id="deleteField" class="mdl-dialog">
                 <div class="mdl-dialog__content">
-                <p>
-                    Please select the field.
-                </p>
-                <form class="delete-field-form" ng-submit="uc.deleteField()">
-                            <select ng-model="uc.fieldSelected">
+                    <p>
+                        Please select the field.
+                    </p>
+                    <form class="delete-field-form" ng-submit="uc.deleteField()">
+                        <select ng-model="uc.fieldSelected">
                                 <option ng-repeat="field in uc.gridOptions.columnDefs">{{field.displayName}}</option>
                                 </select>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteField')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Delete</button> 
-                            </div>     
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.openDialog('deleteFieldConfirmation')">Delete</button>
+                        </div>
                     </form>
-                <p> {{uc.addResult}} </p>  
-                </div>        
-        </dialog>
+                    <p> {{uc.addResult}} </p>
+                </div>
+            </dialog>
 
-        <dialog id="deleteUser" class="mdl-dialog" >
-        <div class="mdl-dialog__content">
-            <p>Are you sure you want to delete the selected user(s)?</p>
-                <div class="mdl-dialog__actions">
-                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteUser')">Cancel</button>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser')">Yes</button> 
-                </div>     
-        </div>        
-    </dialog>
+            <dialog id="deleteFieldConfirmation" class="mdl-dialog">
+                <div class="mdl-dialog__content">
+                    <p>
+                        Are you sure?
+                    </p>
+                    <form class="delete-field-form" ng-submit="uc.deleteFieldConfirmation()">
+                        <div class="mdl-dialog__actions">
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteField');uc.closeDialog('deleteFieldConfirmation')">No</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('deleteField');uc.closeDialog('deleteFieldConfirmation')">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </dialog>
 
+            <dialog id="deleteUser" class="mdl-dialog">
+                <div class="mdl-dialog__content">
+                    <p>Are you sure you want to delete the selected user(s)?</p>
+                    <div class="mdl-dialog__actions">
+                        <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteUser')">Cancel</button>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser')">Yes</button>
+                    </div>
+                </div>
+            </dialog>
+
+        </div>
     </div>
-  </div>
 </div>
