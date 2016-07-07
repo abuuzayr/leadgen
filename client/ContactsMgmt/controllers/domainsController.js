@@ -1,4 +1,4 @@
-app.controller('domainsController', ['$scope','domainsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, domainsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, $window, domainsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
  domainsData.success(function(data) {
     $scope.gridOptions.data = data;
@@ -34,6 +34,11 @@ app.controller('domainsController', ['$scope','domainsData', '$http', '$interval
     ],
   };
 
+  //refresh
+  $scope.refresh = function() {
+    $window.location.reload();
+  }
+
   // add domain
   $scope.addDomain = function() {
     var domain = $scope.domainSelected;
@@ -48,7 +53,7 @@ app.controller('domainsController', ['$scope','domainsData', '$http', '$interval
     $scope.addResult = "Success!";
     var domain = {"domain" : editedDomain};
     var addStatus = $http.post("http://localhost:8080/api/contacts/blackList/domain",domain);
-
+    $window.location.reload();
   }
 
   $scope.selectDeleteDomain = function() {
@@ -63,6 +68,7 @@ app.controller('domainsController', ['$scope','domainsData', '$http', '$interval
       if(($scope.gridOptions.data[x].domain === $scope.selectedDeleteDomain)) {
         var domain = $scope.gridOptions.data.splice(x,1);
         var deleteStatus = $http.put("http://localhost:8080/api/contacts/blackList/domain", domain);
+        $window.location.reload();
       } 
     }
   }
@@ -73,6 +79,7 @@ app.controller('domainsController', ['$scope','domainsData', '$http', '$interval
     gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
       console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
       $scope.$apply();
+      $window.location.reload();
     });
   }; 
 }])

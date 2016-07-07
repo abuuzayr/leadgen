@@ -3,9 +3,9 @@
 <div ng-controller="contactsMainController">
     <br>
     <ul class="nav nav-tabs">
-        <li class="active"><a ui-sref="leadlist" data-toggle="tab">LeadList</a></li>
-        <li class=""><a ui-sref="maillist" data-toggle="tab">Mailing List</a></li>
-        <li class=""><a ui-sref="blacklist" data-toggle="tab">BlackList</a></li>
+        <li class="active"><a ui-sref="leadlist" data-toggle="tab" ng-click= "refresh()">LeadList</a></li>
+        <li class=""><a ui-sref="maillist" data-toggle="tab" ng-click= "refresh()">Mailing List</a></li>
+        <li class=""><a ui-sref="blacklist" data-toggle="tab" ng-click= "refresh()">BlackList</a></li>
     </ul>
     <br>
     <div id="myTabContent" class="tab-content">
@@ -94,7 +94,6 @@
                             <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
                         </div>     
                     </form>
-                    <p> {{addResult}} </p>  
                 </div>        
             </dialog>
 
@@ -113,7 +112,6 @@
                             <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
                         </div>     
                     </form>
-                    <p> {{addResult}} </p>  
                 </div>        
             </dialog>
 
@@ -132,7 +130,6 @@
                             <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="openDialog('deleteFieldConfirmation')">Delete</button> 
                         </div>     
                     </form>
-                    <p> {{addResult}} </p>  
                 </div>        
             </dialog>
 
@@ -197,10 +194,8 @@
                             <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="closeDialog('removeDuplicateConfirmation'); closeDialog('removeDuplicate')">Yes</button> 
                         </div>     
                     </form>
-                    <p> {{addResult}} </p>  
                 </div>        
             </dialog>
-
         </div>
     </div>
 </div>
