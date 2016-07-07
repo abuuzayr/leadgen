@@ -50,9 +50,9 @@ var mailchimpApp ={
 		})
 		.catch(function(error){
 			console.log('error getting informationaaa :' + error);
-			})
+			});
 
-	})
+	});
 	},
 	addMemberToList: function(apiKey,listID,memberInfo)
 	{
@@ -70,19 +70,19 @@ var mailchimpApp ={
 		      email_address : memberInfo[i].email_address,
 		      merge_fields: memberInfo[i].merge_fields
 			    }
-			})
+			});
 		}
 		console.log(batches);
 		batch
 		  .add(batches)
 		  .send()
 		  .then(function(result){
-		      resolve(result)
+		      resolve(result);
 		  })
 		  .catch(function(error){
 		  	console.log(error);
 		  });
-		})
+		});
 		},
 
 	addList: function(apiKey,listName)
@@ -117,21 +117,22 @@ var mailchimpApp ={
 			   })
 		  	.catch(function(error){
 		  	console.log("Get list information"+error);
-		  })
-		})
+		  });
+		});
 	},
 	deleteList: function(apiKey,listID)
 	{
 		return new Promise (function(resolve,reject) {
 		mailchimp.setApiKey(apiKey);
+		console.log('/lists/'+listID);
 		mailchimp
-		  .delete('lists/'+listID).then(function(results){
+		  .delete('/lists/'+listID).then(function(results){
 				resolve(results);
 			   		})
 		  		.catch(function(error){
 		  	console.log(error);
-		  })
-		})
+		  });
+		});
 	},
 	deleteMember: function(apiKey,listID,suscribeHash)
 	{
@@ -145,8 +146,8 @@ var mailchimpApp ={
 			   		})
 		  		.catch(function(error){
 		  	console.log(error);
-		  })
-		})
+		  });
+		});
 	},
 	getListInformation : function(apiKey,listID)
 	{
@@ -159,8 +160,8 @@ var mailchimpApp ={
 			   })
 		  	.catch(function(error){
 		  	console.log("Get list information"+error);
-		  })
-		})
+		  });
+		});
 	},
 	updateList: function(apiKey,listID, tempInfo)
 	{
@@ -187,8 +188,8 @@ var mailchimpApp ={
 			   })
 		  	.catch(function(error){
 		  	console.log(error);
-		  })
-		  })
+		  });
+		  });
 	},updateMember: function(apiKey,listID,suscribeHash,memberInfo )
 	{
 	return new Promise (function(resolve,reject) {
@@ -202,12 +203,12 @@ var mailchimpApp ={
 		  	})
 		  	 .then(function(results){
 			   			//getReportDetails(results, resolve ,reject);
-						resolve(results)
+						resolve(results);
 			   })
 		  	.catch(function(error){
 		  	console.log('update member'+error);
 		  });		  	
-		})
+		});
 	},
 	getReports: function(getReportDetails ,resolve, reject)
 	{
@@ -225,14 +226,14 @@ var mailchimpApp ={
 			  			 	if(results.length==report.reports.length){
 			   				 getReportDetails(results, resolve ,reject);
 			   				}
-		  			 })
+		  			 });
 		    }
 		  }).catch(function(error){
 			 console.log(error);
 	  });
 	}
 
-}
+};
 module.exports = mailchimpApp;
 
 var getMembers = function(id,name,apiKey){
@@ -242,7 +243,7 @@ var getMembers = function(id,name,apiKey){
 		var allUsers = [];
 		var url = 'https://' + username + ':' + apiKey + '@us13.api.mailchimp.com/3.0/lists/' + id + '/members';
 		request({url: url}, function(error,response,body){
-			if(error != null){
+			if(error !== null){
 				reject(error);
 			}else{
 				var info = JSON.parse(body);
@@ -276,7 +277,7 @@ var getMembers = function(id,name,apiKey){
 			}
 		});
 	});
-}
+};
 
 
 
