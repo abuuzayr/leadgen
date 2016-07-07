@@ -4,6 +4,7 @@ var common = require('../common');
 var fs = require('fs');
 var mongodb = require('mongodb');
 var Promise = require('bluebird');
+var mailchimp = require('../MailchimpManager/mailchimpApp')
 
 var ContactsManager = {
   displayLeads : function(obj){
@@ -27,7 +28,7 @@ var ContactsManager = {
         .then(function(domains){
           for(var i=0;i<domains.length;i++){
             if(obj.email != null || obj.email != undefined){
-              if(obj.email.indexOf(domains[i].domainName) != -1){
+              if(obj.email.indexOf(domains[i].domain) != -1){
                 matchFlag = true;
                 break;
               }
@@ -77,7 +78,7 @@ var ContactsManager = {
 
           for(var j=0;j<domains.length;j++){
             if(arr[i].email != null || arr[i].email != undefined){
-              if( arr[i].email.indexOf(domains[j].domainName) != -1 ){
+              if( arr[i].email.indexOf(domains[j].domain) != -1 ){
                 matchFlag = true;
                 break;
               }
@@ -338,11 +339,46 @@ var ContactsManager = {
       }
     })
   },
-  addContactMC : function(obj){
+  addContactMC : function(obj,hash,id,apiKey){
   	return new Promise (function(resolve,reject) {	
   	  dbHandler.dbInsertReturnID('leadList',obj)
       .then(function(results){
-        resolve(results);
+        dbHandler.dbQuery('blackListDomains',null)
+        .then(function(domains){
+          var matchFlag = false;
+
+          for(var i=0;i<domains.length;i++){
+             if(obj.email != null || obj.email != undefined){
+              if(obj.email.indexOf(domains[i].domain) != -1){
+                matchFlag = true;
+                break;
+              }
+            }
+          }
+
+          if(matchFlag){
+            var item = {};
+            item._id = results;
+
+            dbHandler.dbDelete('leadList',item)
+            .then(function(success){
+              return dbHandler.dbInsert('blackList',obj);
+            })
+            .then(function(success){
+              return mailchimp.deleteMember(apiKey,id,hash)
+            })
+            .then(function(success){
+              console.log('delete from mailchimp');
+              reject('deleted from mailchimp');
+            })
+            .catch(function(error){
+              reject(error);
+            })
+          }else{
+            resolve(results);
+          }
+
+        })
       })
       .catch(function(error){
         reject(error);

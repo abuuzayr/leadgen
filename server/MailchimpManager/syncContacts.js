@@ -185,7 +185,7 @@ var mailchimpHandler ={
 											lastName: differenceArr[i].members[j].lastName,
 											subscriberStatus: differenceArr[i].members[j].subscriberStatus
 										}
-									promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp));
+									promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp,apiKey));
 									}
 								}
 							}else if(differenceArr[i].action == '3')
@@ -229,7 +229,7 @@ var mailchimpHandler ={
 											lastName: differenceArr[i].members[j].lastName,
 											subscriberStatus: differenceArr[i].members[j].subscriberStatus
 										}
-										promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp));
+										promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp,apiKey));
 									}else if(differenceArr[i].members[j].action=='3'){ 
 										//delete member
 										var deleteContactTemp= {
@@ -273,7 +273,7 @@ var mailchimpHandler ={
 											lastName: differenceArr[i].members[j].lastName,
 											subscriberStatus: differenceArr[i].members[j].subscriberStatus
 										}
-										promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp));
+										promiseArr.push(mailinglistmanager.addContactsChain('mailinglists',createContactTemp,apiKey));
 									}else if(differenceArr[i].members[j].action=='3'){ 
 										//delete member
 										var deleteContactTemp= {

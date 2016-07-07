@@ -70,7 +70,7 @@ var MailinglistManager = {
 	})
 
 	},
-	addContactsChain: function(collectionName,obj)
+	addContactsChain: function(collectionName,obj,apiKey)
 	{
 		return new Promise (function(resolve,reject) {	
 			var tempC={
@@ -86,7 +86,7 @@ var MailinglistManager = {
 				origin:1,
 				phone:null
 			}
-			contactsHandler.addContactMC(tempC)
+			contactsHandler.addContactMC(tempC,obj.email_hash,obj.listID,apiKey)
 			.then(function(results){
 				var tempML={
 					contactID: results+'',

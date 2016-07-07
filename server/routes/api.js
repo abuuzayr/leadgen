@@ -22,7 +22,7 @@ CRUD on leads
 apiRouter.route('/contacts/leadList/leads')
   .get(function(req,res){
     console.log('get leads');
-    ContactsManager.displayLeads(null)
+    ContactsManager.displayLeads(null,deleteContact)
       .then(function(results){
           res.json(results);
       })
