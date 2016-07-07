@@ -4,32 +4,36 @@
 <div class="results">
     <h3>Results</h3>
     <br>
-    <div ng-controller="resultController as rc" >
+    <div ng-controller="resultController as rc">
+        <div id='addToContactsFeedbackID' class="mdl-js-snackbar mdl-snackbar">
+            <div class="mdl-snackbar__text"></div>
+            <button class="mdl-snackbar__action" type="button"></button>
+        </div>
 
-    <div id="grid2" ui-grid="rc.gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns></div>
+        <div id="grid2" ui-grid="rc.gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns></div>
 
-    <h4>Total Contacts Scraped: {{rc.resultsLength}}</h4>
-    
-    <!-- Accent-colored raised button with ripple -->
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.openDialog('deleteLead')">
+        <h4>Total Contacts Scraped: {{rc.resultsLength}}</h4>
+
+        <!-- Accent-colored raised button with ripple -->
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.openDialog('deleteLead')">
         Deleted Selected
     </button>
 
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.showFunction(); rc.addSelected(); rc.saveToContacts(); rc.clearData()">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.showFunction(); rc.addSelected(); rc.saveToContacts(); rc.clearData(); rc.addToContactsFeedback()">
         Add to Contacts
     </button>
 
-    <dialog id="deleteLead" class="mdl-dialog" >
-        <div class="mdl-dialog__content">
-            <p>Are you sure you want to delete the selected lead(s)?</p>
+        <dialog id="deleteLead" class="mdl-dialog">
+            <div class="mdl-dialog__content">
+                <p>Are you sure you want to delete the selected lead(s)?</p>
                 <div class="mdl-dialog__actions">
                     <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="rc.closeDialog('deleteLead')">Cancel</button>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="rc.deleteSelected();rc.closeDialog('deleteLead')">Yes</button> 
-                </div>     
-        </div>        
-    </dialog>
+                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="rc.deleteSelected();rc.closeDialog('deleteLead')">Yes</button>
+                </div>
+            </div>
+        </dialog>
 
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-show="rc.showResult">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-show="rc.showResult">
     {{ rc.responseMessage }}
     <i class="material-icons" ng-show="rc.symbol">done</i>
     <i class="material-icons" ng-hide="rc.symbol">clear</i>

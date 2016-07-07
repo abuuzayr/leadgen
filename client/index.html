@@ -1,19 +1,20 @@
 <!doctype html>
 <html ng-app="app">
-  <head>
-	  <!-- AngularJS -->
+
+<head>
+    <!-- AngularJS -->
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-touch.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
-	  <!-- UI-Grid -->
-	  <link rel="stylesheet" type="text/css" href="assets/lib/node_modules/angular-ui-grid/ui-grid.css" />
+    <!-- UI-Grid -->
+    <link rel="stylesheet" type="text/css" href="assets/lib/node_modules/angular-ui-grid/ui-grid.css" />
     <script src="assets/lib/node_modules/angular-ui-grid/ui-grid.js"></script>
     <script src="app/app.js"></script>
-	  <!-- UI-Router -->
+    <!-- UI-Router -->
     <script src="assets/lib/node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="assets/lib/node_modules/angular-ui-router/release/angular-ui-router.js"></script>
-	  <!-- Bower -->
-	  <script src="assets/lib/importer/bower_components/CSV-JS/csv.js"></script>
+    <!-- Bower -->
+    <script src="assets/lib/importer/bower_components/CSV-JS/csv.js"></script>
     <!--Controllers-->
     <script src="ContactsMgmt/controllers/contactsMainController.js"></script>
     <script src="ContactsMgmt/controllers/mailListController.js"></script>
@@ -30,7 +31,7 @@
     <script src="UserMgmt/controllers/userMgmtController.js"></script>
     <script src="UserMgmt/controllers/userMgmtProfileController.js"></script>
     <!--Services-->
-    <script src="shared/feedbackServices.js"></script>
+    <script src="shared/feedbackService.js"></script>
     <script src="ContactsMgmt/services/leadsData.js"></script>
     <script src="ContactsMgmt/services/mailListData.js"></script>
     <script src="ContactsMgmt/services/shareMailList.js"></script>
@@ -60,37 +61,39 @@
     <!--Bootstrap-->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-	<link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/readable/bootstrap.min.css" rel="stylesheet" integrity="sha384-/x/+iIbAU4qS3UecK7KIjLZdUilKKCjUFVdwFx8ba7S/WvxbrYeQuKEt0n/HWqTx" crossorigin="anonymous">
-    
-  </head>
-  <body>
+
+</head>
+
+<body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout__header-row">
-      <!-- Title -->
-      <span class="mdl-layout-title mdl"> <a style="color:#F2F1F1;" ui-sref="home"><b>BulletLead</b></a></span>
-      <!-- Add spacer, to align navigation to the right -->
-      <div class="mdl-layout-spacer"></div>
-      <!-- Navigation. We hide it in small screens. -->
-      <nav class="mdl-navigation mdl-layout--large-screen-only">
-        <a class="mdl-navigation__link" ui-sref="#">Logout</a>
-      </nav>
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title mdl"> <a style="color:#F2F1F1;" ui-sref="home"><b>BulletLead</b></a></span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation. We hide it in small screens. -->
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" ui-sref="#">Logout</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">BulletLead</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" ui-sref="leadlist">Lead Management</a>
+                <a class="mdl-navigation__link" ui-sref="leadFinder">Lead Finder</a>
+                <a class="mdl-navigation__link" ui-sref="profile">Account Settings</a>
+                <a class="mdl-navigation__link" ui-sref="userManagementprofile">User Management</a>
+                <a class="mdl-navigation__link" href="https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6" target="_blank">MailChimp</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div ui-view class="page-content"></div>
+        </main>
     </div>
-  </header>
-  <div class="mdl-layout__drawer">
-    <span class="mdl-layout-title">BulletLead</span>
-    <nav class="mdl-navigation">
-      <a class="mdl-navigation__link" ui-sref="leadlist">Lead Management</a>
-      <a class="mdl-navigation__link" ui-sref="leadFinder">Lead Finder</a>
-      <a class="mdl-navigation__link" ui-sref="profile">Account Settings</a>
-      <a class="mdl-navigation__link" ui-sref="userManagementprofile">User Management</a>
-      <a class="mdl-navigation__link" href="https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6" target="_blank">MailChimp</a>
-    </nav>
-  </div>
-  <main class="mdl-layout__content">
-    <div ui-view class="page-content"></div>
-  </main>
-  </div>
-  </body>
+</body>
+
 </html>

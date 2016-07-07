@@ -1,4 +1,4 @@
-app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'historyData', 'mailListData', 'contactsColumnData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $window, leadsData, historyData, mailListData, contactsColumnData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'historyData', 'mailListData', 'contactsColumnData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackService',function($scope, $window, leadsData, historyData, mailListData, contactsColumnData, $http, $interval, uiGridConstants, $q, $location, $timeout, feedbackService) {
 
   leadsData.success(function(data) {
     $scope.gridOptions.data = data;
@@ -335,6 +335,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
     $scope.addResult = "";
     dialog.close();
   };
+
+  $scope.addLeadFeedback = function() {
+        feedbackService.successFeedback("Added!", '#addLeadFeedbackID');
+  }
 }])
 
 //filter drop down option hashing
