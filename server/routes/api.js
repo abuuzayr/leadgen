@@ -171,7 +171,7 @@ apiRouter.get('/contacts/leadList/leads/:id',function(req,res){
     }
     dbHandler.dbQuery('leadList',obj)
     .then(function(results){
-      res.json(results);
+      res.json(results[0].history);
     })
     .catch(function(error){
       res.sendStatus(error);
