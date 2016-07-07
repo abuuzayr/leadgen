@@ -1,4 +1,4 @@
-app.controller('blackListController', ['$scope','domainsData', 'blackLeadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, domainsData, blackLeadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blackLeadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, $window, domainsData, blackLeadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
   blackLeadsData.success(function(data) {
     $scope.gridOptions.data = data;
@@ -50,13 +50,19 @@ app.controller('blackListController', ['$scope','domainsData', 'blackLeadsData',
     ],
   };
 
-//delete selected leads
+  //refresh
+  $scope.refresh = function() {
+    $window.location.reload();
+  }
+
+  //delete selected leads
   $scope.deleteSelected = function(){
     angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
     $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
     });
     var leads = $scope.gridApi.selection.getSelectedRows();
     var deleteStatus = $http.put("http://localhost:8080/api/contacts/blackList", leads);
+    $window.location.reload();
   }
 
   $scope.gridOptions.onRegisterApi= function ( gridApi ) {
@@ -65,6 +71,7 @@ app.controller('blackListController', ['$scope','domainsData', 'blackLeadsData',
     gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
       console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
       $scope.$apply();
+      $window.location.reload();
     });
   };
   

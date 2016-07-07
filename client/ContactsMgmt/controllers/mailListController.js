@@ -1,4 +1,4 @@
-app.controller('mailListController', ['$scope','mailListData','shareMailList','$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('mailListController', ['$scope', '$window','mailListData','shareMailList','$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, $window, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
   mailListData.success(function(data) {
     $scope.gridOptions.data = data;
@@ -35,6 +35,11 @@ app.controller('mailListController', ['$scope','mailListData','shareMailList','$
     ],
   };
 
+  //refresh
+  $scope.refresh = function() {
+    $window.location.reload();
+  }
+
   //view details
   $scope.showView = function(value){
     shareMailList.setData(value);
@@ -52,8 +57,7 @@ app.controller('mailListController', ['$scope','mailListData','shareMailList','$
       "subscribers": 0
     };
     var addStatus = $http.post("http://localhost:8080/api/contacts/mailingList",mailingList);
-    $scope.addResult = "Success!";
-    
+    $window.location.reload();
   };
 
 //delete selected lists
@@ -63,6 +67,7 @@ app.controller('mailListController', ['$scope','mailListData','shareMailList','$
     });
     var mailingLists = $scope.gridApi.selection.getSelectedRows();
     var deleteStatus = $http.put("http://localhost:8080/api/contacts/mailingList", mailingLists);
+    $window.location.reload();
   }
 
   $scope.gridOptions.onRegisterApi= function ( gridApi ) {
@@ -75,6 +80,7 @@ app.controller('mailListController', ['$scope','mailListData','shareMailList','$
       obj[colDef.name] = newValue;
       var editData = [rowEntity,obj]
       var editStatus = $http.patch("http://localhost:8080/api/contacts/mailingList", editData);
+      $window.location.reload();
     });
   };
 
