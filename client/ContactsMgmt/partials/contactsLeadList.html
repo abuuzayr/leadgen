@@ -144,7 +144,7 @@
                     <form class="add-to-mailinglist" ng-submit="addToMailingList()">
                         <select ng-model="listSelected" required>
                             <option value="">Please select</option>
-                            <option ng-repeat="list in mailingList">{{list.listName}}</option>
+                            <option ng-repeat="list in mailingList">{{list.name}}</option>
                         </select>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addToMailingList')">Close</button>
