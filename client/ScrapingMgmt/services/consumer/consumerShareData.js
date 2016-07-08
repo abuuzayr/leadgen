@@ -1,6 +1,6 @@
-app.factory('consumerShareData',function() {
+app.factory('consumerShareData', function() {
     var savedData = [];
-    
+
     var setData = function(data) {
         savedData = data;
     }
