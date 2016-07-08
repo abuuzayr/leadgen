@@ -1,43 +1,58 @@
 <br>
 <div ng-controller="beforeScrapeController as beforeCorporate">
     <ul class="nav nav-tabs">
-      <li class="active"><a ui-sref="corporate" data-toggle="tab">Corporate</a></li>
-      <li><a ui-sref="consumer" data-toggle="tab">Consumer</a></li>
+        <li class="active"><a ui-sref="corporate" data-toggle="tab">Corporate</a></li>
+        <li><a ui-sref="consumer" data-toggle="tab">Consumer</a></li>
     </ul>
-  <div class="container">
-  <form role="form">
-    <div class="form-group">
-        <br>
-      <h3>Scrap By:</h3>
-      <br>
-  
-      <select class="form-control" id="category" ng-model='beforeCorporate.category' ng-change="beforeCorporate.continueScraping()">
-        <option>F & B</option>
-        <option>Retail</option>
-        <option>IT</option>
-        <option>Education</option>
-      </select>
-      <br>
-      <select class="form-control" id="country" ng-model='beforeCorporate.country'>
+    <div class="container">
+        <form role="form">
+            <div class="form-group">
+                <br>
+                <h3>Scrap By:</h3>
+                <br>
+
+                <select class="form-control" id="category" ng-model='beforeCorporate.category' ng-change="beforeCorporate.continueScraping()">
+                  <option>Agriculture & Livestock</option>
+                  <option>Automotive & Transport</option>
+                  <option>Banking & Finance</option>
+                  <option>Beauty, Health & Medical</option>
+                  <option>Business & Professional Services</option>
+                  <option>Entertainment, Leisure & Hobbies</option>
+                  <option>Fashion & Textile</option>
+                  <option>Food & Beverages</option>
+                  <option>Gifts & Collectibles</option>
+                  <option>Government & Community</option>
+                  <option>Home & Office</option>
+                  <option>Industrial & Engineering</option>
+                  <option>IT, Electronics & Telecoms</option>
+                  <option>Marine, Oil & Gas</option>
+                  <option>Media, Advertising & Printing</option>
+                  <option>Others</option>
+                  <option>Packing & Logistics</option>
+                  <option>Real Estate & Construction</option>
+                  <option>Safety & Security</option>
+                  <option>Science, Research & Technology</option>
+                  <option>Sports & Fitness</option>
+                  <option>Tourism & Travel</option>
+                  <option>Training & Education</option>
+                </select>
+                <br>
+                <select class="form-control" id="country" ng-model='beforeCorporate.country'>
         <option ng-repeat="country in beforeCorporate.listOfCountry">{{country}}</option>
       </select>
-      <br>
+                <br>
 
-      <!-- Accent-colored raised button with ripple -->
-      <a ui-sref=".corporateStartScrap">
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="beforeCorporate.setInput()" ng-disabled="beforeCorporate.continue">
+                <!-- Accent-colored raised button with ripple -->
+                <a ui-sref=".corporateStartScrap">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="beforeCorporate.setInput()" ng-disabled="beforeCorporate.continue">
         Proceed to Scrape
         </button>
-      </a>
+                </a>
+            </div>
+        </form>
+        <div ui-view></div>
+        <br>
+        <br>
     </div>
-  </form>
-  <div ui-view></div>
-  <br>
-  <br>
-  </div>
-  </div>
 </div>
-
-
-
-
+</div>
