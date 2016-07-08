@@ -164,8 +164,12 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             dialog.close();
         };
 
-        uc.addUserFeedback = function() {
-            feedbackServices.successFeedback("Added!", '#addUserFeedbackID');
+        uc.addFeedback = function() {
+            feedbackServices.successFeedback("Added!", '#addUserFeedbackID', 3000);
+        }
+
+        uc.deleteFeedback = function() {
+            feedbackServices.successFeedback("Deleted!", '#addUserFeedbackID', 3000);
         }
 
     }
