@@ -124,7 +124,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
                                 gc.showFunction(); //show the 'view results' button
                             };
                     }
-                }, 100);
+                }, 2000);
             };
         }
 
