@@ -1,3 +1,8 @@
 #files {
     display: none;
 }
+
+#historyData {
+    height: relative;
+    width: relative;
+}

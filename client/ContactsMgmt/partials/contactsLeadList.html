@@ -33,12 +33,24 @@
             <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored pull-right" id="get_file" value="Import"/>
             <form><input type="file" id="files" class="file-chooser" name="files[]"/></form>
 
-            <dialog id="historyData" class="mdl-dialog" >
+            <dialog id="historyData" class="mdl-dialog">
                 <div class="mdl-dialog__content">
-                    <div>{{history}}</div>
                     <div>
-                        <img src="http://vignette1.wikia.nocookie.net/despicableme/images/b/ba/Gru.jpg/revision/latest?cb=20130711023954">
-                    </div>
+                        <table class="mdl-data-table mdl-js-data-table" id="historyData">
+                            <thead>
+                                <tr>
+                                <th class="mdl-data-table__cell--non-numeric">Action</th>
+                                <th class="mdl-data-table__cell--non-numeric">Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="stats in history">
+                                <td class="mdl-data-table__cell--non-numeric">{{stats.action}}</td>
+                                <td class="mdl-data-table__cell--non-numeric">{{stats.timestamp}}</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('historyData')">Close</button>
                     </div>       

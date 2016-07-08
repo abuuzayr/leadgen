@@ -161,7 +161,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
     //show history dialog
     $scope.showMe = function(value) {
         historyData.getHistory(value._id).then(function successCallback(res) {
-                $scope.history = res.data;
+                $scope.history = res.data[0];
             }),
             function errorCallback(err) {
                 console.log('err is ' + err);
