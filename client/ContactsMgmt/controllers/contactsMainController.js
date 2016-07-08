@@ -277,7 +277,6 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
         }];
         console.log(obj);
         var addStatus = $http.post("http://localhost:8080/api/contacts/mailingList/subscriber", obj);
-        $window.location.reload();
     };
 
     $scope.removeDuplicateField = function() {
