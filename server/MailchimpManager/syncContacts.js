@@ -421,7 +421,9 @@ module.exports = mailchimpHandler;
 	//Now we want to collate all these information and save them into another array
 	//mailing list ID and mc id will get us the contact id so we can add the relevant data.
 	//if there are duplicate action and timestamp we add action else, dont add action
+
 		for(var i=0;i<results.length;i++){
+			console.log(results[i]);
 		 	for(var j=0;j<results[i].emails.length;j++){
 		 		var temp={
 					listID: results[i].emails[j].list_id,//The unique id for the list.
@@ -432,13 +434,15 @@ module.exports = mailchimpHandler;
 					//One of the following actions: ‘open’, ‘click’, or ‘bounce’ and the date and time recorded for the action.
 					contactID: ''
 				};
+				
 				if(results[i].emails[j].activity.length!=0){
-									activityArr.push(temp);
+					activityArr.push(temp);
 			 	}
 			}
 		}
 		mailinglistmanager.getAllData('mailinglists')
 			.then(function(mlResults){
+				console.log('printing activities');
 				for(var i=0;i<activityArr.length;i++){
 					for(var j=0;j<mlResults.length;j++){
 						if(activityArr[i].listID == mlResults[j].listID){
@@ -450,16 +454,32 @@ module.exports = mailchimpHandler;
 				}
 				mailinglistmanager.getAllData('leadList')
 					.then(function(cResults){
+						console.log(activityArr);
 						for(var j=0;j<cResults.length;j++){
 							cResults[j].history=[];
 						}
-						for(var i=0;i<activityArr.length;i++){
-							for(var j=0;j<cResults.length;j++){
-								var itemID=cResults[j]._id+'';
-								if(activityArr[i].contactID == itemID){
-									cResults[j].history.push(activityArr[i].action);
+
+						for(var i=0;i<cResults.length;i++){
+							
+							var sCount = 0;		
+							var fCount = 0;
+							
+							var itemID=cResults[i]._id+'';
+							
+							for(var j=0;j<activityArr.length;j++){
+								
+								if(activityArr[j].contactID == itemID){
+									console.log(activityArr[j].action);
+									if(activityArr[j].action[0].action == 'bounce')
+										fCount ++;
+									else
+										sCount ++;
+									cResults[i].history.push(activityArr[j].action[0]);
 								}
 							}
+							cResults[i].success = sCount;
+							cResults[i].failure = fCount;
+
 						}
 						console.log(cResults);
 						var promiseActivityArr = [];
