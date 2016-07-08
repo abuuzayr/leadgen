@@ -1,5 +1,5 @@
-app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackService',
-    function($scope, shareData, sendResults, $http, uiGridConstants, $q, $location, $timeout, feedbackService) {
+app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices',
+    function($scope, shareData, sendResults, $http, uiGridConstants, $q, $location, $timeout, feedbackServices) {
 
         var rc = this;
         rc.gridOptions = {
