@@ -336,9 +336,9 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
         dialog.close();
     };
 
-    $scope.addLeadFeedback = function() {
-        feedbackServices.successFeedback("Added!", '#addLeadFeedbackID');
-    }
+    $scope.addFeedback = function() {
+        feedbackServices.successFeedback("Added!", '#addFeedbackID');
+    };
 }])
 
 //filter drop down option hashing

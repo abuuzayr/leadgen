@@ -8,7 +8,7 @@
         <li class=""><a ui-sref="blacklist" data-toggle="tab" ng-click= "refresh()">BlackList</a></li>
     </ul>
 
-    <div id='addLeadFeedbackID' class="mdl-js-snackbar mdl-snackbar">
+    <div id='addFeedbackID' class="mdl-js-snackbar mdl-snackbar">
         <div class="mdl-snackbar__text"></div>
         <button class="mdl-snackbar__action" type="button"></button>
     </div>
@@ -97,7 +97,7 @@
                         </div>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addData')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="addLeadFeedback(); closeDialog('addData')" >Add</button> 
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="addFeedback(); closeDialog('addData')" >Add</button> 
                         </div>     
                     </form>
                 </div>        
@@ -151,7 +151,7 @@
                         </select>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addToMailingList')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="addFeedback(); closeDialog('addToMailingList')">Add</button> 
                         </div>     
                     </form> 
                 </div>        
