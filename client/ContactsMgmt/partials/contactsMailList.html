@@ -7,6 +7,12 @@
         <li class="active"><a ui-sref="maillist" data-toggle="tab" ng-click= "refresh()">Mailing List</a></li>
         <li class=""><a ui-sref="blacklist" data-toggle="tab" ng-click= "refresh()">BlackList</a></li>
     </ul>
+
+    <div id='addFeedbackID' class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+
     <br><br>
     <div class="mailGrid">
         <div class="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns></div>
@@ -39,7 +45,7 @@
                 </div>
 
                 <div class="mdl-dialog__actions">
-                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addMailList')">Close</button>
+                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addMailList') ; addFeedback()">Close</button>
                     <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button> 
                 </div>     
             </form> 
