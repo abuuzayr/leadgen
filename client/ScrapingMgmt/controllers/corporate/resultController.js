@@ -137,7 +137,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
         };
 
         rc.addToContactsFeedback = function() {
-            feedbackService.successFeedback("Added to Contacts!", '#addToContactsFeedbackID');
+            feedbackServices.successFeedback("Added to Contacts!", '#addToContactsFeedbackID');
         }
 
     }
