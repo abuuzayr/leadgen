@@ -77,7 +77,7 @@ var ContactsManager = {
             arr[i].type = 2;
 
           for(var j=0;j<domains.length;j++){
-            if(arr[i].email !== null || arr[i].email !== undefined){
+            if(arr[i].email != null || arr[i].email != undefined){
               if( arr[i].email.indexOf(domains[j].domain) != -1 ){
                 matchFlag = true;
                 break;

@@ -10,7 +10,7 @@ var mailchimpApp ={
 		return new Promise(function(resolve,reject) {
 		mailchimp.setApiKey(apiKey);
 		mailchimp
-			.get('lists')
+			.get('lists/?count=1000000')
 			.then(function(lists) {
 				var allLists = [];
 				var results;
@@ -154,7 +154,7 @@ var mailchimpApp ={
 	return new Promise (function(resolve,reject) {
 		mailchimp.setApiKey(apiKey);
 		mailchimp
-		  	.get('lists/'+listID,listID)
+		  	.get('lists/'+listID+'?count=1000000',listID)
 		  		.then(function(results){
 					resolve(results);
 			   })
@@ -220,7 +220,7 @@ var mailchimpApp ={
 		    {
 		    	//console.log('reports/'+report.reports[i].id+'/email-activity');
 			    mailchimp
-		  			.get('reports/'+report.reports[i].id+'/email-activity')
+		  			.get('reports/'+report.reports[i].id+'/email-activity?count=1000000')
 		  			 .then(function(activity){
 		  			 	results.push(activity);
 			  			 	if(results.length==report.reports.length){
@@ -241,7 +241,7 @@ var getMembers = function(id,name,apiKey){
 		var err = null;
 		var results = [];
 		var allUsers = [];
-		var url = 'https://' + username + ':' + apiKey + '@us13.api.mailchimp.com/3.0/lists/' + id + '/members';
+		var url = 'https://' + username + ':' + apiKey + '@us13.api.mailchimp.com/3.0/lists/' + id + '/members?count=1000000';
 		request({url: url}, function(error,response,body){
 			if(error !== null){
 				reject(error);

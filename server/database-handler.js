@@ -87,7 +87,7 @@ var dbHandler = {
   },
   dbAggreateML: function(collectionName)
   {
-        return new Promise(function(resolve,reject){  
+      return new Promise(function(resolve,reject){  
       MongoClient.connect(config.dbURI,function(err,db){
         if(err!==null)
           reject(err);
