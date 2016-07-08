@@ -162,6 +162,9 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
     $scope.showMe = function(value) {
         historyData.getHistory(value._id).then(function successCallback(res) {
                 $scope.history = res.data;
+                if ($scope.history.length === 0) {
+                    $scope.history = [{"action": "----------------", "timestamp": "----------------------------"}];
+                }
             }),
             function errorCallback(err) {
                 console.log('err is ' + err);
