@@ -57,7 +57,6 @@ app.controller('mailListController', ['$scope', '$window', 'feedbackServices','m
       "subscribers": 0
     };
     var addStatus = $http.post("http://localhost:8080/api/contacts/mailingList",mailingList);
-    $window.location.reload();
   };
 
 //delete selected lists
