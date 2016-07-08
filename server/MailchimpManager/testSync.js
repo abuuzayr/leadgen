@@ -1,4 +1,4 @@
-var mailchimpHandler= require('./syncContacts');
+var mailchimpHandler = require('./syncContacts');
 var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
 
 /* This is to test syncing function between mailchimp and app server.
@@ -48,7 +48,7 @@ mailchimpHandler.addList(apiKey,'CreateListTest1').then(function(results)
 	})
 	*/
 
-/*this is to create member in the list*/ 
+/*this is to create member in the list*/
 /*
 	var batches = [
 	  {
@@ -87,9 +87,9 @@ mailchimpHandler.addList(apiKey,'CreateListTest1').then(function(results)
  			 		console.log(results);
  			 	})
  			 	*/
- 	//this is to update members
- 	//so apparently no need to update contact a all @_@
- 	/*
+//this is to update members
+//so apparently no need to update contact a all @_@
+/*
  	var tempMember={
  					status: 'subscribed',
 	   			   email_address : 'dddd@lightbulbs.com',
@@ -105,7 +105,7 @@ mailchimpHandler.addList(apiKey,'CreateListTest1').then(function(results)
  			 		console.log(results);
  			 	})
  	*/
- 	/*this is to delete member
+/*this is to delete member
  	 mailchimpHandler.deleteMember(apiKey,'3fadfd5a8b','91bb87a98edc7e2f45c605a46d12d65b').then(function(results)
 	{
 		console.log("This is resuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalts");
@@ -113,7 +113,7 @@ mailchimpHandler.addList(apiKey,'CreateListTest1').then(function(results)
  			 		console.log(results);
  			 	})*/
 
- 	 /* this is to delete list
+/* this is to delete list
 	 mailchimpHandler.deleteList(apiKey,'3fadfd5a8b').then(function(results)
 	{
 		console.log("This is resuaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalts");

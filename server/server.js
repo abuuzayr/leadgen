@@ -14,11 +14,11 @@ var url = config.dbURI;
 
 app.use('/', express.static('../client'));
 
-app.use('/api',apiRouter);
+app.use('/api', apiRouter);
 
-dbHandler.dbConnect(function(result){
-  if(result == config.successMsg)
-    app.listen(config.port ,function(){
+dbHandler.dbConnect(function(result) {
+  if (result == config.successMsg)
+    app.listen(config.port, function() {
       console.log('Starting application server');
     });
   else

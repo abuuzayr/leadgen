@@ -11,18 +11,18 @@ mailchimp
 		console.log("Printing lists");
 		console.log(lists);
 		//var info = JSON.pars0, i<lists.lists.length; e(lists);
-		
-		for (var i=0; i<lists.lists.length; i++) {
+
+		for (var i = 0; i < lists.lists.length; i++) {
 			var list_name = lists.lists[i].name;
 			var list_id = lists.lists[i].id;
 			var list_date_created = lists.lists[i].date_created;
 			var list_country = lists.lists[i].country;
 
 			var new_list = {
-			name : list_name,
-			id : list_id,
-			date_created : list_date_created,
-			country : list_country
+				name: list_name,
+				id: list_id,
+				date_created: list_date_created,
+				country: list_country
 			};
 
 			allLists.push(new_list);
@@ -31,30 +31,32 @@ mailchimp
 		return allLists;
 
 	})
-	
-	.then(function(allLists) {
-		console.log("Get request for members");
-		var username = 'anything';
-		var subscriberList = [];
 
-		for (var i=0; i<allLists.length; i++) {
-			var idOfList = allLists[i].id;
-			var url = 'https://' + username + ':' + apiKey + '@us13.api.mailchimp.com/3.0/lists/' + idOfList + '/members';
+.then(function(allLists) {
+	console.log("Get request for members");
+	var username = 'anything';
+	var subscriberList = [];
 
-			request({url: url}, function (error, response, body) {
-   				if (!error && response.statusCode == 200) {
-    				var info = JSON.parse(body);
-    				console.log(info);
-    				var 
-    			
-				};
-			})
-		}
+	for (var i = 0; i < allLists.length; i++) {
+		var idOfList = allLists[i].id;
+		var url = 'https://' + username + ':' + apiKey + '@us13.api.mailchimp.com/3.0/lists/' + idOfList + '/members';
 
-		console.log("Done");
-	})
+		request({
+			url: url
+		}, function(error, response, body) {
+			if (!error && response.statusCode == 200) {
+				var info = JSON.parse(body);
+				console.log(info);
+				var
 
-	.catch(function(error) {
-		console.log("There is error");
-		console.log(error);
-	});
+			};
+		})
+	}
+
+	console.log("Done");
+})
+
+.catch(function(error) {
+	console.log("There is error");
+	console.log(error);
+});

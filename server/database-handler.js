@@ -5,56 +5,56 @@ var config = require('./config');
 var moment = require('moment');
 
 
-var deleteDB = function(collectionName,obj){
-  return new Promise(function(resolve,reject){  
-      MongoClient.connect(config.dbURI,function(err,db){
-        if(err!==null)
-          reject(500);
-        else{
+var deleteDB = function(collectionName, obj) {
+  return new Promise(function(resolve, reject) {
+    MongoClient.connect(config.dbURI, function(err, db) {
+      if (err !== null)
+        reject(500);
+      else {
 
-          if(obj._id !== undefined)
-            obj._id = new mongodb.ObjectID(obj._id);
-          
-          var col = db.collection(collectionName);
-          col.deleteOne(obj,function(err,results){
-            if(err!==null)
-              reject(500);
-            else{
-              db.close();
-              resolve(200);
-            }
-          });
-        }
-      });
+        if (obj._id !== undefined)
+          obj._id = new mongodb.ObjectID(obj._id);
+
+        var col = db.collection(collectionName);
+        col.deleteOne(obj, function(err, results) {
+          if (err !== null)
+            reject(500);
+          else {
+            db.close();
+            resolve(200);
+          }
+        });
+      }
     });
+  });
 };
 
 
 var dbHandler = {
-  dbConnect : function(callback){
-    MongoClient.connect(config.dbURI, function(err,db){
-      if(err === null){
+  dbConnect: function(callback) {
+    MongoClient.connect(config.dbURI, function(err, db) {
+      if (err === null) {
         db.close();
         callback(config.successMsg);
-      }else{
+      } else {
         callback(config.errorMsg);
       }
     });
   },
-  deleteManyDB : function(collectionName,obj){
-  return new Promise(function(resolve,reject){  
-      MongoClient.connect(config.dbURI,function(err,db){
-        if(err!==null)
+  deleteManyDB: function(collectionName, obj) {
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect(config.dbURI, function(err, db) {
+        if (err !== null)
           reject(500);
-        else{
-          if(obj._id !== undefined){
+        else {
+          if (obj._id !== undefined) {
             obj._id = new mongodb.ObjectID(obj._id);
           }
           var col = db.collection(collectionName);
-          col.deleteMany(obj,function(err,results){
-            if(err!==null)
+          col.deleteMany(obj, function(err, results) {
+            if (err !== null)
               reject(500);
-            else{
+            else {
               db.close();
               resolve(200);
             }
@@ -62,21 +62,20 @@ var dbHandler = {
         }
       });
     });
-},
-  dbInsert : function(collectionName,obj){
-    return new Promise(function(resolve,reject){  
-      MongoClient.connect(config.dbURI,function(err,db){
-        if(err!==null)
+  },
+  dbInsert: function(collectionName, obj) {
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect(config.dbURI, function(err, db) {
+        if (err !== null)
           reject(500);
-        else{
-          if(obj._id !== undefined)
+        else {
+          if (obj._id !== undefined)
             delete obj._id;
           var col = db.collection(collectionName);
-          col.insert(obj,function(err,r){
-            if(err!==null){
+          col.insert(obj, function(err, r) {
+            if (err !== null) {
               reject(500);
-            }
-            else{
+            } else {
               db.close();
               resolve(201);
             }
@@ -85,24 +84,24 @@ var dbHandler = {
       });
     });
   },
-  dbAggreateML: function(collectionName)
-  {
-      return new Promise(function(resolve,reject){  
-      MongoClient.connect(config.dbURI,function(err,db){
-        if(err!==null)
+  dbAggreateML: function(collectionName) {
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect(config.dbURI, function(err, db) {
+        if (err !== null)
           reject(err);
-        else{
+        else {
           var col = db.collection(collectionName);
-          col.aggregate([{$group:
-                             {
-                              "_id": "$listID",
-                              "count":{$sum:1}
-                             }
-                          }
-                          ]).toArray(function(err,docs){
-            if(err!==null)
+          col.aggregate([{
+            $group: {
+              "_id": "$listID",
+              "count": {
+                $sum: 1
+              }
+            }
+          }]).toArray(function(err, docs) {
+            if (err !== null)
               reject(err);
-            else{
+            else {
               db.close();
               resolve(docs);
             }
@@ -111,21 +110,21 @@ var dbHandler = {
       });
     });
   },
-  dbQuery : function(collectionName,obj){
-    return new Promise(function(resolve,reject){  
-      MongoClient.connect(config.dbURI,function(err,db){
-        if(err!==null)
+  dbQuery: function(collectionName, obj) {
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect(config.dbURI, function(err, db) {
+        if (err !== null)
           reject(err);
-        else{
+        else {
           var col = db.collection(collectionName);
-          if(obj!==null){
-            if(obj._id !== undefined)
+          if (obj !== null) {
+            if (obj._id !== undefined)
               obj._id = new mongodb.ObjectID(obj._id);
           }
-          col.find(obj).toArray(function(err,docs){
-            if(err!==null)
+          col.find(obj).toArray(function(err, docs) {
+            if (err !== null)
               reject(err);
-            else{
+            else {
               db.close();
               resolve(docs);
             }
@@ -134,30 +133,30 @@ var dbHandler = {
       });
     });
   },
-  dbDelete : deleteDB,
-  dbUpdate : function(collectionName,originalObj,updateObj){
-    return new Promise(function(resolve,reject){  
-      MongoClient.connect(config.dbURI,function(err,db){
-        if(err!==null)
+  dbDelete: deleteDB,
+  dbUpdate: function(collectionName, originalObj, updateObj) {
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect(config.dbURI, function(err, db) {
+        if (err !== null)
           reject(400);
-        else{
+        else {
           var col = db.collection(collectionName);
 
           /*
             Wrap string to mongodb object id
           */
-          if(originalObj._id !== undefined){
-            originalObj._id = new mongodb.ObjectID(originalObj._id); 
-  
+          if (originalObj._id !== undefined) {
+            originalObj._id = new mongodb.ObjectID(originalObj._id);
+
           }
           delete updateObj._id;
           var obj = {
-            $set : updateObj
+            $set: updateObj
           };
-          col.updateOne(originalObj,obj,function(err,results){
-            if(err!==null)
+          col.updateOne(originalObj, obj, function(err, results) {
+            if (err !== null)
               reject(400);
-            else{
+            else {
               db.close();
               resolve(200);
             }
@@ -166,29 +165,29 @@ var dbHandler = {
       });
     });
   },
-  dbUpdateMany : function(collectionName,originalObj,updateObj){
-    return new Promise(function(resolve,reject){  
-      MongoClient.connect(config.dbURI,function(err,db){
-        if(err!==null)
+  dbUpdateMany: function(collectionName, originalObj, updateObj) {
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect(config.dbURI, function(err, db) {
+        if (err !== null)
           reject(400);
-        else{
+        else {
           var col = db.collection(collectionName);
 
           /*
             Wrap string to mongodb object id
           */
-          if(originalObj._id!== undefined){
-            originalObj._id = new mongodb.ObjectID(originalObj._id); 
+          if (originalObj._id !== undefined) {
+            originalObj._id = new mongodb.ObjectID(originalObj._id);
           }
-          delete updateObj._id; 
+          delete updateObj._id;
 
           var obj = {
-            $set : updateObj
+            $set: updateObj
           };
-          col.updateMany(originalObj,obj,function(err,results){
-            if(err!==null)
+          col.updateMany(originalObj, obj, function(err, results) {
+            if (err !== null)
               reject(400);
-            else{
+            else {
               db.close();
               resolve(200);
             }
@@ -197,86 +196,87 @@ var dbHandler = {
       });
     });
   },
-  dbRemoveDuplicate : function(collectionName,field){
-    return new Promise(function(resolve,reject){
-      MongoClient.connect(config.dbURI,function(err,db){
-        if(err!==null)
+  dbRemoveDuplicate: function(collectionName, field) {
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect(config.dbURI, function(err, db) {
+        if (err !== null)
           reject(err);
-        else{
+        else {
           var col = db.collection(collectionName);
           var fieldString = "$" + field;
           var obj = {
-            $group : {
-              "_id" : fieldString,
-              "count" : {$sum : 1}
+            $group: {
+              "_id": fieldString,
+              "count": {
+                $sum: 1
+              }
             }
           };
           var arr = [obj];
-          col.aggregate(arr).toArray(function(err,results){
-            if(err!==null)
+          col.aggregate(arr).toArray(function(err, results) {
+            if (err !== null)
               reject(err);
-            else{
+            else {
               var arr1 = [];
-              for(var i=0;i<results.length;i++){
-                if(results[i].count > 1){
-                  if(results[i]._id !== null && results[i]._id !== undefined && results[i]._id !== '' ){
-                    var object = {}; 
+              for (var i = 0; i < results.length; i++) {
+                if (results[i].count > 1) {
+                  if (results[i]._id !== null && results[i]._id !== undefined && results[i]._id !== '') {
+                    var object = {};
                     object[field] = results[i]._id;
-                    for(var j=0; j<results[i].count -1 ; j++){
-                      arr1.push(deleteDB(collectionName,object));
+                    for (var j = 0; j < results[i].count - 1; j++) {
+                      arr1.push(deleteDB(collectionName, object));
                     }
                   }
                 }
               }
               Promise.all(arr1)
-              .then(function(msg){
-                resolve(arr1.length);
-                db.close();
-              })
-              .catch(function(err){
-                reject(err);
-                db.close();
-              });
+                .then(function(msg) {
+                  resolve(arr1.length);
+                  db.close();
+                })
+                .catch(function(err) {
+                  reject(err);
+                  db.close();
+                });
             }
           });
         }
       });
     });
   },
-  dbDropCollection : function(collectionName){
-    return new Promise(function(resolve,reject){
-      MongoClient.connect(config.dbURI,function(err,db){
-        if(err!==null)
+  dbDropCollection: function(collectionName) {
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect(config.dbURI, function(err, db) {
+        if (err !== null)
           reject(500);
-        else{
-          db.dropCollection(collectionName,function(err,result){
-            if(err!==null)
+        else {
+          db.dropCollection(collectionName, function(err, result) {
+            if (err !== null)
               reject(500);
-            else{
+            else {
               db.close();
               resolve(200);
-            } 
+            }
           });
         }
       });
     });
   },
-    getSubscriberContact : function(collectionName,obj)
-  {
-        return new Promise(function(resolve,reject){  
-      MongoClient.connect(config.dbURI,function(err,db){
-        if(err!==null)
+  getSubscriberContact: function(collectionName, obj) {
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect(config.dbURI, function(err, db) {
+        if (err !== null)
           reject(err);
-        else{
+        else {
           var col = db.collection(collectionName);
-          if(obj!==null){
-            if(obj._id !== undefined)
+          if (obj !== null) {
+            if (obj._id !== undefined)
               obj._id = new mongodb.ObjectID(obj._id);
           }
-          col.find(obj).toArray(function(err,docs){
-            if(err!==null)
+          col.find(obj).toArray(function(err, docs) {
+            if (err !== null)
               reject(err);
-            else{
+            else {
               db.close();
               resolve(docs);
             }
@@ -285,30 +285,27 @@ var dbHandler = {
       });
     });
   },
-  dbInsertReturnID : function(collectionName,obj){
-    return new Promise(function(resolve,reject){  
-      MongoClient.connect(config.dbURI,function(err,db){
-        if(err!==null)
+  dbInsertReturnID: function(collectionName, obj) {
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect(config.dbURI, function(err, db) {
+        if (err !== null)
           reject(500);
-        else{
-          if(obj._id !== undefined)
+        else {
+          if (obj._id !== undefined)
             delete obj._id;
           var col = db.collection(collectionName);
-          col.insertOne(obj,function(err,r){
-            if(err!==null)
+          col.insertOne(obj, function(err, r) {
+            if (err !== null)
               reject(500);
-            else{
+            else {
               db.close();
               resolve(r.insertedId);
             }
           });
         }
       });
-    });   
+    });
   }
 };
 
 module.exports = dbHandler;
-
-
-

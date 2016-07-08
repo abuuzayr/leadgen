@@ -1,37 +1,40 @@
-app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, $window, domainsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
-   
- domainsData.success(function(data) {
+app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $window, domainsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+
+  domainsData.success(function(data) {
     $scope.gridOptions.data = data;
   });
 
   var viewContentLoaded = $q.defer();
-  $scope.$on('$viewContentLoaded', function () {
-    $timeout(function () {
+  $scope.$on('$viewContentLoaded', function() {
+    $timeout(function() {
       viewContentLoaded.resolve();
     }, 0);
   });
-  viewContentLoaded.promise.then(function () {
-    $timeout(function () {
+  viewContentLoaded.promise.then(function() {
+    $timeout(function() {
       componentHandler.upgradeDom();
     }, 0);
   });
 
-  $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
-    if( col.filters[0].term ){
+  $scope.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
+    if (col.filters[0].term) {
       return 'header-filtered';
     } else {
-        return '';
-      }
+      return '';
+    }
   };
 
   $scope.gridOptions = {
-    showGridFooter:true,
+    showGridFooter: true,
     enableFiltering: true,
     enableSorting: true,
     minRowsToShow: 4,
-    columnDefs: [
-      { field: 'domain', displayName: 'Domain', enableCellEdit: true, headerCellClass: $scope.highlightFilteredHeader}
-    ],
+    columnDefs: [{
+      field: 'domain',
+      displayName: 'Domain',
+      enableCellEdit: true,
+      headerCellClass: $scope.highlightFilteredHeader
+    }],
   };
 
   //refresh
@@ -45,14 +48,18 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
     var arrName = domain.split(" ");
     var editedDomain = "";
     for (var x of arrName) {
-      if (x!== "") {
+      if (x !== "") {
         editedDomain += x;
-        }
-    } 
-    $scope.gridOptions.data.push({"domain" : editedDomain});
+      }
+    }
+    $scope.gridOptions.data.push({
+      "domain": editedDomain
+    });
     $scope.addResult = "Success!";
-    var domain = {"domain" : editedDomain};
-    var addStatus = $http.post("http://localhost:8080/api/contacts/blackList/domain",domain);
+    var domain = {
+      "domain": editedDomain
+    };
+    var addStatus = $http.post("http://localhost:8080/api/contacts/blackList/domain", domain);
     $window.location.reload();
   }
 
@@ -65,21 +72,21 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
   $scope.deleteDomain = function() {
     console.log($scope.selectedDeleteDomain);
     for (var x in $scope.gridOptions.data) {
-      if(($scope.gridOptions.data[x].domain === $scope.selectedDeleteDomain)) {
-        var domain = $scope.gridOptions.data.splice(x,1);
+      if (($scope.gridOptions.data[x].domain === $scope.selectedDeleteDomain)) {
+        var domain = $scope.gridOptions.data.splice(x, 1);
         var deleteStatus = $http.put("http://localhost:8080/api/contacts/blackList/domain", domain[0]);
         $window.location.reload();
-      } 
+      }
     }
   }
 
-  $scope.gridOptions.onRegisterApi= function ( gridApi ) {
+  $scope.gridOptions.onRegisterApi = function(gridApi) {
     $scope.gridApi = gridApi;
     //save after edit
-    gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
-      console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
+    gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+      console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
       $scope.$apply();
       $window.location.reload();
     });
-  }; 
+  };
 }])

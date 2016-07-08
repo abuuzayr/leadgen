@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="assets/css/mailList.css" />
 
-<div ng-controller="mailListController" > 
-    <br> 
+<div ng-controller="mailListController">
+    <br>
     <ul class="nav nav-tabs">
-        <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click= "refresh()">LeadList</a></li>
-        <li class="active"><a ui-sref="maillist" data-toggle="tab" ng-click= "refresh()">Mailing List</a></li>
-        <li class=""><a ui-sref="blacklist" data-toggle="tab" ng-click= "refresh()">BlackList</a></li>
+        <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click="refresh()">LeadList</a></li>
+        <li class="active"><a ui-sref="maillist" data-toggle="tab" ng-click="refresh()">Mailing List</a></li>
+        <li class=""><a ui-sref="blacklist" data-toggle="tab" ng-click="refresh()">BlackList</a></li>
     </ul>
     <br><br>
     <div class="mailGrid">
@@ -15,19 +15,19 @@
         <button ng-click="openDialog('deleteConfirmation')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Mailing List</button>
     </div>
 
-    <dialog id="deleteConfirmation" class="mdl-dialog" >
+    <dialog id="deleteConfirmation" class="mdl-dialog">
         <div class="mdl-dialog__content">
             <p>
                 Are you sure?
             </p>
             <div class="mdl-dialog__actions">
                 <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteConfirmation')">No</button>
-                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="deleteSelected(); closeDialog('deleteConfirmation')">Yes</button> 
-            </div>     
-        </div>        
+                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="deleteSelected(); closeDialog('deleteConfirmation')">Yes</button>
+            </div>
+        </div>
     </dialog>
 
-    <dialog id="addMailList" class="mdl-dialog" >
+    <dialog id="addMailList" class="mdl-dialog">
         <div class="mdl-dialog__content">
             <p>
                 Please enter the details.
@@ -40,12 +40,10 @@
 
                 <div class="mdl-dialog__actions">
                     <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('addMailList')">Close</button>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="closeDialog('addMailList')">Add</button> 
-                </div>     
-            </form> 
-        </div>        
+                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="closeDialog('addMailList')">Add</button>
+                </div>
+            </form>
+        </div>
     </dialog>
-    
+
 </div>
-
-

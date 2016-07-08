@@ -1,4 +1,4 @@
-app.factory('historyData', ['$http', function($http) { 
+app.factory('historyData', ['$http', function($http) {
     var getHistory = function(fieldID) {
         return $http({
             method: 'GET',

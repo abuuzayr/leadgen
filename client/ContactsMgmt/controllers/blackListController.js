@@ -1,23 +1,23 @@
-app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blackLeadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, $window, domainsData, blackLeadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blackLeadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $window, domainsData, blackLeadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
   blackLeadsData.success(function(data) {
     $scope.gridOptions.data = data;
   });
 
   var viewContentLoaded = $q.defer();
-    $scope.$on('$viewContentLoaded', function () {
-      $timeout(function () {
-        viewContentLoaded.resolve();
-      }, 0);
-    });
-  viewContentLoaded.promise.then(function () {
-    $timeout(function () {
+  $scope.$on('$viewContentLoaded', function() {
+    $timeout(function() {
+      viewContentLoaded.resolve();
+    }, 0);
+  });
+  viewContentLoaded.promise.then(function() {
+    $timeout(function() {
       componentHandler.upgradeDom();
     }, 0);
   });
 
-  $scope.highlightFilteredHeader = function( row, rowRenderIndex, col, colRenderIndex ) {
-    if( col.filters[0].term ){
+  $scope.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
+    if (col.filters[0].term) {
       return 'header-filtered';
     } else {
       return '';
@@ -27,27 +27,74 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
   $scope.gridOptions = {
     enableSorting: true,
     enableFiltering: true,
-    showGridFooter:true,
+    showGridFooter: true,
     minRowsToShow: 10,
-    columnDefs: [
-      { field: 'firstName', displayName: 'First Name', minWidth:80, width:200, enableCellEdit: true,  headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'lastName', displayName: 'Last Name', minWidth:80, width:200, headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'company', displayName: 'Company', minWidth:80, width:200, headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'email', displayName: 'Email', enableCellEdit: false, minWidth:80, width:250, headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'phone', displayName: 'Phone', enableCellEdit: false, minWidth:80, width:100, headerCellClass: $scope.highlightFilteredHeader },
-      { field: 'category', displayName: 'Category', minWidth:80, width:150, headerCellClass: $scope.highlightFilteredHeader },
-      { field: "type", displayName: "Type", editableCellTemplate: "ui-grid/dropdownEditor", minWidth:80, width:150, 
-        filter: {
-          type: uiGridConstants.filter.SELECT,
-          selectOptions: [ { value: "1", label: "Corporate" }, { value: "2", label: "Consumer"} ]
-          },
-        cellFilter: "mapType", editDropdownValueLabel: "type", headerCellClass: $scope.highlightFilteredHeader,
-        editDropdownOptionsArray: [
-          { id: 1, type: "Corporate" },
-          { id: 2, type: "Consumer" }
-        ]
+    columnDefs: [{
+      field: 'firstName',
+      displayName: 'First Name',
+      minWidth: 80,
+      width: 200,
+      enableCellEdit: true,
+      headerCellClass: $scope.highlightFilteredHeader
+    }, {
+      field: 'lastName',
+      displayName: 'Last Name',
+      minWidth: 80,
+      width: 200,
+      headerCellClass: $scope.highlightFilteredHeader
+    }, {
+      field: 'company',
+      displayName: 'Company',
+      minWidth: 80,
+      width: 200,
+      headerCellClass: $scope.highlightFilteredHeader
+    }, {
+      field: 'email',
+      displayName: 'Email',
+      enableCellEdit: false,
+      minWidth: 80,
+      width: 250,
+      headerCellClass: $scope.highlightFilteredHeader
+    }, {
+      field: 'phone',
+      displayName: 'Phone',
+      enableCellEdit: false,
+      minWidth: 80,
+      width: 100,
+      headerCellClass: $scope.highlightFilteredHeader
+    }, {
+      field: 'category',
+      displayName: 'Category',
+      minWidth: 80,
+      width: 150,
+      headerCellClass: $scope.highlightFilteredHeader
+    }, {
+      field: "type",
+      displayName: "Type",
+      editableCellTemplate: "ui-grid/dropdownEditor",
+      minWidth: 80,
+      width: 150,
+      filter: {
+        type: uiGridConstants.filter.SELECT,
+        selectOptions: [{
+          value: "1",
+          label: "Corporate"
+        }, {
+          value: "2",
+          label: "Consumer"
+        }]
       },
-    ],
+      cellFilter: "mapType",
+      editDropdownValueLabel: "type",
+      headerCellClass: $scope.highlightFilteredHeader,
+      editDropdownOptionsArray: [{
+        id: 1,
+        type: "Corporate"
+      }, {
+        id: 2,
+        type: "Consumer"
+      }]
+    }, ],
   };
 
   //refresh
@@ -56,38 +103,38 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
   }
 
   //delete selected leads
-  $scope.deleteSelected = function(){
-    angular.forEach($scope.gridApi.selection.getSelectedRows(), function (data, index) {
-    $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+  $scope.deleteSelected = function() {
+    angular.forEach($scope.gridApi.selection.getSelectedRows(), function(data, index) {
+      $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
     });
     var leads = $scope.gridApi.selection.getSelectedRows();
     var deleteStatus = $http.put("http://localhost:8080/api/contacts/blackList", leads);
     $window.location.reload();
   }
 
-  $scope.gridOptions.onRegisterApi= function ( gridApi ) {
+  $scope.gridOptions.onRegisterApi = function(gridApi) {
     $scope.gridApi = gridApi;
     //save after edit
-    gridApi.edit.on.afterCellEdit($scope,function(rowEntity, colDef, newValue, oldValue){
-      console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue) ;
+    gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+      console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
       $scope.$apply();
       $window.location.reload();
     });
   };
-  
+
   //popup dialog box
   $scope.openDialog = function(dialogName) {
     var dialog = document.querySelector('#' + dialogName);
-    if (! dialog.showModal) {
+    if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
     }
     dialog.showModal();
   };
-        
+
   $scope.closeDialog = function(dialogName) {
     var dialog = document.querySelector('#' + dialogName);
     dialog.close();
-  }; 
+  };
 }])
 
 
@@ -99,7 +146,7 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
   };
 
   return function(input) {
-    if (!input){
+    if (!input) {
       return 'Unselected';
     } else {
       return typeHash[input];

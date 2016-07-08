@@ -1,6 +1,6 @@
-app.factory('shareMailList',function() {
+app.factory('shareMailList', function() {
     var savedData = [];
-    
+
     var setData = function(data) {
         savedData = data;
     }

@@ -163,7 +163,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
         historyData.getHistory(value._id).then(function successCallback(res) {
                 $scope.history = res.data;
                 if ($scope.history.length === 0) {
-                    $scope.history = [{"action": "----------------", "timestamp": "----------------------------"}];
+                    $scope.history = [{
+                        "action": "----------",
+                        "timestamp": "----------------------------------"
+                    }];
                 }
             }),
             function errorCallback(err) {
