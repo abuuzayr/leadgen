@@ -6,7 +6,7 @@
     <div ng-controller="consumerResultController as cr">
         <div id="grid2" ui-grid="cr.gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns></div>
 
-        <h4>Total Contacts Scraped: {{cr.resultsLength}}</h4>
+        <h4>Total Leads Scraped: {{cr.resultsLength}}</h4>
 
         <!-- Accent-colored raised button with ripple -->
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="cr.openDialog('deleteLead')">
@@ -14,12 +14,12 @@
         </button>
 
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="cr.showFunction(); cr.saveToContacts(); cr.clearData(); cr.addSelected()">
-            Add to Contacts
+            Add to LeadList
         </button>
 
         <dialog id="deleteLead" class="mdl-dialog">
             <div class="mdl-dialog__content">
-                <p>Are you sure you want to delete the selected lead(s)?</p>
+                <p>Are you sure?</p>
                 <div class="mdl-dialog__actions">
                     <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="cr.closeDialog('deleteLead')">Cancel</button>
                     <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="cr.deleteSelected();cr.closeDialog('deleteLead')">Yes</button>
