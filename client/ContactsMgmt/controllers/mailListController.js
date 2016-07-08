@@ -1,4 +1,4 @@
-app.controller('mailListController', ['$scope', '$window', 'feedbackServices','mailListData','shareMailList','$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, $window, feedbackServices, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('mailListController', ['$scope', '$window','mailListData','shareMailList','$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function ($scope, $window, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
    
   mailListData.success(function(data) {
     $scope.gridOptions.data = data;
@@ -57,6 +57,7 @@ app.controller('mailListController', ['$scope', '$window', 'feedbackServices','m
       "subscribers": 0
     };
     var addStatus = $http.post("http://localhost:8080/api/contacts/mailingList",mailingList);
+    $window.location.reload();
   };
 
 //delete selected lists
@@ -96,9 +97,4 @@ app.controller('mailListController', ['$scope', '$window', 'feedbackServices','m
     var dialog = document.querySelector('#' + dialogName);
       dialog.close();
     };
-
-  $scope.addFeedback = function() {
-        feedbackServices.successFeedback("Added!", '#addFeedbackID');
-    };
-
 }]);
