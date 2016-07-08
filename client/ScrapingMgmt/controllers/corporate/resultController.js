@@ -136,9 +136,5 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
             dialog.close();
         };
 
-        rc.addToContactsFeedback = function() {
-            feedbackServices.successFeedback("Added to Contacts!", '#addToContactsFeedbackID');
-        }
-
     }
 ]);
