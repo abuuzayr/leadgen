@@ -479,7 +479,9 @@ var MailinglistManager = {
 				var obj1=[{
 					_id:obj._id
 				},{
-					history:obj.history
+					history:obj.history,
+					success:obj.success,
+					failure:obj.failure
 				}];
 				console.log('test');
 				console.log(obj1[0]);
