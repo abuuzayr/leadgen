@@ -128,7 +128,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
         importerDataAddCallback: function(grid, newObjects) {
             $scope.gridOptions.data = $scope.gridOptions.data.concat(newObjects);
             var importStatus = $http.post("http://localhost:8080/api/contacts/leadList/import", newObjects);
-            $window.location.reload();
+            $scope.addFeedback();
         },
         onRegisterApi: function(gridApi) {
             $scope.gridApi = gridApi;
