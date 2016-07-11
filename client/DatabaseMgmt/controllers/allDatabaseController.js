@@ -74,7 +74,7 @@ app.controller('allDatabaseController', ['$scope', '$http', 'allData', 'uiGridCo
             // }
         };
 
-
+        // get leads 
         allData.getAllLeads().then(function successCallback(res) {
                 allDB.gridOptions.data = res.data;
             }),

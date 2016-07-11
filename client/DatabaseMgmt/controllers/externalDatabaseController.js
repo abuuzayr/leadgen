@@ -70,6 +70,7 @@ app.controller('externalDatabaseController', ['$scope', '$http', 'externalData',
         // }
     };
 
+    //get leads
     externalData.getExternalLeads().then(function successCallback(res) {
             ed.gridOptions.data = res.data;
 

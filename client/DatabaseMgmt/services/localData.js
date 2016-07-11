@@ -22,6 +22,7 @@ app.factory('localData', ['$http', function($http) {  
         });
     }
 
+    //return array of object
     var importToLocal = function(importedData) {
         return $http({
             method: 'POST',

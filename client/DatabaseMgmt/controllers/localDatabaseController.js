@@ -75,6 +75,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             }
         };
 
+        // get leads
         localData.getLocalLeads().then(function successCallback(res) {
                 ld.gridOptions.data = res.data;
             }),
