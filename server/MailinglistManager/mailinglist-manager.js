@@ -468,5 +468,34 @@ var MailinglistManager = {
 				});
 		});
 	},
+	getFilterMembers: function(collectionName, para,results)
+	{
+		return new Promise (function(resolve,reject) {
+
+		var obj={
+			listID:para
+		};
+		dbHandler.dbQuery(collectionName,obj)
+		.then(function(queryResults){//containing contactid
+			console.log(queryResults);
+			console.log("end of resultsq");
+			console.log(results);
+			console.log("end of obj");
+			for(var j=0;j<results.length;j++){
+				for(var i=0;i<queryResults.length;i++){
+					if(results[j]!=undefined){
+						if(queryResults[i].email_hash==results[j].email_hash){
+							 results.splice(j, 1);
+						}
+					}
+				}
+			}
+			resolve(results);
+		})
+		.catch(function(error){
+			console.log('addList'+error);
+		});
+		});
+	}
 };
 module.exports = MailinglistManager;

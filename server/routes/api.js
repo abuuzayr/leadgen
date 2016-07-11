@@ -9,7 +9,7 @@ var express = require('express'),
   MailinglistManager = require('../MailinglistManager/mailinglist-manager'),
   MailchimpManager = require('../MailchimpManager/syncContacts');
 
-var apiKey = '89a25dec87f33b2f139df5db995092d7-us13';
+var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
 
 apiRouter.use('/', jsonParser, function(req, res, next) {
   console.log('Welcome to the API page');
@@ -330,25 +330,32 @@ apiRouter.route('/contacts/mailingList/subscriber')
         };
         memberinfoMC.push(temp);
       }
-      MailchimpManager.addMemberToList(apiKey, req.body[1].listID, memberinfoMC)
-        .then(function(MCResults) {
-          console.log(MCResults);
-          var obj = [];
-          for (var i = 0; i < req.body[0].y.length; i++) {
-            var temp = {
-              contactID: req.body[0].y[i]._id + '',
-              listID: req.body[1].listID,
-              name: req.body[1].name,
-              email_addr: req.body[0].y[i].email,
-              email_hash: md5(req.body[0].y[i].email),
-              firstName: req.body[0].y[i].firstName,
-              lastName: req.body[0].y[i].lastName,
-              subscriberStatus: 'subscribed'
-            };
-            console.log(temp);
-            obj.push(temp);
-          }
-          MailinglistManager.addMemberToList(res, 'mailinglists', obj, returnStatusCode);
+        MailchimpManager.addMemberToList(apiKey,req.body[1].listID,memberinfoMC)
+        .then(function(MCResults)
+        {
+        console.log(MCResults);
+        var obj=[];
+        for(var i = 0; i<req.body[0].y.length;i++)
+        {
+          var temp={
+            contactID:req.body[0].y[i]._id+'',
+            listID: req.body[1].listID,
+            name: req.body[1].name,
+            email_addr: req.body[0].y[i].email,
+            email_hash: md5(req.body[0].y[i].email),
+            firstName: req.body[0].y[i].firstName,
+            lastName: req.body[0].y[i].lastName,
+            subscriberStatus: 'subscribed'
+          };
+          console.log(temp);
+          obj.push(temp);
+        }
+          MailinglistManager.getFilterMembers('mailinglists',req.body[1].listID,obj)
+          .then(function(dbResults2){
+            console.log("filterResult");
+            console.log(dbResults2);
+           MailinglistManager.addMemberToList(res,'mailinglists',dbResults2,returnStatusCode);
+          });
         });
     }
   })
