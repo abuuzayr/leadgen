@@ -1,39 +1,38 @@
 <div ng-controller="consumerScrapController as cs">
     <br>
-    <h3> <i class="material-icons" ng-hide="rc.symbol">cached</i> {{cs.numScrap}} Contacts Scraped...</h3>
-    
+    <h3> <i class="material-icons" ng-hide="rc.symbol">cached</i> {{cs.numScrap}} Leads Scraped...</h3>
+
     <div id="grid2" ui-grid="cs.gridOptions" class="grid"></div>
- 
+
     <br>
     <div class='controlButtons'>
-      <!-- Colored mini FAB button -->
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.transfer()" ng-disabled="cs.pressStop">
+        <!-- Colored mini FAB button -->
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.transfer()" ng-disabled="cs.pressStop">
         <i class="material-icons">play_arrow</i>
       </button>
 
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.pauseScraping()" ng-disabled="cs.pressStop">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.pauseScraping()" ng-disabled="cs.pressStop">
         <i class="material-icons">pause</i>
       </button>
 
-      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.stopScraping(); cs.showFunction()">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.stopScraping(); cs.showFunction()">
         <i class="material-icons">stop</i>
       </button>
-      
-      <!-- Raised button -->
-      <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="cs.showResult">
+
+        <!-- Raised button -->
+        <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="cs.showResult">
         Scraping Stopped
       </button>
 
-      <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="cs.status">
+        <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="cs.status">
         Scraping Stopped. There is no Internet Connection
       </button>
 
-      <!-- Colored raised button -->
-      <!--<div class='resultButton'>-->
-      <a ui-sref="consumerResults">
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-show="cs.showResult">
+        <!-- Colored raised button -->
+        <a ui-sref="consumerResults">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-show="cs.showResult">
         View Results
         </button>
-      </a>
-      </div>
+        </a>
+    </div>
 </div>

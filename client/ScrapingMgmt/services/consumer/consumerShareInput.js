@@ -1,7 +1,7 @@
-app.factory('consumerShareInput',function() {
+app.factory('consumerShareInput', function() {
     var categoryInput = "";
 
-    var getCategory = function () {
+    var getCategory = function() {
         return categoryInput;
     }
 

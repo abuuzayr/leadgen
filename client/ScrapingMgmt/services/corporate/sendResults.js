@@ -1,6 +1,6 @@
 //send results to backend
-app.factory('sendResults',['$http', function($http) {
-    
+app.factory('sendResults', ['$http', function($http) {
+
     var sendLeads = function(resultsToSend) {
         return $http({
             method: 'POST',
@@ -11,5 +11,5 @@ app.factory('sendResults',['$http', function($http) {
 
     return {
         sendLeads: sendLeads
-    } 
+    }
 }])

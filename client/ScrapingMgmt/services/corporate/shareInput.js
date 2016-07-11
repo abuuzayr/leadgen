@@ -1,12 +1,12 @@
-app.factory('shareInput',function() {
+app.factory('shareInput', function() {
     var countryInput = "";
     var categoryInput = "";
 
-    var getCategory = function () {
+    var getCategory = function() {
         return categoryInput;
     }
 
-    var getCountry = function () {
+    var getCountry = function() {
         return countryInput;
     }
 
