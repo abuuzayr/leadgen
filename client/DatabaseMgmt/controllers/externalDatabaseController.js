@@ -9,16 +9,11 @@ app.controller('externalDatabaseController', ['$scope', '$http', 'externalData',
         }
     };
 
-    externalData.success(function(data) {
-        ed.gridOptions.data = data;
-        // console.log('data from external is ' + ed.gridOptions.data);
-        sendDataToLocal.setData(ed.gridOptions.data);
-    });
-
     ed.gridOptions = {
         enableSorting: true,
         enableFiltering: true,
         showGridFooter: true,
+        data: [],
         columnDefs: [{
             field: 'firstName',
             displayName: 'First Name',
@@ -75,6 +70,15 @@ app.controller('externalDatabaseController', ['$scope', '$http', 'externalData',
         // }
     };
 
+    externalData.getExternalLeads().then(function successCallback(res) {
+            ed.gridOptions.data = res.data;
+
+            sendDataToLocal.setData(ed.gridOptions.data);
+        }),
+        function errorCallback(err) {
+
+        }
+
     ed.gridOptions.onRegisterApi = function(gridApi) {
         ed.gridApi = gridApi;
 
@@ -90,6 +94,10 @@ app.controller('externalDatabaseController', ['$scope', '$http', 'externalData',
         angular.forEach(ed.gridApi.selection.getSelectedRows(), function(data, index) {
             ed.gridOptions.data.splice(ed.gridOptions.data.lastIndexOf(data), 1);
         });
+
+        var selectedLeadsToDelete = ed.gridApi.selection.getSelectedRows();
+        console.log(selectedLeadsToDelete);
+        externalData.deleteExternalLeads(selectedLeadsToDelete);
     }
 
     //Open popup dialog box

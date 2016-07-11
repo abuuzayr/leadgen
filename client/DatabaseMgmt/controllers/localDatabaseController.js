@@ -10,10 +10,6 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             }
         };
 
-        localData.success(function(data) {
-            ld.gridOptions.data = data;
-        });
-
         // for import function
         document.getElementById('get_file').onclick = function() {
             document.getElementById('files').click();
@@ -23,6 +19,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             enableSorting: true,
             enableFiltering: true,
             showGridFooter: true,
+            data: [],
             columnDefs: [{
                 field: 'firstName',
                 displayName: 'First Name',
@@ -77,6 +74,13 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
                 ld.gridOptions.data = ld.gridOptions.data.concat(newObjects);
             }
         };
+
+        localData.getLocalLeads().then(function successCallback(res) {
+                ld.gridOptions.data = res.data;
+            }),
+            function errorCallback(err) {
+
+            }
 
         ld.gridOptions.onRegisterApi = function(gridApi) {
             ld.gridApi = gridApi;
@@ -135,6 +139,10 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             angular.forEach(ld.gridApi.selection.getSelectedRows(), function(data, index) {
                 ld.gridOptions.data.splice(ld.gridOptions.data.lastIndexOf(data), 1);
             });
+
+            var selectedLeadsToDelete = ld.gridApi.selection.getSelectedRows();
+            console.log(selectedLeadsToDelete);
+            localData.deleteLocalLeads(selectedLeadsToDelete);
         }
 
         //Open popup dialog box
@@ -151,7 +159,6 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             var dialog = document.querySelector('#' + dialogName);
             dialog.close();
         };
-
     }
 ])
 

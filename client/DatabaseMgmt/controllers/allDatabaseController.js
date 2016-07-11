@@ -10,14 +10,11 @@ app.controller('allDatabaseController', ['$scope', '$http', 'allData', 'uiGridCo
             }
         };
 
-        allData.success(function(data) {
-            allDB.gridOptions.data = data;
-        });
-
         allDB.gridOptions = {
             enableSorting: true,
             enableFiltering: true,
             showGridFooter: true,
+            data: [],
             columnDefs: [{
                 field: 'firstName',
                 displayName: 'First Name',
@@ -77,6 +74,14 @@ app.controller('allDatabaseController', ['$scope', '$http', 'allData', 'uiGridCo
             // }
         };
 
+
+        allData.getAllLeads().then(function successCallback(res) {
+                allDB.gridOptions.data = res.data;
+            }),
+            function errorCallback(err) {
+
+            }
+
         allDB.gridOptions.onRegisterApi = function(gridApi) {
             allDB.gridApi = gridApi;
 
@@ -98,6 +103,10 @@ app.controller('allDatabaseController', ['$scope', '$http', 'allData', 'uiGridCo
             angular.forEach(allDB.gridApi.selection.getSelectedRows(), function(data, index) {
                 allDB.gridOptions.data.splice(allDB.gridOptions.data.lastIndexOf(data), 1);
             });
+
+            var selectedLeadsToDelete = allDB.gridApi.selection.getSelectedRows();
+            console.log(selectedLeadsToDelete);
+            allData.deleteAllLeads(selectedLeadsToDelete);
         }
 
         //Open popup dialog box
