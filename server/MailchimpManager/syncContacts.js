@@ -168,8 +168,8 @@ var mailchimpHandler = {
 													//_id will be auto generated
 											};
 											promiseArr.push(mailinglistmanager.addListMC('mailinglists', createListTemp));
-											if (differenceArr[i].members != '0') {
-												for (var j = 0; j < differenceArr[j].members; j++) {
+											if (differenceArr[i].members.length != '0') {
+												for (var j = 0; j < differenceArr[i].members.length; j++) {
 													//add the member inside the
 													var createContactTemp = {
 														listID: differenceArr[i].listID,

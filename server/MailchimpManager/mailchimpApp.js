@@ -239,6 +239,7 @@ var getMembers = function(id, name, apiKey) {
 				reject(error);
 			} else {
 				var info = JSON.parse(body);
+				console.log(info.members);
 				for (var j = 0; j < info.members.length; j++) {
 					var emailAddress = info.members[j].email_address;
 					var userStatus = info.members[j].status;
