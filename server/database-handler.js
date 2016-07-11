@@ -305,7 +305,143 @@ var dbHandler = {
         }
       });
     });
+  },
+  getListOfDB : function(){
+    return new Promise(function(resolve,reject){
+      
+      var dbURL = config.getDbUri(null);
+      MongoClient.connect(dbURL,function(err,db){
+        if(err !== null)
+          reject(500);
+        else{
+          var adminDB = db.admin();
+          adminDB.listDatabases(function(err,dbs){
+            if(err !== null)
+              reject(500);
+            else
+              resolve(dbs.databases);
+          });
+        }
+      });
+
+    });
+  },
+
+  dbQuerySA : function(collectionName,obj){
+    return new Promise(function(resolve,reject){
+      
+      var dbURL = config.getDbUri(null);
+      
+      MongoClient.connect(dbURL,function(err,db){
+        
+        if (err !== null)
+          reject(err);
+
+        else {
+          var col = db.collection(collectionName);
+          
+          if (obj !== null) {
+          
+            if (obj._id !== undefined)
+              obj._id = new mongodb.ObjectID(obj._id);
+          
+          }
+
+          col.find(obj).toArray(function(err, docs) {
+            if (err !== null)
+              reject(err);
+            else {
+              db.close();
+              resolve(docs);
+            }
+          });
+        }
+      });
+    });
+  },
+
+  dbDeleteSA : function(collectionName,obj){
+    return new Promise(function(resolve, reject) {
+      var dbURL = config.getDbUri(null);
+      MongoClient.connect(dbURL, function(err, db) {
+        if (err !== null)
+          reject(500);
+        else {
+
+          if (obj._id !== undefined)
+            obj._id = new mongodb.ObjectID(obj._id);
+
+          var col = db.collection(collectionName);
+          col.deleteOne(obj, function(err, results) {
+            if (err !== null)
+              reject(500);
+            else {
+              db.close();
+              resolve(200);
+            }
+          });
+        }
+      });
+    });
+  },
+
+  dbUpdateSA : function(collectionName, originalObj, updateObj){
+     return new Promise(function(resolve, reject) {
+      var dbURL = config.getDbUri(null);
+      MongoClient.connect(dbURL, function(err, db) {
+        if (err !== null)
+          reject(400);
+        else {
+          var col = db.collection(collectionName);
+
+          /*
+            Wrap string to mongodb object id
+          */
+          if (originalObj._id !== undefined) {
+            originalObj._id = new mongodb.ObjectID(originalObj._id);
+
+          }
+          delete updateObj._id;
+          var obj = {
+            $set: updateObj
+          };
+          col.updateOne(originalObj, obj, function(err, results) {
+            if (err !== null)
+              reject(400);
+            else {
+              db.close();
+              resolve(200);
+            }
+          });
+        }
+      });
+    });    
+  },
+
+  dbInsertSA: function(collectionName, obj) {
+    return new Promise(function(resolve, reject) {
+      var dbURL = config.getDbUri(null);
+      MongoClient.connect(dbURL, function(err, db) {
+        if (err !== null)
+          reject(500);
+        else {
+          if (obj._id !== undefined)
+            delete obj._id;
+          var col = db.collection(collectionName);
+          col.insert(obj, function(err, r) {
+            if (err !== null) {
+              reject(500);
+            } else {
+              db.close();
+              resolve(201);
+            }
+          });
+        }
+      });
+    });
   }
+
+
 };
 
 module.exports = dbHandler;

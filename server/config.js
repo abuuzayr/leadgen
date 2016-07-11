@@ -103,5 +103,11 @@ module.exports = {
   }, {
     Longitude: 103.831,
     Latitude: 1.4333
-  }]
+  }],
+  getDbUri : function(userID){
+    if(userID === null)
+      return 'mongodb://localhost:27017/admin';
+    else
+      return 'mongodbP//localhost:27017/' + userID;
+  }
 };
