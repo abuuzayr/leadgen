@@ -1,0 +1,43 @@
+<link rel="stylesheet" type="text/css" href="assets/css/allDatabase.css">
+<div ng-controller="localDatabaseController as ld">
+    <br>
+    <ul class="nav nav-tabs">
+        <li><a ui-sref="externalDB" data-toggle="tab">External</a></li>
+        <li class="active"><a ui-sref="internalDB" data-toggle="tab">Local</a></li>
+        <li><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
+    </ul>
+    <br>
+    <div class='container'>
+        <h3 class="pull-left">Local</h3>
+        <div id="grid1" ui-grid="ld.gridOptions" ui-grid-selection ui-grid-edit class="grid" ui-grid-importer class="grid"></div>
+
+        <div class='buttons'>
+
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-left" ng-click="ld.openDialog('deleteLead')">
+            Deleted Selected
+            </button>
+
+            <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-left" id="get_file" value="Import Contacts" />
+            <form><input type="file" id="files" class="file-chooser" name="files[]" /></form>
+
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored pull-left" id="syncCompanies" ng-click="ld.syncToCompany()">
+            Sync to Companies
+            </button>
+
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored pull-left" ng-click="ld.syncFromExternal()">
+            Sync from External
+            </button>
+        </div>
+
+        <dialog id="deleteLead" class="mdl-dialog">
+            <div class="mdl-dialog__content">
+                <p>Are you sure ?</p>
+                <div class="mdl-dialog__actions">
+                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ld.closeDialog('deleteLead')">Cancel</button>
+                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ld.deleteSelected();ld.closeDialog('deleteLead')">Yes</button>
+                </div>
+            </div>
+        </dialog>
+        <br><br><br>
+    </div>
+</div>
