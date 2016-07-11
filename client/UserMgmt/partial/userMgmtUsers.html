@@ -3,8 +3,8 @@
 
     <!--include tabs-->
     <ul class="nav nav-tabs">
-        <li><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
-        <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
+        <li><a ui-sref="userManagementprofile" data-toggle="tab" ng-click="uc.refresh()">Company Profile</a></li>
+        <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab" ng-click="uc.refresh()">Manage Users</a></li>
     </ul>
 
     <div id='addUserFeedbackID' class="mdl-js-snackbar mdl-snackbar">
@@ -65,7 +65,7 @@
 
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addUser')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser'); uc.addFeedback()">Add</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser'); uc.addFeedback(); uc.refresh()">Add</button>
                         </div>
                     </form>
                 </div>
@@ -84,7 +84,7 @@
 
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addField')">Close</button>
-                            <button id="demo-show-toast" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addField'); uc.addFeedback()">Add</button>
+                            <button id="demo-show-toast" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addField'); uc.addFeedback(); uc.refresh()">Add</button>
 
                             <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
                                 <div class="mdl-snackbar__text"></div>
@@ -120,7 +120,7 @@
                     <form class="delete-field-form" ng-submit="uc.deleteFieldConfirmation()">
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteField');uc.closeDialog('deleteFieldConfirmation')">No</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('deleteField');uc.closeDialog('deleteFieldConfirmation'); uc.deleteFeedback()">Yes</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('deleteField'); uc.deleteFeedback(); uc.closeDialog('deleteFieldConfirmation')">Yes</button>
                         </div>
                     </form>
                 </div>
@@ -131,7 +131,7 @@
                     <p>Are you sure you want to delete the selected user(s)?</p>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteUser')">Cancel</button>
-                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser'); uc.deleteFeedback()">Yes</button>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser'); uc.deleteFeedback(); uc.refresh()">Yes</button>
                     </div>
                 </div>
             </dialog>

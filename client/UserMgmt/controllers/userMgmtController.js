@@ -1,5 +1,5 @@
-app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices',
-    function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackServices) {
+app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', '$window',
+    function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackServices, $window) {
         var uc = this;
 
         uc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
@@ -165,12 +165,17 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         };
 
         uc.addFeedback = function() {
-            feedbackServices.successFeedback("Added!", '#addUserFeedbackID', 3000);
+            feedbackServices.successFeedback("Added!", '#addUserFeedbackID');
         }
 
         uc.deleteFeedback = function() {
-            feedbackServices.successFeedback("Deleted!", '#addUserFeedbackID', 3000);
+            feedbackServices.successFeedback("Deleted!", '#addUserFeedbackID');
         }
+
+        //refresh
+        uc.refresh = function() {
+            $window.location.reload();
+        };
 
     }
 ])
