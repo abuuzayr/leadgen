@@ -78,7 +78,7 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
       "listName": mc.mailListName,
       "subscribers": 0
     };
-    var addStatus = $http.post("http://localhost:8080/api/contacts/mailingList", mailingList);
+    var addStatus = $http.post("http://10.4.1.145:8080/api/contacts/mailingList", mailingList);
     $window.location.reload();
   };
 
@@ -88,7 +88,7 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
       mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
     });
     var mailingLists = mc.gridApi.selection.getSelectedRows();
-    var deleteStatus = $http.put("http://localhost:8080/api/contacts/mailingList", mailingLists);
+    var deleteStatus = $http.put("http://10.4.1.145:8080/api/contacts/mailingList", mailingLists);
     $window.location.reload();
   }
 
@@ -101,7 +101,7 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
       var obj = {};
       obj[colDef.name] = newValue;
       var editData = [rowEntity, obj]
-      var editStatus = $http.patch("http://localhost:8080/api/contacts/mailingList", editData);
+      var editStatus = $http.patch("http://10.4.1.145:8080/api/contacts/mailingList", editData);
       $window.location.reload();
     });
   };

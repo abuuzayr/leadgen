@@ -110,7 +110,7 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
       bc.gridOptions.data.splice(bc.gridOptions.data.lastIndexOf(data), 1);
     });
     var leads = bc.gridApi.selection.getSelectedRows();
-    var deleteStatus = $http.put("http://localhost:8080/api/contacts/blackList", leads);
+    var deleteStatus = $http.put("http://10.4.1.145:8080/api/contacts/blackList", leads);
     $window.location.reload();
   }
 
