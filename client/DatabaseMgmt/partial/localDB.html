@@ -1,0 +1,57 @@
+<link rel="stylesheet" type="text/css" href="assets/css/allDatabase.css">
+<div ng-controller="localDatabaseController as ld">
+    <br>
+    <ul class="nav nav-tabs">
+        <li><a ui-sref="externalDB" data-toggle="tab">External</a></li>
+        <li class="active"><a ui-sref="internalDB" data-toggle="tab">Local</a></li>
+        <li><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
+    </ul>
+    <br>
+    <div class='local'>
+        <h3 class="pull-left">Local</h3>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored pull-right" id="syncCompanies" ng-click="ld.syncToCompany()">
+            Sync to Companies
+        </button>
+
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored pull-right" ng-click="ld.syncFromExternal()">
+            Add from External
+        </button>
+
+        <div id="grid1" ui-grid="ld.gridOptions" ui-grid-selection ui-grid-edit ui-grid-importer ui-grid-resize-columns class="grid"></div>
+
+        <div class='buttons'>
+
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" ng-click="ld.openDialog('deleteLead')">
+            Deleted Selected
+            </button>
+
+            <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" id="get_file" value="Import" ng-disabled="ld.continue">
+            <form><input type="file" id="files" class="file-chooser" name="files[]" /></form>
+
+            <form name="myForm">
+                <div class="form-group pull-left">
+                    <label for="importSelection">Type:</label>
+                    <label>
+                        <input type="radio" ng-model='ld.importType' ng-change="ld.continueToImport()" value="corporate">
+                        Corporate
+                    </label><br/>
+                    <label>
+                        <input type="radio" ng-model='ld.importType' ng-change="ld.continueToImport()" value="consumer">
+                        Consumer
+                    </label><br/>
+                </div>
+            </form>
+        </div>
+
+        <dialog id="deleteLead" class="mdl-dialog">
+            <div class="mdl-dialog__content">
+                <p>Are you sure ?</p>
+                <div class="mdl-dialog__actions">
+                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ld.closeDialog('deleteLead')">Cancel</button>
+                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ld.deleteSelected();ld.closeDialog('deleteLead')">Yes</button>
+                </div>
+            </div>
+        </dialog>
+        <br><br><br>
+    </div>
+</div>

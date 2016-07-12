@@ -1,0 +1,47 @@
+<link rel="stylesheet" type="text/css" href="assets/css/allDatabase.css">
+<div ng-controller="allDatabaseController as allDB">
+    <br>
+    <ul class="nav nav-tabs">
+        <li><a ui-sref="externalDB" data-toggle="tab">External</a></li>
+        <li><a ui-sref="internalDB" data-toggle="tab">Local</a></li>
+        <li class="active"><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
+    </ul>
+    <br>
+    <div class='allDatabase'>
+        <h3 class="pull-left">All</h3>
+
+        <div id="grid1" ui-grid="allDB.gridOptions" ui-grid-selection ui-grid-edit ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns class="grid"></div>
+
+        <form name="myForm">
+            <div class="form-group pull-left">
+                <label for="exportSelection">Export Options:</label>
+                <label>
+            <input type="radio" ng-model='allDB.export_row_type' value="all">
+            All
+            </label><br/>
+                <label>
+            <input type="radio" ng-model='allDB.export_row_type' value="selected">
+            Selected
+            </label><br/>
+            </div>
+        </form>
+
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" ng-click="allDB.openDialog('deleteLead')">
+        Deleted Selected
+      </button>
+
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" ng-click="allDB.export()">
+        Export
+      </button><br><br><br>
+
+        <dialog id="deleteLead" class="mdl-dialog">
+            <div class="mdl-dialog__content">
+                <p>Are you sure ?</p>
+                <div class="mdl-dialog__actions">
+                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="allDB.closeDialog('deleteLead')">Cancel</button>
+                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="allDB.deleteSelected();allDB.closeDialog('deleteLead')">Yes</button>
+                </div>
+            </div>
+        </dialog>
+    </div>
+</div>

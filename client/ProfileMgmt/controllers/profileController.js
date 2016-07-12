@@ -1,17 +1,33 @@
-app.controller('profileController', ['$scope', '$http', '$q', '$location', '$timeout', 'getDetails', function ($scope, $http, $q, $location, $timeout, getDetails) {
-    
-    var pc = this;
-    //properties: email,new password, retypePassword
+app.controller('profileController', ['$scope', '$http', '$q', '$location', '$timeout', 'getDetails',
+    function($scope, $http, $q, $location, $timeout, getDetails) {
 
-    getDetails.success(function(data) {
-        pc.userName = data[0].name;
-        pc.userEmail = data[0].email;
-        pc.userPassword = data[0].password;
-    });
+        var pc = this;
+        //properties: email,new password, retypePassword
 
-    //post to database the updated details
-    pc.submitDetails = function() {
-        $http({ method: "POST", url: MYURL_URL, data: pc.user, cache: false });
-    };
-}]);
+        //get leads
+        getDetails.getProfileDetails().then(function successCallback(res) {
+                pc.userName = res.data[0].name;
+                pc.userEmail = res.data[0].email;
+                pc.userPassword = res.data[0].password;
+            }),
+            function errorCallback(err) {
 
+            }
+
+        var objToSend = {
+            name: pc.userName,
+            email: pc.userEmail,
+            password: pc.userPassword
+        };
+
+        //post to database the updated details
+        pc.submitDetails = function() {
+            getDetails.updateProfileDetails(objToSend).then(function successCallback(res) {
+                    pc.responseMessage = "Updated Profile!";
+                }),
+                function errorCallback(err) {
+                    pc.responseMessage = "Error Occured";
+                };
+        };
+    }
+]);

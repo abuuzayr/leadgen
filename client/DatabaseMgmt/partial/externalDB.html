@@ -1,0 +1,29 @@
+<link rel="stylesheet" type="text/css" href="assets/css/allDatabase.css">
+<div ng-controller="externalDatabaseController as ed">
+    <br>
+    <ul class="nav nav-tabs">
+        <li class="active"><a ui-sref="externalDB" data-toggle="tab">External</a></li>
+        <li><a ui-sref="internalDB" data-toggle="tab">Local</a></li>
+        <li><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
+    </ul>
+    <br>
+    <div class='externalDatabase'>
+        <h3 class="pull-left">External</h3>
+        <div id="grid1" ui-grid="ed.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"></div>
+        <br>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-click="ed.openDialog('deleteLead')">
+        Deleted Selected
+        </button>
+        <br><br>
+
+        <dialog id="deleteLead" class="mdl-dialog">
+            <div class="mdl-dialog__content">
+                <p>Are you sure ?</p>
+                <div class="mdl-dialog__actions">
+                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ed.closeDialog('deleteLead')">Cancel</button>
+                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ed.deleteSelected();ed.closeDialog('deleteLead')">Yes</button>
+                </div>
+            </div>
+        </dialog>
+    </div>
+</div>

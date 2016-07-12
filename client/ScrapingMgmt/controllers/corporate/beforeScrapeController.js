@@ -1,26 +1,28 @@
-app.controller('beforeScrapeController', ['$scope', '$http', 'uiGridConstants', '$q', '$location', '$timeout', 'shareInput', 'sendCountry', 
-                function ($scope, $http, uiGridConstants, $q, $location, $timeout, shareInput, sendCountry) {
-    var beforeCorporate = this;
+app.controller('beforeScrapeController', ['$scope', '$http', 'uiGridConstants', '$q', '$location', '$timeout', 'shareInput', 'sendCountry',
+    function($scope, $http, uiGridConstants, $q, $location, $timeout, shareInput, sendCountry) {
 
-    beforeCorporate.category = "";
-    beforeCorporate.country = "Singapore"; 
+        var beforeCorporate = this;
 
-    beforeCorporate.listOfCountry;
-    //get country data
-    sendCountry.success(function(data) {
-         beforeCorporate.listOfCountry = data;
-    });
+        beforeCorporate.category = "";
+        beforeCorporate.country = "Singapore";
 
-    beforeCorporate.setInput = function() {
-        shareInput.setCategory(beforeCorporate.category);
-        shareInput.setCountry(beforeCorporate.country);
-    }
+        beforeCorporate.listOfCountry;
+        //get country data
+        sendCountry.success(function(data) {
+            beforeCorporate.listOfCountry = data;
+        });
 
-    beforeCorporate.continue = true;
-    beforeCorporate.continueScraping = function() {
-        if (angular.isDefined(beforeCorporate.category)) {
-            beforeCorporate.continue = false;
+        beforeCorporate.setInput = function() {
+            shareInput.setCategory(beforeCorporate.category);
+            shareInput.setCountry(beforeCorporate.country);
         }
+
+        beforeCorporate.continue = true;
+        beforeCorporate.continueScraping = function() {
+            if (angular.isDefined(beforeCorporate.category)) {
+                beforeCorporate.continue = false;
+            }
+        }
+
     }
-    
-}]);
+]);

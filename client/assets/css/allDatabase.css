@@ -1,0 +1,38 @@
+#grid1 {
+    clear: both;
+}
+
+#files {
+    display: none;
+}
+
+.form-group {
+    width: 120px;
+}
+
+.pull-left {
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+.pull-right {
+    margin-left: 10px;
+}
+
+.local {
+    width: 980px;
+    height: 400px;
+    margin: auto;
+}
+
+.allDatabase {
+    width: 980px;
+    height: 400px;
+    margin: auto;
+}
+
+.externalDatabase {
+    width: 980px;
+    height: 400px;
+    margin: auto;
+}

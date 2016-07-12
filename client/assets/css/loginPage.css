@@ -1,0 +1,26 @@
+#login-background {
+    height: 100%;
+    width: 100%;
+    background: #F5F5F5;
+}
+
+body {
+    background: #F5F5F5;
+}
+
+#login-heading {
+    background: #607d8b;
+}
+
+#login-main {
+    margin: auto;
+    height: 380px;
+}
+
+#login-button {
+    width: 100%;
+}
+
+#login-main {
+    background: white;
+}
