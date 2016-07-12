@@ -4,6 +4,7 @@ var express = require('express'),
   jsonParser = require('body-parser').json(),
   ContactsManager = require('../ContactsManager/contacts-manager'),
   ScrapManager = require('../ScrapingManager/scrap-manager'),
+  dbManager = require('../DatabaseManager/database-manager'),
   mongodb = require('mongodb'),
   md5 = require('blueimp-md5'),
   MailinglistManager = require('../MailinglistManager/mailinglist-manager'),
@@ -21,18 +22,18 @@ CRUD on leads
 */
 apiRouter.route('/contacts/leadList/leads')
   .get(function(req, res) {
-    console.log('get leads');
-    ContactsManager.displayLeads(null, deleteContact)
-      .then(function(results) {
-        res.json(results);
-      })
-      .catch(function(error) {
-        res.sendStatus(error);
-      });
+    MailchimpManager.syncContacts(apiKey)
+    .then(function(success){
+      return new ContactsManager.displayLeads(null);
+    })
+    .then(function(results){
+      res.json(results);
+    })
+    .catch(function(error) {
+      res.sendStatus(error);
+    });
   })
   .post(function(req, res) {
-    console.log('add leads');
-    console.log(req.body);
     if (!req.body)
       res.sendStatus(400);
     else {
@@ -46,8 +47,6 @@ apiRouter.route('/contacts/leadList/leads')
     }
   })
   .put(jsonParser, function(req, res) {
-    console.log('delete api');
-    // console.log(req.body);
     if (!req.body)
       returnStatusCode(res, 400);
     else {
@@ -58,7 +57,6 @@ apiRouter.route('/contacts/leadList/leads')
       var promiseArr = [];
       for (var i = 0; i < arr.length; i++) {
         promiseArr.push(deleteContact(arr[i]));
-        // console.log(arr[i]);
       }
       Promise.all(promiseArr)
         .then(function(results) {
@@ -139,7 +137,6 @@ apiRouter.route('/contacts/leadList/leads')
           res.sendStatus(200);
         })
         .catch(function(error) {
-          console.log(error);
           res.sendStatus(500);
         });
     }
@@ -165,7 +162,7 @@ apiRouter.get('/contacts/leadList/leads/:id', function(req, res) {
     var obj = {
       _id: req.params.id
     };
-    dbHandler.dbQuery('leadList', obj)
+    dbHandler.dbQuery('leadList', obj, 'app')
       .then(function(results) {
         res.json(results[0].history);
       })
@@ -175,7 +172,6 @@ apiRouter.get('/contacts/leadList/leads/:id', function(req, res) {
   }
 });
 apiRouter.post('/contacts/leadList/import', jsonParser, function(req, res) {
-  console.log(req.body);
   if (!req.body)
     res.sendStatus(400);
   else {
@@ -204,15 +200,16 @@ apiRouter.route('/contacts/mailingList')
     if (!req.body)
       returnStatusCode(res, 400);
     else {
-      //Sync mailchimp
-      MailchimpManager.syncContacts(apiKey)
-        .then(function(SResults) {
-          console.log("MailinglistManager.updateMemberInfo Results:");
-          console.log(SResults);
-          MailinglistManager.getListNames(res, 'mailinglists', displayResultsCallback);
-        }).catch(function(error) {
-          console.log("sync Error" + error);
-        });
+      // Sync mailchimp
+      // MailchimpManager.syncContacts(apiKey)
+      //   .then(function(SResults) {
+      //     console.log("MailinglistManager.updateMemberInfo Results:");
+      //     console.log(SResults);
+      //     MailinglistManager.getListNames(res, 'mailinglists', displayResultsCallback);
+      //   }).catch(function(error) {
+      //     console.log("sync Error" + error);
+      //   });
+      MailinglistManager.getListNames(res,'mailinglists',displayResultsCallback);
     }
   })
   /*  ===SAMPLE POST JSON===
@@ -420,7 +417,6 @@ CRUD on fields
 
 apiRouter.route('/contacts/leadList/fields')
   .get(function(req, res) {
-    console.log('get columns');
     ContactsManager.displayList('columnDef', null)
       .then(function(results) {
         res.json(results);
@@ -476,7 +472,7 @@ apiRouter.route('/contacts/leadList/fields')
 */
 apiRouter.route('/contacts/blackList/domain')
   .get(function(req, res) {
-    dbHandler.dbQuery('blackListDomains', null)
+    dbHandler.dbQuery('blackListDomains', null, 'app')
       .then(function(results) {
         res.json(results);
       })
@@ -505,7 +501,6 @@ apiRouter.route('/contacts/blackList/domain')
     }
   })
   .put(jsonParser, function(req, res) {
-    console.log(req.body);
     if (!req.body)
       res.sendStatus(400);
     else {
@@ -634,6 +629,28 @@ apiRouter.post('/populateTest', function(req, res) {
       });
   }
 });
+
+apiRouter.route('/dbmgmt')
+  .get(function(req,res){
+    dbManager.retrieveExternalLeads()
+    .then(function(results){
+      res.json(results);
+    })
+    .catch(function(error){
+      res.sendStatus(error);
+    });
+  })
+  .post(function(req,res){
+    dbManager.updateScrapeData(req.body)
+    .then(function(success){
+      res.sendStatus(success);
+    })
+    .catch(function(fail){
+      res.sendStatus(fail);
+    });
+  });
+
+
 var displayResultsCallback = function(res, results) {
   res.json(results);
 };

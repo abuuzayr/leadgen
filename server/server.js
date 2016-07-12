@@ -7,6 +7,7 @@ var dbHandler = require('./database-handler');
 var apiRouter = require('./routes/api');
 var ScrapManager = require('./ScrapingManager/scrap-manager');
 var mongodb = require('mongodb');
+var databaseManager = require('./DatabaseManager/database-manager');
 
 var url = config.dbURI;
 
@@ -19,8 +20,10 @@ app.use('/api', apiRouter);
 dbHandler.dbConnect(function(result) {
   if (result == config.successMsg)
     app.listen(config.port, function() {
+
       console.log('Starting application server');
+    
     });
   else
     console.log('Could not connect to database');
-})
+});

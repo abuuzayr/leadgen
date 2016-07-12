@@ -3,91 +3,54 @@ var dbHandler = require('../database-handler');
 
 
 var databaseManager = {
-  updateExternalLeads : function(){
-    //Get list of databases
-    dbHandler.getListOfDB()
-    .then(function(results){
-      var promiseArr=[];
-      for(var i=0;i<results.length;i++){
-        promiseArr.push(dbQuery(results[i].name));
-      }
-    })
-    .catch();
-  },
-  displayLeads : function(db){
+  retrieveExternalLeads : function(){
     return new Promise(function(resolve,reject){
-      if(db === 'all'){
-        combineResults()
-        .then(function(results){
-          resolve(results);
-        })
-        .catch(function(error){
-          reject(error);
-        });
-      }else{
-        dbHandler.dbQuerySA(db,null)
-        .then(function(results){
-          resolve(results);
-        })
-        .catch(function(error){
-          reject(error);
-        });
-      }
-    });
-  },
 
-  deleteLeads : function(obj,collectionName){
-    return new Promise(function(resolve, reject) {
-      console.log(obj);
-      if (!Array.isArray(obj)) {
-        dbHandler.dbDeleteSA(collectionName, obj)
-          .then(function(results) {
-            resolve(results);
-          })
-          .catch(function(error) {
-            reject(error);
-          });
-      } else {
-        var arr = [];
-        for (var index in obj) {
-          var item = obj[index];
-          arr.push(dbHandler.dbDeleteSA(collectionName, item));
-        }
-        Promise.all(arr)
-          .then(function(results) {
-            resolve(200);
-          })
-          .catch(function(error) {
-            reject(error);
-          });
-      }
-    });
-  },
-
-  updateLeads : function(obj,collectionName){
-    return new Promise(function(resolve, reject) {
+      var externalLeads = [];
       
-    var originalObj = {};
-    originalObj._id = obj[0]._id;
-
-    dbHandler.dbUpdateSA(collectionName, originalObj, obj[1])
-      .then(function(results) {
-        resolve(200);
+      dbHandler.getListOfDB()        //Gets list of databases in server
+      .then(function(results){
+        var promiseArr=[];
+        for(var i=0;i<results.length;i++){
+          if(results[i].name != 'scrapeDB')
+            promiseArr.push(dbHandler.dbQuery('leadList',{origin : 1},results[i].name));
+        }
+        return Promise.all(promiseArr);
       })
-      .catch(function(error) {
-        reject(500);
+      .then(function(results){
+        var externalLeads = [];
+        for(var i=0;i<results.length;i++){
+          var leads = results[i];
+          for(var j=0;j<leads.length;j++){
+            externalLeads.push(leads[j]);
+          }
+        }
+
+        resolve(externalLeads);
+      })
+      .catch(function(error){
+        reject(error);
       });
 
-
     });
   },
-  importLeads : function(obj,collectionName){
+  updateScrapeData : function(obj){
     return new Promise(function(resolve,reject){
       var promiseArr= [];
-      for(var i=0;i<obj.length;i++){
-        promiseArr.push(dbHandler.dbInsertSA(collectionName,obj));
-      }
-      Promise.all(promiseArr)
+      dbHandler.dbQuerySA('data',null)
+      .then(function(data){
+        if(data.length > 0){
+          return dbHandler.dbDropCollection('data',null);
+        }
+        else
+          return 1;  
+      })
+      .then(function(results){
+        for(var i=0;i<obj.length;i++){
+          promiseArr.push(dbHandler.dbInsertSA('data',obj[i]));
+        }
+        return Promise.all(promiseArr);
+      })
       .then(function(results){
         resolve(201);
       })
@@ -96,7 +59,7 @@ var databaseManager = {
       });
     });
   }
-
+ 
 };
 
 module.exports =  databaseManager;
@@ -106,10 +69,10 @@ var combineResults = function(){
 
     resultsArr = [];
 
-    dbHandler.dbQuerySA('internal',null)
+    dbHandler.dbQuery('internal',null,null)
     .then(function(results){
       resultsArr = results;
-      return dbHandler.dbQuerySA('external',null);
+      return dbHandler.dbQuery('external',null,null);
     })
     .then(function(results){
       resultsArr.concate(results);

@@ -10,11 +10,14 @@ var coord = [];
 var ScrapManager = {
   scrapCorporateGoogleNew: function(type, country) {
     return new Promise(function(resolve, reject) {
+      
+      var formatType = type.replace(/ /g , '+');
+
       if (country == 'Singapore') {
-        console.log('local');
         loadLocalCoordinates();
 
-        var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + coord[0][0] + ',' + coord[0][1] + '&radius=3000&keyword=' + type + '&key=' + apiKey;
+
+        var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + coord[0][0] + ',' + coord[0][1] + '&radius=3000&keyword=' + formatType + '&key=' + apiKey;
 
         requestGoogle(url)
           .then(function(places) {
@@ -52,10 +55,9 @@ var ScrapManager = {
             reject(error);
           });
       } else {
-        console.log('foreign');
         loadForeignCoordinates(country)
           .then(function(results) {
-            var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + coord[0][0] + ',' + coord[0][1] + '&radius=10000&keyword=' + type + '&key=' + apiKey;
+            var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + coord[0][0] + ',' + coord[0][1] + '&radius=10000&keyword=' + formatType + '&key=' + apiKey;
 
             requestGoogle(url)
               .then(function(places) {
@@ -102,6 +104,9 @@ var ScrapManager = {
 
   scrapCorporateGoogleCont: function(index, type, country) {
     return new Promise(function(resolve, reject) {
+
+      var formatType = type.replace(/ /g , '+');
+
       var radius;
       if (index >= coord.length)
         reject(205);
@@ -111,7 +116,7 @@ var ScrapManager = {
       else
         radius = 10000;
 
-      var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + coord[index][0] + ',' + coord[index][1] + '&radius=' + radius + '&keyword=' + type + '&key=' + apiKey;
+      var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + coord[index][0] + ',' + coord[index][1] + '&radius=' + radius + '&keyword=' + formatType + '&key=' + apiKey;
 
       requestGoogle(url)
         .then(function(places) {
@@ -152,8 +157,11 @@ var ScrapManager = {
   },
   scrapCorporateYellowPage: function(type) {
     return new Promise(function(resolve, reject) {
-      dbHandler.dbQuery('serverCorporate', null)
+      dbHandler.dbQuerySA('data', {type:1, category:type})
         .then(function(results) {
+          for(var i=0;i<results.length;i++){
+            results[i].origin = 2;
+          }
           resolve(results);
         })
         .catch(function(error) {
@@ -163,10 +171,14 @@ var ScrapManager = {
   },
   scrapConsumerYellowPage: function(type) {
     return new Promise(function(resolve, reject) {
-      dbHandler.dbQuery('serverConsumer', {
-          category: type
+      dbHandler.dbQuery('data', {
+          category: type,
+          type : 2
         })
         .then(function(results) {
+          for(var i=0;i<results.length;i++){
+            results[i].origin = 2;
+          }
           resolve(results);
         })
         .catch(function(error) {

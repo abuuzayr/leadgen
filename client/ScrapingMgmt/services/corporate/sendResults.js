@@ -4,7 +4,7 @@ app.factory('sendResults', ['$http', function($http) {
     var sendLeads = function(resultsToSend) {
         return $http({
             method: 'POST',
-            url: 'http://localhost:8080/api/scrape/',
+            url: 'http://10.4.1.145:8080/api/scrape/',
             data: resultsToSend
         });
     }

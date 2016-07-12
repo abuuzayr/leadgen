@@ -9,7 +9,7 @@ var mailchimp = require('../MailchimpManager/mailchimpApp');
 var ContactsManager = {
   displayLeads: function(obj) {
     return new Promise(function(resolve, reject) {
-      dbHandler.dbQuery('leadList', obj)
+      dbHandler.dbQuery('leadList', obj, 'app')
         .then(function(results) {
           resolve(results);
         })
@@ -24,7 +24,7 @@ var ContactsManager = {
         reject(400);
       else {
         var matchFlag = false;
-        dbHandler.dbQuery('blackListDomains', null)
+        dbHandler.dbQuery('blackListDomains', null, 'app')
           .then(function(domains) {
             for (var i = 0; i < domains.length; i++) {
               if (obj.email !== null || obj.email !== undefined) {
@@ -65,13 +65,13 @@ var ContactsManager = {
   },
   addBulkContacts: function(res, arr, callback) {
     var promiseArr = [];
-    dbHandler.dbQuery('blackListDomains', null)
+    dbHandler.dbQuery('blackListDomains', null, 'app')
       .then(function(domains) {
         for (var i = 0; i < arr.length; i++) {
           var matchFlag = false;
 
           if (arr[i].origin === undefined)
-            arr[i].origin = 2;
+            arr[i].origin = 1;
 
           if (arr[i].type === undefined)
             arr[i].type = 2;
@@ -93,6 +93,7 @@ var ContactsManager = {
         }
         Promise.all(promiseArr)
           .then(function(results) {
+            console.log(results);
             callback(res, 201);
           })
           .catch(function(error) {
@@ -151,7 +152,7 @@ var ContactsManager = {
   removeField: function(collectionName, str) {
     return new Promise(function(resolve, reject) {
       var arr = [];
-      dbHandler.dbQuery(collectionName, null)
+      dbHandler.dbQuery(collectionName, null, 'app')
         .then(function(results) {
           if (results.length === 0)
             resolve(200);
@@ -160,7 +161,7 @@ var ContactsManager = {
             delete obj[str];
             arr.push(obj);
           }
-          return dbHandler.dbDropCollection(collectionName);
+          return dbHandler.dbDropCollection(collectionName,'app');
         })
         .then(function(results) {
           var promiseArr = [];
@@ -180,7 +181,7 @@ var ContactsManager = {
   addField: function(collectionName, str) {
     return new Promise(function(resolve, reject) {
       var arr = [];
-      dbHandler.dbQuery(collectionName, null)
+      dbHandler.dbQuery(collectionName, null, 'app')
         .then(function(results) {
           if (results.length === 0) {
             resolve(200);
@@ -191,7 +192,7 @@ var ContactsManager = {
               obj[str] = null;
             arr.push(obj);
           }
-          return dbHandler.dbDropCollection(collectionName);
+          return dbHandler.dbDropCollection(collectionName,'app');
         })
         .then(function(results) {
           var promiseArr = [];
@@ -211,7 +212,7 @@ var ContactsManager = {
   addDomainChain: function(collectionName, str, callback) {
     return new Promise(function(resolve, reject) {
       var leadsArr = [];
-      dbHandler.dbQuery(collectionName, null)
+      dbHandler.dbQuery(collectionName, null, 'app')
         .then(function(results) {
           for (var i = 0; i < results.length; i++) {
             var emailAddr = results[i].email;
@@ -245,7 +246,7 @@ var ContactsManager = {
   },
   displayList: function(collectionName, obj) {
     return new Promise(function(resolve, reject) {
-      dbHandler.dbQuery(collectionName, obj)
+      dbHandler.dbQuery(collectionName, obj, 'app')
         .then(function(results) {
           resolve(results);
         })
@@ -343,7 +344,7 @@ var ContactsManager = {
     return new Promise(function(resolve, reject) {
       dbHandler.dbInsertReturnID('leadList', obj)
         .then(function(results) {
-          dbHandler.dbQuery('blackListDomains', null)
+          dbHandler.dbQuery('blackListDomains', null, 'app')
             .then(function(domains) {
               var matchFlag = false;
 

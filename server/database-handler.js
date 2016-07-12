@@ -110,9 +110,10 @@ var dbHandler = {
       });
     });
   },
-  dbQuery: function(collectionName, obj) {
+  dbQuery: function(collectionName, obj, dbName) {
     return new Promise(function(resolve, reject) {
-      MongoClient.connect(config.dbURI, function(err, db) {
+      var dbURL  = config.getDbUri(dbName);
+      MongoClient.connect(dbURL, function(err, db) {
         if (err !== null)
           reject(err);
         else {
@@ -244,15 +245,18 @@ var dbHandler = {
       });
     });
   },
-  dbDropCollection: function(collectionName) {
+  dbDropCollection: function(collectionName,dbName) {
     return new Promise(function(resolve, reject) {
-      MongoClient.connect(config.dbURI, function(err, db) {
-        if (err !== null)
+      var dbURL = config.getDbUri(dbName);
+      MongoClient.connect(dbURL, function(err, db) {
+        if (err !== null){
           reject(500);
+        }
         else {
           db.dropCollection(collectionName, function(err, result) {
-            if (err !== null)
+            if (err !== null){
               reject(500);
+            }
             else {
               db.close();
               resolve(200);
@@ -422,14 +426,15 @@ var dbHandler = {
     return new Promise(function(resolve, reject) {
       var dbURL = config.getDbUri(null);
       MongoClient.connect(dbURL, function(err, db) {
-        if (err !== null)
+        if (err !== null){
           reject(500);
+        }
         else {
-          if (obj._id !== undefined)
-            delete obj._id;
+          // if (obj._id !== undefined)
+          //   delete obj._id;
           var col = db.collection(collectionName);
           col.insert(obj, function(err, r) {
-            if (err !== null) {
+            if (err !==   null) {
               reject(500);
             } else {
               db.close();

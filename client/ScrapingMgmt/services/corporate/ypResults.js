@@ -2,7 +2,7 @@ app.factory('ypResults', ['$http', function($http) {
     var scrapeYellowPageLeads = function(category) {
         return $http({
             method: 'GET',
-            url: 'http://localhost:8080/api/corporate/scrape/yp/' + category
+            url: 'http://10.4.1.145:8080/api/corporate/scrape/yp/' + category
         });
     }
 
