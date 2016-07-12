@@ -23,11 +23,11 @@ app.factory('localData', ['$http', function($http) {  
     }
 
     //return array of object
-    var importToLocal = function(importedData) {
+    var importToLocal = function(importData) {
         return $http({
             method: 'POST',
             url: '',
-            data: importedData
+            data: importData
         });
     }
 
