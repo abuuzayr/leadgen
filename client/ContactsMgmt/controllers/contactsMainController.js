@@ -1,11 +1,13 @@
 app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'historyData', 'mailListData', 'contactsColumnData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', function($scope, $window, leadsData, historyData, mailListData, contactsColumnData, $http, $interval, uiGridConstants, $q, $location, $timeout, feedbackServices) {
+    
+    var cc = this;
 
     leadsData.success(function(data) {
-        $scope.gridOptions.data = data;
+        cc.gridOptions.data = data;
     });
 
     mailListData.success(function(data) {
-        $scope.mailingList = data;
+        cc.mailingList = data;
     });
 
     document.getElementById('get_file').onclick = function() {
@@ -25,7 +27,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
         }, 0);
     });
 
-    $scope.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
+    cc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
         if (col.filters[0].term) {
             return 'header-filtered';
         } else {
@@ -33,7 +35,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
         }
     };
 
-    $scope.gridOptions = {
+    cc.gridOptions = {
         enableSorting: true,
         enableFiltering: true,
         showGridFooter: true,
@@ -43,39 +45,39 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
             minWidth: 80,
             width: 200,
             enableCellEdit: true,
-            headerCellClass: $scope.highlightFilteredHeader
+            headerCellClass: cc.highlightFilteredHeader
         }, {
             field: 'lastName',
             displayName: 'Last Name',
             minWidth: 80,
             width: 200,
-            headerCellClass: $scope.highlightFilteredHeader
+            headerCellClass: cc.highlightFilteredHeader
         }, {
             field: 'company',
             displayName: 'Company',
             minWidth: 80,
             width: 200,
-            headerCellClass: $scope.highlightFilteredHeader
+            headerCellClass: cc.highlightFilteredHeader
         }, {
             field: 'email',
             displayName: 'Email',
             enableCellEdit: false,
             minWidth: 80,
             width: 250,
-            headerCellClass: $scope.highlightFilteredHeader
+            headerCellClass: cc.highlightFilteredHeader
         }, {
             field: 'phone',
             displayName: 'Phone',
             enableCellEdit: false,
             minWidth: 80,
             width: 100,
-            headerCellClass: $scope.highlightFilteredHeader
+            headerCellClass: cc.highlightFilteredHeader
         }, {
             field: 'category',
             displayName: 'Category',
             minWidth: 80,
             width: 150,
-            headerCellClass: $scope.highlightFilteredHeader
+            headerCellClass: cc.highlightFilteredHeader
         }, {
             field: "type",
             displayName: "Type",
@@ -94,7 +96,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
             },
             cellFilter: "mapType",
             editDropdownValueLabel: "type",
-            headerCellClass: $scope.highlightFilteredHeader,
+            headerCellClass: cc.highlightFilteredHeader,
             editDropdownOptionsArray: [{
                 id: 1,
                 type: "Corporate"
@@ -107,13 +109,13 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
             displayName: "Success",
             minWidth: 80,
             width: 120,
-            headerCellClass: $scope.highlightFilteredHeader
+            headerCellClass: cc.highlightFilteredHeader
         }, {
             field: "failure",
             displayName: "Failure",
             minWidth: 80,
             width: 120,
-            headerCellClass: $scope.highlightFilteredHeader
+            headerCellClass: cc.highlightFilteredHeader
         }, {
             field: "history",
             displayName: "History",
@@ -123,15 +125,15 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
             enableFiltering: false,
             enableSorting: false,
             enableEdit: false,
-            cellTemplate: '<button class="btn primary" ng-click="grid.appScope.showMe(row.entity)">View</button> headerCellClass: $scope.highlightFilteredHeader'
+            cellTemplate: '<button class="btn primary" ng-click="grid.appScope.cc.showMe(row.entity)">View</button> headerCellClass: cc.highlightFilteredHeader'
         }],
         importerDataAddCallback: function(grid, newObjects) {
-            $scope.gridOptions.data = $scope.gridOptions.data.concat(newObjects);
-            var importStatus = $http.post("http://10.4.1.145:8080/api/contacts/leadList/import", newObjects);
-            $scope.addFeedback();
+            cc.gridOptions.data = cc.gridOptions.data.concat(newObjects);
+            var importStatus = $http.post("http://localhost:8080/api/contacts/leadList/import", newObjects);
+            cc.addFeedback();
         },
         onRegisterApi: function(gridApi) {
-            $scope.gridApi = gridApi;
+            cc.gridApi = gridApi;
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
@@ -139,14 +141,14 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
                 var obj = {};
                 obj[colDef.name] = newValue;
                 var editData = [rowEntity, obj];
-                var editStatus = $http.patch("http://10.4.1.145:8080/api/contacts/leadList/leads", editData);
+                var editStatus = $http.patch("http://localhost:8080/api/contacts/leadList/leads", editData);
                 $window.location.reload();
             });
         }
     };
 
     //refresh
-    $scope.refresh = function() {
+    cc.refresh = function() {
         $window.location.reload();
     };
 
@@ -154,16 +156,16 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
     contactsColumnData.success(function(data) {
         console.log(data);
         for (var x of data) {
-            $scope.gridOptions.columnDefs.push(x);
+            cc.gridOptions.columnDefs.push(x);
         }
     });
 
     //show history dialog
-    $scope.showMe = function(value) {
+    cc.showMe = function(value) {
         historyData.getHistory(value._id).then(function successCallback(res) {
-                $scope.history = res.data;
-                if ($scope.history.length === 0) {
-                    $scope.history = [{
+                cc.history = res.data;
+                if (cc.history.length === 0) {
+                    cc.history = [{
                         "action": "----------",
                         "timestamp": "----------------------------------"
                     }];
@@ -177,48 +179,48 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
     };
 
     //add new lead
-    $scope.addData = function() {
-        var n = $scope.gridOptions.data.length + 1;
-        $scope.gridOptions.data.push({
-            "firstName": $scope.lead.first,
-            "lastName": $scope.lead.last,
-            "company": $scope.lead.company,
-            "email": $scope.lead.email,
-            "phone": $scope.lead.phone,
-            "category": $scope.lead.category,
-            "type": $scope.lead.type,
+    cc.addData = function() {
+        var n = cc.gridOptions.data.length + 1;
+        cc.gridOptions.data.push({
+            "firstName": cc.lead.first,
+            "lastName": cc.lead.last,
+            "company": cc.lead.company,
+            "email": cc.lead.email,
+            "phone": cc.lead.phone,
+            "category": cc.lead.category,
+            "type": cc.lead.type,
             "success": 0,
             "failure": 0,
             "history": '',
         });
         var lead = {
-            "firstName": $scope.lead.first,
-            "lastName": $scope.lead.last,
-            "company": $scope.lead.company,
-            "email": $scope.lead.email,
-            "phone": $scope.lead.phone,
-            "category": $scope.lead.category,
-            "type": $scope.lead.type,
+            "firstName": cc.lead.first,
+            "lastName": cc.lead.last,
+            "company": cc.lead.company,
+            "email": cc.lead.email,
+            "phone": cc.lead.phone,
+            "category": cc.lead.category,
+            "type": cc.lead.type,
             "success": 0,
             "failure": 0,
             "history": '',
         };
-        var addStatus = $http.post("http://10.4.1.145:8080/api/contacts/leadList/leads", lead);
+        var addStatus = $http.post("http://localhost:8080/api/contacts/leadList/leads", lead);
     };
 
     //delete selected leads
-    $scope.deleteSelected = function() {
-        angular.forEach($scope.gridApi.selection.getSelectedRows(), function(data, index) {
-            $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+    cc.deleteSelected = function() {
+        angular.forEach(cc.gridApi.selection.getSelectedRows(), function(data, index) {
+            cc.gridOptions.data.splice(cc.gridOptions.data.lastIndexOf(data), 1);
         });
-        var leads = $scope.gridApi.selection.getSelectedRows();
-        var deleteStatus = $http.put("http://10.4.1.145:8080/api/contacts/leadList/leads", leads);
+        var leads = cc.gridApi.selection.getSelectedRows();
+        var deleteStatus = $http.put("http://localhost:8080/api/contacts/leadList/leads", leads);
         $window.location.reload();
     };
 
     // add field
-    $scope.addField = function() {
-        var fieldName = $scope.field.name;
+   cc.addField = function() {
+        var fieldName = cc.field.name;
         var arrName = fieldName.split(" ");
         var editedField = "";
         var editedDisplay = "";
@@ -235,7 +237,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
         }
         var display = editedDisplay.slice(0, editedDisplay.length - 1);
         var lowerName = editedField.toLowerCase();
-        $scope.gridOptions.columnDefs.push({
+        cc.gridOptions.columnDefs.push({
             field: lowerName,
             displayName: display
         });
@@ -243,65 +245,65 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
             field: lowerName,
             displayName: display
         };
-        var addStatus = $http.post("http://10.4.1.145:8080/api/contacts/leadList/fields", field);
+        var addStatus = $http.post("http://localhost:8080/api/contacts/leadList/fields", field);
         $window.location.reload();
     };
 
-    $scope.selectDeleteField = function() {
-        $scope.selectedDeleteField = $scope.fieldSelected;
+    cc.selectDeleteField = function() {
+        cc.selectedDeleteField = cc.fieldSelected;
     };
 
     // delete field
-    $scope.deleteField = function() {
-        for (var x in $scope.gridOptions.columnDefs) {
-            if (($scope.gridOptions.columnDefs[x].displayName === $scope.selectedDeleteField)) {
-                var fieldName = $scope.gridOptions.columnDefs[x].field;
-                $scope.gridOptions.columnDefs.splice(x, 1);
+    cc.deleteField = function() {
+        for (var x in cc.gridOptions.columnDefs) {
+            if ((cc.gridOptions.columnDefs[x].displayName === cc.selectedDeleteField)) {
+                var fieldName = cc.gridOptions.columnDefs[x].field;
+                cc.gridOptions.columnDefs.splice(x, 1);
                 var fieldObj = {
                     field: fieldName
                 };
-                var deleteStatus = $http.put("http://10.4.1.145:8080/api/contacts/leadList/fields", fieldObj);
+                var deleteStatus = $http.put("http://localhost:8080/api/contacts/leadList/fields", fieldObj);
                 $window.location.reload();
             }
         }
     };
 
     // add leads to mailing list
-    $scope.addToMailingList = function() {
+    cc.addToMailingList = function() {
         var id = "";
-        for (var x of $scope.mailingList) {
-            if (x.name === $scope.listSelected) {
+        for (var x of cc.mailingList) {
+            if (x.name === cc.listSelected) {
                 id = x.listID;
             }
         }
-        var y = $scope.gridApi.selection.getSelectedRows();
+        var y = cc.gridApi.selection.getSelectedRows();
         var obj = [{
             y
         }, {
             listID: id,
-            name: $scope.listSelected
+            name: cc.listSelected
         }];
         console.log(obj);
-        var addStatus = $http.post("http://10.4.1.145:8080/api/contacts/mailingList/subscriber", obj);
+        var addStatus = $http.post("http://localhost:8080/api/contacts/mailingList/subscriber", obj);
     };
 
-    $scope.removeDuplicateField = function() {
-        $scope.selectedDuplicateField = $scope.fieldSelected;
+    cc.removeDuplicateField = function() {
+        cc.selectedDuplicateField = cc.fieldSelected;
     };
 
     //Remove duplicates
-    $scope.removeDuplicate = function() {
-        console.log($scope.selectedDuplicateField);
+    cc.removeDuplicate = function() {
+        console.log(cc.selectedDuplicateField);
         var field = "";
-        for (var x of $scope.gridOptions.columnDefs) {
-            if (x.displayName === $scope.selectedDuplicateField) {
+        for (var x of cc.gridOptions.columnDefs) {
+            if (x.displayName === cc.selectedDuplicateField) {
                 field = x.field;
             }
         }
         var fieldObj = {
             fieldName: field
         };
-        var removeStatus = $http.put("http://10.4.1.145:8080/api/contacts/leadList/leads/duplicates", fieldObj);
+        var removeStatus = $http.put("http://localhost:8080/api/contacts/leadList/leads/duplicates", fieldObj);
         $window.location.reload();
     };
 
@@ -312,7 +314,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
         if (target && target.files && target.files.length === 1) {
             var fileObject = target.files[0];
             console.log("abc");
-            $scope.gridApi.importer.importFile(fileObject);
+            cc.gridApi.importer.importFile(fileObject);
             target.form.reset();
         }
     };
@@ -326,7 +328,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
     }
 
     //Open popup dialog box
-    $scope.openDialog = function(dialogName) {
+    cc.openDialog = function(dialogName) {
         var dialog = document.querySelector('#' + dialogName);
         if (!dialog.showModal) {
             dialogPolyfill.registerDialog(dialog);
@@ -335,13 +337,13 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
     };
 
     //Close popup dialog box
-    $scope.closeDialog = function(dialogName) {
+    cc.closeDialog = function(dialogName) {
         var dialog = document.querySelector('#' + dialogName);
-        $scope.addResult = "";
+       cc.addResult = "";
         dialog.close();
     };
 
-    $scope.addFeedback = function() {
+    cc.addFeedback = function() {
         feedbackServices.successFeedback("Added!", '#addFeedbackID');
     };
 }])

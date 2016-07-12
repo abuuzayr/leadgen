@@ -20,12 +20,7 @@
 
             <button ng-click="uc.openDialog('addUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add New User</button>
             <button ng-click="uc.openDialog('deleteUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> Remove User(S) </button>
-            <button ng-click="uc.openDialog('addField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored">
-           <i class="material-icons md-48">add_circle</i>
-         </button>
-            <button ng-click="uc.openDialog('deleteField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent">
-           <i class="material-icons md-48">remove_circle</i>
-         </button>
+        
             <br><br>
 
             <dialog id="addUser" class="mdl-dialog">
@@ -70,62 +65,7 @@
                     </form>
                 </div>
             </dialog>
-
-            <dialog id="addField" class="mdl-dialog">
-                <div class="mdl-dialog__content">
-                    <p>
-                        Please enter the details.
-                    </p>
-                    <form class="add-field-form" ng-submit="uc.addField()">
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <label for="fieldName">Field Name</label>
-                            <input class="mdl-textfield__input" type="text" id="fieldName" ng-model="uc.field.name">
-                        </div>
-
-                        <div class="mdl-dialog__actions">
-                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addField')">Close</button>
-                            <button id="demo-show-toast" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addField'); uc.addFeedback(); uc.refresh()">Add</button>
-
-                            <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
-                                <div class="mdl-snackbar__text"></div>
-                                <button class="mdl-snackbar__action" type="button"></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </dialog>
-
-            <dialog id="deleteField" class="mdl-dialog">
-                <div class="mdl-dialog__content">
-                    <p>
-                        Please select the field.
-                    </p>
-                    <form class="delete-field-form" ng-submit="uc.deleteField()">
-                        <select ng-model="uc.fieldSelected">
-                                <option ng-repeat="field in uc.gridOptions.columnDefs">{{field.displayName}}</option>
-                                </select>
-                        <div class="mdl-dialog__actions">
-                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteField')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.openDialog('deleteFieldConfirmation')">Delete</button>
-                        </div>
-                    </form>
-                </div>
-            </dialog>
-
-            <dialog id="deleteFieldConfirmation" class="mdl-dialog">
-                <div class="mdl-dialog__content">
-                    <p>
-                        Are you sure?
-                    </p>
-                    <form class="delete-field-form" ng-submit="uc.deleteFieldConfirmation()">
-                        <div class="mdl-dialog__actions">
-                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteField');uc.closeDialog('deleteFieldConfirmation')">No</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('deleteField'); uc.deleteFeedback(); uc.closeDialog('deleteFieldConfirmation')">Yes</button>
-                        </div>
-                    </form>
-                </div>
-            </dialog>
-
+            
             <dialog id="deleteUser" class="mdl-dialog">
                 <div class="mdl-dialog__content">
                     <p>Are you sure you want to delete the selected user(s)?</p>

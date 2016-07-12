@@ -1,18 +1,18 @@
-<div ng-controller="viewMailListController">
+<div ng-controller="viewMailListController as vmc">
     <br>
     <ul class="nav nav-tabs">
-        <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click="refresh()">LeadList</a></li>
-        <li class="active"><a ui-sref="maillist" data-toggle="tab" ng-click="refresh()">Mailing List</a></li>
-        <li class=""><a ui-sref="blacklist" data-toggle="tab" ng-click="refresh()">BlackList</a></li>
+        <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click="vmc.refresh()">LeadList</a></li>
+        <li class="active"><a ui-sref="maillist" data-toggle="tab" ng-click="vmc.refresh()">Mailing List</a></li>
+        <li class=""><a ui-sref="blacklist" data-toggle="tab" ng-click="vmc.refresh()">BlackList</a></li>
     </ul>
     <br><br>
     <div class="container">
-        <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-edit class="grid"></div>
+        <div id="grid1" ui-grid="vmc.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-edit class="grid"></div>
         <div>
-            <p> Mailing List: {{mailListResult}}</p>
+            <p> Mailing List: {{vmc.mailListResult}}</p>
         </div>
         <br>
-        <button ng-click="openDialog('deleteMailLeads')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Selected</button>
+        <button ng-click="vmc.openDialog('deleteMailLeads')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Selected</button>
     </div>
 
     <dialog id="deleteMailLeads" class="mdl-dialog">
@@ -21,8 +21,8 @@
                 Are you sure?
             </p>
             <div class="mdl-dialog__actions">
-                <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="closeDialog('deleteMailLeads')">No</button>
-                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="deleteSelected(); closeDialog('deleteMailLeads')">Yes</button>
+                <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="vmc.closeDialog('deleteMailLeads')">No</button>
+                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="vmc.deleteSelected(); vmc.closeDialog('deleteMailLeads')">Yes</button>
             </div>
         </div>
     </dialog>
