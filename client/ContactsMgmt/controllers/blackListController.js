@@ -1,7 +1,9 @@
 app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blackLeadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $window, domainsData, blackLeadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
+  var bc = this;
+
   blackLeadsData.success(function(data) {
-    $scope.gridOptions.data = data;
+    bc.gridOptions.data = data;
   });
 
   var viewContentLoaded = $q.defer();
@@ -16,7 +18,7 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
     }, 0);
   });
 
-  $scope.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
+  bc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
     if (col.filters[0].term) {
       return 'header-filtered';
     } else {
@@ -24,7 +26,7 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
     }
   };
 
-  $scope.gridOptions = {
+  bc.gridOptions = {
     enableSorting: true,
     enableFiltering: true,
     showGridFooter: true,
@@ -35,39 +37,39 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
       minWidth: 80,
       width: 200,
       enableCellEdit: true,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: bc.highlightFilteredHeader
     }, {
       field: 'lastName',
       displayName: 'Last Name',
       minWidth: 80,
       width: 200,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: bc.highlightFilteredHeader
     }, {
       field: 'company',
       displayName: 'Company',
       minWidth: 80,
       width: 200,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: bc.highlightFilteredHeader
     }, {
       field: 'email',
       displayName: 'Email',
       enableCellEdit: false,
       minWidth: 80,
       width: 250,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: bc.highlightFilteredHeader
     }, {
       field: 'phone',
       displayName: 'Phone',
       enableCellEdit: false,
       minWidth: 80,
       width: 100,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: bc.highlightFilteredHeader
     }, {
       field: 'category',
       displayName: 'Category',
       minWidth: 80,
       width: 150,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: bc.highlightFilteredHeader
     }, {
       field: "type",
       displayName: "Type",
@@ -86,7 +88,7 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
       },
       cellFilter: "mapType",
       editDropdownValueLabel: "type",
-      headerCellClass: $scope.highlightFilteredHeader,
+      headerCellClass: bc.highlightFilteredHeader,
       editDropdownOptionsArray: [{
         id: 1,
         type: "Corporate"
@@ -98,22 +100,22 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
   };
 
   //refresh
-  $scope.refresh = function() {
+  bc.refresh = function() {
     $window.location.reload();
   }
 
   //delete selected leads
-  $scope.deleteSelected = function() {
-    angular.forEach($scope.gridApi.selection.getSelectedRows(), function(data, index) {
-      $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+  bc.deleteSelected = function() {
+    angular.forEach(bc.gridApi.selection.getSelectedRows(), function(data, index) {
+      bc.gridOptions.data.splice(bc.gridOptions.data.lastIndexOf(data), 1);
     });
-    var leads = $scope.gridApi.selection.getSelectedRows();
+    var leads = bc.gridApi.selection.getSelectedRows();
     var deleteStatus = $http.put("http://localhost:8080/api/contacts/blackList", leads);
     $window.location.reload();
   }
 
-  $scope.gridOptions.onRegisterApi = function(gridApi) {
-    $scope.gridApi = gridApi;
+  bc.gridOptions.onRegisterApi = function(gridApi) {
+    bc.gridApi = gridApi;
     //save after edit
     gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
       console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
@@ -123,7 +125,7 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
   };
 
   //popup dialog box
-  $scope.openDialog = function(dialogName) {
+  bc.openDialog = function(dialogName) {
     var dialog = document.querySelector('#' + dialogName);
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
@@ -131,7 +133,7 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
     dialog.showModal();
   };
 
-  $scope.closeDialog = function(dialogName) {
+  bc.closeDialog = function(dialogName) {
     var dialog = document.querySelector('#' + dialogName);
     dialog.close();
   };

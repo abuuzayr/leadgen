@@ -1,9 +1,11 @@
 app.controller('viewMailListController', ['$scope', '$window', 'detailedMailListData', 'shareMailList', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $window, detailedMailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
-  $scope.mailListResult = shareMailList.getData();
+  var vmc = this;
 
-  detailedMailListData.getMailListData($scope.mailListResult).then(function successCallback(res) {
-      $scope.gridOptions.data = res.data;
+  vmc.mailListResult = shareMailList.getData();
+
+  detailedMailListData.getMailListData(vmc.mailListResult).then(function successCallback(res) {
+      vmc.gridOptions.data = res.data;
     }),
     function errorCallback(err) {
       console.log('err is ' + err);
@@ -21,7 +23,7 @@ app.controller('viewMailListController', ['$scope', '$window', 'detailedMailList
     }, 0);
   });
 
-  $scope.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
+  vmc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
     if (col.filters[0].term) {
       return 'header-filtered';
     } else {
@@ -29,7 +31,7 @@ app.controller('viewMailListController', ['$scope', '$window', 'detailedMailList
     }
   };
 
-  $scope.gridOptions = {
+  vmc.gridOptions = {
     enableSorting: true,
     enableFiltering: true,
     showGridFooter: true,
@@ -39,37 +41,37 @@ app.controller('viewMailListController', ['$scope', '$window', 'detailedMailList
       displayName: 'First Name',
       minWidth: 80,
       width: 150,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: vmc.highlightFilteredHeader
     }, {
       field: 'lastName',
       displayName: 'Last Name',
       minWidth: 80,
       width: 150,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: vmc.highlightFilteredHeader
     }, {
       field: 'company',
       displayName: 'Company',
       minWidth: 80,
       width: 150,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: vmc.highlightFilteredHeader
     }, {
       field: 'email',
       displayName: 'Email',
       minWidth: 80,
       width: 200,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: vmc.highlightFilteredHeader
     }, {
       field: 'phone',
       displayName: 'Phone',
       minWidth: 80,
       width: 150,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: vmc.highlightFilteredHeader
     }, {
       field: 'category',
       displayName: 'Category',
       minWidth: 80,
       width: 120,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: vmc.highlightFilteredHeader
     }, {
       field: "type",
       displayName: "Type",
@@ -88,7 +90,7 @@ app.controller('viewMailListController', ['$scope', '$window', 'detailedMailList
       },
       cellFilter: "mapType",
       editDropdownValueLabel: "type",
-      headerCellClass: $scope.highlightFilteredHeader,
+      headerCellClass: vmc.highlightFilteredHeader,
       editDropdownOptionsArray: [{
         id: 1,
         type: "Corporate"
@@ -114,7 +116,7 @@ app.controller('viewMailListController', ['$scope', '$window', 'detailedMailList
       },
       cellFilter: 'mapStatus',
       editDropdownValueLabel: "status",
-      headerCellClass: $scope.highlightFilteredHeader,
+      headerCellClass: vmc.highlightFilteredHeader,
       editDropdownOptionsArray: [{
         id: 1,
         status: "Subscribed"
@@ -126,22 +128,22 @@ app.controller('viewMailListController', ['$scope', '$window', 'detailedMailList
   };
 
   //refresh
-  $scope.refresh = function() {
+  vmc.refresh = function() {
     $window.location.reload();
   };
 
   //delete selected leads
-  $scope.deleteSelected = function() {
-    angular.forEach($scope.gridApi.selection.getSelectedRows(), function(data, index) {
-      $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+  vmc.deleteSelected = function() {
+    angular.forEach(vmc.gridApi.selection.getSelectedRows(), function(data, index) {
+      vmc.gridOptions.data.splice(vmc.gridOptions.data.lastIndexOf(data), 1);
     });
-    var leads = $scope.gridApi.selection.getSelectedRows();
+    var leads = $vmc.gridApi.selection.getSelectedRows();
     var deleteStatus = $http.put("http://localhost:8080/api/contacts/mailingList/subscriber", leads);
     $window.location.reload();
   };
 
-  $scope.gridOptions.onRegisterApi = function(gridApi) {
-    $scope.gridApi = gridApi;
+  vmc.gridOptions.onRegisterApi = function(gridApi) {
+    vmc.gridApi = gridApi;
     //save after edit
     gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
       console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
@@ -151,7 +153,7 @@ app.controller('viewMailListController', ['$scope', '$window', 'detailedMailList
   };
 
   //popup dialog box
-  $scope.openDialog = function(dialogName) {
+  vmc.openDialog = function(dialogName) {
     var dialog = document.querySelector('#' + dialogName);
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
@@ -159,7 +161,7 @@ app.controller('viewMailListController', ['$scope', '$window', 'detailedMailList
     dialog.showModal();
   };
 
-  $scope.closeDialog = function(dialogName) {
+  vmc.closeDialog = function(dialogName) {
     var dialog = document.querySelector('#' + dialogName);
     dialog.close();
   };

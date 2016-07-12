@@ -1,7 +1,9 @@
 app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $window, domainsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
+  var dc = this;
+
   domainsData.success(function(data) {
-    $scope.gridOptions.data = data;
+    dc.gridOptions.data = data;
   });
 
   var viewContentLoaded = $q.defer();
@@ -16,7 +18,7 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
     }, 0);
   });
 
-  $scope.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
+  dc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
     if (col.filters[0].term) {
       return 'header-filtered';
     } else {
@@ -24,7 +26,7 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
     }
   };
 
-  $scope.gridOptions = {
+  dc.gridOptions = {
     showGridFooter: true,
     enableFiltering: true,
     enableSorting: true,
@@ -33,18 +35,18 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
       field: 'domain',
       displayName: 'Domain',
       enableCellEdit: true,
-      headerCellClass: $scope.highlightFilteredHeader
+      headerCellClass: dc.highlightFilteredHeader
     }],
   };
 
   //refresh
-  $scope.refresh = function() {
+  dc.refresh = function() {
     $window.location.reload();
-  }
+  };
 
   // add domain
-  $scope.addDomain = function() {
-    var domain = $scope.domainSelected;
+  dc.addDomain = function() {
+    var domain = dc.domainSelected;
     var arrName = domain.split(" ");
     var editedDomain = "";
     for (var x of arrName) {
@@ -52,10 +54,10 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
         editedDomain += x;
       }
     }
-    $scope.gridOptions.data.push({
+    dc.gridOptions.data.push({
       "domain": editedDomain
     });
-    $scope.addResult = "Success!";
+    
     var domain = {
       "domain": editedDomain
     };
@@ -63,25 +65,25 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
     $window.location.reload();
   }
 
-  $scope.selectDeleteDomain = function() {
-    $scope.selectedDeleteDomain = $scope.domainSelected;
-    console.log($scope.selectedDeleteDomain);
-  }
+  dc.selectDeleteDomain = function() {
+    dc.selectedDeleteDomain = dc.domainSelected;
+    console.log(dc.selectedDeleteDomain);
+  };
 
   // delete domain
-  $scope.deleteDomain = function() {
-    console.log($scope.selectedDeleteDomain);
-    for (var x in $scope.gridOptions.data) {
-      if (($scope.gridOptions.data[x].domain === $scope.selectedDeleteDomain)) {
-        var domain = $scope.gridOptions.data.splice(x, 1);
+  dc.deleteDomain = function() {
+    console.log(dc.selectedDeleteDomain);
+    for (var x in dc.gridOptions.data) {
+      if ((dc.gridOptions.data[x].domain === dc.selectedDeleteDomain)) {
+        var domain = dc.gridOptions.data.splice(x, 1);
         var deleteStatus = $http.put("http://localhost:8080/api/contacts/blackList/domain", domain[0]);
         $window.location.reload();
       }
     }
   }
 
-  $scope.gridOptions.onRegisterApi = function(gridApi) {
-    $scope.gridApi = gridApi;
+  dc.gridOptions.onRegisterApi = function(gridApi) {
+    dc.gridApi = gridApi;
     //save after edit
     gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
       console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
@@ -89,4 +91,19 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
       $window.location.reload();
     });
   };
-}])
+
+   //popup dialog box
+  dc.openDialog = function(dialogName) {
+    var dialog = document.querySelector('#' + dialogName);
+    if (!dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    dialog.showModal();
+  };
+
+  dc.closeDialog = function(dialogName) {
+    var dialog = document.querySelector('#' + dialogName);
+    dialog.close();
+  };
+
+}]);

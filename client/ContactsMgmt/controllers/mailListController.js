@@ -1,7 +1,9 @@
 app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shareMailList', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $window, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
+  var mc = this;
+
   mailListData.success(function(data) {
-    $scope.gridOptions.data = data;
+    mc.gridOptions.data = data;
   });
 
   var viewContentLoaded = $q.defer();
@@ -16,7 +18,7 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
     }, 0);
   });
 
-  $scope.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
+  mc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
     if (col.filters[0].term) {
       return 'header-filtered';
     } else {
@@ -24,17 +26,18 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
     }
   };
 
-  $scope.gridOptions = {
+  mc.gridOptions = {
     enableSorting: true,
     enableFiltering: true,
     showGridFooter: true,
+    multiSelect: false,
     columnDefs: [{
       field: 'name',
       displayName: 'List Name',
       minWidth: 150,
       width: 540,
       enableCellEdit: true,
-      headerCellClass: $scope.highlightFilteredHeader,
+      headerCellClass: mc.highlightFilteredHeader,
     }, {
       field: 'subscribers',
       displayName: 'Subscribers',
@@ -50,29 +53,29 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
       enableCellEdit: false,
       enableFiltering: false,
       enableSorting: false,
-      cellTemplate: ' <a ui-sref="viewmaillist"><button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" ng-click="grid.appScope.showView(row.entity)"><i class="material-icons md-48">zoom_in</i></button></a>'
+      cellTemplate: ' <a ui-sref="viewmaillist"><button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" ng-click="grid.appScope.mc.showView(row.entity)"><i class="material-icons md-48">zoom_in</i></button></a>'
     }],
   };
 
   //refresh
-  $scope.refresh = function() {
+  mc.refresh = function() {
     $window.location.reload();
   }
 
   //view details
-  $scope.showView = function(value) {
+  mc.showView = function(value) {
     shareMailList.setData(value);
   };
 
   //add new mailing list
-  $scope.addMailList = function() {
-    var n = $scope.gridOptions.data.length + 1;
-    $scope.gridOptions.data.push({
-      "listName": $scope.mailListName,
+  mc.addMailList = function() {
+    var n = mc.gridOptions.data.length + 1;
+    mc.gridOptions.data.push({
+      "listName": mc.mailListName,
       "subscribers": 0
     });
     var mailingList = {
-      "listName": $scope.mailListName,
+      "listName": mc.mailListName,
       "subscribers": 0
     };
     var addStatus = $http.post("http://localhost:8080/api/contacts/mailingList", mailingList);
@@ -80,17 +83,17 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
   };
 
   //delete selected lists
-  $scope.deleteSelected = function() {
-    angular.forEach($scope.gridApi.selection.getSelectedRows(), function(data, index) {
-      $scope.gridOptions.data.splice($scope.gridOptions.data.lastIndexOf(data), 1);
+  mc.deleteSelected = function() {
+    angular.forEach(mc.gridApi.selection.getSelectedRows(), function(data, index) {
+      mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
     });
-    var mailingLists = $scope.gridApi.selection.getSelectedRows();
+    var mailingLists = mc.gridApi.selection.getSelectedRows();
     var deleteStatus = $http.put("http://localhost:8080/api/contacts/mailingList", mailingLists);
     $window.location.reload();
   }
 
-  $scope.gridOptions.onRegisterApi = function(gridApi) {
-    $scope.gridApi = gridApi;
+  mc.gridOptions.onRegisterApi = function(gridApi) {
+    mc.gridApi = gridApi;
     //save after edit
     gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
       console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
@@ -104,7 +107,7 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
   };
 
   //popup dialog box
-  $scope.openDialog = function(dialogName) {
+  mc.openDialog = function(dialogName) {
     var dialog = document.querySelector('#' + dialogName);
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
@@ -112,7 +115,7 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
     dialog.showModal();
   };
 
-  $scope.closeDialog = function(dialogName) {
+  mc.closeDialog = function(dialogName) {
     var dialog = document.querySelector('#' + dialogName);
     dialog.close();
   };
