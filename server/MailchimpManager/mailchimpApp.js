@@ -70,7 +70,7 @@ var mailchimpApp = {
 					}
 				});
 			}
-			console.log(batches);
+		//	console.log(batches);
 			batch
 				.add(batches)
 				.send()
@@ -119,13 +119,14 @@ var mailchimpApp = {
 	deleteList: function(apiKey, listID) {
 		return new Promise(function(resolve, reject) {
 			mailchimp.setApiKey(apiKey);
-			console.log('/lists/' + listID);
+		//	console.log('/lists/' + listID);
 			mailchimp
 				.delete('/lists/' + listID).then(function(results) {
 					resolve(results);
 				})
 				.catch(function(error) {
-					console.log(error);
+		//			console.log(error);
+				reject(error.status);
 				});
 		});
 	},
@@ -186,7 +187,7 @@ var mailchimpApp = {
 	updateMember: function(apiKey, listID, suscribeHash, memberInfo) {
 		return new Promise(function(resolve, reject) {
 			mailchimp.setApiKey(apiKey);
-			console.log(memberInfo);
+			//console.log(memberInfo);
 			mailchimp
 				.patch('lists/' + listID + '/members/' + suscribeHash, {
 					status: memberInfo.status,
@@ -239,7 +240,7 @@ var getMembers = function(id, name, apiKey) {
 				reject(error);
 			} else {
 				var info = JSON.parse(body);
-				console.log(info.members);
+				//console.log(info.members);
 				for (var j = 0; j < info.members.length; j++) {
 					var emailAddress = info.members[j].email_address;
 					var userStatus = info.members[j].status;

@@ -45,11 +45,11 @@ var mailchimpHandler = {
 									return databaselist;
 								}).then(function(databaselist) {
 									//Now we need arrange he dbResults to fit mailchimp object format
-									console.log("====================App Database ========================================");
+									/*console.log("====================App Database ========================================");
 									for (var i = 0; i < databaselist.length; i++) {
 										console.log(databaselist[i]);
 									}
-									console.log("=========================================================");
+									console.log("=========================================================");*/
 									console.log("====================mailchimp Database ========================================");
 									for (var i = 0; i < mailchimplist.length; i++) {
 										console.log(mailchimplist[i]);
@@ -136,12 +136,12 @@ var mailchimpHandler = {
 									}
 									return differenceArr;
 								}).then(function(differenceArr) {
-									console.log("====================Update Database ========================================");
+								/*	console.log("====================Update Database ========================================");
 									for (var i = 0; i < differenceArr.length; i++) {
 										console.log(differenceArr[i]);
 									}
 									console.log("=====================================================================");
-
+	*/
 									//filter the different actions to perform, when the update array is completed
 									var promiseArr = [];
 									for (var i = 0; i < differenceArr.length; i++) {
@@ -408,7 +408,7 @@ var getReportDetails = function(results, resolve, reject) {
 	}
 	mailinglistmanager.getAllData('mailinglists')
 		.then(function(mlResults) {
-			console.log('printing activities');
+			//console.log('printing activities');
 			for (var i = 0; i < activityArr.length; i++) {
 				for (var j = 0; j < mlResults.length; j++) {
 					if (activityArr[i].listID == mlResults[j].listID) {
@@ -420,7 +420,7 @@ var getReportDetails = function(results, resolve, reject) {
 			}
 			mailinglistmanager.getAllData('leadList')
 				.then(function(cResults) {
-					console.log(activityArr);
+					//console.log(activityArr);
 					for (var j = 0; j < cResults.length; j++) {
 						cResults[j].history = [];
 					}
@@ -435,7 +435,7 @@ var getReportDetails = function(results, resolve, reject) {
 						for (var j = 0; j < activityArr.length; j++) {
 
 							if (activityArr[j].contactID == itemID) {
-								console.log(activityArr[j].action);
+								//console.log(activityArr[j].action);
 								if (activityArr[j].action[0].action == 'bounce')
 									fCount++;
 								else
@@ -447,7 +447,7 @@ var getReportDetails = function(results, resolve, reject) {
 						cResults[i].failure = fCount;
 
 					}
-					console.log(cResults);
+					//console.log(cResults);
 					var promiseActivityArr = [];
 					for (var k = 0; k < cResults.length; k++) {
 						promiseActivityArr.push(mailinglistmanager.updateActivity('leadList', cResults[k]));

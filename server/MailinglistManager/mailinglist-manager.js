@@ -119,8 +119,8 @@ var MailinglistManager = {
 	},
 	deleteListv2: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
-			console.log('this is obj');
-			console.log(obj);
+		//	console.log('this is obj');
+		//	console.log(obj);
 			dbHandler.deleteManyDB(collectionName, obj)
 				.then(function(results) {
 					resolve(results);
@@ -171,6 +171,7 @@ var MailinglistManager = {
 				.then(function(results) {
 					console.log('bb');
 					console.log(results);
+					console.log(obj);
 					var temp = [{
 						listID: obj[0].listID,
 						contactID: results[0].contactID,
@@ -180,16 +181,22 @@ var MailinglistManager = {
 						lastName: obj[1].lastName,
 						subscriberStatus: obj[1].subscriberStatus
 					}];
+					var temp3 = [{
+						contactID: results[0].contactID
+					}, {
+						firstName: obj[1].firstName,
+						lastName: obj[1].lastName
+					}];
 					console.log(temp[0]);
 					console.log(temp[1]);
 					dbHandler.dbUpdateMany(collectionName, temp[0], temp[1])
 						.then(function(results1) {
 							//After integration
 							var temp2 = [{
-								_id: results.contactID
+								_id: new mongodb.ObjectID(results[0].contactID)
 							}, {
-								firstName: object[1].firstName,
-								lastName: object[1].lastName
+								firstName: obj[1].firstName,
+								lastName: obj[1].lastName
 							}];
 							dbHandler.dbUpdateMany('leadList', temp2[0], temp2[1])
 								.then(function(results2) {
@@ -198,8 +205,6 @@ var MailinglistManager = {
 								.catch(function(error2) {
 									console.log("updatecontact2" + error2);
 								});
-							console.log('update success!');
-							resolve(results1);
 						}).catch(function(error) {
 							console.log('updateContactMC updateML' + error);
 						});
@@ -456,9 +461,9 @@ var MailinglistManager = {
 				success: obj.success,
 				failure: obj.failure
 			}];
-			console.log('test');
+			/*console.log('test');
 			console.log(obj1[0]);
-			console.log(obj1[1]);
+			console.log(obj1[1]);*/
 			dbHandler.dbUpdateMany(collectionName, obj1[0], obj1[1])
 				.then(function(results) {
 					resolve(results);
@@ -485,6 +490,16 @@ var MailinglistManager = {
 				for(var i=0;i<queryResults.length;i++){
 					if(results[j]!=undefined){
 						if(queryResults[i].email_hash==results[j].email_hash){
+							 results.splice(j, 1);
+						}
+					}
+				}
+			}
+			var duplicateArr=results;
+			for(var j=0;j<results.length;j++){
+				for(var i=0;i<duplicateArr.length;i++){
+					if(results[j]!=undefined && duplicateArr[i]!=undefined  ){
+						if(duplicateArr[i].email_hash==results[j].email_hash){
 							 results.splice(j, 1);
 						}
 					}
