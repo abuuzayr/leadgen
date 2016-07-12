@@ -125,7 +125,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
             enableFiltering: false,
             enableSorting: false,
             enableEdit: false,
-            cellTemplate: '<button class="btn primary" ng-click="grid.appScope.cc.showMe(row.entity)">View</button> headerCellClass: cc.highlightFilteredHeader'
+            cellTemplate: '<button class="btn primary" ng-click="grid.appScope.cc.showMe(row.entity)">View</button>'
         }],
         importerDataAddCallback: function(grid, newObjects) {
             cc.gridOptions.data = cc.gridOptions.data.concat(newObjects);
