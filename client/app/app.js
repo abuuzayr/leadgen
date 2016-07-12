@@ -1,11 +1,17 @@
 var app = angular.module('app', ['ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection', 'ui.grid.edit', 'ui.grid.autoResize', 'ui.grid.resizeColumns', 'ui.grid.importer', 'ngAnimate', 'ui.grid.exporter', 'ui.grid.rowEdit', 'ui.grid.moveColumns']);
 
 app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/login');
     $stateProvider
+        .state('login', {
+            url: '/login',
+            templateUrl: 'LoginMgmt/loginPage.html',
+            controller: 'LoginMgmt/loginController'
+        })
         .state('home', {
             url: '/',
-            templateUrl: 'homepage.html'
+            templateUrl: 'homepage.html',
+            controller: 'homepageController'
         })
         .state('leadlist', {
             url: '/leadlist',
