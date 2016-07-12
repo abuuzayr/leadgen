@@ -18,31 +18,50 @@ app.controller('allDatabaseController', ['$scope', '$http', 'allData', 'uiGridCo
             columnDefs: [{
                 field: 'firstName',
                 displayName: 'First Name',
-                enableCellEdit: true,
+                minWidth: 80,
+                width: 200,
+                enableCellEdit: false,
                 headerCellClass: allDB.highlightFilteredHeader
             }, {
                 field: 'lastName',
                 displayName: 'Last Name',
+                minWidth: 80,
+                width: 200,
+                enableCellEdit: false,
                 headerCellClass: allDB.highlightFilteredHeader
             }, {
                 field: 'company',
                 displayName: 'Company',
+                minWidth: 80,
+                width: 200,
+                enableCellEdit: false,
                 headerCellClass: allDB.highlightFilteredHeader
             }, {
                 field: 'email',
                 displayName: 'Email',
+                minWidth: 80,
+                width: 250,
+                enableCellEdit: false,
                 headerCellClass: allDB.highlightFilteredHeader
             }, {
                 field: 'phone',
                 displayName: 'Phone',
+                minWidth: 80,
+                width: 100,
+                enableCellEdit: false,
                 headerCellClass: allDB.highlightFilteredHeader
             }, {
                 field: 'category',
                 displayName: 'Category',
+                minWidth: 80,
+                width: 150,
+                enableCellEdit: false,
                 headerCellClass: allDB.highlightFilteredHeader
             }, {
                 field: 'type',
                 displayName: 'Type',
+                minWidth: 80,
+                width: 150,
                 filter: {
                     type: uiGridConstants.filter.SELECT,
                     selectOptions: [{
@@ -55,15 +74,6 @@ app.controller('allDatabaseController', ['$scope', '$http', 'allData', 'uiGridCo
                 },
                 cellFilter: 'mapType',
                 headerCellClass: allDB.highlightFilteredHeader,
-                editDropdownValueLabel: 'type',
-                editableCellTemplate: 'ui-grid/dropdownEditor',
-                editDropdownOptionsArray: [{
-                    id: 1,
-                    type: 'Corporate'
-                }, {
-                    id: 2,
-                    type: 'Consumer'
-                }]
             }, ],
             enableSelectAll: true,
             exporterCsvFilename: 'myLeads.csv',
