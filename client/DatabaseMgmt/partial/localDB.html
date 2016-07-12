@@ -7,27 +7,40 @@
         <li><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
     </ul>
     <br>
-    <div class='container'>
+    <div class='local'>
         <h3 class="pull-left">Local</h3>
-        <div id="grid1" ui-grid="ld.gridOptions" ui-grid-selection ui-grid-edit class="grid" ui-grid-importer class="grid"></div>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored pull-right" id="syncCompanies" ng-click="ld.syncToCompany()">
+            Sync to Companies
+        </button>
+
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored pull-right" ng-click="ld.syncFromExternal()">
+            Add from External
+        </button>
+
+        <div id="grid1" ui-grid="ld.gridOptions" ui-grid-selection ui-grid-edit ui-grid-importer ui-grid-resize-columns class="grid"></div>
 
         <div class='buttons'>
 
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-left" ng-click="ld.openDialog('deleteLead')">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" ng-click="ld.openDialog('deleteLead')">
             Deleted Selected
             </button>
 
-            <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-left" id="get_file" value="Import Contacts" />
+            <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" id="get_file" value="Import" ng-disabled="ld.continue">
             <form><input type="file" id="files" class="file-chooser" name="files[]" /></form>
 
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored pull-left" id="syncCompanies" ng-click="ld.syncToCompany()">
-            Sync to Companies
-            </button>
-
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored pull-left" ng-click="ld.syncFromExternal()">
-            Add from External
-            </button>
-
+            <form name="myForm">
+                <div class="form-group pull-left">
+                    <label for="importSelection">Type:</label>
+                    <label>
+                        <input type="radio" ng-model='ld.importType' ng-change="ld.continueToImport()" value="corporate">
+                        Corporate
+                    </label><br/>
+                    <label>
+                        <input type="radio" ng-model='ld.importType' ng-change="ld.continueToImport()" value="consumer">
+                        Consumer
+                    </label><br/>
+                </div>
+            </form>
         </div>
 
         <dialog id="deleteLead" class="mdl-dialog">
