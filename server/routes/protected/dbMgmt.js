@@ -1,8 +1,8 @@
 var express = require('express'),
   jsonParser = require('body-parser').json(),
-  dbManager = require('../DatabaseManager/database-manager');
+  dbManager = require('../../DatabaseManager/database-manager');
 
-var dbMgmtRouter = express.router();
+var dbMgmtRouter = express.Router();
 
   dbMgmtRouter.route('/dbmgmt')
   .get(function(req,res){
@@ -23,3 +23,5 @@ var dbMgmtRouter = express.router();
       res.sendStatus(fail);
     });
   });
+
+module.exports = dbMgmtRouter;
