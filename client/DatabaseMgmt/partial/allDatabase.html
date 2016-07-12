@@ -7,10 +7,10 @@
         <li class="active"><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
     </ul>
     <br>
-    <div class='container'>
+    <div class='allDatabase'>
         <h3 class="pull-left">All</h3>
 
-        <div id="grid1" ui-grid="allDB.gridOptions" ui-grid-selection ui-grid-edit ui-grid-exporter ui-grid-move-columns class="grid"></div>
+        <div id="grid1" ui-grid="allDB.gridOptions" ui-grid-selection ui-grid-edit ui-grid-exporter ui-grid-move-columns ui-grid-resize-columns class="grid"></div>
 
         <form name="myForm">
             <div class="form-group pull-left">
@@ -26,12 +26,12 @@
             </div>
         </form>
 
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" ng-click="allDB.export()">
-        Export
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" ng-click="allDB.openDialog('deleteLead')">
+        Deleted Selected
       </button>
 
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" ng-click="allDB.openDialog('deleteLead')">
-        Deleted Selected
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent pull-right" ng-click="allDB.export()">
+        Export
       </button><br><br><br>
 
         <dialog id="deleteLead" class="mdl-dialog">
