@@ -15,6 +15,15 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             document.getElementById('files').click();
         };
 
+        //import type and function for disable
+        ld.importType;
+        ld.continue = true;
+        ld.continueToImport = function() {
+            if (angular.isDefined(ld.importType)) {
+                ld.continue = false;
+            }
+        }
+
         ld.gridOptions = {
             enableSorting: true,
             enableFiltering: true,
@@ -72,6 +81,18 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             }, ],
             importerDataAddCallback: function(grid, newObjects) {
                 ld.gridOptions.data = ld.gridOptions.data.concat(newObjects);
+
+                var importObjectToSend = {
+                    type: ld.importType,
+                    data: newObjects
+                }
+
+                localData.importToLocal(importObjectToSend).then(function successCallback(res) {
+                        ld.importResponse = 'Imported Successfully';
+                    }),
+                    function errorCallback(err) {
+                        ld.importResponse = "Error Occured";
+                    }
             }
         };
 
