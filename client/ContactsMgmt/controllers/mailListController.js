@@ -116,7 +116,6 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailLis
 
 $scope.showFailure = function() {
         $mdDialog.show({
-          targetEvent: $event,
           template:
             '<dialog id="historyData" class="mdl-dialog">' +
             '  <div class="mdl-dialog__content">' +
