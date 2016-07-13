@@ -115,18 +115,27 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailLis
   };
 
 mc.showAlert = function() {
-  mc.failure = true;
+    // Appending dialog to document.body to cover sidenav in docs app
+    // Modal dialogs should fully cover application
+    // to prevent interaction outside of dialog
+    $mdDialog.show(
+      $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title('This is an alert title')
+        .textContent('You can specify some description text in here.')
+        .ariaLabel('Alert Dialog Demo')
+        .ok('Got it!')
+    );
   };
 
   //popup dialog box
   mc.openDialog = function(dialogName) {
     var dialog = document.querySelector('#' + dialogName);
-    if(dialog.showModal !== null) {
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
     }
     dialog.showModal();
-  }
   };
 
   mc.closeDialog = function(dialogName) {
