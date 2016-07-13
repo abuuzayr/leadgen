@@ -22,7 +22,7 @@
             </p>
             <div class="mdl-dialog__actions">
                 <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="mc.closeDialog('deleteConfirmation')">No</button>
-                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.deleteSelected(); mc.closeDialog('deleteConfirmation')">Yes</button>
+                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.deleteSelected(); mc.closeDialog('deleteConfirmation'); mc.openDialog('showFailure')">Yes</button>
             </div>
         </div>
     </dialog>
@@ -46,9 +46,15 @@
         </div>
     </dialog>
 
-<div class="md-padding dialogdemoBasicUsage" ng-cloak="" ng-app="app">
-    <div class="dialog-demo-content" layout="row" layout-wrap="" layout-margin="" layout-align="center">
+<dialog id="showFailure" class="mdl-dialog" ng-if="mc.failure">
+        <div class="mdl-dialog__content">
+            <p>
+                FUCK OFF!
+            </p>
+                <div class="mdl-dialog__actions">
+                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="mc.closeDialog('showFailure')">Close</button>
+                </div>
+           
         </div>
-        </div>
-
-</div>
+    </dialog>
+    </div>
