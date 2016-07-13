@@ -121,12 +121,12 @@ mc.showAlert = function() {
   //popup dialog box
   mc.openDialog = function(dialogName) {
     var dialog = document.querySelector('#' + dialogName);
-    if (dialog.showModal !== null) {
+    if(dialog.showModal !== null) {
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
     }
+    dialog.showModal();
   }
-  
   };
 
   mc.closeDialog = function(dialogName) {
