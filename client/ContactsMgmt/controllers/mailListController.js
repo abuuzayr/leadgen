@@ -134,6 +134,7 @@ mc.showAlert = function() {
   $scope.cancel = function() {
     $mdDialog.cancel();
   };
+  }
 
   //popup dialog box
   mc.openDialog = function(dialogName) {
