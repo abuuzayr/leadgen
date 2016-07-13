@@ -114,22 +114,12 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailLis
     });
   };
 
-mc.showFailure = function() {
-  console.log("QIWEN IS GRU!");
-        $mdDialog.show({
-          scope: $scope, 
-          template:
-            '<dialog id=\"historyData\" class=\"mdl-dialog\">' +
-            '  <div class=\"mdl-dialog__content\">' +
-            '  <p> FAILED </p>' +
-            '  <div class=\"mdl-dialog__actions\">' +
-            '    <button id=\"cancel\" type=\"button\" class=\"mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent\" ng-click=\"mc.closeDialog(\'historyData\')\">Close</button>' +
-            '    </div>' +
-            '  </div>' +
-            '</dialog>',
-          controller: 'mailListController'
-        });
-    }
+$scope.showFailure = function() {
+  $mdDialog.show({
+    contentElement: '#failureNotice',
+    parent: angular.element(document.body)
+  });
+};
 
   //popup dialog box
   mc.openDialog = function(dialogName) {
