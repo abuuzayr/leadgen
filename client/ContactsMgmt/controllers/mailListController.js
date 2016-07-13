@@ -114,9 +114,10 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailLis
     });
   };
 
-mc.showFailure = showFailure;
-function showFailure() {
+mc.showFailure = function() {
+  console.log("QIWEN IS GRU!");
         $mdDialog.show({
+          scope: $scope, 
           template:
             '<dialog id=\"historyData\" class=\"mdl-dialog\">' +
             '  <div class=\"mdl-dialog__content\">' +
