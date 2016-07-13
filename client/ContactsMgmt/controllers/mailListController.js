@@ -1,4 +1,4 @@
-app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailListData', 'shareMailList', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $mdDialog, $window, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('mailListController', ['$scope', '$mdDialog', '$mdMedia', '$window', 'mailListData', 'shareMailList', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $mdDialog, $mdMedia, $window, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
   var mc = this;
 
@@ -118,12 +118,15 @@ mc.showAlert = function() {
     // Appending dialog to document.body to cover sidenav in docs app
     // Modal dialogs should fully cover application
     // to prevent interaction outside of dialog
-    $mdDialog.show({
-      controller: DialogController,
-      contentElement: '#myDialog',
-      parent: angular.element(document.body),
-      clickOutsideToClose: true
-    });
+    $mdDialog.show(
+      $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title('This is an alert title')
+        .textContent('FUCK')
+        .ariaLabel('Alert Dialog Demo')
+        .ok('Got it!')
+    );
   };
 
   function DialogController($scope, $mdDialog) {
