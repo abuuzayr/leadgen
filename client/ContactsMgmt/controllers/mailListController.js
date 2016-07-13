@@ -121,7 +121,7 @@ $scope.showFailure = function() {
             '  <div class="mdl-dialog__content">' +
             '  <p> FAILED </p>' +
             '  <div class="mdl-dialog__actions">' +
-            '    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="mc.closeDialog(historyData)">Close</button>' +
+            '    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="mc.closeDialog(\'historyData\')">Close</button>' +
             '    </div>' +
             '  </div>' +
             '</dialog>',
