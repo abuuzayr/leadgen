@@ -115,16 +115,18 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$mdMedia', '$windo
   };
 
 mc.showAlert = function() {
-    alert = $mdDialog.alert({
-        title: 'Attention',
-        textContent: 'This is an example of how easy dialogs can be!',
-        ok: 'Close'
-      });
-      $mdDialog
-        .show( alert )
-        .finally(function() {
-          alert = undefined;
-        });
+    // Appending dialog to document.body to cover sidenav in docs app
+    // Modal dialogs should fully cover application
+    // to prevent interaction outside of dialog
+    $mdDialog.show(
+      $mdDialog.alert()
+        .parent(angular.element(document.querySelector('#popupContainer')))
+        .clickOutsideToClose(true)
+        .title('This is an alert title')
+        .textContent('FUCK')
+        .ariaLabel('Alert Dialog Demo')
+        .ok('Got it!')
+    );
   };
 
   function DialogController($scope, $mdDialog) {
