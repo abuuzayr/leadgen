@@ -255,9 +255,10 @@ leadlistRouter.route('/contacts/mailingList')
         */
       MailchimpManager.deleteList(apiKey, req.body[0].listID) //1-
         .then(function(MCResults) {
+	  console.log(MCResults);
           MailinglistManager.deleteList(res, 'mailinglists', req.body[0], returnStatusCode); //1-        
-        }).catch(function(MCError) {
-           res.sendStatus(MCerror);
+        }).catch(function(MCError) { 
+	  res.sendStatus(405);
         });
     }
   })
