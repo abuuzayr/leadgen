@@ -5,7 +5,7 @@
     <ul class="nav nav-tabs">
         <li><a ui-sref="userManagementprofile" data-toggle="tab" ng-click="uc.refresh()">Company Profile</a></li>
         <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab" ng-click="uc.refresh()">Manage Users</a></li>
-    </ul>3
+    </ul>
 
     <div class="container">
         <h3>Users</h3>
@@ -55,7 +55,7 @@
 
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addUser')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser'); uc.addFeedback(); uc.refresh()">Add</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser'); uc.refresh()">Add</button>
                         </div>
                     </form>
                 </div>
@@ -66,13 +66,13 @@
                     <p>Are you sure you want to delete the selected user(s)?</p>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteUser')">Cancel</button>
-                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser'); uc.deleteFeedback(); uc.refresh()">Yes</button>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser'); uc.refresh()">Yes</button>
                     </div>
                 </div>
             </dialog>
         </div>
     </div>
-    <div id='addUserFeedbackID' class="mdl-js-snackbar mdl-snackbar">
+    <div id='userManagementFeedback' class="mdl-js-snackbar mdl-snackbar">
         <div class="mdl-snackbar__text"></div>
         <button class="mdl-snackbar__action" type="button"></button>
     </div>

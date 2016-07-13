@@ -1,35 +1,36 @@
 <link rel="stylesheet" type="text/css" href="assets/css/userMgmtProfile.css">
 <br>
-<div class="page-container" ng-controller="userMgmtProfileController as uc">      
+<div class="page-container" ng-controller="userMgmtProfileController as uc">
 
-      <div class="row row-offcanvas row-offcanvas-left">
-          
-          <!--include tabs-->
-         <ul class="nav nav-tabs">
-             <li class="active"><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
-             <li><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
+    <div class="row row-offcanvas row-offcanvas-left">
+
+        <!--include tabs-->
+        <ul class="nav nav-tabs">
+            <li class="active"><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
+            <li><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
         </ul>
         <br>
-       <div class="container"> 
-        <!-- main area -->
-        <!--<div class="col-xs-12 col-sm-9">-->
+        <div class="container">
+            <!-- main area -->
+            <!--<div class="col-xs-12 col-sm-9">-->
             <div class="details">
-                <h4><b>Subscription Type:</b></h4>
-                <h4>{{ uc.type }}</h4>
+                <h4><b>Subscription Type: {{ uc.type }}</b></h4>
             </div>
-            
+
             <div class="modal-body row">
                 <div class="col-md-6">
-                <!-- Your first column here -->
-                    <h4>Company Name:</h4>
+                    <!-- Your first column here -->
+                    <h3>Company Details</h3><br>
+                    <h4>Company Name: </h4>
                     <h4>{{ uc.company }}</h4>
                     <br>
                     <h4>Email Address:</h4>
                     <h4>{{ uc.email }}</h4>
                 </div>
-            
+
                 <div class="col-md-6 apiKey">
                     <!-- Your second column here -->
+                    <h3>API Keys</h3><br>
                     <h4>MailChimp API Key:</h4>
                     <h4>{{ uc.mailChimpAPI }}</h4>
                     <br>
@@ -37,20 +38,20 @@
                     <h4>{{ uc.googleAPI }}</h4>
                 </div>
             </div><br>
-    </div><br>
-    <div class="moreDetails" ng-init="moreDetails = false">
-        <input type="checkbox" name="showMore" ng-model="moreDetails"> Show Expiration Date
-        <br><br>
-        <div ng-show="moreDetails">
-            <h4>Company Account expires at {{ uc.expiry }}</h4>
-            <h4>Storage Utilization: </h4>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ uc.storage }}%;">
-                    {{ uc.storage }}%
+        </div><br>
+        <div class="moreDetails" ng-init="moreDetails = false">
+            <input type="checkbox" name="showMore" ng-model="moreDetails"> Show Expiration Date
+            <br><br>
+            <div ng-show="moreDetails">
+                <h4>Company Account expires at {{ uc.expiry }}</h4>
+                <h4>Storage Utilization: </h4>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ uc.storage }}%;">
+                        {{ uc.storage }}%
+                    </div>
                 </div>
             </div>
+            <br><br>
         </div>
-        <br><br>
-    </div>
     </div>
 </div>

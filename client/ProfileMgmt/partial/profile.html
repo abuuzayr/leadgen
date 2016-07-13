@@ -1,23 +1,27 @@
+<link rel="stylesheet" type="text/css" href="assets/css/userProfile.css">
 <div class="mdl-layout__container" ng-controller="profileController as pc">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <main class="mdl-layout__content">
             <div id="account-settings" class="mdl-layout mdl-js-layout">
                 <div class="mdl-grid">
                     <div id="settings-grid" class="mdl-cell mdl-cell--6-col">
-                        <h3>Account Settings</h3>
+                        <h3>Account Details</h3>
                         <form id="change-settings" action="#">
                             <!-- Username input -->
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <br>
+                            <h4>Name: {{pc.userName}}</h4><br>
+                            <h4>Email: {{pc.userEmail}}</h4>
+                            <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <input id="username" class="mdl-textfield__input" type="text" />
                                 <label class="mdl-textfield__label" for="username" required>{{pc.userName}}</label>
                             </div>
                             <br>
-                            <!-- Change email -->
-                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input id="email" class="mdl-textfield__input" type="text" ng-model="pc.user.email" />
+                            <!-- Email -->
+                            <!--<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input id="email" class="mdl-textfield__input" type="text" />
                                 <label class="mdl-textfield__label" for="email">{{pc.userEmail}}</label>
-                            </div>
-                            <br>
+                            </div>-->
+                            <!--<br>-->
                             <br>
                             <!-- Change timezone -->
                             <div id="timezone" class="mdl-selectfield">
@@ -26,44 +30,49 @@
                                 <option value="singapore">Singapore GMT +8</option>
                             </select>
                             </div><br><br>
+                        </form>
                     </div>
 
                     <div id="settings-grid" class="mdl-cell mdl-cell--6-col">
                         <h3>Change Password</h3>
-                        <!-- Password input -->
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input id="password" class="mdl-textfield__input" type="password" />
-                            <label class="mdl-textfield__label" for="password" required>Password*</label>
-                        </div>
-                        <br>
-                        <!-- New password input -->
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input id="newpassword1" class="mdl-textfield__input" type="password" ng-model="pc.user.newPassword" />
-                            <label class="mdl-textfield__label" for="password">New Password</label>
-                        </div>
-                        <br>
-                        <!-- New password input again -->
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input id="newpassword2" class="mdl-textfield__input" type="password" ng-model="pc.user.retypePassword" />
-                            <label class="mdl-textfield__label" for="password">Confirm New Password</label>
-                        </div>
-                        <br>
-                        <br>
-                    </div>
-                    <!-- Submit button -->
-                    <div id="login-button" class="mdl-card__actions mdl-card--border"><br>
-                        <button class="mdl-button mdl-button--accent mdl-button--raised mdl-js-button mdl-js-ripple-effect" ng-click="pc.submitDetails()">
+                        <form id="password-settings" ng-submit="pc.validateNewPassword()">
+                            <!-- Password input -->
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input id="password" class="mdl-textfield__input" type="password" ng-model="pc.userPassword" />
+                                <label class="mdl-textfield__label" for="password" required></label>
+                            </div>
+                            <br>
+                            <!-- New password input -->
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input id="newpassword1" class="mdl-textfield__input" type="password" ng-model="pc.newPwd" />
+                                <label class="mdl-textfield__label" for="password">New Password</label>
+                            </div>
+                            <br>
+                            <!-- New password input again -->
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input id="newpassword2" class="mdl-textfield__input" type="password" ng-model="pc.retypePwd" />
+                                <label class="mdl-textfield__label" for="password">Confirm New Password</label>
+                            </div>
+                            <br>
+                            <br>
+                            <!-- Submit button -->
+                            <div id="login-button" class="mdl-card__actions mdl-card--border"><br>
+                                <button class="mdl-button mdl-button--accent mdl-button--raised mdl-js-button mdl-js-ripple-effect" type='submit'>
                             Save Changes
                         </button>
 
-                        <!--<h4>Email is {{pc.user.email}}</h4>
+                                <!--<h4>Email is {{pc.user.email}}</h4>
                         <h4>New Password is {{pc.user.newPassword}}</h4>
                         <h4>Retype password is {{pc.user.retypePassword}}</h4>-->
+                            </div>
+                        </form>
                     </div>
-
-                    <!--</div>-->
                 </div>
             </div>
         </main>
+    </div>
+    <div id="profileFeedback" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
     </div>
 </div>

@@ -1,11 +1,9 @@
-[
-    {
+[{
     "type": "Consumer",
     "companyName": "Company A",
     "email": "companyA@email.com",
-    "mailChimpAPI": "123456789",
-    "googleAPI": "987654321",
+    "mailChimpAPI": "89a25dec87f33b2f139df5db123456d7-us10",
+    "googleAPI": "89a25dec87f33b2f139df5d876593847d7-us10",
     "expiry": "29/07/2016",
     "storage": 80
-    }
-]
+}]

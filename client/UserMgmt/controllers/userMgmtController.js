@@ -70,7 +70,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         };
 
 
-        //add new lead
+        //add new user
         uc.addData = function() {
             var n = uc.gridOptions.data.length + 1;
             uc.gridOptions.data.push({
@@ -83,13 +83,11 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             uc.addResult = "Success!";
         };
 
+        // get data from server
         allUsersData.getUserData().then(function successCallback(res) {
                 uc.gridOptions.data = res.data;
             }),
-            function errorCallback(err) {
-
-
-            }
+            function errorCallback(err) {}
 
         //delete selected leads
         uc.deleteSelected = function() {
@@ -99,7 +97,13 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 
             var selectedUsersToDelete = uc.gridApi.selection.getSelectedRows();
             console.log(selectedUsersToDelete);
-            allUsersData.deleteUserData(selectedUsersToDelete);
+            allUsersData.deleteUserData(selectedUsersToDelete).then(function successCallback(res) {
+                return feedbackServices.hideFeedback('#userManagementFeedback').
+                then(feedbackServices.successFeedback('Deleted!', '#userManagementFeedback', 2000));
+            }).catch(function errorCallback(err) {
+                return feedbackServices.hideFeedback('#userManagementFeedback').
+                then(feedbackServices.successFeedback(err.data, '#userManagementFeedback', 2000));
+            })
         }
 
         uc.gridOptions.onRegisterApi = function(gridApi) {
@@ -130,14 +134,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             var dialog = document.querySelector('#' + dialogName);
             dialog.close();
         };
-
-        uc.addFeedback = function() {
-            feedbackServices.successFeedback("Added!", '#addUserFeedbackID');
-        }
-
-        uc.deleteFeedback = function() {
-            feedbackServices.successFeedback("Deleted!", '#addUserFeedbackID');
-        }
 
         //refresh
         uc.refresh = function() {
