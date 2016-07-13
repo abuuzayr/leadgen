@@ -1,65 +1,67 @@
 <link rel="stylesheet" type="text/css" href="assets/css/loginPage.css">
 <!---------------------------------------- Forgot password dialog ---------------------------------------->
 <br>
-<dialog id="forgotPasswordDialog" class="mdl-dialog">
-    <form>
-        <div class="mdl-dialog__content">
-            <div id="forgot-password-username-textbox">
-                <p>Please enter your email.</p>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input ng-model="vm.forgotPasswordEmail" class="mdl-textfield__input" type="text" ng-required="true" />
-                    <label class="mdl-textfield__label" for="vm.forgotPasswordEmail">Email</label>
-                </div>
-            </div>
-        </div>
-        <div class="mdl-dialog__actions">
-            <button id="cancel" type="button" class="mdl-button" ng-click="vm.closeDialog('forgotPasswordDialog')">Cancel</button>
-            <div class="mdl-layout-spacer"></div>
-            <button id="next" type="submit" class="mdl-button" ng-click="vm.validateBeforeSend();">Next</button>
-        </div>
-    </form>
-</dialog>
-
-<div class="mdl-layout mdl-js-layout">
-    <div id="login-background" class="mdl-grid">
-        <!---------------------------------------- Login main ---------------------------------------->
-        <div id="login-main" class="mdl-card">
-            <main class="mdl-layout__content">
-                <div id="login-heading" class="mdl-card__title mdl-color-text--white">
-                    <h2 class="mdl-card__title-text">User Management Login</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-                    <!---------------------------------------- Login form ---------------------------------------->
-                    <form id="login-form">
-                        <!-- Email input -->
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input id="emailInput" ng-model="vm.email" class="mdl-textfield__input" type="email" ng-required="true" />
-                            <label class="mdl-textfield__label" for="vm.email">Email</label>
-                        </div>
-                        <br>
-                        <!-- Password input -->
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input ng-model="vm.password" class="mdl-textfield__input" type="password" ng-required="true" />
-                            <label class="mdl-textfield__label" for="vm.password">Password</label>
-                        </div>
-                        <!-- Login button -->
-                        <div class="mdl-card__actions">
-                            <button id="login-button" type="submit" ng-click="vm.validateBeforeLogin();" class="mdl-button mdl-button--colored mdl-button--raised mdl-js-button mdl-js-ripple-effect">
-                        Log in
-                        </button>
-                        </div>
-                    </form>
-                    <br>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="vm.openDialog('forgotPasswordDialog')">Forgot password?</button>
+<div ng-controller="loginCtrl as vm">
+    <dialog id="forgotPasswordDialog" class="mdl-dialog">
+        <form>
+            <div class="mdl-dialog__content">
+                <div id="forgot-password-username-textbox">
+                    <p>Please enter your email.</p>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input ng-model="vm.forgotPasswordEmail" class="mdl-textfield__input" type="text" ng-required="true" />
+                        <label class="mdl-textfield__label" for="vm.forgotPasswordEmail">Email</label>
                     </div>
                 </div>
-            </main>
-        </div>
-        <!---------------------------------------- Feedback message snackbar ---------------------------------------->
-        <div id="login-feedbackMessage" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-js-snackbar mdl-snackbar">
-            <div class="mdl-snackbar__text"></div>
-            <button class="mdl-snackbar__action" type="button"></button>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button id="cancel" type="button" class="mdl-button" ng-click="vm.closeDialog('forgotPasswordDialog')">Cancel</button>
+                <div class="mdl-layout-spacer"></div>
+                <button id="next" type="submit" class="mdl-button" ng-click="vm.validateBeforeSend();">Next</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div class="mdl-layout mdl-js-layout">
+        <div id="login-background" class="mdl-grid">
+            <!---------------------------------------- Login main ---------------------------------------->
+            <div id="login-main" class="mdl-card">
+                <main class="mdl-layout__content">
+                    <div id="login-heading" class="mdl-card__title mdl-color-text--white">
+                        <h2 class="mdl-card__title-text">User Management Login</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <!---------------------------------------- Login form ---------------------------------------->
+                        <form id="login-form">
+                            <!-- Email input -->
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input id="emailInput" ng-model="vm.email" class="mdl-textfield__input" type="email" ng-required="true" />
+                                <label class="mdl-textfield__label" for="vm.email">Email</label>
+                            </div>
+                            <br>
+                            <!-- Password input -->
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input ng-model="vm.password" class="mdl-textfield__input" type="password" ng-required="true" />
+                                <label class="mdl-textfield__label" for="vm.password">Password</label>
+                            </div>
+                            <!-- Login button -->
+                            <div class="mdl-card__actions">
+                                <button id="login-button" type="submit" ng-click="vm.validateBeforeLogin();" class="mdl-button mdl-button--colored mdl-button--raised mdl-js-button mdl-js-ripple-effect">
+                        Log in
+                        </button>
+                            </div>
+                        </form>
+                        <br>
+                        <div class="mdl-card__actions mdl-card--border">
+                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="vm.openDialog('forgotPasswordDialog')">Forgot password?</button>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            <!---------------------------------------- Feedback message snackbar ---------------------------------------->
+            <div id="login-feedbackMessage" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-js-snackbar mdl-snackbar">
+                <div class="mdl-snackbar__text"></div>
+                <button class="mdl-snackbar__action" type="button"></button>
+            </div>
         </div>
     </div>
 </div>

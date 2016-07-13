@@ -1,11 +1,11 @@
 (function() {
     'use strict';
 
-    app.controller("loginController", loginController);
+    app.controller("loginCtrl", loginCtrl);
 
-    loginController.$inject = ['$scope', '$q', '$interval', '$timeout', 'authServices', 'feedbackServices', 'dialogServices'];
+    loginCtrl.$inject = ['$scope', '$q', '$interval', '$timeout', 'authServices', 'feedbackServices', 'dialogServices'];
 
-    function loginController($scope, $q, $interval, $timeout, authServices, feedbackServices, dialogServices) {
+    function loginCtrl($scope, $q, $interval, $timeout, authServices, feedbackServices, dialogServices) {
         /* =========================================== Initialization =========================================== */
         var vm = this;
         var errMsg;
