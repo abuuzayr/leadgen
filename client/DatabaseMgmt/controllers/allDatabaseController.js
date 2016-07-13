@@ -77,11 +77,6 @@ app.controller('allDatabaseController', ['$scope', '$http', 'allData', 'uiGridCo
             }, ],
             enableSelectAll: true,
             exporterCsvFilename: 'myLeads.csv',
-
-            // onRegisterApi: function(gridApi){
-            //   allDB.gridApi = gridApi;
-            //   // gridApi.rowEdit.on.saveRow(allDB, allDB.saveRow);
-            // }
         };
 
         // get leads 

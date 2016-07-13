@@ -64,10 +64,6 @@ app.controller('externalDatabaseController', ['$scope', '$http', 'externalData',
                 type: 'Consumer'
             }]
         }, ],
-        // onRegisterApi: function(gridApi){ 
-        //   ed.gridApi = gridApi;
-        //   // gridApi.rowEdit.on.saveRow(ed, ed.saveRow);
-        // }
     };
 
     //get leads
@@ -87,6 +83,12 @@ app.controller('externalDatabaseController', ['$scope', '$http', 'externalData',
         gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
             console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
             $scope.$apply();
+
+            var obj = {};
+            obj[colDef.name] = newValue;
+            var editData = [rowEntity, obj];
+            externalData.editExternalLeads(editData);
+            // $window.location.reload();s
         });
     };
 

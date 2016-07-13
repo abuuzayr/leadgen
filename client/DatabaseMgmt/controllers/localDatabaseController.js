@@ -111,6 +111,12 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                 $scope.$apply();
+
+                var obj = {};
+                obj[colDef.name] = newValue;
+                var editData = [rowEntity, obj];
+                localData.editLocalLeads(editData);
+                // $window.location.reload();
             });
         };
 
@@ -139,6 +145,8 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             for (var i = 0; i < appendData.length; i++) {
                 ld.gridOptions.data.push(appendData[i]);
             }
+
+            localData.syncFromExternalLeads();
         }
 
         // sync data to companies

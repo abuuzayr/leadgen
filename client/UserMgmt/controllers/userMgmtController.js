@@ -10,11 +10,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             }
         };
 
-        allUsersData.success(function(data) {
-            uc.gridOptions.data = data;
-            console.log(data);
-        });
-
         uc.gridOptions = {
             enableSorting: true,
             enableFiltering: true,
@@ -72,10 +67,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 width: 150,
                 headerCellClass: uc.highlightFilteredHeader
             }, ],
-            // onRegisterApi: function(gridApi){
-            //   uc.gridApi = gridApi;
-            //   // gridApi.rowEdit.on.saveRow(allDB, allDB.saveRow);
-            // }
         };
 
 
@@ -92,53 +83,23 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             uc.addResult = "Success!";
         };
 
+        allUsersData.getUserData().then(function successCallback(res) {
+                uc.gridOptions.data = res.data;
+            }),
+            function errorCallback(err) {
+
+
+            }
+
         //delete selected leads
         uc.deleteSelected = function() {
             angular.forEach(uc.gridApi.selection.getSelectedRows(), function(data, index) {
                 uc.gridOptions.data.splice(uc.gridOptions.data.lastIndexOf(data), 1);
             });
-        }
 
-        // add field
-        uc.addField = function() {
-            var fieldName = uc.field.name;
-            var arrName = fieldName.split(" ");
-            var editedField = "";
-            var editedDisplay = "";
-            for (var x of arrName) {
-                if (y !== "") {
-                    editedField += x;
-                }
-            }
-            for (var y of arrName) {
-                if (y !== "") {
-                    editedDisplay += y;
-                    editedDisplay += " ";
-                }
-            }
-            var display = editedDisplay.slice(0, editedDisplay.length - 1);
-            var lowerName = editedField.toLowerCase();
-            uc.gridOptions.columnDefs.push({
-                field: lowerName,
-                displayName: display,
-                enableSorting: true
-            });
-            uc.addResult = "Success!";
-        }
-
-        // select field to delete
-        uc.deleteField = function() {
-            uc.selectedDeleteField = uc.fieldSelected;
-        }
-
-        // delete field confirmation
-        uc.deleteFieldConfirmation = function() {
-            console.log(uc.gridOptions.columnDefs[0]);
-            for (var x in uc.gridOptions.columnDefs) {
-                if ((uc.gridOptions.columnDefs[x].displayName === uc.fieldSelected)) {
-                    uc.gridOptions.columnDefs.splice(x, 1);
-                }
-            }
+            var selectedUsersToDelete = uc.gridApi.selection.getSelectedRows();
+            console.log(selectedUsersToDelete);
+            allUsersData.deleteUserData(selectedUsersToDelete);
         }
 
         uc.gridOptions.onRegisterApi = function(gridApi) {
@@ -148,6 +109,12 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                 $scope.$apply();
+
+                var obj = {};
+                obj[colDef.name] = newValue;
+                var editData = [rowEntity, obj];
+                allUsersData.editUserData(editData);
+                // $window.location.reload();
             });
         };
 
