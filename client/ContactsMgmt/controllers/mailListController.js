@@ -84,7 +84,7 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailLis
 
   //delete selected lists
   mc.deleteSelected = function() {
-    $scope.showFailure();
+    mc.showFailure();
     var mailingLists = mc.gridApi.selection.getSelectedRows();
 
     $http.put("http://10.4.1.145:8080/api/contacts/mailingList", mailingLists)
@@ -114,7 +114,7 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailLis
     });
   };
 
-$scope.showFailure = showFailure;
+mc.showFailure = showFailure;
 function showFailure() {
         $mdDialog.show({
           template:
