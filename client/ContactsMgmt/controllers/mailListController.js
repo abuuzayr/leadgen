@@ -1,4 +1,4 @@
-app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shareMailList', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $window, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailListData', 'shareMailList', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $mdDialog, $window, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
   var mc = this;
 
@@ -91,7 +91,6 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
     angular.forEach(mc.gridApi.selection.getSelectedRows(), function(data, index) {
       mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
     });
-    $scope.showFailure();
     // $window.location.reload();
   };
 
