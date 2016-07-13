@@ -161,7 +161,7 @@ leadlistRouter.get('/contacts/leadList/leads/:id', function(req, res) {
     var obj = {
       _id: req.params.id
     };
-    dbHandler.dbQuery('leadList', obj, 'app')
+    dbHandler.dbQuery('leadList', obj)
       .then(function(results) {
         res.json(results[0].history);
       })
@@ -171,7 +171,7 @@ leadlistRouter.get('/contacts/leadList/leads/:id', function(req, res) {
   }
 });
 leadlistRouter.post('/contacts/leadList/import', jsonParser, function(req, res) {
-  console.log(req.body);
+  //console.log(req.body);
   if (!req.body)
     res.sendStatus(400);
   else {
@@ -207,7 +207,7 @@ leadlistRouter.route('/contacts/mailingList')
           console.log(SResults);
           MailinglistManager.getListNames(res, 'mailinglists', displayResultsCallback);
         }).catch(function(error) {
-          console.log("sync Error" + error);
+           res.sendStatus(error);
         });
     }
   })
@@ -237,7 +237,7 @@ leadlistRouter.route('/contacts/mailingList')
           };
           MailinglistManager.addList(res, 'mailinglists', addObject, returnStatusCode); //1
         }).catch(function(MCerror) {
-          console.log(MCerror);
+           res.sendStatus(MCerror);
         });
     }
   })
@@ -257,7 +257,7 @@ leadlistRouter.route('/contacts/mailingList')
         .then(function(MCResults) {
           MailinglistManager.deleteList(res, 'mailinglists', req.body[0], returnStatusCode); //1-        
         }).catch(function(MCError) {
-          console.log(MCError);
+           res.sendStatus(MCerror);
         });
     }
   })
@@ -297,7 +297,7 @@ leadlistRouter.route('/contacts/mailingList')
           .then(function(MCResults) {
             MailinglistManager.updateList(res, 'mailinglists', req.body, returnStatusCode);
           }).catch(function(MCError) {
-            console.log(MCError);
+           res.sendStatus(MCerror);
           });
       });
     }
@@ -348,7 +348,6 @@ leadlistRouter.route('/contacts/mailingList/subscriber')
         }
           MailinglistManager.getFilterMembers('mailinglists',req.body[1].listID,obj)
           .then(function(dbResults2){
-            console.log("filterResult");
             console.log(dbResults2);
            MailinglistManager.addMemberToList(res,'mailinglists',dbResults2,returnStatusCode);
           });
@@ -383,7 +382,7 @@ leadlistRouter.route('/contacts/mailingList/subscriber')
           .then(function(MCresults) {
             MailinglistManager.deleteMember(res, 'mailinglists', req.body, returnStatusCode);
           }).catch(function(MCerror) {
-            console.log(MCerror);
+           res.sendStatus(MCerror);
           });
       }
     }
@@ -463,7 +462,7 @@ leadlistRouter.route('/contacts/leadList/fields')
 */
 leadlistRouter.route('/contacts/blackList/domain')
   .get(function(req, res) {
-    dbHandler.dbQuery('blackListDomains', null, 'app')
+    dbHandler.dbQuery('blackListDomains', null)
       .then(function(results) {
         res.json(results);
       })
@@ -576,10 +575,10 @@ var deleteContact = function(cid) {
                       reject(error);
                     });
                 }).catch(function(MLerror) {
-                  console.log(MLerror);
+                 res.sendStatus(MLerror);
                 });
             }).catch(function(MCerror) {
-              console.log(MCerror);
+              res.sendStatus(MCerror);
             });
         } else {
           ContactsManager.deleteLeads(obj)
@@ -619,14 +618,14 @@ var updateContact = function(results, firstName, lastName, body) {
               .then(function(cResults) {
                 resolve(cResults);
               }).catch(function(cError) {
-                console.log(cError);
+                res.sendStatus(cError);
               });
           })
           .catch(function(MLerror) {
-            console.log(MLerror);
+            res.sendStatus(MLerror);
           });
       }).catch(function(MCerror) {
-        console.log(MCerror);
+       res.sendStatus(MCerror);
       });
   });
 };
