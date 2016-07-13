@@ -84,12 +84,14 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
 
   //delete selected lists
   mc.deleteSelected = function() {
+    $scope.showFailure();
     var mailingLists = mc.gridApi.selection.getSelectedRows();
     var deleteStatus = $http.put("http://10.4.1.145:8080/api/contacts/mailingList", mailingLists);
-    console.log(deleteStatus.success);
+    console.log(deleteStatus);
     angular.forEach(mc.gridApi.selection.getSelectedRows(), function(data, index) {
       mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
     });
+    $scope.showFailure();
     // $window.location.reload();
   };
 
@@ -106,6 +108,22 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
       $window.location.reload();
     });
   };
+
+$scope.showFailure = function() {
+        $mdDialog.show({
+          targetEvent: $event,
+          template:
+            '<dialog id="historyData" class="mdl-dialog">' +
+            '  <div class="mdl-dialog__content">' +
+            '  <p> FAILED </p>' +
+            '  <div class="mdl-dialog__actions">' +
+            '    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="mc.closeDialog("historyData")">Close</button>' +
+            '    </div>' +
+            '  </div>' +
+            '</dialog>',
+          controller: 'mailListController'
+        });
+    }
 
   //popup dialog box
   mc.openDialog = function(dialogName) {
