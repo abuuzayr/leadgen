@@ -84,7 +84,7 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailLis
 
   //delete selected lists
   mc.deleteSelected = function() {
-    mc.showFailure();
+    mc.showAlert();
     var mailingLists = mc.gridApi.selection.getSelectedRows();
 
     $http.put("http://10.4.1.145:8080/api/contacts/mailingList", mailingLists)
@@ -114,12 +114,16 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailLis
     });
   };
 
-mc.showFailure = function() {
-  $mdDialog.show({
-    contentElement: '#failureNotice',
-    parent: angular.element(document.body)
-  });
-};
+mc.showAlert = function() {
+    $mdDialog.show(
+      $mdDialog.alert()
+        .clickOutsideToClose(true)
+        .title('This is an alert title')
+        .textContent('You can specify some description text in here.')
+        .ariaLabel('Alert Dialog Demo')
+        .ok('Got it!')
+    );
+  };
 
   //popup dialog box
   mc.openDialog = function(dialogName) {
