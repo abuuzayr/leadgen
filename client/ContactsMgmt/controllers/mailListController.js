@@ -114,7 +114,7 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailLis
     });
   };
 
-$scope.showFailure = function() {
+mc.showFailure = function() {
   $mdDialog.show({
     contentElement: '#failureNotice',
     parent: angular.element(document.body)
