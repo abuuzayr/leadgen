@@ -124,9 +124,10 @@ mc.showAlert = function() {
     if (!dialog.showModal) {
       dialogPolyfill.registerDialog(dialog);
     }
-    else {
+    if (dialog.showModal !== null)
     dialog.showModal();
-    }
+  }
+  
   };
 
   mc.closeDialog = function(dialogName) {
