@@ -84,13 +84,14 @@ app.controller('mailListController', ['$scope', '$window', 'mailListData', 'shar
 
   //delete selected lists
   mc.deleteSelected = function() {
+    var mailingLists = mc.gridApi.selection.getSelectedRows();
+    var deleteStatus = $http.put("http://10.4.1.145:8080/api/contacts/mailingList", mailingLists);
+    console.log(deleteStatus.success);
     angular.forEach(mc.gridApi.selection.getSelectedRows(), function(data, index) {
       mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
     });
-    var mailingLists = mc.gridApi.selection.getSelectedRows();
-    var deleteStatus = $http.put("http://10.4.1.145:8080/api/contacts/mailingList", mailingLists);
-    $window.location.reload();
-  }
+    // $window.location.reload();
+  };
 
   mc.gridOptions.onRegisterApi = function(gridApi) {
     mc.gridApi = gridApi;

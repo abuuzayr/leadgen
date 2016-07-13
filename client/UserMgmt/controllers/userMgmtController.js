@@ -10,11 +10,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             }
         };
 
-        allUsersData.success(function(data) {
-            uc.gridOptions.data = data;
-            console.log(data);
-        });
-
         uc.gridOptions = {
             enableSorting: true,
             enableFiltering: true,
@@ -74,6 +69,12 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             }, ],
         };
 
+        allUsersData.getUserData().then(function successCallback(res) {
+                uc.gridOptions.data = res.data;
+            }),
+            function errorCallback(err) {
+
+            }
 
         //add new user
         uc.addData = function() {
@@ -93,6 +94,10 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             angular.forEach(uc.gridApi.selection.getSelectedRows(), function(data, index) {
                 uc.gridOptions.data.splice(uc.gridOptions.data.lastIndexOf(data), 1);
             });
+
+            var selectedUsersToDelete = uc.gridApi.selection.getSelectedRows();
+            console.log(selectedUsersToDelete);
+            allUsersData.deleteUserData(selectedUsersToDelete);
         };
 
         uc.gridOptions.onRegisterApi = function(gridApi) {

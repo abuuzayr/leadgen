@@ -9,7 +9,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             controller: 'LoginMgmt/loginController'
         })
         .state('home', {
-            url: '/',
+            url: '/home',
             templateUrl: 'homepage.html',
             controller: 'homepageController'
         })
