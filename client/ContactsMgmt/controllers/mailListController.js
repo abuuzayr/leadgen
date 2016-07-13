@@ -86,12 +86,18 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailLis
   mc.deleteSelected = function() {
     $scope.showFailure();
     var mailingLists = mc.gridApi.selection.getSelectedRows();
-    var deleteStatus = $http.put("http://10.4.1.145:8080/api/contacts/mailingList", mailingLists);
-    console.log(deleteStatus);
-    angular.forEach(mc.gridApi.selection.getSelectedRows(), function(data, index) {
-      mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
+
+    $http.put("http://10.4.1.145:8080/api/contacts/mailingList", mailingLists)
+    .then(function successCallback(data){
+        console.log(data.status);
+        angular.forEach(mc.gridApi.selection.getSelectedRows(), function(data, index) {
+            mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
+        });
+    },function errorCallback(error){
+	console.log(error.status);
     });
-    // $window.location.reload();
+    
+       // $window.location.reload();
   };
 
   mc.gridOptions.onRegisterApi = function(gridApi) {
