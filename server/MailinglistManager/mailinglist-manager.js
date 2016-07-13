@@ -486,26 +486,24 @@ var MailinglistManager = {
 			console.log("end of resultsq");
 			console.log(results);
 			console.log("end of obj");
+			var filterArr=[];
+			var duplicateFound=false;
 			for(var j=0;j<results.length;j++){
 				for(var i=0;i<queryResults.length;i++){
-					if(results[j]!=undefined){
 						if(queryResults[i].email_hash==results[j].email_hash){
-							 results.splice(j, 1);
+							 duplicateFound = true;
 						}
-					}
+				}
+				if(duplicateFound==false)
+				{
+					filterArr.push(results[j]);
+				}else
+				{
+					duplicateFound=false;
 				}
 			}
-			var duplicateArr=results;
-			for(var j=0;j<results.length;j++){
-				for(var i=0;i<duplicateArr.length;i++){
-					if(results[j]!=undefined && duplicateArr[i]!=undefined  ){
-						if(duplicateArr[i].email_hash==results[j].email_hash){
-							 results.splice(j, 1);
-						}
-					}
-				}
-			}
-			resolve(results);
+			var finalArray=_.uniq(filterArr);
+			resolve(finalArray);
 		})
 		.catch(function(error){
 			console.log('addList'+error);

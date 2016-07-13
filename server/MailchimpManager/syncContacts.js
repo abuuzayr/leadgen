@@ -45,11 +45,11 @@ var mailchimpHandler = {
 									return databaselist;
 								}).then(function(databaselist) {
 									//Now we need arrange he dbResults to fit mailchimp object format
-									/*console.log("====================App Database ========================================");
+									console.log("====================App Database ========================================");
 									for (var i = 0; i < databaselist.length; i++) {
 										console.log(databaselist[i]);
 									}
-									console.log("=========================================================");*/
+									console.log("=========================================================");
 									console.log("====================mailchimp Database ========================================");
 									for (var i = 0; i < mailchimplist.length; i++) {
 										console.log(mailchimplist[i]);
@@ -136,12 +136,11 @@ var mailchimpHandler = {
 									}
 									return differenceArr;
 								}).then(function(differenceArr) {
-								/*	console.log("====================Update Database ========================================");
+								console.log("====================Update Database ========================================");
 									for (var i = 0; i < differenceArr.length; i++) {
 										console.log(differenceArr[i]);
 									}
-									console.log("=====================================================================");
-	*/
+									console.log("========================End of Update=======================================");
 									//filter the different actions to perform, when the update array is completed
 									var promiseArr = [];
 									for (var i = 0; i < differenceArr.length; i++) {
@@ -389,7 +388,7 @@ var getReportDetails = function(results, resolve, reject) {
 	//if there are duplicate action and timestamp we add action else, dont add action
 
 	for (var i = 0; i < results.length; i++) {
-		console.log(results[i]);
+		//console.log(results[i]);
 		for (var j = 0; j < results[i].emails.length; j++) {
 			var temp = {
 				listID: results[i].emails[j].list_id, //The unique id for the list.

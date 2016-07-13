@@ -125,7 +125,6 @@ leadlistRouter.route('/contacts/leadList/leads')
             var promiseArr = [];
             for (var i = 0; i < results.length; i++) {
               promiseArr.push(updateContact(results[i], fname, lname, req.body));
-              console.log(results[i]);
             }
             return Promise.all(promiseArr);
           } else {
@@ -309,7 +308,7 @@ leadlistRouter.route('/contacts/mailingList/subscriber')
     if (!req.body)
       returnStatusCode(res, 400);
     else {
-      console.log(req.body);
+    //  console.log(req.body);
       //Suppose to sort incoming json file into merge fields so that it will be easier to add to mailchimp
       /* 1) Add subscriber into mailchimp according to list 
          2) After creating the batch, add the members in mailing list table
