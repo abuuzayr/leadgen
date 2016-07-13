@@ -114,7 +114,8 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$window', 'mailLis
     });
   };
 
-$scope.showFailure = function() {
+$scope.showFailure = showFailure;
+function showFailure() {
         $mdDialog.show({
           template:
             '<dialog id=\"historyData\" class=\"mdl-dialog\">' +
