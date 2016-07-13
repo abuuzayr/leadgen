@@ -18,20 +18,20 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             columnDefs: [{
                 field: 'firstName',
                 displayName: 'First Name',
-                minWidth: 80,
+                minWidth: 100,
                 width: 150,
                 enableCellEdit: true,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
                 field: 'lastName',
                 displayName: 'Last Name',
-                minWidth: 80,
+                minWidth: 100,
                 width: 150,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
                 field: 'role',
                 displayName: 'Role',
-                minWidth: 80,
+                minWidth: 100,
                 width: 120,
                 filter: {
                     type: uiGridConstants.filter.SELECT,
@@ -57,13 +57,12 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             }, {
                 field: 'email',
                 displayName: 'Email',
-                minWidth: 80,
-                width: 200,
+                minWidth: 200,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
                 field: 'phone',
                 displayName: 'Phone',
-                minWidth: 80,
+                minWidth: 100,
                 width: 150,
                 headerCellClass: uc.highlightFilteredHeader
             }, ],
