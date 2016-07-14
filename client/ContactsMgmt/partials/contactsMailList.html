@@ -46,9 +46,12 @@
         </div>
     </dialog>
 
-<dialog id="showFailure" class="mdl-dialog" id="popupContainer" ng-cloak="" ng-app="app">
-<div class="mdl-dialog__content" layout="row" layout-wrap="" layout-margin="" layout-align="center"></div>
-QIWEN LOVES GRU!! 
-    </md-dialog-content>
+    <dialog id="showFailure" class="mdl-dialog">
+        <div class="mdl-dialog__content" layout="row" layout-wrap="" layout-margin="" layout-align="center">
+            QIWEN IS A PERM STAFF!
+        </div>
+        <div class="mdl-dialog__actions">
+            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="mc.closeDialog('showFailure')">Close</button>
+        </div>
     </dialog>
-    </div>
+</div>
