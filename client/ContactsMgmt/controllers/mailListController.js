@@ -90,11 +90,10 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$mdMedia', '$windo
         angular.forEach(mc.gridApi.selection.getSelectedRows(), function(data, index) {
             mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
         });
+        $window.location.reload();
     },function errorCallback(error){
 	mc.showAlert();
     });
-    
-       // $window.location.reload();
   };
 
   mc.gridOptions.onRegisterApi = function(gridApi) {
