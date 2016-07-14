@@ -138,7 +138,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         uc.refresh = function() {
             $window.location.reload();
         };
-
     }
 ])
 

@@ -11,31 +11,39 @@
         </ul>
         <br>
         <div class="container">
-            <!-- main area -->
-            <!--<div class="col-xs-12 col-sm-9">-->
-            <!--<div class="details">
-                <h4><b>Subscription Type: {{ uc.type }}</b></h4>
-            </div>-->
 
             <div class="modal-body row">
                 <div class="col-md-6">
                     <!-- Your first column here -->
                     <h3>Company Details</h3><br>
-                    <h4>Company Name: </h4>
-                    <h4>{{ uc.company }}</h4>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input id="username" class="mdl-textfield__input" type="text" placeholder="Name" ng-model="uc.company" />
+                        <label class="mdl-textfield__label" for="companyName">Company Name:</label>
+                    </div>
                     <br>
-                    <h4>Email Address:</h4>
-                    <h4>{{ uc.email }}</h4>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input id="username" class="mdl-textfield__input" type="text" placeholder="Email" ng-model="uc.email" />
+                        <label class="mdl-textfield__label" for="email">Email Address:</label>
+                    </div>
+                    <br>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input id="username" class="mdl-textfield__input" type="text" placeholder="Email" ng-model="uc.type" />
+                        <label class="mdl-textfield__label" for="type">Subscription Type:</label>
+                    </div>
                 </div>
 
                 <div class="col-md-6 apiKey">
                     <!-- Your second column here -->
                     <h3>API Keys</h3><br>
-                    <h4>MailChimp API Key:</h4>
-                    <h4>{{ uc.mailChimpAPI }}</h4>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input id="username" class="mdl-textfield__input" type="text" placeholder="MailChimp API Key" ng-model="uc.mailChimpAPI" />
+                        <label class="mdl-textfield__label" for="mailchimp">MailChimp API Key:</label>
+                    </div>
                     <br>
-                    <h4>Google API Key:</h4>
-                    <h4>{{ uc.googleAPI }}</h4>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input id="username" class="mdl-textfield__input" type="text" placeholder="Google API Key" ng-model="uc.googleAPI" />
+                        <label class="mdl-textfield__label" for="google">Google API Key:</label>
+                    </div>
                 </div>
             </div><br>
         </div><br>
@@ -43,7 +51,7 @@
             <input type="checkbox" name="showMore" ng-model="moreDetails"> Show Expiration Date
             <br><br>
             <div ng-show="moreDetails">
-                <h4>Company Account expires at {{ uc.expiry }}</h4>
+                <h4>Expiry: {{ uc.expiry }}</h4>
                 <h4>Storage Utilization: </h4>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ uc.storage }}%;">
