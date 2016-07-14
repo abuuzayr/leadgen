@@ -1,6 +1,6 @@
 <div ng-controller="consumerScrapController as cs">
     <br>
-    <h3> <div ng-show="gc.spinner" class="mdl-spinner mdl-js-spinner is-active"></div> {{cs.numScrap}} Leads Scraped...</h3>
+    <h3> <div ng-show="cs.spinner" class="mdl-spinner mdl-js-spinner is-active"></div> {{cs.numScrap}} Leads Scraped...</h3>
 
     <div id="grid2" ui-grid="cs.gridOptions" class="grid"></div>
 

@@ -49,15 +49,15 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
             }
         };
 
-        gc.spinner = true;
-        gc.playStatus = function() {
-            gc.spinner = true;
+        cs.spinner = true;
+        cs.playStatus = function() {
+            cs.spinner = true;
         };
-        gc.pauseStatus = function() {
-            gc.spinner = false;
+        cs.pauseStatus = function() {
+            cs.spinner = false;
         };
-        gc.stopStatus = function() {
-            gc.spinner = false;
+        cs.stopStatus = function() {
+            cs.spinner = false;
         };
 
         //filter for ui-grid
