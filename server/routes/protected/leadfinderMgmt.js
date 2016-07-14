@@ -28,7 +28,7 @@ leadfinderRouter.get('/corporate/scrape/g/new/:category/:country', function(req,
         res.json(results);
       })
       .catch(function(error) {
-        res.sendStatus(400);
+        res.sendStatus(error);
       });
   }
 });
@@ -44,7 +44,7 @@ leadfinderRouter.get('/corporate/scrape/g/cont/:category/:country', function(req
         res.json(results);
       })
       .catch(function(error) {
-        res.sendStatus(400);
+        res.sendStatus(error);
       });
   }
 });

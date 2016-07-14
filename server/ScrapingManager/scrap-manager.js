@@ -52,7 +52,7 @@ var ScrapManager = {
             resolve(arr);
           })
           .catch(function(error) {
-            reject(error);
+            reject(500);
           });
       } else {
         loadForeignCoordinates(country)
@@ -92,7 +92,7 @@ var ScrapManager = {
                 resolve(arr);
               })
               .catch(function(error) {
-                reject(error);
+                reject(500);
               });
           })
           .catch(function(error) {
@@ -151,7 +151,7 @@ var ScrapManager = {
           resolve(arr);
         })
         .catch(function(error) {
-          reject(error);
+          reject(500);
         });
     });
   },
@@ -171,7 +171,7 @@ var ScrapManager = {
   },
   scrapConsumerYellowPage: function(type) {
     return new Promise(function(resolve, reject) {
-      dbHandler.dbQuery('data', {
+      dbHandler.dbQuerySA('data', {
           category: type,
           type : 2
         })
