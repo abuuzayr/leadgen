@@ -1,7 +1,7 @@
 <div ng-controller="googleController as gc">
     <br>
 
-    <h3> <i class="material-icons" ng-hide="rc.symbol">cached</i> {{gc.numScrap}} Leads Scraped...</h3>
+    <h3> <i class="material-icons" ng-hide="rc.symbol">cached</i><div class="mdl-spinner mdl-js-spinner is-active"></div> {{gc.numScrap}} Leads Scraped...</h3>
 
     <div id="grid2" ui-grid="gc.gridOptions" class="grid"></div>
 
