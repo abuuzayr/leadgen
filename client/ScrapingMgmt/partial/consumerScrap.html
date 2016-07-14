@@ -7,15 +7,15 @@
     <br>
     <div class='controlButtons'>
         <!-- Colored mini FAB button -->
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.transfer()" ng-disabled="cs.pressStop">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.transfer(); cs.playStatus()" ng-disabled="cs.pressStop">
         <i class="material-icons">play_arrow</i>
       </button>
 
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.pauseScraping()" ng-disabled="cs.pressStop">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.pauseScraping(); cs.pauseStatus()" ng-disabled="cs.pressStop">
         <i class="material-icons">pause</i>
       </button>
 
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.stopScraping(); cs.showFunction()">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.stopScraping(); cs.showFunction(); cs.stopStatus()">
         <i class="material-icons">stop</i>
       </button>
 
