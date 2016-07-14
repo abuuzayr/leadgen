@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection', 'ui.grid.edit', 'ui.grid.autoResize', 'ui.grid.resizeColumns', 'ui.grid.importer', 'ngAnimate']);
 
-app.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', function($urlRouterProvider, $stateProvider, $locationProvider) {
+app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
     // $locationProvider.html5Mode({
     //     enabled: true,
     //     requireBase: false
