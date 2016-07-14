@@ -18,20 +18,20 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             columnDefs: [{
                 field: 'firstName',
                 displayName: 'First Name',
-                minWidth: 80,
+                minWidth: 100,
                 width: 150,
                 enableCellEdit: true,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
                 field: 'lastName',
                 displayName: 'Last Name',
-                minWidth: 80,
+                minWidth: 100,
                 width: 150,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
                 field: 'role',
                 displayName: 'Role',
-                minWidth: 80,
+                minWidth: 100,
                 width: 120,
                 filter: {
                     type: uiGridConstants.filter.SELECT,
@@ -57,24 +57,17 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             }, {
                 field: 'email',
                 displayName: 'Email',
-                minWidth: 80,
-                width: 200,
+                minWidth: 200,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
                 field: 'phone',
                 displayName: 'Phone',
-                minWidth: 80,
+                minWidth: 100,
                 width: 150,
                 headerCellClass: uc.highlightFilteredHeader
             }, ],
         };
 
-        allUsersData.getUserData().then(function successCallback(res) {
-                uc.gridOptions.data = res.data;
-            }),
-            function errorCallback(err) {
-
-            }
 
         //add new user
         uc.addData = function() {
@@ -89,7 +82,13 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             uc.addResult = "Success!";
         };
 
-        //delete selected users
+        // get data from server
+        allUsersData.getUserData().then(function successCallback(res) {
+                uc.gridOptions.data = res.data;
+            }),
+            function errorCallback(err) {}
+
+        //delete selected leads
         uc.deleteSelected = function() {
             angular.forEach(uc.gridApi.selection.getSelectedRows(), function(data, index) {
                 uc.gridOptions.data.splice(uc.gridOptions.data.lastIndexOf(data), 1);
@@ -97,8 +96,14 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 
             var selectedUsersToDelete = uc.gridApi.selection.getSelectedRows();
             console.log(selectedUsersToDelete);
-            allUsersData.deleteUserData(selectedUsersToDelete);
-        };
+            allUsersData.deleteUserData(selectedUsersToDelete).then(function successCallback(res) {
+                return feedbackServices.hideFeedback('#userManagementFeedback').
+                then(feedbackServices.successFeedback('Deleted!', '#userManagementFeedback', 2000));
+            }).catch(function errorCallback(err) {
+                return feedbackServices.hideFeedback('#userManagementFeedback').
+                then(feedbackServices.successFeedback(err.data, '#userManagementFeedback', 2000));
+            })
+        }
 
         uc.gridOptions.onRegisterApi = function(gridApi) {
             uc.gridApi = gridApi;
@@ -107,6 +112,12 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                 $scope.$apply();
+
+                var obj = {};
+                obj[colDef.name] = newValue;
+                var editData = [rowEntity, obj];
+                allUsersData.editUserData(editData);
+                // $window.location.reload();
             });
         };
 
@@ -122,14 +133,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             var dialog = document.querySelector('#' + dialogName);
             dialog.close();
         };
-
-        uc.addFeedback = function() {
-            feedbackServices.successFeedback("Added!", '#addUserFeedbackID');
-        }
-
-        uc.deleteFeedback = function() {
-            feedbackServices.successFeedback("Deleted!", '#addUserFeedbackID');
-        }
 
         //refresh
         uc.refresh = function() {

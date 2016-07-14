@@ -22,7 +22,7 @@ app.factory('localData', ['$http', function($http) {  
         });
     }
 
-    //return array of object
+    //send object 
     var importToLocal = function(importData) {
         return $http({
             method: 'POST',
@@ -31,11 +31,10 @@ app.factory('localData', ['$http', function($http) {  
         });
     }
 
-    var syncFromExternal = function(updatedData) {
+    var syncFromExternalLeads = function() {
         return $http({
             method: 'POST',
             url: '',
-            data: updatedData
         });
     }
 

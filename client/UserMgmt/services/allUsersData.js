@@ -1,4 +1,4 @@
-app.factory('allUsersData', ['$http', function($http) {
+app.factory('allUsersData', ['$http', function($http) {  
     var getUserData = function() {
         return $http({
             method: 'GET',
@@ -8,14 +8,23 @@ app.factory('allUsersData', ['$http', function($http) {
 
     var deleteUserData = function(usersToRemove) {
         return $http({
-            method: 'PATCH',
+            method: 'PUT',
             url: '',
             data: usersToRemove
         })
     }
 
+    var editUserData = function(editedUser) {
+        return $http({
+            method: 'PATCH',
+            url: '',
+            data: editedUser
+        })
+    }
+
     return {
         getUserData: getUserData,
-        deleteUserData: deleteUserData
+        deleteUserData: deleteUserData,
+        editUserData: editUserData
     }
 }]);

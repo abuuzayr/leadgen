@@ -14,6 +14,15 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
 
             }
 
+        //validate password and change accordingly
+        pc.validateNewPassword = function() {
+            if (pc.newPwd === pc.retypePwd) {
+                pc.userPassword = pc.newPwd;
+            }
+            return feedbackServices.hideFeedback('#profileFeedback').
+            then(feedbackServices.errorFeedback('New password inputs do not match', '#profileFeedback'));
+        }
+
         var objToSend = {
             name: pc.userName,
             email: pc.userEmail,
