@@ -3,6 +3,18 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
 
         var cs = this;
 
+        var viewContentLoaded = $q.defer();
+        $scope.$on('$viewContentLoaded', function() {
+            $timeout(function() {
+                viewContentLoaded.resolve();
+            }, 0);
+        });
+        viewContentLoaded.promise.then(function() {
+            $timeout(function() {
+                componentHandler.upgradeDom();
+            }, 0);
+        });
+
         cs.gridOptions = {
             enableSorting: true,
             enableFiltering: true,
