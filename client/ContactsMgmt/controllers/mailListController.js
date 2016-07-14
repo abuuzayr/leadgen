@@ -87,16 +87,11 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$mdMedia', '$windo
     var mailingLists = mc.gridApi.selection.getSelectedRows();
     $http.put("http://10.4.1.145:8080/api/contacts/mailingList", mailingLists)
     .then(function successCallback(data){
-      if (data.status === 200) {
         angular.forEach(mc.gridApi.selection.getSelectedRows(), function(data, index) {
             mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
         });
-      }
-      else {
-        mc.showAlert();
-      }
     },function errorCallback(error){
-	console.log(error.status);
+	mc.showAlert();
     });
     
        // $window.location.reload();
