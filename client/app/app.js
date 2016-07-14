@@ -1,6 +1,10 @@
 var app = angular.module('app', ['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection', 'ui.grid.edit', 'ui.grid.autoResize', 'ui.grid.resizeColumns', 'ui.grid.importer', 'ngAnimate']);
 
-app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
+app.config(['$urlRouterProvider', '$stateProvider', '$locationProvider', function($urlRouterProvider, $stateProvider, $locationProvider) {
+    // $locationProvider.html5Mode({
+    //     enabled: true,
+    //     requireBase: false
+    // });
     $urlRouterProvider.otherwise('/login');
     $stateProvider
         .state('login', {
