@@ -1,6 +1,18 @@
 app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData', 'sendCountry', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', 'shareInput',
     function($scope, googleResults, ypResults, shareData, sendCountry, $http, uiGridConstants, $q, $location, $timeout, $interval, shareInput) {
 
+        var viewContentLoaded = $q.defer();
+        $scope.$on('$viewContentLoaded', function() {
+            $timeout(function() {
+                viewContentLoaded.resolve();
+            }, 0);
+        });
+        viewContentLoaded.promise.then(function() {
+            $timeout(function() {
+                componentHandler.upgradeDom();
+            }, 0);
+        });
+
         var gc = this;
         gc.gridOptions = {
             enableSorting: true,
