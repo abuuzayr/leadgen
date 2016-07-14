@@ -57,6 +57,21 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             }
         };
 
+        gc.spinner = true;
+        gc.stopSpinner = false;
+        gc.playStatus = function() {
+            if (gc.stopSpinner === false) {
+                gc.spinner = true;
+            }
+        };
+        gc.pauseStatus = function() {
+            gc.spinner = false;
+        };
+        gc.stopStatus = function() {
+            gc.stopSpinner = true;
+            gc.spinner = false;
+        };
+
         //get user input
         gc.category = shareInput.getCategory();
         gc.country = shareInput.getCountry();
