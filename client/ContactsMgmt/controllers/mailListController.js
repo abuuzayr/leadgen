@@ -84,20 +84,16 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$mdMedia', '$windo
 
   //delete selected lists
   mc.deleteSelected = function() {
-    mc.showAlert();
     var mailingLists = mc.gridApi.selection.getSelectedRows();
-
     $http.put("http://10.4.1.145:8080/api/contacts/mailingList", mailingLists)
     .then(function successCallback(data){
-        console.log(data.status);
         angular.forEach(mc.gridApi.selection.getSelectedRows(), function(data, index) {
             mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
         });
+        $window.location.reload();
     },function errorCallback(error){
-	console.log(error.status);
+	mc.showAlert();
     });
-    
-       // $window.location.reload();
   };
 
   mc.gridOptions.onRegisterApi = function(gridApi) {
@@ -115,18 +111,8 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$mdMedia', '$windo
   };
 
 mc.showAlert = function() {
-    // Appending dialog to document.body to cover sidenav in docs app
-    // Modal dialogs should fully cover application
-    // to prevent interaction outside of dialog
-    $mdDialog.show(
-      $mdDialog.alert()
-        .parent(angular.element(document.querySelector('#popupContainer')))
-        .clickOutsideToClose(true)
-        .title('This is an alert title')
-        .textContent('FUCK')
-        .ariaLabel('Alert Dialog Demo')
-        .ok('Got it!')
-    );
+    var dialog = document.querySelector('#showFailure');
+    dialog.showModal();
   };
 
   function DialogController($scope, $mdDialog) {
