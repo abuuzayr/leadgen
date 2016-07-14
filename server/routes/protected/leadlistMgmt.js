@@ -315,7 +315,7 @@ leadlistRouter.route('/contacts/mailingList/subscriber')
          2) After creating the batch, add the members in mailing list table
          addMemberToList: function(apiKey,listID,memberInfo)      
 */
-      var memberinfoMC = [];
+      var memberinfoPromiseArr = [];
       for (var i = 0; i < req.body[0].y.length; i++) {
         var temp = {
           status: 'subscribed',
@@ -325,9 +325,9 @@ leadlistRouter.route('/contacts/mailingList/subscriber')
             LNAME: req.body[0].y[i].lastName
           }
         };
-        memberinfoMC.push(temp);
+        memberinfoPromiseArr.push(MailchimpManager.addMemberToList(apiKey,req.body[1].listID,temp));
       }
-        MailchimpManager.addMemberToList(apiKey,req.body[1].listID,memberinfoMC)
+      Promise.all(memberinfoPromiseArr)
         .then(function(MCResults)
         {
         console.log(MCResults);
