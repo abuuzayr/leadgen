@@ -1,4 +1,4 @@
-angular.module('app.core')
+angular.module('app')
 	.constant('appConfig', {
 		APP_VERSION: '0.1',
 		API_URL: 'https://10.4.1.145/api',
