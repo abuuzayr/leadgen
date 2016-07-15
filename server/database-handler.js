@@ -372,11 +372,8 @@ var dbHandler = {
           reject(500);
         else {
 
-          if (obj._id !== undefined)
-            obj._id = new mongodb.ObjectID(obj._id);
-
           var col = db.collection(collectionName);
-          col.deleteOne(obj, function(err, results) {
+          col.deleteMany(obj, function(err, results) {
             if (err !== null)
               reject(500);
             else {
@@ -432,8 +429,11 @@ var dbHandler = {
         else {
           // if (obj._id !== undefined)
           //   delete obj._id;
+          for(var i=0;i<obj.length;i++)
+            delete obj[i]._id;
+          
           var col = db.collection(collectionName);
-          col.insert(obj, function(err, r) {
+          col.insertMany(obj, function(err, r) {
             if (err !==   null) {
               reject(500);
             } else {
