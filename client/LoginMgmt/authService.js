@@ -23,7 +23,7 @@
 
 
         function login(email, password) {
-            return $http.post(appConfig.API_URL + '/auth/admin', {
+            return $http.post(API_URL + '/auth/admin', {
                     email: email,
                     password: password
                 })
@@ -52,7 +52,7 @@
         }
 
         function forgetPassword(email) {
-            return $http.post(appConfig.API_URL + '/forgetpassword/admin', {
+            return $http.post(API_URL + '/forgetpassword/admin', {
                     email: email,
                 })
                 .then(callSuccess)
