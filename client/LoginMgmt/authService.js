@@ -5,9 +5,9 @@
         .module("app")
         .factory("authServices", authServices)
 
-    authServices.$inject = ['appConstant', 'feedbackServices', '$http', '$window', '$state', '$location'];
+    authServices.$inject = ['appConfig', 'feedbackServices', '$http', '$window', '$state', '$location'];
 
-    function authServices(appConstant, feedbackServices, $http, $window, $state, $location) {
+    function authServices(appConfig, feedbackServices, $http, $window, $state, $location) {
         var service = {
             login: login,
             logout: logout,
@@ -23,7 +23,7 @@
 
 
         function login(email, password) {
-            return $http.post(appConstant.API_URL + '/auth/admin', {
+            return $http.post(appConfig.API_URL + '/auth/admin', {
                     email: email,
                     password: password
                 })
@@ -52,7 +52,7 @@
         }
 
         function forgetPassword(email) {
-            return $http.post(appConstant.API_URL + '/forgetpassword/admin', {
+            return $http.post(appConfig.API_URL + '/forgetpassword/admin', {
                     email: email,
                 })
                 .then(callSuccess)
