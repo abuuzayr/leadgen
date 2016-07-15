@@ -1,6 +1,7 @@
-app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData', 'sendCountry', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', 'shareInput',
-    function($scope, googleResults, ypResults, shareData, sendCountry, $http, uiGridConstants, $q, $location, $timeout, $interval, shareInput) {
+app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData', 'sendCountry', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval',
+    function($scope, googleResults, ypResults, shareData, sendCountry, $http, uiGridConstants, $q, $location, $timeout, $interval) {
 
+        /* =========================================== Load animation =========================================== */
         var viewContentLoaded = $q.defer();
         $scope.$on('$viewContentLoaded', function() {
             $timeout(function() {
@@ -13,7 +14,33 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             }, 0);
         });
 
+        /* =========================================== Before Scrape =========================================== */
         var gc = this;
+
+        gc.category = "";
+        gc.country = "Singapore";
+
+        gc.listOfCountry;
+        //get country data
+        sendCountry.success(function(data) {
+            gc.listOfCountry = data;
+        });
+
+        // gc.setInput = function() {
+        //     shareInput.setCategory(gc.category);
+        //     shareInput.setCountry(gc.country);
+        // }
+
+        // for disable button for 'proceed to scrape'
+        gc.continue = true;
+        gc.continueScraping = function() {
+            if (angular.isDefined(gc.category)) {
+                gc.continue = false;
+            }
+        }
+
+        /* =========================================== Scrape =========================================== */
+
         gc.gridOptions = {
             enableSorting: true,
             enableFiltering: true,
@@ -57,6 +84,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             }
         };
 
+        //loading effect
         gc.spinner = true;
         gc.playStatus = function() {
             gc.spinner = true;
@@ -68,9 +96,15 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             gc.spinner = false;
         };
 
+        // to show scraping page
+        gc.showScrape = false;
+        gc.showScrapeAfterClick = function() {
+            gc.showScrape = true;
+        }
+
         //get user input
-        gc.category = shareInput.getCategory();
-        gc.country = shareInput.getCountry();
+        // gc.category = shareInput.getCategory();
+        // gc.country = shareInput.getCountry();
 
         gc.dataListForGoogle = [];
         gc.dataListForYP = [];
@@ -78,6 +112,12 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
         gc.numScrap = 0;
         gc.messageNoScrap = "No more websites available";
 
+        //get toStart
+        // var indicateStart = shareInput.getStart();
+
+        // if (indicateStart) {
+        //     gc.transfer();
+        // }
         //get data from json file (google api)
         googleResults.firstTimeScrape(gc.category, gc.country).then(function successCallback(res) {
                 gc.dataListForGoogle = res.data;
@@ -99,6 +139,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
         var count = 0;
 
         gc.transfer = function() {
+            console.log('Start scraping');
             // console.log('the server is ' + navigator.onLine);
             if (angular.isDefined(stop)) {
                 return;
