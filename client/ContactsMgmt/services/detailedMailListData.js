@@ -2,7 +2,7 @@ app.factory('detailedMailListData', ['$http', function($http) {  
     var getMailListData = function(row) {
         return $http({
             method: 'POST',
-            url: '//10.4.145/api/mailinglist/getSubscriber',
+            url: '//10.4.1.145/api/mailinglist/getSubscriber',
             data: row
         })
     }

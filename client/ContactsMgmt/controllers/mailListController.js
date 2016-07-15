@@ -78,14 +78,14 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$mdMedia', '$windo
       "listName": mc.mailListName,
       "subscribers": 0
     };
-    var addStatus = $http.post("//10.4.145/api/contacts/mailingList", mailingList);
+    var addStatus = $http.post("//10.4.1.145/api/contacts/mailingList", mailingList);
     $window.location.reload();
   };
 
   //delete selected lists
   mc.deleteSelected = function() {
     var mailingLists = mc.gridApi.selection.getSelectedRows();
-    $http.put("//10.4.145/api/contacts/mailingList", mailingLists)
+    $http.put("//10.4.1.145/api/contacts/mailingList", mailingLists)
     .then(function successCallback(data){
         angular.forEach(mc.gridApi.selection.getSelectedRows(), function(data, index) {
             mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
@@ -105,7 +105,7 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$mdMedia', '$windo
       var obj = {};
       obj[colDef.name] = newValue;
       var editData = [rowEntity, obj]
-      var editStatus = $http.patch("//10.4.145/api/contacts/mailingList", editData);
+      var editStatus = $http.patch("//10.4.1.145/api/contacts/mailingList", editData);
       $window.location.reload();
     });
   };

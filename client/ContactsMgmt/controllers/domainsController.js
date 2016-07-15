@@ -61,7 +61,7 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
     var domain = {
       "domain": editedDomain
     };
-    var addStatus = $http.post("//10.4.145/api/contacts/blackList/domain", domain);
+    var addStatus = $http.post("//10.4.1.145/api/contacts/blackList/domain", domain);
     $window.location.reload();
   }
 
@@ -76,7 +76,7 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
     for (var x in dc.gridOptions.data) {
       if ((dc.gridOptions.data[x].domain === dc.selectedDeleteDomain)) {
         var domain = dc.gridOptions.data.splice(x, 1);
-        var deleteStatus = $http.put("//10.4.145/api/contacts/blackList/domain", domain[0]);
+        var deleteStatus = $http.put("//10.4.1.145/api/contacts/blackList/domain", domain[0]);
         $window.location.reload();
       }
     }
