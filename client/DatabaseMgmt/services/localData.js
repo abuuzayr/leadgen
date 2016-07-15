@@ -43,7 +43,7 @@ app.factory('localData', ['$http', function($http) {  
         deleteLocalLeads: deleteLocalLeads,
         editLocalLeads: editLocalLeads,
         importToLocal: importToLocal,
-        syncFromExternal: syncFromExternal
+        syncFromExternalLeads: syncFromExternalLeads
     }
 
 }]);

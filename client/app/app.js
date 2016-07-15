@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection', 'ui.grid.edit', 'ui.grid.autoResize', 'ui.grid.resizeColumns', 'ui.grid.importer', 'ngAnimate']);
+var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection', 'ui.grid.edit', 'ui.grid.autoResize', 'ui.grid.resizeColumns', 'ui.grid.importer', 'ngAnimate', 'ui.grid.exporter']);
 
 app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
     // $locationProvider.html5Mode({
@@ -92,4 +92,17 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         url: '/adminmanagement',
         templateUrl: 'UserMgmt/partial/userMgmtUsers.html'
     })
+
+    .state('externalDB', {
+            url: '/externalDatabase',
+            templateUrl: 'DatabaseMgmt/partial/externalDB.html'
+        })
+        .state('internalDB', {
+            url: '/internalDB',
+            templateUrl: 'DatabaseMgmt/partial/localDB.html'
+        })
+        .state('allDatabase', {
+            url: '/allDatabase',
+            templateUrl: 'DatabaseMgmt/partial/allDatabase.html'
+        })
 }]);
