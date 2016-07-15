@@ -1,6 +1,7 @@
 app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData', 'sendCountry', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval',
     function($scope, googleResults, ypResults, shareData, sendCountry, $http, uiGridConstants, $q, $location, $timeout, $interval) {
 
+        var gc = this;
         /* =========================================== Load animation =========================================== */
         var viewContentLoaded = $q.defer();
         $scope.$on('$viewContentLoaded', function() {
