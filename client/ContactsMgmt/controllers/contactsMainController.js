@@ -1,4 +1,4 @@
-app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'historyData', 'mailListData', 'contactsColumnData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', function($scope, $window, leadsData, historyData, mailListData, contactsColumnData, $http, $interval, uiGridConstants, $q, $location, $timeout, feedbackServices) {
+app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'leadsData', 'historyData', 'mailListData', 'contactsColumnData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', function($scope, $window, appConfig, leadsData, historyData, mailListData, contactsColumnData, $http, $interval, uiGridConstants, $q, $location, $timeout, feedbackServices) {
     
     var cc = this;
 
@@ -130,7 +130,8 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
         }],
         importerDataAddCallback: function(grid, newObjects) {
             cc.gridOptions.data = cc.gridOptions.data.concat(newObjects);
-            var importStatus = $http.post("//10.4.1.145/api/contacts/leadList/import", newObjects);
+            var url = "/contacts/leadList/import";
+            var importStatus = $http.post("API_URL" + url, newObjects);
             cc.addFeedback();
         },
         onRegisterApi: function(gridApi) {
@@ -142,7 +143,8 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
                 var obj = {};
                 obj[colDef.name] = newValue;
                 var editData = [rowEntity, obj];
-                var editStatus = $http.patch("//10.4.1.145/api/contacts/leadList/leads", editData);
+                var url = "/contacts/leadList/leads";
+                var editStatus = $http.patch("API_URL" + url, editData);
                 $window.location.reload();
             });
         }
@@ -206,7 +208,8 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
             "failure": 0,
             "history": '',
         };
-        var addStatus = $http.post("//10.4.1.145/api/contacts/leadList/leads", lead);
+        var url = "/contacts/leadList/leads";
+        var addStatus = $http.post("API_URL" + url, lead);
     };
 
     //delete selected leads
@@ -215,7 +218,8 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
             cc.gridOptions.data.splice(cc.gridOptions.data.lastIndexOf(data), 1);
         });
         var leads = cc.gridApi.selection.getSelectedRows();
-        var deleteStatus = $http.put("//10.4.1.145/api/contacts/leadList/leads", leads);
+        var url = "/contacts/leadList/leads";
+        var deleteStatus = $http.put("API_URL" + url, leads);
         $window.location.reload();
     };
 
@@ -246,7 +250,8 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
             field: lowerName,
             displayName: display
         };
-        var addStatus = $http.post("//10.4.1.145/api/contacts/leadList/fields", field);
+        var url = "/contacts/leadList/fields";
+        var addStatus = $http.post("API_URL" + url, field);
         $window.location.reload();
     };
 
@@ -263,7 +268,8 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
                 var fieldObj = {
                     field: fieldName
                 };
-                var deleteStatus = $http.put("//10.4.1.145/api/contacts/leadList/fields", fieldObj);
+                var url = "/contacts/leadList/fields";
+                var deleteStatus = $http.put("API_URL" + url, fieldObj);
                 $window.location.reload();
             }
         }
@@ -285,7 +291,8 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
             name: cc.listSelected
         }];
         console.log(obj);
-        var addStatus = $http.post("//10.4.1.145/api/contacts/mailingList/subscriber", obj);
+        var url = "/contacts/mailingList/subscriber";
+        var addStatus = $http.post("API_URL" + url, obj);
     };
 
     cc.removeDuplicateField = function() {
@@ -304,7 +311,8 @@ app.controller('contactsMainController', ['$scope', '$window', 'leadsData', 'his
         var fieldObj = {
             fieldName: field
         };
-        var removeStatus = $http.put("//10.4.1.145/api/contacts/leadList/leads/duplicates", fieldObj);
+        var url = "/contacts/leadList/leads/duplicates";
+        var removeStatus = $http.put("API_URL" + url, fieldObj);
         $window.location.reload();
     };
 
