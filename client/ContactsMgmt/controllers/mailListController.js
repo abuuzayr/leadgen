@@ -1,4 +1,4 @@
-app.controller('mailListController', ['$scope', '$mdDialog', '$mdMedia', '$window', 'mailListData', 'shareMailList', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $mdDialog, $mdMedia, $window, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('mailListController', ['$scope', 'appConfig', '$mdDialog', '$mdMedia', '$window', 'mailListData', 'shareMailList', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, appConfig, $mdDialog, $mdMedia, $window, mailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
   var mc = this;
 
@@ -78,14 +78,16 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$mdMedia', '$windo
       "listName": mc.mailListName,
       "subscribers": 0
     };
-    var addStatus = $http.post("//10.4.1.145/api/contacts/mailingList", mailingList);
+    var url = "/contacts/mailingList";
+    var addStatus = $http.post(appConfig.API_URL + url, mailingList);
     $window.location.reload();
   };
 
   //delete selected lists
   mc.deleteSelected = function() {
     var mailingLists = mc.gridApi.selection.getSelectedRows();
-    $http.put("//10.4.1.145/api/contacts/mailingList", mailingLists)
+    var url = "/contacts/mailingList";
+    $http.put(appConfig.API_URL + url, mailingLists)
     .then(function successCallback(data){
         angular.forEach(mc.gridApi.selection.getSelectedRows(), function(data, index) {
             mc.gridOptions.data.splice(mc.gridOptions.data.lastIndexOf(data), 1);
@@ -105,7 +107,8 @@ app.controller('mailListController', ['$scope', '$mdDialog', '$mdMedia', '$windo
       var obj = {};
       obj[colDef.name] = newValue;
       var editData = [rowEntity, obj]
-      var editStatus = $http.patch("//10.4.1.145/api/contacts/mailingList", editData);
+      var url = "/contacts/mailingList";
+      var editStatus = $http.patch(appConfig.API_URL + url, editData);
       $window.location.reload();
     });
   };

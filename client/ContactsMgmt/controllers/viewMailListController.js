@@ -1,4 +1,4 @@
-app.controller('viewMailListController', ['$scope', '$window', 'detailedMailListData', 'shareMailList', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $window, detailedMailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'detailedMailListData', 'shareMailList', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, appConfig, $window, detailedMailListData, shareMailList, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
   var vmc = this;
 
@@ -138,7 +138,8 @@ app.controller('viewMailListController', ['$scope', '$window', 'detailedMailList
       vmc.gridOptions.data.splice(vmc.gridOptions.data.lastIndexOf(data), 1);
     });
     var leads = $vmc.gridApi.selection.getSelectedRows();
-    var deleteStatus = $http.put("//10.4.1.145/api/contacts/mailingList/subscriber", leads);
+    var url = "/contacts/mailingList/subscriber";
+    var deleteStatus = $http.put(appConfig.API_URL + url, leads);
     $window.location.reload();
   };
 

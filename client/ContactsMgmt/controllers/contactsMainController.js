@@ -131,7 +131,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         importerDataAddCallback: function(grid, newObjects) {
             cc.gridOptions.data = cc.gridOptions.data.concat(newObjects);
             var url = "/contacts/leadList/import";
-            var importStatus = $http.post("API_URL" + url, newObjects);
+            var importStatus = $http.post(appConfig.API_URL + url, newObjects);
             cc.addFeedback();
         },
         onRegisterApi: function(gridApi) {
@@ -144,7 +144,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
                 obj[colDef.name] = newValue;
                 var editData = [rowEntity, obj];
                 var url = "/contacts/leadList/leads";
-                var editStatus = $http.patch("API_URL" + url, editData);
+                var editStatus = $http.patch(appConfig.API_URL + url, editData);
                 $window.location.reload();
             });
         }
@@ -209,7 +209,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             "history": '',
         };
         var url = "/contacts/leadList/leads";
-        var addStatus = $http.post("API_URL" + url, lead);
+        var addStatus = $http.post(appConfig.API_URL + url, lead);
     };
 
     //delete selected leads
@@ -220,7 +220,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         var leads = cc.gridApi.selection.getSelectedRows();
         var url = "/contacts/leadList/leads";
         var deleteStatus = $http.put(appConfig.API_URL + url, leads);
-        console.log(deleteStatus);
+        $window.location.reload();
         
     };
 
@@ -252,7 +252,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             displayName: display
         };
         var url = "/contacts/leadList/fields";
-        var addStatus = $http.post("API_URL" + url, field);
+        var addStatus = $http.post(appConfig.API_URL + url, field);
         $window.location.reload();
     };
 
@@ -270,7 +270,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
                     field: fieldName
                 };
                 var url = "/contacts/leadList/fields";
-                var deleteStatus = $http.put("API_URL" + url, fieldObj);
+                var deleteStatus = $http.put(appConfig.API_URL + url, fieldObj);
                 $window.location.reload();
             }
         }
@@ -293,7 +293,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         }];
         console.log(obj);
         var url = "/contacts/mailingList/subscriber";
-        var addStatus = $http.post("API_URL" + url, obj);
+        var addStatus = $http.post(appConfig.API_URL + url, obj);
     };
 
     cc.removeDuplicateField = function() {
@@ -313,7 +313,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             fieldName: field
         };
         var url = "/contacts/leadList/leads/duplicates";
-        var removeStatus = $http.put("API_URL" + url, fieldObj);
+        var removeStatus = $http.put(appConfig.API_URL + url, fieldObj);
         $window.location.reload();
     };
 
