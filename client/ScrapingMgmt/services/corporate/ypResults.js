@@ -1,8 +1,8 @@
-app.factory('ypResults', ['$http', function($http) {
+app.factory('ypResults', ['$http', 'appConfig', function($http, appConfig) {
     var scrapeYellowPageLeads = function(category) {
         return $http({
             method: 'GET',
-            url: '//10.4.1.145/api/corporate/scrape/yp/' + category
+            url: appConfig.API_URL + '/corporate/scrape/yp/' + category
         });
     }
 

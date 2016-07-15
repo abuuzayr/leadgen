@@ -1,4 +1,4 @@
-app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blackLeadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $window, domainsData, blackLeadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('blackListController', ['$scope', 'appConfig', '$window', 'domainsData', 'blackLeadsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, appConfig, $window, domainsData, blackLeadsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
   var bc = this;
 
@@ -110,7 +110,8 @@ app.controller('blackListController', ['$scope', '$window', 'domainsData', 'blac
       bc.gridOptions.data.splice(bc.gridOptions.data.lastIndexOf(data), 1);
     });
     var leads = bc.gridApi.selection.getSelectedRows();
-    var deleteStatus = $http.put("//10.4.1.145/api/contacts/blackList", leads);
+    var url = "/contacts/blackList";
+    var deleteStatus = $http.put(appConfig.API_URL + url, leads);
     $window.location.reload();
   }
 

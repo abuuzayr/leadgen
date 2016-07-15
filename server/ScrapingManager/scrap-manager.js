@@ -157,7 +157,7 @@ var ScrapManager = {
   },
   scrapCorporateYellowPage: function(type) {
     return new Promise(function(resolve, reject) {
-      dbHandler.dbQuerySA('data', {type:1, category:type})
+      dbHandler.dbQuerySA('local', {type:1, category:type})
         .then(function(results) {
           for(var i=0;i<results.length;i++){
             results[i].origin = 2;
@@ -171,7 +171,7 @@ var ScrapManager = {
   },
   scrapConsumerYellowPage: function(type) {
     return new Promise(function(resolve, reject) {
-      dbHandler.dbQuerySA('data', {
+      dbHandler.dbQuerySA('local', {
           category: type,
           type : 2
         })

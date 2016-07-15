@@ -1,9 +1,9 @@
-app.factory('consumerLeads', ['$http', function($http) { 
+app.factory('consumerLeads', ['$http', 'appConfig', function($http, appConfig) { 
   
     var getConsumerLeads = function(category) {
         return $http({
             method: 'GET',
-            url: '//10.4.1.145/api/consumer/scrape/yp/:' + category
+            url: appConfig.API_URL + '/consumer/scrape/yp/:' + category
         });
     }
 

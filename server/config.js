@@ -106,7 +106,7 @@ module.exports = {
   }],
   getDbUri : function(userID){
     if(userID === null)
-      return 'mongodb://localhost:27017/scrapeDB';
+      return 'mongodb://localhost:27017/s_admin';
     else
       return 'mongodb://localhost:27017/' + userID;
   }

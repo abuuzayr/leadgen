@@ -12,7 +12,7 @@ var databaseManager = {
       .then(function(results){
         var promiseArr=[];
         for(var i=0;i<results.length;i++){
-          if(results[i].name != 'scrapeDB')
+          if(results[i].name != 's_admin')
             promiseArr.push(dbHandler.dbQuery('leadList',{origin : 1},results[i].name));
         }
         return Promise.all(promiseArr);
@@ -34,10 +34,10 @@ var databaseManager = {
 
     });
   },
-  updateScrapeData : function(obj){
+/*  updateScrapeData : function(obj){
     return new Promise(function(resolve,reject){
       var promiseArr= [];
-      dbHandler.dbQuerySA('data',null)
+      dbHandler.dbQuerySA('local',null)
       .then(function(data){
         if(data.length > 0){
           return dbHandler.dbDropCollection('data',null);
@@ -58,7 +58,7 @@ var databaseManager = {
         reject(500);
       });
     });
-  }
+  }*/
  
 };
 

@@ -1,4 +1,4 @@
-app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, $window, domainsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
+app.controller('domainsController', ['$scope', 'appConfig', '$window', 'domainsData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', function($scope, appConfig, $window, domainsData, $http, $interval, uiGridConstants, $q, $location, $timeout) {
 
   var dc = this;
 
@@ -61,7 +61,8 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
     var domain = {
       "domain": editedDomain
     };
-    var addStatus = $http.post("//10.4.1.145/api/contacts/blackList/domain", domain);
+    var url = "/contacts/blackList/domain";
+    var addStatus = $http.post(appConfig.API_URL + url, domain);
     $window.location.reload();
   }
 
@@ -76,7 +77,8 @@ app.controller('domainsController', ['$scope', '$window', 'domainsData', '$http'
     for (var x in dc.gridOptions.data) {
       if ((dc.gridOptions.data[x].domain === dc.selectedDeleteDomain)) {
         var domain = dc.gridOptions.data.splice(x, 1);
-        var deleteStatus = $http.put("//10.4.1.145/api/contacts/blackList/domain", domain[0]);
+        var url = "/contacts/blackList/domain";
+        var deleteStatus = $http.put(appConfig.API_URL + url, domain[0]);
         $window.location.reload();
       }
     }

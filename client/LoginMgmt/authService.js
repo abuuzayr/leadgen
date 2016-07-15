@@ -5,9 +5,9 @@
         .module("app")
         .factory("authServices", authServices)
 
-    authServices.$inject = ['appConstant', 'feedbackServices', '$http', '$window', '$state', '$location', '$cookies'];
+    authServices.$inject = ['appConfig', 'feedbackServices', '$http', '$window', '$state', '$location'];
 
-    function authServices(appConfig, feedbackServices, $state, $location, $cookies) {
+    function authServices(appConfig, feedbackServices, $http, $window, $state, $location) {
         var service = {
             login: login,
             logout: logout,
@@ -19,7 +19,7 @@
         return service;
 
         function login(email, password) {
-            return $http.post(appConstant.API_URL + '/auth/admin', {
+            return $http.post(API_URL + '/auth/admin', {
                     email: email,
                     password: password
                 })
