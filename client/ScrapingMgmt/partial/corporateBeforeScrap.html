@@ -1,5 +1,5 @@
 <br>
-<div ng-controller="googleController as gc">
+<div ng-controller="beforeScrapeController as beforeCorporate">
     <ul class="nav nav-tabs">
         <li class="active"><a ui-sref="corporate" data-toggle="tab">Corporate</a></li>
         <li><a ui-sref="consumer" data-toggle="tab">Consumer</a></li>
@@ -11,7 +11,7 @@
                 <h3>Scrap By:</h3>
                 <br>
 
-                <select class="form-control" id="category" ng-model='gc.category' ng-change="gc.continueScraping()">
+                <select class="form-control" id="category" ng-model='beforeCorporate.category' ng-change="beforeCorporate.continueScraping()">
                   <option>Agriculture & Livestock</option>
                   <option>Automotive & Transport</option>
                   <option>Banking & Finance</option>
@@ -38,63 +38,20 @@
                 </select>
                 <br>
 
-                <select class="form-control" id="country" ng-model='gc.country'>
-                    <option ng-repeat="country in gc.listOfCountry">{{country}}</option>
+                <select class="form-control" id="country" ng-model='beforeCorporate.country'>
+                    <option ng-repeat="country in beforeCorporate.listOfCountry">{{country}}</option>
                 </select>
                 <br>
 
-                <!--<a ui-sref=".corporateStartScrap">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="gc.showScrapeAfterClick()" ng-disabled="gc.continue">
+                <a ui-sref=".corporateStartScrap">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="beforeCorporate.setInput()" ng-disabled="beforeCorporate.continue">
                         Proceed to Scrape
                     </button>
-                </a>-->
-
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="gc.showScrapeAfterClick(); gc.transfer()" ng-disabled="gc.continue">
-                    Proceed to Scrape
-                </button>
-            </div>
-        </form>
-        <!--<div ui-view></div>-->
-        <div ng-show="gc.showScrape">
-            <br>
-            <h3> <div ng-show="gc.spinner" class="mdl-spinner mdl-js-spinner is-active"></div> {{gc.numScrap}} Leads Scraped...</h3>
-            <div id="grid2" ui-grid="gc.gridOptions" class="grid"></div>
-
-            <br>
-            <div class='controlButtons'>
-                <!-- Colored mini FAB button -->
-                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.transfer(); gc.playStatus()" ng-disabled="gc.pressStop">
-        <i class="material-icons">play_arrow</i>
-      </button>
-
-                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.pauseScraping(); gc.pauseStatus()" ng-disabled="gc.pressStop">
-        <i class="material-icons">pause</i>
-      </button>
-
-                <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="gc.stopScraping(); gc.showFunction(); gc.stopStatus()">
-        <i class="material-icons">stop</i>
-      </button>
-
-                <!-- Raised button -->
-                <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="gc.showResult">
-        Scraping Stopped
-      </button>
-
-                <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="gc.status">
-        Scraping Stopped. There is no Internet Connection
-      </button>
-
-                <!-- Colored raised button -->
-                <!--<div class='resultButton'>-->
-                <a ui-sref="corporateResults">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-show="gc.showResult">
-        View Results
-        </button>
                 </a>
             </div>
-        </div>
+        </form>
+        <div ui-view></div>
         <br>
         <br>
     </div>
-</div>
 </div>

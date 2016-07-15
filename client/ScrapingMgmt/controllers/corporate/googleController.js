@@ -14,31 +14,6 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             }, 0);
         });
 
-        /* =========================================== Before Scrape =========================================== */
-        var gc = this;
-
-        gc.category = "";
-        gc.country = "Singapore";
-
-        gc.listOfCountry;
-        //get country data
-        sendCountry.success(function(data) {
-            gc.listOfCountry = data;
-        });
-
-        // gc.setInput = function() {
-        //     shareInput.setCategory(gc.category);
-        //     shareInput.setCountry(gc.country);
-        // }
-
-        // for disable button for 'proceed to scrape'
-        gc.continue = true;
-        gc.continueScraping = function() {
-            if (angular.isDefined(gc.category)) {
-                gc.continue = false;
-            }
-        }
-
         /* =========================================== Scrape =========================================== */
 
         gc.gridOptions = {
@@ -103,8 +78,8 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
         }
 
         //get user input
-        // gc.category = shareInput.getCategory();
-        // gc.country = shareInput.getCountry();
+        gc.category = shareInput.getCategory();
+        gc.country = shareInput.getCountry();
 
         gc.dataListForGoogle = [];
         gc.dataListForYP = [];
@@ -112,19 +87,15 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
         gc.numScrap = 0;
         gc.messageNoScrap = "No more websites available";
 
-        //get toStart
-        // var indicateStart = shareInput.getStart();
 
-        // if (indicateStart) {
-        //     gc.transfer();
-        // }
         //get data from json file (google api)
         googleResults.firstTimeScrape(gc.category, gc.country).then(function successCallback(res) {
+                console.log('first time scrape')
                 gc.dataListForGoogle = res.data;
-
             }),
             function errorCallback(err) {
                 // console.log('err is ' + err);
+                console.log('error for first time scrape');
             };
 
         ypResults.scrapeYellowPageLeads(gc.category).then(function successCallback(res) {
