@@ -1,5 +1,5 @@
-app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData', 'sendCountry', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval',
-    function($scope, googleResults, ypResults, shareData, sendCountry, $http, uiGridConstants, $q, $location, $timeout, $interval) {
+app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'shareData', 'sendCountry', '$http', 'uiGridConstants', '$q', '$location', '$timeout', '$interval', 'shareInput',
+    function($scope, googleResults, ypResults, shareData, sendCountry, $http, uiGridConstants, $q, $location, $timeout, $interval, shareInput) {
 
         var gc = this;
         /* =========================================== Load animation =========================================== */
