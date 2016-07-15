@@ -219,7 +219,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         });
         var leads = cc.gridApi.selection.getSelectedRows();
         var url = "/contacts/leadList/leads";
-        var deleteStatus = $http.put(API_URL + url, leads);
+        var deleteStatus = $http.put(appConfig.API_URL + url, leads);
         console.log(deleteStatus);
         
     };
