@@ -138,7 +138,7 @@ app.controller('viewMailListController', ['$scope', '$window', 'detailedMailList
       vmc.gridOptions.data.splice(vmc.gridOptions.data.lastIndexOf(data), 1);
     });
     var leads = $vmc.gridApi.selection.getSelectedRows();
-    var deleteStatus = $http.put("http://10.4.1.145:8080/api/contacts/mailingList/subscriber", leads);
+    var deleteStatus = $http.put("http://10.4.1.145/api/contacts/mailingList/subscriber", leads);
     $window.location.reload();
   };
 
