@@ -1,10 +1,10 @@
 //send results to backend
-app.factory('sendResults', ['$http', function($http) {
+app.factory('sendResults', ['$http', 'appConfig', function($http, appConfig) {
 
     var sendLeads = function(resultsToSend) {
         return $http({
             method: 'POST',
-            url: '//10.4.1.145/api/scrape/',
+            url: appConfig.API_URL + '/scrape/',
             data: resultsToSend
         });
     }

@@ -1,5 +1,5 @@
-app.factory('domainsData', ['$http', function($http) {  
-    return $http.get('//10.4.1.145/api/contacts/blackList/domain')  .success(function(data) {    
+app.factory('domainsData', ['$http', 'appConfig', function($http, appConfig) {  
+    return $http.get(appConfig.API_URL + '/contacts/blackList/domain')  .success(function(data) {    
         return data;    
     }) .error(function(err) {        
         return err;    

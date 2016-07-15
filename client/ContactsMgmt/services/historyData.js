@@ -1,8 +1,8 @@
-app.factory('historyData', ['$http', function($http) {
+app.factory('historyData', ['$http', 'appConfig', function($http, appConfig) {
     var getHistory = function(fieldID) {
         return $http({
             method: 'GET',
-            url: '//10.4.1.145/api/contacts/leadList/leads/' + fieldID
+            url: appConfig.API_URL + '/contacts/leadList/leads/' + fieldID
         })
     }
     return {
