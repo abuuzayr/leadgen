@@ -4,7 +4,7 @@ app.factory('sendResults', ['$http', function($http) {
     var sendLeads = function(resultsToSend) {
         return $http({
             method: 'POST',
-            url: 'http://10.4.1.145/api/scrape/',
+            url: '//10.4.145/api/scrape/',
             data: resultsToSend
         });
     }
