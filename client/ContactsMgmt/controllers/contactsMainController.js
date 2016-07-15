@@ -221,7 +221,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         var url = "/contacts/leadList/leads";
         var deleteStatus = $http.put("API_URL" + url, leads);
         console.log(deleteStatus);
-        $window.location.reload();
+        
     };
 
     // add field
