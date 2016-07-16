@@ -38,17 +38,13 @@ dbMgmtRouter.route('/dbmgmt/all')
     if(!Array.isArray(req.body))
       res.sendStatus(400);
     else{
-      var promiseArr = [];
+     var promiseArr = [];
       for(var i=0;i<req.body.length;i++){
-        var obj = req.body[i];
-        if(obj._id !== undefined)
-          obj._id = new mongodb.ObjectID(obj._id);
+        promiseArr.push(dbHandler.dbDeleteSA('external',req.body[i]));
+        promiseArr.push(dbHandler.dbDeleteSA('local',req.body[i]));
       }
-      dbHandler.dbDeleteSA('local',req.body)
-      .then(function(success1){
-        return dbHandler.dbDeleteSA('external',req.body);
-      })
-      .then(function(success2){
+      Promise.all(promiseArr)
+      .then(function(success){
         res.sendStatus(200);
       }) 
       .catch(function(error){

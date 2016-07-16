@@ -369,6 +369,7 @@ var dbHandler = {
       console.log('deleting items from super admin database');
       var dbURL = config.getDbUri(null);
       MongoClient.connect(dbURL, function(err, db) {
+        console.log(err);
         if (err !== null)
           reject(500);
         else {
@@ -376,6 +377,7 @@ var dbHandler = {
             obj._id = new mongodb.ObjectID(obj._id);
           var col = db.collection(collectionName);
           col.deleteOne(obj, function(err, results) {
+            console.log(err);
             if (err !== null)
               reject(500);
             else {
