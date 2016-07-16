@@ -103,6 +103,12 @@ app.controller('externalDatabaseController', ['$scope', '$http', 'externalData',
         externalData.deleteExternalLeads(selectedLeadsToDelete);
     }
 
+    //update external database
+    ed.updateExternal = function() {
+
+        externalData.updateExternalLeads();
+    }
+
     //Open popup dialog box
     ed.openDialog = function(dialogName) {
         var dialog = document.querySelector('#' + dialogName);

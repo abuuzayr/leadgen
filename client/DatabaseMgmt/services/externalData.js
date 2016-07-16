@@ -1,16 +1,16 @@
 // get data from external 
-app.factory('externalData', ['$http', function($http) { 
+app.factory('externalData', ['$http', 'appConfig', function($http, appConfig) { 
     var getExternalLeads = function() {
         return $http({
             method: 'GET',
-            url: 'DatabaseMgmt/testFiles/externalData.json'
+            url: appConfig.API_URL + '/dbmgmt/external/'
         });
     }
 
     var deleteExternalLeads = function(leadsToDelete) {
         return $http({
             method: 'PUT',
-            url: '',
+            url: appConfig.API_URL + '/dbmgmt/external/',
             data: leadsToDelete
         });
     }
@@ -18,15 +18,23 @@ app.factory('externalData', ['$http', function($http) { 
     var editExternalLeads = function(leadsToEdit) {
         return $http({
             method: 'PATCH',
-            url: '',
+            url: appConfig.API_URL + '/dbmgmt/external',
             data: leadsToEdit
+        });
+    }
+
+    var updateExternalLeads = function() {
+        return $http({
+            method: 'GET',
+            url: appConfig.API_URL + '/dbmgmt/external/update'
         });
     }
 
     return {
         getExternalLeads: getExternalLeads,
         deleteExternalLeads: deleteExternalLeads,
-        editExternalLeads: editExternalLeads
+        editExternalLeads: editExternalLeads,
+        updateExternalLeads : updateExternalLeads
     }
 
 }]);

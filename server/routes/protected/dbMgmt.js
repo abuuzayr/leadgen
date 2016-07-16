@@ -6,16 +6,27 @@ var express = require('express'),
 
 var dbMgmtRouter = express.Router();
 
-dbMgmtRouter.route('dbmgmt/all')
+dbMgmtRouter.use('/',function(req,res,next){
+  console.log('welcome to database management');
+  next();
+});
+
+dbMgmtRouter.route('/dbmgmt/all')
   .get(function(req,res){
     var leads = [];
     dbHandler.dbQuerySA('local',null)
     .then(function(localLeads){
-      leads = localLeads;
+
+      for(var i in localLeads)
+        leads.push(localLeads[i]);
+
       return dbHandler.dbQuerySA('external',null);
     })
     .then(function(externalLeads){
-      leads.concat(externalLeads);
+
+      for(var i in externalLeads)
+        leads.push(externalLeads[i]);
+
       res.json(leads);
     })
     .catch(function(error){
@@ -23,6 +34,7 @@ dbMgmtRouter.route('dbmgmt/all')
     });
   })
   .put(jsonParser,function(req,res){
+    console.log('deleting contacts');
     if(!Array.isArray(req.body))
       res.sendStatus(400);
     else{
@@ -58,27 +70,38 @@ dbMgmtRouter.route('/dbmgmt/local')
     });
   })
   .put(jsonParser,function(req,res){
+    console.log('deleting local contacts');
+    console.log(req.body);
     if(!Array.isArray(req.body))
       res.sendStatus(400);
     else{
+      var promiseArr = [];
       for(var i in req.body){
-        if(req.body[i]._id !== undefined)
-          req.body[i]._id = new mongodb.ObjectID(req.body[i]._id);
+          promiseArr.push(dbHandler.dbDeleteSA('local',req.body[i]));
       }
-      dbHandler.dbDeleteSA('local',req.body)
+      Promise.all(promiseArr)
       .then(function(success){
-        res.sendStatus(success);
+        res.sendStatus(200);
       })
       .catch(function(fail){
-        res.sendStatus(fail);
+        res.sendStatus(500);
       });
     }
   })
   .post(jsonParser,function(req,res){
-    if(!Array.isArray(req.body))
+    console.log(req.body);
+    if(!Array.isArray(req.body.data))
       res.sendStatus(400);
     else{
-      dbHandler.dbInsertSA('local',req.body)
+      for(var i in req.body.data){
+          if(req.body.type == 'corporate')
+            req.body.data[i].type = 1;
+          else
+            req.body.data[i].type = 2;
+
+          console.log(req.body.data[i]);
+      }
+      dbHandler.dbInsertSA('local',req.body.data)
       .then(function(success){
         res.sendStatus(success);
       })
@@ -104,26 +127,24 @@ dbMgmtRouter.route('/dbmgmt/local')
     }
   });
 
-dbMgmtRouter.post('/dbmgmt/local/import',function(req,res){
-  if(!Array.isArray(req.body))
-    res.sendStatus(400); 
-  else{
-    dbHandler.dbQuerySA('external',null)
-    .then(function(externalLeads){
-     return dbHandler.dbInsertSA('local',req.body); 
-    })
-    .then(function(success){
-      res.sendStatus(success);
-    })
-    .catch(function(error){
-      res.sendStatus(error);
-    });
-  } 
+dbMgmtRouter.get('/dbmgmt/local/import',function(req,res){
+
+  dbHandler.dbQuerySA('external',null)
+  .then(function(externalLeads){
+   return dbHandler.dbInsertSA('local',externalLeads); 
+  })
+  .then(function(success){
+    res.sendStatus(success);
+  })
+  .catch(function(error){
+    res.sendStatus(error);
+  });
+
 });
 
 
 
-dbMgmtRouter.route('./dbmgmt/external')
+dbMgmtRouter.route('/dbmgmt/external')
   .get(function(req,res){
     dbHandler.dbQuerySA('external',null)
     .then(function(externalLeads){
@@ -137,16 +158,16 @@ dbMgmtRouter.route('./dbmgmt/external')
     if(!Array.isArray(req.body))
       res.sendStatus(400);
     else{
+      var promiseArr = [];
       for(var i in req.body){
-        if(req.body[i]._id !== undefined)
-          req.body[i]._id = new mongodb.ObjectID(req.body[i]._id);
+        promiseArr.push(dbHandler.dbDeleteSA('external',req.body[i]));
       }
-      dbHandler.dbDeleteSA('external',req.body)
+      Promise.all(promiseArr)
       .then(function(success){
-        res.sendStatus(success);
+        res.sendStatus(200);
       })
       .catch(function(fail){
-        res.sendStatus(fail);
+        res.sendStatus(500);
       });
     }
   })
@@ -182,7 +203,10 @@ dbMgmtRouter.get('/dbmgmt/external/update',function(req,res){
     return dbHandler.dbInsertSA('external',leads);
   })
   .then(function(success2){
-    res.sendStatus(success2);
+    return dbHandler.dbQuerySA('external',null);
+  })
+  .then(function(newLeads){
+    res.json(newLeads);
   })
   .catch(function(error){
     res.sendStatus(error);

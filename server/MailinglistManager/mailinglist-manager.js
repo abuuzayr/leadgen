@@ -77,7 +77,7 @@ var MailinglistManager = {
 				success: 0,
 				failure: 0,
 				history: null,
-				type: null,
+				type: 2,
 				category: null,
 				origin: 1,
 				phone: null

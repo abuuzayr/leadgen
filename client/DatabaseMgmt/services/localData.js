@@ -1,15 +1,15 @@
-app.factory('localData', ['$http', function($http) {  
+app.factory('localData', ['$http', 'appConfig', function($http, appConfig) {  
     var getLocalLeads = function() {
         return $http({
             method: 'GET',
-            url: 'DatabaseMgmt/testFiles/localData.json'
+            url: appConfig.API_URL + '/dbmgmt/local'
         });
     }
 
     var deleteLocalLeads = function(leadsToDelete) {
         return $http({
             method: 'PUT',
-            url: '',
+            url: appConfig.API_URL + '/dbmgmt/local',
             data: leadsToDelete
         })
     }
@@ -17,7 +17,7 @@ app.factory('localData', ['$http', function($http) {  
     var editLocalLeads = function(leadsToEdit) {
         return $http({
             method: 'PATCH',
-            url: '',
+            url: appConfig.API_URL + '/dbmgmt/local',
             data: leadsToEdit
         });
     }
@@ -26,15 +26,15 @@ app.factory('localData', ['$http', function($http) {  
     var importToLocal = function(importData) {
         return $http({
             method: 'POST',
-            url: '',
+            url: appConfig.API_URL + '/dbmgmt/local',
             data: importData
         });
     }
 
     var syncFromExternalLeads = function() {
         return $http({
-            method: 'POST',
-            url: '',
+            method: 'GET',
+            url: appConfig.API_URL + '/dbmgmt/local/import',
         });
     }
 
