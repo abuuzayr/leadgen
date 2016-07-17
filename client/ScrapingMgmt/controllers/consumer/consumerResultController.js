@@ -74,10 +74,10 @@ app.controller('consumerResultController', ['$scope', 'consumerShareData', 'send
 
     // if none selected, save all
     if (dataToContacts.length === 0) {
-        myJsonString = JSON.stringify(cr.gridOptions.data);
+        myJsonString = angular.toJson(cr.gridOptions.data);
     } else {
       //save the selected contacts
-      myJsonString = JSON.stringify(dataToContacts);
+      myJsonString = angular.toJson(dataToContacts);
     }
 
     sendResults.sendLeads(myJsonString).then(function successCallback(res) {
