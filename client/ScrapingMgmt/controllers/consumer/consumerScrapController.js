@@ -112,7 +112,11 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
                         gc.pauseScraping();
                         showInternet(navigator.onLine);
 
-                    } else {
+                    }else{
+                        cs.stopScraping();
+                        cs.showFunction();
+                    }
+/*                    else {
                         // console.log('continue scraping');
                         consumerLeads.getConsumerLeads(cs.category).then(function successCallback(res) {
                                 if (angular.isDefined(res.data.status)) {
@@ -130,7 +134,7 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
                                 //show the 'view results' button
                                 cs.showFunction();
                             };
-                    }
+                    }*/
                 }, 2000);
             };
         }
