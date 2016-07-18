@@ -155,12 +155,13 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         $window.location.reload();
     };
 
+    cc.fields = [];
     //Get columndefs
     contactsColumnData.success(function(data) {
         console.log(data);
-        cc.fields = data;
         for (var x of data) {
             cc.gridOptions.columnDefs.push(x);
+            cc.fields.push(x);
         }
     });
 
