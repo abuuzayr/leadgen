@@ -3,11 +3,15 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
 
         var vm = this;
         vm.toShow = {};
+        var getCookie;
 
-        var getCookie = $cookies.get('userTypeCookie');
-        vm.type = getCookie.userType;
-        console.log('test cookie');
-        console.log(vm.type);
+        getCookie = $cookies.get('userTypeCookie');
+        if (angular.isDefined(getCookie)) {
+            vm.type = getCookie.userType;
+            console.log('test cookie');
+            console.log(vm.type);
+        }
+
 
         vm.update = function() {
             vm.type = $cookies.get('type');

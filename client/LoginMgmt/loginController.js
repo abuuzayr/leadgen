@@ -130,6 +130,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
             return successFeedback('Logged in')
                 .then($http.get(API_URL + '/auth/'))
                 .then(function(res) {
+
                     $state.go('home');
                 })
                 .catch(function(err) {
