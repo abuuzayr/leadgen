@@ -248,15 +248,21 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         var lowerName = editedField.toLowerCase();
         cc.gridOptions.columnDefs.push({
             field: lowerName,
-            displayName: display
+            displayName: display,
+            minWidth: 80,
+            width: 200
         });
         cc.fields.push({
             field: lowerName,
-            displayName: display
+            displayName: display,
+            minWidth: 80,
+            width: 200
         });
         var field = {
             field: lowerName,
-            displayName: display
+            displayName: display,
+            minWidth: 80,
+            width: 200
         };
         var url = "/contacts/leadList/fields";
         var addStatus = $http.post(appConfig.API_URL + url, field);
