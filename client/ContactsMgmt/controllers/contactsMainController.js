@@ -156,6 +156,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
     };
 
     cc.fields = [];
+    cc.fields.push({
+            field: "Qiwen",
+            displayName: "Gru"
+        });
     //Get columndefs
     contactsColumnData.success(function(data) {
         console.log(data);
