@@ -6,10 +6,7 @@ var express = require('express'),
 
 var dbMgmtRouter = express.Router();
 
-dbMgmtRouter.use('/',function(req,res,next){
-  console.log('welcome to database management');
-  next();
-});
+
 
 dbMgmtRouter.route('/dbmgmt/all')
   .get(function(req,res){
@@ -127,7 +124,8 @@ dbMgmtRouter.get('/dbmgmt/local/import',function(req,res){
 
   dbHandler.dbQuerySA('external',null)
   .then(function(externalLeads){
-   return dbHandler.dbInsertSA('local',externalLeads); 
+    console.log(externalLeads);
+    return dbHandler.dbInsertSA('local',externalLeads); 
   })
   .then(function(success){
     res.sendStatus(success);

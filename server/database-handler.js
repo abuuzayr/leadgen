@@ -366,10 +366,8 @@ var dbHandler = {
 
   dbDeleteSA : function(collectionName,obj){
     return new Promise(function(resolve, reject) {
-      console.log('deleting items from super admin database');
       var dbURL = config.getDbUri(null);
       MongoClient.connect(dbURL, function(err, db) {
-        console.log(err);
         if (err !== null)
           reject(500);
         else {
@@ -377,7 +375,6 @@ var dbHandler = {
             obj._id = new mongodb.ObjectID(obj._id);
           var col = db.collection(collectionName);
           col.deleteOne(obj, function(err, results) {
-            console.log(err);
             if (err !== null)
               reject(500);
             else {
@@ -427,6 +424,7 @@ var dbHandler = {
     return new Promise(function(resolve, reject) {
       var dbURL = config.getDbUri(null);
       MongoClient.connect(dbURL, function(err, db) {
+        console.log(err);
         if (err !== null){
           reject(500);
         }
@@ -434,13 +432,12 @@ var dbHandler = {
           // if (obj._id !== undefined)
           //   delete obj._id;
           for(var i=0;i<obj.length;i++){
-            if(obj._id !== undefined)
               delete obj[i]._id;
           }
           
           var col = db.collection(collectionName);
           col.insertMany(obj, function(err, r) {
-
+            console.log(err);
             if (err !==   null) {
               reject(500);
             } else {

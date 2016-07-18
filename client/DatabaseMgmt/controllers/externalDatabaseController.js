@@ -1,4 +1,4 @@
-app.controller('externalDatabaseController', ['$scope', '$http', 'externalData', 'uiGridConstants', '$q', '$location', '$timeout', 'sendDataToLocal', function($scope, $http, externalData, uiGridConstants, $q, $location, $timeout, sendDataToLocal) {
+app.controller('externalDatabaseController', ['$scope','$window' ,'$http', 'externalData', 'uiGridConstants', '$q', '$location', '$timeout', 'sendDataToLocal', function($scope, $window ,$http, externalData, uiGridConstants, $q, $location, $timeout, sendDataToLocal) {
     var ed = this;
 
     ed.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
@@ -122,6 +122,10 @@ app.controller('externalDatabaseController', ['$scope', '$http', 'externalData',
     ed.closeDialog = function(dialogName) {
         var dialog = document.querySelector('#' + dialogName);
         dialog.close();
+    };
+
+    ed.refresh = function() {
+        $window.location.reload();
     };
 
 }])

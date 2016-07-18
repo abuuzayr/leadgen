@@ -9,6 +9,7 @@
   MailinglistManager = require('../../MailinglistManager/mailinglist-manager'),
   MailchimpManager = require('../../MailchimpManager/syncContacts');
 
+ var index = 0; 
 /*
   //ACCESS CONTROL
   leadfinderRouter.use('*',http403.verifyAccess('usermgmt'));
