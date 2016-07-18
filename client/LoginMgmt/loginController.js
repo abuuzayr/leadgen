@@ -11,7 +11,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
     var MIN_PASSWORD_LENGTH = appConfig.MIN_PASSWORD_LENGTH;
     var AUTH_URL = appConfig.AUTH_URL;
     var FP_URL = appConfig.FP_URL;
-    var URL = 'http://10.4.1.145/api/cookie/getCookie'
+    var API_URL = appConfig.API_URL;
 
     vm.loginEmail = '';
     vm.password = '';
@@ -121,22 +121,20 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
         $http.post(AUTH_URL, {
                 email: email,
                 password: password,
-                origin: 'bulletform.com'
+                origin: 'bulletleads.com'
             })
             .then(SuccessCallback)
             .catch(ErrorCallback);
 
         function SuccessCallback(res) {
-            $http.post(URL, {
-                    data: res
+            return successFeedback('Logged in')
+                .then($http.get(API_URL + '/auth/'))
+                .then(function(res) {
+                    $state.go('home');
                 })
-                .then(SecondSuccess)
-                .catch(ErrorCallback);
-        }
-
-        function secondSuccess(res) {
-            successFeedback('Logged in');
-            $state.go('home');
+                .catch(function(err) {
+                    errorFeedback('Login blocked by app server');
+                });
         }
 
         function ErrorCallback(err) {
@@ -147,7 +145,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
     function sendEmail(email) {
         $http.post(FP_URL, {
                 email: email,
-                origin: 'bulletform.com'
+                origin: 'bulletleads.com'
             })
             .then(SuccessCallback)
             .catch(ErrorCallback);

@@ -11,7 +11,7 @@
         var service = {
             login: login,
             logout: logout,
-            // getToken: getToken,
+            getToken: getToken,
             deleteToken: deleteToken,
             decodeToken: decodeToken,
             getUserInfo: getUserInfo
@@ -47,10 +47,10 @@
             return $state.go('login');
         }
 
-        // function getToken() {
-        //     console.log($cookies.get('userTypeCookie'));
-        //     return $cookies.get('userTypeCookie')
-        // }
+        function getToken() {
+            console.log($cookies.get('userTypeCookie'));
+            return $cookies.get('userTypeCookie')
+        }
 
         function deleteToken() {
             return $cookies.remove('userTypeCookie');
