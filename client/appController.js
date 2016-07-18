@@ -4,7 +4,8 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
         var vm = this;
         vm.toShow = {};
 
-        vm.type = $cookies.get('type');
+        var getCookie = $cookies.get('userTypeCookie');
+        vm.type = getCookie.userType;
         console.log('test cookie');
         console.log(vm.type);
 

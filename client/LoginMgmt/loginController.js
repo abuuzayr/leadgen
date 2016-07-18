@@ -11,7 +11,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
     var MIN_PASSWORD_LENGTH = appConfig.MIN_PASSWORD_LENGTH;
     var AUTH_URL = appConfig.AUTH_URL;
     var FP_URL = appConfig.FP_URL;
-    var URL = 'http://10.4.1.145/api/cookie/getCookie'
+    var API_URL = appConfig.API_URL;
 
     vm.loginEmail = '';
     vm.password = '';
@@ -128,7 +128,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
 
         function SuccessCallback(res) {
             return successFeedback('Logged in')
-                .then($http.get(appConfig.API_URL + '/auth/'))
+                .then($http.get(API_URL + '/auth/'))
                 .then(function(res) {
                     $state.go('home');
                 })
