@@ -2,7 +2,7 @@
 <!---------------------------------------- Forgot password dialog ---------------------------------------->
 <br>
 <div ng-controller="loginCtrl as vm">
-    <dialog id="forgotPasswordDialog" class="mdl-dialog">
+    <dialog id="forgot-password-dialog" class="mdl-dialog">
         <form>
             <div class="mdl-dialog__content">
                 <div id="forgot-password-username-textbox">
@@ -52,7 +52,7 @@
                         </form>
                         <br>
                         <div class="mdl-card__actions mdl-card--border">
-                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="vm.openDialog('forgotPasswordDialog')">Forgot password?</button>
+                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="vm.openDialog()">Forgot password?</button>
                         </div>
                     </div>
                 </main>
