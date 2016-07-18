@@ -140,7 +140,7 @@
                     <form class="delete-field-form" ng-submit="cc.selectDeleteField()">
                         <select ng-model="cc.fieldSelected" required>
                             <option value="">Please select</option>
-                            <option ng-repeat="field in cc.gridOptions.columnDefs">{{field.displayName}}</option>
+                            <option ng-repeat="field in cc.fields">{{field.displayName}}</option>
                         </select>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="cc.closeDialog('deleteField')">Close</button>

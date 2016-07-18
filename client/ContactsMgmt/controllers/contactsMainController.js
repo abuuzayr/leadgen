@@ -158,6 +158,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
     //Get columndefs
     contactsColumnData.success(function(data) {
         console.log(data);
+        cc.fields = data;
         for (var x of data) {
             cc.gridOptions.columnDefs.push(x);
         }
@@ -247,6 +248,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             field: lowerName,
             displayName: display
         });
+        cc.fields.push({
+            field: lowerName,
+            displayName: display
+        });
         var field = {
             field: lowerName,
             displayName: display
@@ -272,6 +277,12 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
                 var url = "/contacts/leadList/fields";
                 var deleteStatus = $http.put(appConfig.API_URL + url, fieldObj);
                 $window.location.reload();
+            }
+        }
+        for (var x in cc.fields) {
+            if ((cc.fields[x].displayName === cc.selectedDeleteField)) {
+                var fieldName = cc.fields[x].field;
+                cc.fields.splice(x, 1);
             }
         }
     };
