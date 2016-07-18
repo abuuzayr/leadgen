@@ -6,10 +6,10 @@ var express = require('express'),
 
 var dbMgmtRouter = express.Router();
 
-var http403 = require('../../utils/403')();
+/*var http403 = require('../../utils/403')();
   
   //ACCESS CONTROL
-dbMgmtRouter.use('*',http403.verifyAccess('dbmgmt'));
+dbMgmtRouter.use('*',http403.verifyAccess('dbmgmt'));*/
 
 dbMgmtRouter.route('/dbmgmt/all')
   .get(function(req,res){

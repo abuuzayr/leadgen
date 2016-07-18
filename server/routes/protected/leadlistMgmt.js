@@ -11,10 +11,10 @@
   MailchimpManager = require('../../MailchimpManager/syncContacts');
   var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
   
-  var http403 = require('../../utils/403')();
+/*  var http403 = require('../../utils/403')();
   
   //ACCESS CONTROL
-  leadlistRouter.use('*',http403.verifyAccess('leadmgmt'));
+  leadlistRouter.use('*',http403.verifyAccess('leadmgmt'));*/
 /*
 CRUD on leads
 */
