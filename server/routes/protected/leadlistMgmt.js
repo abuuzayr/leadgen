@@ -492,7 +492,6 @@ leadlistRouter.route('/contacts/blackList/domain')
     }
   })
   .put(jsonParser, function(req, res) {
-    console.log(req.body);
     if (!req.body)
       res.sendStatus(400);
     else {
