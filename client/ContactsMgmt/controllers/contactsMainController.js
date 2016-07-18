@@ -155,12 +155,9 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         $window.location.reload();
     };
 
-    cc.fields = [];
-    cc.fields.push({
-            field: "Qiwen",
-            displayName: "Gru"
-        });
+    
     //Get columndefs
+    cc.fields = [];
     contactsColumnData.success(function(data) {
         console.log(data);
         for (var x of data) {
