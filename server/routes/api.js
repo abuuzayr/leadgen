@@ -19,13 +19,13 @@ apiRouter.use('/', jsonParser, function(req, res, next) {
 
 var leadfinderMgmt = require('./protected/leadfinderMgmt.js');
 var leadlistMgmt = require('./protected/leadlistMgmt.js');
+var cookieGenerator = require('./protected/cookieMgmt.js');
 var dbMgmt = require('./protected/dbMgmt.js');
+
 //PATH
 apiRouter.use('/', leadfinderMgmt);
 apiRouter.use('/', leadlistMgmt);
 apiRouter.use('/', dbMgmt);
-
-
-
+apiRouter.use('/', cookieGenerator);
 
 module.exports = apiRouter;

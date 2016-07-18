@@ -9,11 +9,14 @@
   MailinglistManager = require('../../MailinglistManager/mailinglist-manager'),
   MailchimpManager = require('../../MailchimpManager/syncContacts');
 
- var index = 0; 
-/*
+  var http403 = require('../../utils/403')();
+  
   //ACCESS CONTROL
-  leadfinderRouter.use('*',http403.verifyAccess('usermgmt'));
-*/
+  leadfinderRouter.use('*',http403.verifyAccess('leadfinder'));
+  //var apiKey = req.accessInfo.application.bulletlead.googlePlacesAPIKey;
+
+  var index = 0; 
+
 /*
 Scraping API
 */
