@@ -27,7 +27,7 @@ var ContactsManager = {
         dbHandler.dbQuery('blackListDomains', null, 'app')
           .then(function(domains) {
             for (var i = 0; i < domains.length; i++) {
-              if (obj.email !== null || obj.email !== undefined) {
+              if (obj.email != null || obj.email != undefined) {
                 if (obj.email.indexOf(domains[i].domain) != -1) {
                   matchFlag = true;
                   break;
@@ -216,12 +216,13 @@ var ContactsManager = {
         .then(function(results) {
           for (var i = 0; i < results.length; i++) {
             var emailAddr = results[i].email;
-            if (emailAddr !== null || emailAddr !== undefined) {
+            if (emailAddr != null || emailAddr != undefined) {
               if (emailAddr.indexOf(str) != -1) {
                 leadsArr.push(results[i]);
               }
             }
           }
+          console.log(leadsArr);
           var promiseArr = [];
           for (var i = 0; i < leadsArr.length; i++) {
             promiseArr.push(callback(leadsArr[i]._id));
@@ -349,7 +350,7 @@ var ContactsManager = {
               var matchFlag = false;
 
               for (var i = 0; i < domains.length; i++) {
-                if (obj.email !== null || obj.email !== undefined) {
+                if (obj.email != null || obj.email != undefined) {
                   if (obj.email.indexOf(domains[i].domain) != -1) {
                     matchFlag = true;
                     break;

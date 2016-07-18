@@ -30,17 +30,17 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
             }
 
             $http(req)
-                .then(SuccessCallback)
-                .catch(ErrorCallback);
+                .then(SuccessCallback);
+                // .catch(ErrorCallback);
 
             function SuccessCallback(res) {
                 pc.profileData = res.data.adminData;
             }
 
-            function ErrorCallback(err) {
-                return feedbackServices.hideFeedback('#profileFeedback')
-                    .then(feedbackServices.errorFeedback('Unable to get data', '#profileFeedback'));
-            }
+            // function ErrorCallback(err) {
+            //     return feedbackServices.hideFeedback('#profileFeedback')
+            //         .then(feedbackServices.errorFeedback('Unable to get data', '#profileFeedback'));
+            // }
         }
 
         // if need to change email and username
