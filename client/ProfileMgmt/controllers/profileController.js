@@ -1,5 +1,5 @@
-app.controller('profileController', ['$scope', '$http', '$q', '$location', '$timeout', 'getDetails', 'appConstant', '$window', 'feedbackServices',
-    function($scope, $http, $q, $location, $timeout, getDetails, appConstant, $window, feedbackServices) {
+app.controller('profileController', ['$scope', '$http', '$q', '$location', '$timeout', 'getDetails', 'appConfig', '$window', 'feedbackServices',
+    function($scope, $http, $q, $location, $timeout, getDetails, appConfig, $window, feedbackServices) {
 
         var pc = this;
         pc.profileData = {};
@@ -22,7 +22,7 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
             var path = '/protected/settings';
             var req = {
                 method: 'GET',
-                url: appConstant.API_URL + path,
+                url: appConfig.API_URL + path,
                 headers: {}
             }
             if ($window.sessionStorage.token) {

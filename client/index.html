@@ -1,127 +1,148 @@
 <!doctype html>
-<html ng-app="app">
+<html ng-app="app" ng-controller="appController as vm">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset=" UTF-8 ">
     <!-- AngularJS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-touch.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js "></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-touch.js "></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js "></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.js "></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js "></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js "></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js "></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js "></script>
 
     <!-- Material Design Lite -->
-    <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-pink.min.css">
+    <script src="https://code.getmdl.io/1.1.3/material.min.js "></script>
+    <link rel="stylesheet " href="https://code.getmdl.io/1.1.3/material.blue_grey-pink.min.css ">
 
     <!-- Material Design icon font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet " href="https://fonts.googleapis.com/icon?family=Material+Icons ">
 
     <!--Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/readable/bootstrap.min.css" rel="stylesheet" integrity="sha384-/x/+iIbAU4qS3UecK7KIjLZdUilKKCjUFVdwFx8ba7S/WvxbrYeQuKEt0n/HWqTx" crossorigin="anonymous">
+    <link rel="stylesheet " href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css ">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js "></script>
+    <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css " rel="stylesheet ">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/readable/bootstrap.min.css " rel="stylesheet " integrity="sha384-/x/+iIbAU4qS3UecK7KIjLZdUilKKCjUFVdwFx8ba7S/WvxbrYeQuKEt0n/HWqTx " crossorigin="anonymous ">
 
     <!-- UI-Grid -->
-    <link rel="stylesheet" type="text/css" href="assets/lib/node_modules/angular-ui-grid/ui-grid.css" />
-    <script src="assets/lib/node_modules/angular-ui-grid/ui-grid.js"></script>
-    <script src="app/app.js"></script>
+    <link rel="stylesheet " type="text/css " href="assets/lib/node_modules/angular-ui-grid/ui-grid.css " />
+    <script src="assets/lib/node_modules/angular-ui-grid/ui-grid.js "></script>
+    <script src="app/app.js "></script>
 
     <!-- UI-Router -->
-    <script src="assets/lib/node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="assets/lib/node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="assets/lib/node_modules/angular-ui-router/release/angular-ui-router.min.js "></script>
+    <script src="assets/lib/node_modules/angular-ui-router/release/angular-ui-router.js "></script>
 
     <!-- Bower -->
-    <script src="assets/lib/importer/bower_components/CSV-JS/csv.js"></script>
+    <script src="assets/lib/importer/bower_components/CSV-JS/csv.js "></script>
 
     <!--Controllers-->
-    <script src="ContactsMgmt/controllers/contactsMainController.js"></script>
-    <script src="ContactsMgmt/controllers/mailListController.js"></script>
-    <script src="ContactsMgmt/controllers/viewMailListController.js"></script>
-    <script src="ContactsMgmt/controllers/blackListController.js"></script>
-    <script src="ContactsMgmt/controllers/domainsController.js"></script>
-    <script src="ScrapingMgmt/controllers/corporate/beforeScrapeController.js"></script>
-    <script src="ScrapingMgmt/controllers/corporate/googleController.js"></script>
-    <script src="ScrapingMgmt/controllers/corporate/resultController.js"></script>
-    <script src="ScrapingMgmt/controllers/consumer/beforeConsumerController.js"></script>
-    <script src="ScrapingMgmt/controllers/consumer/consumerScrapController.js"></script>
-    <script src="ScrapingMgmt/controllers/consumer/consumerResultController.js"></script>
-    <script src="ProfileMgmt/controllers/profileController.js"></script>
-    <script src="UserMgmt/controllers/userMgmtController.js"></script>
-    <script src="UserMgmt/controllers/userMgmtProfileController.js"></script>
-    <script src="DatabaseMgmt/controllers/allDatabaseController.js"></script>
-    <script src="DatabaseMgmt/controllers/externalDatabaseController.js"></script>
-    <script src="DatabaseMgmt/controllers/localDatabaseController.js"></script>
-    <script src="ContactsMgmt/controllers/homepageController.js"></script>
-    <script src="LoginMgmt/loginController.js"></script>
+    <script src="ContactsMgmt/controllers/contactsMainController.js "></script>
+    <script src="ContactsMgmt/controllers/mailListController.js "></script>
+    <script src="ContactsMgmt/controllers/viewMailListController.js "></script>
+    <script src="ContactsMgmt/controllers/blackListController.js "></script>
+    <script src="ContactsMgmt/controllers/domainsController.js "></script>
+    <script src="ScrapingMgmt/controllers/corporate/beforeScrapeController.js "></script>
+    <script src="ScrapingMgmt/controllers/corporate/googleController.js "></script>
+    <script src="ScrapingMgmt/controllers/corporate/resultController.js "></script>
+    <script src="ScrapingMgmt/controllers/consumer/beforeConsumerController.js "></script>
+    <script src="ScrapingMgmt/controllers/consumer/consumerScrapController.js "></script>
+    <script src="ScrapingMgmt/controllers/consumer/consumerResultController.js "></script>
+    <script src="ProfileMgmt/controllers/profileController.js "></script>
+    <script src="UserMgmt/controllers/userMgmtController.js "></script>
+    <script src="UserMgmt/controllers/userMgmtProfileController.js "></script>
+    <script src="DatabaseMgmt/controllers/allDatabaseController.js "></script>
+    <script src="DatabaseMgmt/controllers/externalDatabaseController.js "></script>
+    <script src="DatabaseMgmt/controllers/localDatabaseController.js "></script>
+    <script src="ContactsMgmt/controllers/homepageController.js "></script>
+    <script src="LoginMgmt/loginController.js "></script>
+    <script src="appController.js "></script>
 
     <!--Services-->
-    <script src="shared/feedbackService.js"></script>
-    <script src="shared/dialogService.js"></script>
-    <script src="ContactsMgmt/services/leadsData.js"></script>
-    <script src="ContactsMgmt/services/mailListData.js"></script>
-    <script src="ContactsMgmt/services/shareMailList.js"></script>
-    <script src="ContactsMgmt/services/detailedMailListData.js"></script>
-    <script src="ContactsMgmt/services/domainsData.js"></script>
-    <script src="ContactsMgmt/services/blackLeadsData.js"></script>
-    <script src="ContactsMgmt/services/historyData.js"></script>
-    <script src="ContactsMgmt/services/contactsColumnData.js"></script>
-    <script src="ScrapingMgmt/services/corporate/googleResults.js"></script>
-    <script src="ScrapingMgmt/services/corporate/ypResults.js"></script>
-    <script src="ScrapingMgmt/services/corporate/shareInput.js"></script>
-    <script src="ScrapingMgmt/services/corporate/shareData.js"></script>
-    <script src="ScrapingMgmt/services/corporate/sendResults.js"></script>
-    <script src="ScrapingMgmt/services/corporate/sendCountry.js"></script>
-    <script src="ScrapingMgmt/services/consumer/consumerShareInput.js"></script>
-    <script src="ScrapingMgmt/services/consumer/consumerShareData.js"></script>
-    <script src="ScrapingMgmt/services/consumer/consumerLeads.js"></script>
-    <script src="UserMgmt/services/allUsersData.js"></script>
-    <script src="UserMgmt/services/companyProfile.js"></script>
-    <script src="ProfileMgmt/services/getDetails.js"></script>
-    <script src="DatabaseMgmt/services/allData.js"></script>
-    <script src="DatabaseMgmt/services/externalData.js"></script>
-    <script src="DatabaseMgmt/services/localData.js"></script>
-    <script src="DatabaseMgmt/services/sendDataToLocal.js"></script>
-    <script src="DatabaseMgmt/services/syncToCompany.js"></script>
-    <script src="LoginMgmt/authService.js"></script>
+    <script src="shared/feedbackService.js "></script>
+    <script src="shared/dialogService.js "></script>
+    <script src="shared/userService.js "></script>
+    <script src="ContactsMgmt/services/leadsData.js "></script>
+    <script src="ContactsMgmt/services/mailListData.js "></script>
+    <script src="ContactsMgmt/services/shareMailList.js "></script>
+    <script src="ContactsMgmt/services/detailedMailListData.js "></script>
+    <script src="ContactsMgmt/services/domainsData.js "></script>
+    <script src="ContactsMgmt/services/blackLeadsData.js "></script>
+    <script src="ContactsMgmt/services/historyData.js "></script>
+    <script src="ContactsMgmt/services/contactsColumnData.js "></script>
+    <script src="ScrapingMgmt/services/corporate/googleResults.js "></script>
+    <script src="ScrapingMgmt/services/corporate/ypResults.js "></script>
+    <script src="ScrapingMgmt/services/corporate/shareInput.js "></script>
+    <script src="ScrapingMgmt/services/corporate/shareData.js "></script>
+    <script src="ScrapingMgmt/services/corporate/sendResults.js "></script>
+    <script src="ScrapingMgmt/services/corporate/sendCountry.js "></script>
+    <script src="ScrapingMgmt/services/consumer/consumerShareInput.js "></script>
+    <script src="ScrapingMgmt/services/consumer/consumerShareData.js "></script>
+    <script src="ScrapingMgmt/services/consumer/consumerLeads.js "></script>
+    <script src="UserMgmt/services/allUsersData.js "></script>
+    <script src="UserMgmt/services/companyProfile.js "></script>
+    <script src="ProfileMgmt/services/getDetails.js "></script>
+    <script src="DatabaseMgmt/services/allData.js "></script>
+    <script src="DatabaseMgmt/services/externalData.js "></script>
+    <script src="DatabaseMgmt/services/localData.js "></script>
+    <script src="DatabaseMgmt/services/sendDataToLocal.js "></script>
+    <script src="DatabaseMgmt/services/syncToCompany.js "></script>
+    <script src="LoginMgmt/authService.js "></script>
 
     <!-- Authentication -->
-    <script src="LoginMgmt/auth.js"></script>
-    <script src="app.config.js"></script>
+    <script src="LoginMgmt/auth.js "></script>
+    <script src="app.config.js "></script>
+
+    <!--Cookies-->
+    <script src="assets/lib/node_modules/angular-cookies/angular-cookies.js"></script>
 
 </head>
 
 <body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
+    <!--<div ng-include="'mainTab.html'"></div>-->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header ">
+        <header class="mdl-layout__header ">
+            <div class="mdl-layout__header-row ">
+                <!-- Left aligned menu below button -->
+                <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon" ng-click="vm.update()">
+                    <i class="material-icons">more_vert</i>
+                </button>
+
+                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
+                    <li class="mdl-menu__item" ui-sref="leadlist " ng-show="vm.showLead">Lead Management</li>
+                    <li class="mdl-menu__item" ui-sref=" leadFinder " ng-show="vm.showFinder ">Lead Finder</li>
+                    <li class="mdl-menu__item" ui-sref="profile " ng-show="vm.showAccount ">Account Settings</li>
+                    <li class="mdl-menu__item" ui-sref=" userManagementprofile " ng-show="vm.showUser ">User Management</li>
+                    <li class="mdl-menu__item" ui-sref="externalDB " ng-show="vm.showDatabase ">Database Management</li>
+                    <a class="mdl-menu__item" href=" https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
+                    </li>
+                </ul>
                 <!-- Title -->
-                <span class="mdl-layout-title mdl"> <a style="color:#F2F1F1;" ui-sref="home"><b>BulletLead</b></a></span>
+                <span class="mdl-layout-title mdl "> <a style="color:#F2F1F1; " ui-sref="home "><b>BulletLead</b></a></span>
                 <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-layout-spacer "></div>
                 <!-- Navigation. We hide it in small screens. -->
-                <nav class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" ui-sref="#">Logout</a>
+                <nav class="mdl-navigation mdl-layout--large-screen-only ">
+                    <button class="mdl-button mdl-js-button " ui-sref="login" ng-click="vm.logout()">Logout</button>
                 </nav>
             </div>
         </header>
-        <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">BulletLead</span>
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" ui-sref="leadlist">Lead Management</a>
-                <a class="mdl-navigation__link" ui-sref="leadFinder">Lead Finder</a>
-                <a class="mdl-navigation__link" ui-sref="profile">Account Settings</a>
-                <a class="mdl-navigation__link" ui-sref="userManagementprofile">User Management</a>
-                <a class="mdl-navigation__link" ui-sref="externalDB">Database Management</a>
-                <a class="mdl-navigation__link" href="https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6" target="_blank">MailChimp</a>
+        <!--<div class="mdl-layout__drawer " ng-click="vm.update() ">
+            <span class="mdl-layout-title ">BulletLead</span>
+            <nav class="mdl-navigation ">
+                <a class="mdl-navigation__link " ui-sref="leadlist " ng-show="vm.showLead ">Lead Management</a>
+                <a class="mdl-navigation__link " ui-sref="leadFinder " ng-show="vm.showFinder ">Lead Finder</a>
+                <a class="mdl-navigation__link " ui-sref="profile " ng-show="vm.showAccount ">Account Settings</a>
+                <a class="mdl-navigation__link " ui-sref="userManagementprofile " ng-show="vm.showUser ">User Management</a>
+                <a class="mdl-navigation__link " ui-sref="externalDB " ng-show="vm.showDatabase "> Database Management</a>
+                <a class="mdl-navigation__link " href="https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
             </nav>
-        </div>
-        <main class="mdl-layout__content">
-            <div ui-view class="page-content"></div>
+        </div>-->
+        <!--Show Lead: {{ vm.showLead }} Show Finder: {{ vm.showFinder }} Show Account: {{ vm.showAccount }} Show User: {{ vm.showUser }} Show Database: {{ vm.showDatabase }} Bar: {{vm.showBar}}-->
+        <main class="mdl-layout__content ">
+            <div ui-view class="page-content "></div>
         </main>
     </div>
 </body>

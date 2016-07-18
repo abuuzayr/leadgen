@@ -15,7 +15,13 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         .state('home', {
             url: '/home',
             templateUrl: 'homepage.html',
-            controller: 'homepageController'
+            controller: 'appController',
+            // resolve: {
+            //     toShowTabs: function(userService) {
+            //         console.log('resolving');
+            //         return userService.getUserType();
+            //     }
+            // }
         })
         .state('leadlist', {
             url: '/leadlist',
@@ -85,7 +91,7 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
 
     .state('userManagementprofile', {
         url: '/company-profile',
-        templateUrl: 'UserMgmt/partial/userMgmtProfile.html'
+        templateUrl: 'UserMgmt/partial/userMgmtProfile.html',
     })
 
     .state('userManagementAdmin', {
@@ -104,5 +110,16 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
         .state('allDatabase', {
             url: '/allDatabase',
             templateUrl: 'DatabaseMgmt/partial/allDatabase.html'
-        })
+        });
+
+    // angular.module('app').controller('appController', function(toShowTabs) {
+    //     var vm = this;
+    //     vm.toShow = toShowTabs;
+    //     vm.showLead = toShow.showLead;
+    //     vm.showFinder = toShow.showFinder;
+    //     vm.showAccount = toShow.showAccount;
+    //     vm.showUser = toShow.showUser;
+    //     vm.showDatabase = toShow.showDatabase;
+    //     vm.showBar = toShow.getShowBar;
+    // })
 }]);

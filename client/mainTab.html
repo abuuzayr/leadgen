@@ -1,0 +1,25 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header ">
+    <header class="mdl-layout__header ">
+        <div class="mdl-layout__header-row ">
+            <!-- Title -->
+            <span class="mdl-layout-title mdl "> <a style="color:#F2F1F1; " ui-sref="home "><b>BulletLead</b></a></span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer "></div>
+            <!-- Navigation. We hide it in small screens. -->
+            <nav class="mdl-navigation mdl-layout--large-screen-only ">
+                <a class="mdl-navigation__link " ui-sref="# ">Logout</a>
+            </nav>
+        </div>
+    </header>
+    <div class="mdl-layout__drawer ">
+        <span class="mdl-layout-title ">BulletLead</span>
+        <nav class="mdl-navigation ">
+            <a class="mdl-navigation__link " ui-sref="leadlist " ng-show="vm.showLead ">Lead Management</a>
+            <a class="mdl-navigation__link " ui-sref="leadFinder " ng-show="vm.showFinder ">Lead Finder</a>
+            <a class="mdl-navigation__link " ui-sref="profile " ng-show="vm.showAccount ">Account Settings</a>
+            <a class="mdl-navigation__link " ui-sref="userManagementprofile " ng-show="vm.showUser ">User Management</a>
+            <a class="mdl-navigation__link " ui-sref="externalDB " ng-show="vm.showDatabase "> Database Management</a>
+            <a class="mdl-navigation__link " href="https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
+        </nav>
+    </div>
+</div>

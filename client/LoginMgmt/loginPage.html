@@ -34,8 +34,8 @@
                         <form id="login-form">
                             <!-- Email input -->
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input id="emailInput" ng-model="vm.email" class="mdl-textfield__input" type="email" ng-required="true" />
-                                <label class="mdl-textfield__label" for="vm.email">Email</label>
+                                <input id="emailInput" ng-model="vm.loginEmail" class="mdl-textfield__input" type="email" ng-required="true" />
+                                <label class="mdl-textfield__label" for="vm.loginEmail">Email</label>
                             </div>
                             <br>
                             <!-- Password input -->
@@ -45,7 +45,7 @@
                             </div>
                             <!-- Login button -->
                             <div class="mdl-card__actions">
-                                <button id="login-button" type="submit" ng-click="vm.validateBeforeLogin();" class="mdl-button mdl-button--colored mdl-button--raised mdl-js-button mdl-js-ripple-effect">
+                                <button id="login-button" type="submit" ng-click="vm.testValidation()" class="mdl-button mdl-button--colored mdl-button--raised mdl-js-button mdl-js-ripple-effect">
                         Log in
                         </button>
                             </div>
