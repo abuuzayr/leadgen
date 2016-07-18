@@ -121,7 +121,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
         $http.post(AUTH_URL, {
                 email: email,
                 password: password,
-                origin: 'bulletleads.com'
+                origin: 'bulletlead.com'
             })
             .then(SuccessCallback)
             .catch(ErrorCallback);
@@ -146,7 +146,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
     function sendEmail(email) {
         $http.post(FP_URL, {
                 email: email,
-                origin: 'bulletleads.com'
+                origin: 'bulletlead.com'
             })
             .then(SuccessCallback)
             .catch(ErrorCallback);
