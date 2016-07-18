@@ -11,16 +11,12 @@
         var service = {
             login: login,
             logout: logout,
-            forgetPassword: forgetPassword,
-            setToken: setToken,
             getToken: getToken,
             deleteToken: deleteToken,
             decodeToken: decodeToken,
             getUserInfo: getUserInfo
         }
         return service;
-
-
 
         function login(email, password) {
             return $http.post(API_URL + '/auth/admin', {
@@ -48,55 +44,22 @@
 
         function logout() {
             deleteToken();
-            $location.path('/login');
-        }
-
-        function forgetPassword(email) {
-            return $http.post(API_URL + '/forgetpassword/admin', {
-                    email: email,
-                })
-                .then(callSuccess)
-                .catch(callError);
-
-            function callSuccess(res) {
-                return feedbackServices.hideFeedback('#login-feedbackMessage')
-                    .then(feedbackServices.successFeedback('Email sent to ' + email, '#login-feedbackMessage'))
-            }
-
-            function callError(err) {
-                return feedbackServices.hideFeedback('#login-feedbackMessage')
-                    .then(feedbackServices.errorFeedback(err.data, '#login-feedbackMessage'));
-            }
-        }
-
-
-        function setToken(token) {
-            if (token)
-                $window.sessionStorage.token = token;
-            else
-                return;
+            return $state.go('login');
         }
 
         function getToken() {
-            if ($window.sessionStorage) {
-                var token = $window.sessionStorage.token == "null" ? null : $window.sessionStorage.token;
-                return token;
-            }
-            return null;
+            console.log($cookies.get('userTypeCookie'));
+            return $cookies.get('userTypeCookie')
         }
 
         function deleteToken() {
-            if ($window.sessionStorage)
-                $window.sessionStorage.token = null;
-            return;
+            return $cookies.remove('userTypeCookie');
         }
 
         function decodeToken(token) {
-            if (!token) {
-                // throw new Error('token not presented');
-                return feedbackServices.hideFeedback('#login-feedbackMessage')
-                    .then(feedbackServices.errorFeedback('Token not presented', '#login-feedbackMessage'));
-            }
+            console.log(token);
+            if (!token)
+                console.log('no cookie') //	return logout();
             var payload = token.split('.')[1];
             var decoded = JSON.parse(atob(payload));
             return decoded;
@@ -104,8 +67,14 @@
 
         function getUserInfo() {
             var token = getToken();
-            var userInfo = decodeToken(token);
-            return JSON.parse(JSON.stringify(userInfo));
+            var userInfo = JSON.parse(JSON.stringify(decodeToken(token)));
+            console.log(token);
+            console.log(userInfo);
+            return {
+                username: userInfo.username,
+                email: userInfo.email,
+                usertype: userInfo.usertype
+            };
         }
     }
 })();
