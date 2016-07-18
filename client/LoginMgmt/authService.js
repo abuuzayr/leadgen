@@ -66,7 +66,7 @@
         }
 
         function getUserInfo() {
-            // var token = getToken();
+            var token = getToken();
             var userInfo = JSON.parse(JSON.stringify(decodeToken(token)));
             console.log(token);
             console.log(userInfo);

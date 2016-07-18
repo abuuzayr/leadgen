@@ -1,37 +1,38 @@
-app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userService', '$cookies',
-    function($scope, $q, $location, $timeout, userService, $cookies) {
+app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userService', '$cookies', 'authServices',
+    function($scope, $q, $location, $timeout, userService, $cookies, authServices) {
 
         var vm = this;
         vm.toShow = {};
-        var getCookie;
+        // var getCookie;
 
-        getCookie = $cookies.get('userTypeCookie');
-        if (angular.isDefined(getCookie)) {
-            vm.type = getCookie.userType;
-            console.log('test cookie');
-            console.log(vm.type);
-        }
+        // if (authServices.getToken() && (authServices.getUserInfo().usertype) {
+        // getCookie = authServices.getToken();
+        // if (angular.isDefined(getCookie)) {
+        //     vm.type = authServices.getUserInfo().usertype;
+        //     console.log('test cookie');
+        //     console.log(vm.type);
+        // }
 
 
         vm.update = function() {
-            vm.type = $cookies.get('type');
-            console.log('2.test cookie');
-            console.log(vm.type);
-            if (vm.type === 'user') {
+            // vm.type = $cookies.get('type');
+            // console.log('2.test cookie');
+            // console.log(vm.type);
+            if (authServices.getToken() && authServices.getUserInfo().usertype === 'user') {
                 vm.showLead = true;
                 vm.showFinder = true;
                 vm.showAccount = true;
                 vm.showUser = false;
                 vm.showDatabase = false;
 
-            } else if (vm.type === 'admin') {
+            } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'admin') {
                 vm.showLead = true;
                 vm.showFinder = true;
                 vm.showAccount = true;
                 vm.showUser = true;
                 vm.showDatabase = false;
 
-            } else if (vm.type === 'superadmin') {
+            } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'superadmin') {
                 vm.showLead = false;
                 vm.showFinder = false;
                 vm.showAccount = false;
@@ -46,14 +47,18 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             console.log(vm.showDatabase);
         }
 
+        // vm.logout = function() {
+        //     vm.showLead = false;
+        //     vm.showFinder = false;
+        //     vm.showAccount = false;
+        //     vm.showUser = false;
+        //     vm.showDatabase = false;
+        //     $cookies.remove('type');
+        //     console.log('remove');
+        // }
+
         vm.logout = function() {
-            vm.showLead = false;
-            vm.showFinder = false;
-            vm.showAccount = false;
-            vm.showUser = false;
-            vm.showDatabase = false;
-            $cookies.remove('type');
-            console.log('remove');
+            authServices.logout();
         }
 
         // vm.showLead = userService.getShowLead();

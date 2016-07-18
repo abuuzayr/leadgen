@@ -1,4 +1,6 @@
-var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection', 'ui.grid.edit', 'ui.grid.autoResize', 'ui.grid.resizeColumns', 'ui.grid.importer', 'ngAnimate', 'ui.grid.exporter', 'ngCookies']);
+var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection', 'ui.grid.edit', 'ui.grid.autoResize', 'ui.grid.resizeColumns', 'ui.grid.importer', 'ngAnimate', 'ui.grid.exporter', 'ngCookies'
+    s
+]);
 
 app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {
     // $locationProvider.html5Mode({
@@ -16,110 +18,256 @@ app.config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider,
             url: '/home',
             templateUrl: 'homepage.html',
             controller: 'appController',
-            // resolve: {
-            //     toShowTabs: function(userService) {
-            //         console.log('resolving');
-            //         return userService.getUserType();
-            //     }
-            // }
+            resolve: {
+                security: ['$q', 'authServices', function($q, authServices) {
+                    if (authServices.getToken()) {
+                        return $q.resolve();
+                    } else {
+                        return $q.reject(false);
+                    }
+                }]
+            }
         })
         .state('leadlist', {
             url: '/leadlist',
             templateUrl: 'ContactsMgmt/partials/contactsLeadList.html',
-            controller: 'contactsMainController'
+            controller: 'contactsMainController',
+            resolve: {
+                security: ['$q', 'authServices', function($q, authServices) {
+                    if (authServices.getToken()) {
+                        return $q.resolve();
+                    } else {
+                        return $q.reject(false);
+                    }
+                }]
+            }
         })
         .state('blacklist', {
             url: '/blacklist',
             templateUrl: 'ContactsMgmt/partials/contactsBlackList.html',
-            controller: 'blackListController'
+            controller: 'blackListController',
+            resolve: {
+                security: ['$q', 'authServices', function($q, authServices) {
+                    if (authServices.getToken()) {
+                        return $q.resolve();
+                    } else {
+                        return $q.reject(false);
+                    }
+                }]
+            }
+
         })
         .state('maillist', {
             url: '/maillist',
             templateUrl: 'ContactsMgmt/partials/contactsMailList.html',
-            controller: 'mailListController'
+            controller: 'mailListController',
+            resolve: {
+                security: ['$q', 'authServices', function($q, authServices) {
+                    if (authServices.getToken()) {
+                        return $q.resolve();
+                    } else {
+                        return $q.reject(false);
+                    }
+                }]
+            }
         })
         .state('viewmaillist', {
             url: '/viewmaillist',
             templateUrl: 'ContactsMgmt/partials/viewMailList.html',
-            controller: 'viewMailListController'
+            controller: 'viewMailListController',
+            resolve: {
+                security: ['$q', 'authServices', function($q, authServices) {
+                    if (authServices.getToken()) {
+                        return $q.resolve();
+                    } else {
+                        return $q.reject(false);
+                    }
+                }]
+            }
         })
         .state('leadFinder', {
             url: '/lead-finder',
             templateUrl: 'ScrapingMgmt/partial/leadsFinderMain.html',
+            resolve: {
+                security: ['$q', 'authServices', function($q, authServices) {
+                    if (authServices.getToken()) {
+                        return $q.resolve();
+                    } else {
+                        return $q.reject(false);
+                    }
+                }]
+            }
         })
         .state('corporate', {
             url: '/corporate',
             templateUrl: 'ScrapingMgmt/partial/corporateBeforeScrap.html',
-            controller: 'beforeScrapeController'
+            controller: 'beforeScrapeController',
+            resolve: {
+                security: ['$q', 'authServices', function($q, authServices) {
+                    if (authServices.getToken()) {
+                        return $q.resolve();
+                    } else {
+                        return $q.reject(false);
+                    }
+                }]
+            }
         })
 
     .state('corporate.corporateStartScrap', {
         url: '/scraping',
         templateUrl: 'ScrapingMgmt/partial/corporateScrap.html',
-        controller: 'googleController'
+        controller: 'googleController',
+        resolve: {
+            security: ['$q', 'authServices', function($q, authServices) {
+                if (authServices.getToken()) {
+                    return $q.resolve();
+                } else {
+                    return $q.reject(false);
+                }
+            }]
+        }
     })
 
     .state('corporateResults', {
         url: '/corporate-results',
         templateUrl: 'ScrapingMgmt/partial/corporateResults.html',
-        controller: 'resultController'
+        controller: 'resultController',
+        resolve: {
+            security: ['$q', 'authServices', function($q, authServices) {
+                if (authServices.getToken()) {
+                    return $q.resolve();
+                } else {
+                    return $q.reject(false);
+                }
+            }]
+        }
     })
 
     .state('consumer', {
         url: '/consumer',
         templateUrl: 'ScrapingMgmt/partial/consumerBeforeScrap.html',
-        controller: 'beforeConsumerController'
+        controller: 'beforeConsumerController',
+        resolve: {
+            security: ['$q', 'authServices', function($q, authServices) {
+                if (authServices.getToken()) {
+                    return $q.resolve();
+                } else {
+                    return $q.reject(false);
+                }
+            }]
+        }
     })
 
     .state('consumer.consumerStartScrap', {
         url: '/scraping',
         templateUrl: 'ScrapingMgmt/partial/consumerScrap.html',
-        controller: 'consumerScrapController'
+        controller: 'consumerScrapController',
+        resolve: {
+            security: ['$q', 'authServices', function($q, authServices) {
+                if (authServices.getToken()) {
+                    return $q.resolve();
+                } else {
+                    return $q.reject(false);
+                }
+            }]
+        }
     })
 
     .state('consumerResults', {
         url: '/consumer-results',
         templateUrl: 'ScrapingMgmt/partial/consumerResults.html',
-        controller: 'consumerResultController'
+        controller: 'consumerResultController',
+        resolve: {
+            security: ['$q', 'authServices', function($q, authServices) {
+                if (authServices.getToken()) {
+                    return $q.resolve();
+                } else {
+                    return $q.reject(false);
+                }
+            }]
+        }
     })
 
     .state('profile', {
         url: '/profile',
         templateUrl: 'ProfileMgmt/partial/profile.html',
-        controller: 'profileController'
+        controller: 'profileController',
+        resolve: {
+            security: ['$q', 'authServices', function($q, authServices) {
+                if (authServices.getToken()) {
+                    return $q.resolve();
+                } else {
+                    return $q.reject(false);
+                }
+            }]
+        }
     })
 
     .state('userManagementprofile', {
         url: '/company-profile',
         templateUrl: 'UserMgmt/partial/userMgmtProfile.html',
+        resolve: {
+            security: ['$q', 'authServices', function($q, authServices) {
+                if (authServices.getToken()) {
+                    return $q.resolve();
+                } else {
+                    return $q.reject(false);
+                }
+            }]
+        }
     })
 
     .state('userManagementAdmin', {
         url: '/adminmanagement',
-        templateUrl: 'UserMgmt/partial/userMgmtUsers.html'
+        templateUrl: 'UserMgmt/partial/userMgmtUsers.html',
+        resolve: {
+            security: ['$q', 'authServices', function($q, authServices) {
+                if (authServices.getToken()) {
+                    return $q.resolve();
+                } else {
+                    return $q.reject(false);
+                }
+            }]
+        }
     })
 
     .state('externalDB', {
             url: '/externalDatabase',
-            templateUrl: 'DatabaseMgmt/partial/externalDB.html'
+            templateUrl: 'DatabaseMgmt/partial/externalDB.html',
+            resolve: {
+                security: ['$q', 'authServices', function($q, authServices) {
+                    if (authServices.getToken()) {
+                        return $q.resolve();
+                    } else {
+                        return $q.reject(false);
+                    }
+                }]
+            }
         })
         .state('internalDB', {
             url: '/internalDB',
-            templateUrl: 'DatabaseMgmt/partial/localDB.html'
+            templateUrl: 'DatabaseMgmt/partial/localDB.html',
+            resolve: {
+                security: ['$q', 'authServices', function($q, authServices) {
+                    if (authServices.getToken()) {
+                        return $q.resolve();
+                    } else {
+                        return $q.reject(false);
+                    }
+                }]
+            }
         })
         .state('allDatabase', {
             url: '/allDatabase',
-            templateUrl: 'DatabaseMgmt/partial/allDatabase.html'
+            templateUrl: 'DatabaseMgmt/partial/allDatabase.html',
+            resolve: {
+                security: ['$q', 'authServices', function($q, authServices) {
+                    if (authServices.getToken()) {
+                        return $q.resolve();
+                    } else {
+                        return $q.reject(false);
+                    }
+                }]
+            }
         });
-
-    // angular.module('app').controller('appController', function(toShowTabs) {
-    //     var vm = this;
-    //     vm.toShow = toShowTabs;
-    //     vm.showLead = toShow.showLead;
-    //     vm.showFinder = toShow.showFinder;
-    //     vm.showAccount = toShow.showAccount;
-    //     vm.showUser = toShow.showUser;
-    //     vm.showDatabase = toShow.showDatabase;
-    //     vm.showBar = toShow.getShowBar;
-    // })
 }]);

@@ -1,9 +1,9 @@
 angular.module("app")
     .controller("loginCtrl", loginCtrl);
 
-loginCtrl.$inject = ['$scope', '$q', '$location', '$timeout', '$state', '$http', 'appConfig', 'feedbackServices', 'dialogServices', 'userService', '$cookies'];
+loginCtrl.$inject = ['$scope', '$q', '$location', '$timeout', '$state', '$http', 'appConfig', 'feedbackServices', 'dialogServices', 'userService', '$cookies', 'authServices'];
 
-function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, feedbackServices, dialogServices, userService, $cookies) {
+function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, feedbackServices, dialogServices, userService, $cookies, authServices) {
 
     /* =========================================== Initialisation =========================================== */
     var vm = this;
@@ -139,6 +139,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
         }
 
         function ErrorCallback(err) {
+            authServices.deleteToken();
             errorFeedback(err.data);
         }
     }
