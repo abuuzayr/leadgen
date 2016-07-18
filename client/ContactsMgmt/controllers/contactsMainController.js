@@ -281,13 +281,13 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
                 };
                 var url = "/contacts/leadList/fields";
                 var deleteStatus = $http.put(appConfig.API_URL + url, fieldObj);
-                $window.location.reload();
             }
         }
         for (var x in cc.fields) {
             if ((cc.fields[x].displayName === cc.selectedDeleteField)) {
                 var fieldName = cc.fields[x].field;
                 cc.fields.splice(x, 1);
+                $window.location.reload();
             }
         }
     };
