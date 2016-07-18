@@ -67,7 +67,8 @@ module.exports = function(){
 					console.log(req.decoded);
 					jwt.sign({
                			email: decoded.email,
-               			usertype: decoded.usertype
+               			usertype: decoded.usertype,
+               			subscriptionType: decoded.subscriptionType
                			},config.appSecret,{
                				expiresIn: '1h'
                			},function(err,token){
