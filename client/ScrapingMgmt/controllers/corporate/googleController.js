@@ -61,7 +61,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
         };
 
         //loading effect
-        gc.spinner = true;
+        gc.spinner = false;
         gc.playStatus = function() {
             gc.spinner = true;
         };

@@ -49,7 +49,7 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
             }
         };
 
-        cs.spinner = true;
+        cs.spinner = false;
         cs.playStatus = function() {
             cs.spinner = true;
         };
