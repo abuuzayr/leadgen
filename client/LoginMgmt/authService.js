@@ -73,7 +73,8 @@
             return {
                 username: userInfo.username,
                 email: userInfo.email,
-                usertype: userInfo.usertype
+                usertype: userInfo.usertype,
+                subType: userInfo.subscriptionType
             };
         }
     }
