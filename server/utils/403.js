@@ -133,7 +133,8 @@ module.exports = function(){
 				else{
 					console.log("decode cookie");
 					console.log(decoded);
-					return req.decoded= decoded;
+					reeq.decoded = decoded;
+					decodeAccessInfo(req,res,next);
 				}
 			});
 		}		
@@ -142,10 +143,7 @@ module.exports = function(){
 		return function(req,res,next){
 		var cookieInfo= req.cookies['session'];
 		console.log('being verify');
-		var appInfo=decodeCookie(req,res);
-		console.log("Application info:");
-		console.log(req.decoded);
-		decodeAccessInfo(req,res,next);
+		var appInfo=decodeCookie(req,res,next);
 		var module = req.accessInfo[moduleName];
 		console.log('this is modules');
 		console.log(module);
