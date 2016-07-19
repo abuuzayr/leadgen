@@ -48,32 +48,12 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             console.log(vm.showLogout);
         }
 
-        // vm.logout = function() {
-        //     vm.showLead = false;
-        //     vm.showFinder = false;
-        //     vm.showAccount = false;
-        //     vm.showUser = false;
-        //     vm.showDatabase = false;
-        //     $cookies.remove('type');
-        //     console.log('remove');
-        // }
-
         vm.logout = function() {
             vm.showLead = false;
             vm.showFinder = false;
             vm.showAccount = false;
             vm.showUser = false;
             vm.showDatabase = false;
-
-            console.log('logout');
-            console.log(vm.showLead);
-            console.log(vm.showFinder);
-            console.log(vm.showAccount);
-            console.log(vm.showUser);
-            console.log(vm.showDatabase);
-            console.log(vm.showLogout);
-            // $cookies.remove('userTypeCookie');
-            // authServices.deleteToken();
             authServices.logout();
         }
     }
