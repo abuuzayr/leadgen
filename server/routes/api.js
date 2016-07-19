@@ -35,8 +35,6 @@ apiRouter.use('/',function(req, res, next) {
   next();
 });
 
- apiRouter.use('*',http403.generateCookie);
- apiRouter.use('*',http403.decodeAccessInfo);
 
 var leadfinderMgmt = require('./protected/leadfinderMgmt.js');
 var leadlistMgmt = require('./protected/leadlistMgmt.js');
@@ -44,10 +42,16 @@ var cookieGenerator = require('./protected/cookieMgmt.js');
 var dbMgmt = require('./protected/dbMgmt.js');
 
 //PATH
-
+console.log(1);
+apiRouter.use('*',http403.generateCookie);
+console.log(2);
+apiRouter.use('*',http403.decodeAccessInfo);
 apiRouter.use('/cookie', cookieGenerator);
 apiRouter.use('/', leadfinderMgmt);
 apiRouter.use('/', leadlistMgmt);
 apiRouter.use('/', dbMgmt);
+
+//UNDEFINED ROUTES
+protectedRoutes.use('*', http404.notFoundMiddleware);
 
 module.exports = apiRouter;
