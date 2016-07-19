@@ -67,6 +67,8 @@ var ContactsManager = {
     var promiseArr = [];
     dbHandler.dbQuery('blackListDomains', null, 'app')
       .then(function(domains) {
+        var leadListArr = [];
+        var blackListArr = [];
         for (var i = 0; i < arr.length; i++) {
           var matchFlag = false;
 
@@ -85,15 +87,21 @@ var ContactsManager = {
             }
           }
 
-          if (matchFlag)
-            promiseArr.push(dbHandler.dbInsert('blackList', arr[i]));
-          else
-            promiseArr.push(dbHandler.dbInsert('leadList', arr[i]));
+          if (matchFlag){
+            blackListArr.push(arr[i]);
+            //promiseArr.push(dbHandler.dbInsert('blackList', arr[i]));
+          }
+          else{
+            leadListArr.push(arr[i]);
+            // promiseArr.push(dbHandler.dbInsert('leadList', arr[i]));
+          }
 
         }
-        Promise.all(promiseArr)
-          .then(function(results) {
-            console.log(results);
+        dbHandler.dbInsert('leadList',leadListArr)
+          .then(function(success1){
+            return dbHandler.dbInsert('blackList',blackListArr);
+          })
+          .then(function(success2) {
             callback(res, 201);
           })
           .catch(function(error) {
