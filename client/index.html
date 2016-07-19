@@ -51,6 +51,7 @@
     <script src="ScrapingMgmt/controllers/consumer/beforeConsumerController.js "></script>
     <script src="ScrapingMgmt/controllers/consumer/consumerScrapController.js "></script>
     <script src="ScrapingMgmt/controllers/consumer/consumerResultController.js "></script>
+    <script src="ScrapingMgmt/controllers/tabsController.js "></script>
     <script src="ProfileMgmt/controllers/profileController.js "></script>
     <script src="UserMgmt/controllers/userMgmtController.js "></script>
     <script src="UserMgmt/controllers/userMgmtProfileController.js "></script>
@@ -118,6 +119,7 @@
                     <li class="mdl-menu__item" ui-sref=" userManagementprofile " ng-show="vm.showUser">User Management</li>
                     <li class="mdl-menu__item" ui-sref="externalDB " ng-show="vm.showDatabase">Database Management</li>
                     <a class="mdl-menu__item" href=" https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
+                    <li class="mdl-menu__item" ng-click="vm.logout()" ng-show="vm.showLogout">Logout</li>
                     </li>
                 </ul>
                 <!-- Title -->
@@ -130,18 +132,6 @@
                 </nav>
             </div>
         </header>
-        <!--<div class="mdl-layout__drawer " ng-click="vm.update() ">
-            <span class="mdl-layout-title ">BulletLead</span>
-            <nav class="mdl-navigation ">
-                <a class="mdl-navigation__link " ui-sref="leadlist " ng-show="vm.showLead ">Lead Management</a>
-                <a class="mdl-navigation__link " ui-sref="leadFinder " ng-show="vm.showFinder ">Lead Finder</a>
-                <a class="mdl-navigation__link " ui-sref="profile " ng-show="vm.showAccount ">Account Settings</a>
-                <a class="mdl-navigation__link " ui-sref="userManagementprofile " ng-show="vm.showUser ">User Management</a>
-                <a class="mdl-navigation__link " ui-sref="externalDB " ng-show="vm.showDatabase "> Database Management</a>
-                <a class="mdl-navigation__link " href="https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
-            </nav>
-        </div>-->
-        <!--Show Lead: {{ vm.showLead }} Show Finder: {{ vm.showFinder }} Show Account: {{ vm.showAccount }} Show User: {{ vm.showUser }} Show Database: {{ vm.showDatabase }} Bar: {{vm.showBar}}-->
         <main class="mdl-layout__content ">
             <div ui-view class="page-content "></div>
         </main>
