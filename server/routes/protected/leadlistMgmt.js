@@ -2,7 +2,7 @@
   var express = require('express'),
   leadlistRouter = express.Router(),
   dbHandler = require('../../database-handler'),
-  jsonParser = require('body-parser').json(),
+  jsonParser = require('body-parser').json({limit:10000000000000}),
   ContactsManager = require('../../ContactsManager/contacts-manager'),
   ScrapManager = require('../../ScrapingManager/scrap-manager'),
   mongodb = require('mongodb'),
