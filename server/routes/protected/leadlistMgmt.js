@@ -40,7 +40,7 @@ leadlistRouter.route('/contacts/leadList/leads')
         });
     }
   })
-  .put(jsonParser, function(req, res) {
+  .put(function(req, res) {
     console.log('delete api');
     // console.log(req.body);
     if (!req.body)
@@ -137,7 +137,7 @@ leadlistRouter.route('/contacts/leadList/leads')
         });
     }
   });
-leadlistRouter.put('/contacts/leadList/leads/duplicates', jsonParser, function(req, res) {
+leadlistRouter.put('/contacts/leadList/leads/duplicates',function(req, res) {
   if (!req.body)
     res.sendStatus(400);
   else {
@@ -167,7 +167,7 @@ leadlistRouter.get('/contacts/leadList/leads/:id', function(req, res) {
       });
   }
 });
-leadlistRouter.post('/contacts/leadList/import', jsonParser, function(req, res) {
+leadlistRouter.post('/contacts/leadList/import', function(req, res) {
   //console.log(req.body);
   if (!req.body)
     res.sendStatus(400);
@@ -302,7 +302,7 @@ leadlistRouter.route('/contacts/mailingList')
   });
 
 leadlistRouter.route('/contacts/mailingList/subscriber')
-  .post(jsonParser, function(req, res) {
+  .post(function(req, res) {
     if (!req.body)
       returnStatusCode(res, 400);
     else {
@@ -413,7 +413,7 @@ leadlistRouter.route('/contacts/leadList/fields')
         res.sendStatus(error);
       });
   })
-  .post(jsonParser, function(req, res) {
+  .post(function(req, res) {
     if (!req.body)
       res.sendStatus(400);
     else {
@@ -434,7 +434,7 @@ leadlistRouter.route('/contacts/leadList/fields')
       }
     }
   })
-  .put(jsonParser, function(req, res) {
+  .put(function(req, res) {
     if (!req.body)
       res.sendStatus(400);
     else {
@@ -468,7 +468,7 @@ leadlistRouter.route('/contacts/blackList/domain')
         res.sendStatus(error);
       });
   })
-  .post(jsonParser, function(req, res) {
+  .post(function(req, res) {
     if (!req.body)
       res.sendStatus(400);
     else {
@@ -488,7 +488,7 @@ leadlistRouter.route('/contacts/blackList/domain')
       }
     }
   })
-  .put(jsonParser, function(req, res) {
+  .put(function(req, res) {
     if (!req.body)
       res.sendStatus(400);
     else {
@@ -516,7 +516,7 @@ leadlistRouter.route('/contacts/blackList')
         res.sendStatus(error);
       });
   })
-  .put(jsonParser, function(req, res) {
+  .put(function(req, res) {
     if (!req.body)
       res.sendStatus(400);
     else {
