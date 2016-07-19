@@ -34,8 +34,7 @@ apiRouter.use('/',function(req, res, next) {
   console.log(req.url);
   next();
 });
-apiRouter.use('*',http403.decodeCookieInfo);
-apiRouter.use('*',http403.decodeAccessInfo);
+
 
 var leadfinderMgmt = require('./protected/leadfinderMgmt.js');
 var leadlistMgmt = require('./protected/leadlistMgmt.js');
