@@ -11,6 +11,7 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             vm.showUser = false;
             vm.showDatabase = false;
             vm.showLogout = true;
+            console.log('this is user');
 
         } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'Admin') {
             vm.showLead = true;
