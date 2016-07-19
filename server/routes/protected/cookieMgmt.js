@@ -11,9 +11,9 @@ var express = require('express'),
   var http403 = require('../../utils/403')();
 
 
-  var cookieParser = require('cookie-parser');
+  
 
-  cookieGenerator.use('/',cookieParser(),function(req,res,next){
+  cookieGenerator.use('/',function(req,res,next){
     console.log(req.cookies);
     console.log('Welcome to cookie api');
     next();
