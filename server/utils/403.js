@@ -143,6 +143,7 @@ module.exports = function(){
 		try{
 			var decodedAccessInfo = decipher.update(ecodedAccessInfo,'hex','utf8');
 			decodedAccessInfo += decipher.final('utf8');
+			console.log(decodedAccessInfo);
 			req.accessInfo = JSON.parse(decodedAccessInfo);
 			console.log(req.accessInfo);//TOFIX
 			return next();
