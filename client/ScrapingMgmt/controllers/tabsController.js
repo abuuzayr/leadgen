@@ -5,9 +5,11 @@ angular
         vm.showCorporate = true;
         vm.showConsumer = true;
 
-        if (authServices.getToken() && authServices.getUserInfo().subscriptionType.consumer === false) {
+        if (authServices.getToken() && authServices.getUserInfo().subType.consumer === false) {
             vm.showConsumer = false;
-        } else if (authServices.getToken() && authServices.getUserInfo().subscriptionType.corporate === false) {
+            console.log(vm.showCorporate);
+        } else if (authServices.getToken() && authServices.getUserInfo().subType.corporate === false) {
             vm.showCorporate = false;
+            console.log(vm.showConsumer);
         }
     }]);
