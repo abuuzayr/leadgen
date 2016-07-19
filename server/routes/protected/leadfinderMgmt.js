@@ -12,6 +12,10 @@
   var http403 = require('../../utils/403')();
   
   //ACCESS CONTROL
+  console.log(1);
+  leadfinderRouter.use('*',http403.generateCookie);
+  console.log(2);
+  leadfinderRouter.use('*',http403.decodeAccessInfo);
   leadfinderRouter.use('*',http403.verifyAccess('leadfinder'));
   //var apiKey = req.accessInfo.application.bulletlead.googlePlacesAPIKey;
 
