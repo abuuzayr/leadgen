@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="app" ng-controller="appController as vm">
+<html ng-app="app">
 
 <head>
     <base href="/">
@@ -103,12 +103,11 @@
 </head>
 
 <body>
-    <!--<div ng-include="'mainTab.html'"></div>-->
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header ">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="appController as vm">
         <header class="mdl-layout__header ">
             <div class="mdl-layout__header-row ">
                 <!-- Left aligned menu below button -->
-                <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon" ng-click="vm.update()">
+                <button id="sideNavMenu-button" class="mdl-button mdl-js-button mdl-button--icon" ng-click="vm.update()">
                     <i class="material-icons">more_vert</i>
                 </button>
 
