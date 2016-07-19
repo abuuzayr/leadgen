@@ -5,7 +5,7 @@
         .module("app")
         .factory("authServices", authServices)
 
-    authServices.$inject = ['appConfig', 'feedbackServices', '$http', '$window', '$state', '$location','$cookies'];
+    authServices.$inject = ['appConfig', 'feedbackServices', '$http', '$window', '$state', '$location', '$cookies'];
 
     function authServices(appConfig, feedbackServices, $http, $window, $state, $location, $cookies) {
         var service = {
@@ -28,6 +28,7 @@
         }
 
         function deleteToken() {
+            console.log('remove cookie');
             return $cookies.remove('userTypeCookie');
         }
 
