@@ -74,5 +74,19 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             vm.showLogout = false;
             authServices.logout();
         }
+
+        var viewContentLoaded = $q.defer();
+
+        $scope.$on('$viewContentLoaded', function() {
+            $timeout(function() {
+                viewContentLoaded.resolve();
+            }, 0);
+        });
+        viewContentLoaded.promise.then(function() {
+            $timeout(function() {
+                uc.getCompanyDetails();
+                componentHandler.upgradeDom();
+            }, 0);
+        });
     }
 ]);
