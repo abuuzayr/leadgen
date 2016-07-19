@@ -76,6 +76,7 @@ module.exports = function(){
                				if(err){	
                				    return send403(req,res,err.message);
                				}
+               				req.accessInfo = JSON.parse(decodedAccessInfo);
                				res.cookie('userTypeCookie', token, { maxAge: 360000, httpOnly: false });
                				res.sendStatus(200);
                				});
@@ -83,8 +84,6 @@ module.exports = function(){
 			});
 		}		
 	}
-
-
 	function checkStroage(req,res,next){
 		var connection = require('./connection')();
 			connection.Do(function(db){
@@ -118,15 +117,15 @@ module.exports = function(){
 			return send403(req,res,"Authentication failed with error: " + err.message);
 		}
 	}
+	function decodeCookie(obj)
+	{
 
+	}
 	function verifyAccess(moduleName){
 		return function(req,res,next){
-		console.log(req);
-		console.log('verify access');
-		var module = req.accessInfo[moduleName];
-		console.log('verifying access');//TOFIX
-		console.log(req.accessInfo[moduleName]);//TOFIX
-		console.log('req.method: '+ req.method);//TOFIX		
+		var cookieInfo= req.cookies['session'];
+		console.log('being verify');
+		console.log(req.decoded);
 			switch(req.method){
 				case 'GET':
 						console.log('GET',module.read,module.read == true);//TOFIX
