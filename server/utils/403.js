@@ -49,7 +49,7 @@ module.exports = function(){
 			});
 		}		
 	}
-	function decodeCookieInfo(req,res){
+	function decodeCookieInfo(req,res)
 	{
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
