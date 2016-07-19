@@ -2,28 +2,17 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
     function($scope, $q, $location, $timeout, userService, $cookies, authServices) {
 
         var vm = this;
-        vm.toShow = {};
-        // var getCookie;
-
-        // if (authServices.getToken() && (authServices.getUserInfo().usertype) {
-        // getCookie = authServices.getToken();
-        // if (angular.isDefined(getCookie)) {
-        //     vm.type = authServices.getUserInfo().usertype;
-        //     console.log('test cookie');
-        //     console.log(vm.type);
-        // }
-
+        vm.showLogout = false;
 
         vm.update = function() {
-            // vm.type = $cookies.get('type');
-            // console.log('2.test cookie');
-            // console.log(vm.type);
+
             if (authServices.getToken() && authServices.getUserInfo().usertype === 'User') {
                 vm.showLead = true;
                 vm.showFinder = true;
                 vm.showAccount = true;
                 vm.showUser = false;
                 vm.showDatabase = false;
+                vm.showLogout = true;
 
             } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'Admin') {
                 vm.showLead = true;
@@ -31,6 +20,7 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
                 vm.showAccount = true;
                 vm.showUser = true;
                 vm.showDatabase = false;
+                vm.showLogout = true;
 
             } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'SuperAdmin') {
                 vm.showLead = false;
@@ -38,6 +28,7 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
                 vm.showAccount = false;
                 vm.showUser = false;
                 vm.showDatabase = true;
+                vm.showLogout = true;
             }
 
             console.log(vm.showLead);
@@ -54,6 +45,7 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             vm.showAccount = false;
             vm.showUser = false;
             vm.showDatabase = false;
+            vm.showLogout = false;
             authServices.logout();
         }
     }
