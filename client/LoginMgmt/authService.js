@@ -5,9 +5,9 @@
         .module("app")
         .factory("authServices", authServices)
 
-    authServices.$inject = ['appConfig', 'feedbackServices', '$http', '$window', '$state', '$location'];
+    authServices.$inject = ['appConfig', 'feedbackServices', '$http', '$window', '$state', '$location','$cookies'];
 
-    function authServices(appConfig, feedbackServices, $http, $window, $state, $location) {
+    function authServices(appConfig, feedbackServices, $http, $window, $state, $location, $cookies) {
         var service = {
             logout: logout,
             getToken: getToken,

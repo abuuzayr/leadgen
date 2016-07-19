@@ -10,10 +10,12 @@ var express = require('express'),
   MailinglistManager = require('../MailinglistManager/mailinglist-manager'),
   MailchimpManager = require('../MailchimpManager/syncContacts');
 
+
 var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
 
-apiRouter.use('/', jsonParser, function(req, res, next) {
+apiRouter.use('/', function(req, res, next) {
   console.log('Welcome to the API page');
+  console.log(req.url);
   next();
 });
 
@@ -23,9 +25,10 @@ var cookieGenerator = require('./protected/cookieMgmt.js');
 var dbMgmt = require('./protected/dbMgmt.js');
 
 //PATH
+
+apiRouter.use('/cookie', cookieGenerator);
 apiRouter.use('/', leadfinderMgmt);
 apiRouter.use('/', leadlistMgmt);
 apiRouter.use('/', dbMgmt);
-apiRouter.use('/', cookieGenerator);
 
 module.exports = apiRouter;

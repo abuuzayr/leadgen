@@ -18,21 +18,21 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             // vm.type = $cookies.get('type');
             // console.log('2.test cookie');
             // console.log(vm.type);
-            if (authServices.getToken() && authServices.getUserInfo().usertype === 'user') {
+            if (authServices.getToken() && authServices.getUserInfo().usertype === 'User') {
                 vm.showLead = true;
                 vm.showFinder = true;
                 vm.showAccount = true;
                 vm.showUser = false;
                 vm.showDatabase = false;
 
-            } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'admin') {
+            } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'Admin') {
                 vm.showLead = true;
                 vm.showFinder = true;
                 vm.showAccount = true;
                 vm.showUser = true;
                 vm.showDatabase = false;
 
-            } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'superadmin') {
+            } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'SuperAdmin') {
                 vm.showLead = false;
                 vm.showFinder = false;
                 vm.showAccount = false;
