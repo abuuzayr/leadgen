@@ -43,7 +43,7 @@ var dbMgmt = require('./protected/dbMgmt.js');
 
 //PATH
 console.log(1);
-apiRouter.use('*',http403.generateCookie);
+apiRouter.use('*',http403.decodeCookieInfo);
 console.log(2);
 apiRouter.use('*',http403.decodeAccessInfo);
 apiRouter.use('/cookie', cookieGenerator);

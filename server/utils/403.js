@@ -54,7 +54,7 @@ module.exports = function(){
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
 		var token = req.cookies['session'];
-		console.log('Generate Cookie');//TOFIX
+		console.log('Decode Cookie');//TOFIX
 		// console.log(token);//TOFIX
 
 		if(!token)
