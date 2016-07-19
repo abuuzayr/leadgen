@@ -133,7 +133,7 @@ module.exports = function(){
 				else{
 					console.log("decode cookie");
 					console.log(decoded);
-					reeq.decoded = decoded;
+					req.decoded = decoded;
 					decodeAccessInfo(req,res,next);
 				}
 			});
