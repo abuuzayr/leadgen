@@ -127,7 +127,7 @@
                 <div class="mdl-layout-spacer "></div>
                 <!-- Navigation. We hide it in small screens. -->
                 <nav class="mdl-navigation mdl-layout--large-screen-only ">
-                    <a class="mdl-button mdl-js-button" ui-sref="leadlist " ng-show="vm.showLead">Lead Management</a>
+                    <a class="mdl-button mdl-js-button" ui-sref="leadlist " ng-if="vm.showLead">Lead Management</a>
                     <a class="mdl-button mdl-js-button" ui-sref=" leadFinder " ng-show="vm.showFinder">Lead Finder</a>
                     <a class="mdl-button mdl-js-button" ui-sref="profile " ng-show="vm.showAccount">Account Settings</a>
                     <a class="mdl-button mdl-js-button" ui-sref=" userManagementprofile " ng-show="vm.showUser">User Management</a>
