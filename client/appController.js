@@ -84,7 +84,6 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
         });
         viewContentLoaded.promise.then(function() {
             $timeout(function() {
-                uc.getCompanyDetails();
                 componentHandler.upgradeDom();
             }, 0);
         });
