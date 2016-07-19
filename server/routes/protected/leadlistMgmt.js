@@ -1,15 +1,11 @@
-
-  var express = require('express'),
-  leadlistRouter = express.Router(),
-  dbHandler = require('../../database-handler'),
-  jsonParser = require('body-parser').json({limit:10000000000000}),
-  ContactsManager = require('../../ContactsManager/contacts-manager'),
-  ScrapManager = require('../../ScrapingManager/scrap-manager'),
-  mongodb = require('mongodb'),
-  md5 = require('blueimp-md5'),
-  MailinglistManager = require('../../MailinglistManager/mailinglist-manager'),
-  MailchimpManager = require('../../MailchimpManager/syncContacts');
-  var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
+var express = require('express');
+var leadlistRouter = express.Router();
+var dbHandler = require('../../database-handler');
+var ContactsManager = require('../../ContactsManager/contacts-manager');
+var md5 = require('blueimp-md5');
+var MailinglistManager = require('../../MailinglistManager/mailinglist-manager');
+var MailchimpManager = require('../../MailchimpManager/syncContacts');
+var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
   
 /*  var http403 = require('../../utils/403')();
   

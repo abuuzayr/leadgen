@@ -1,15 +1,9 @@
-var express = require('express'),
-  accountsettingsRouter = express.Router(),
-  dbHandler = require('../../database-handler'),
-  jsonParser = require('body-parser').json(),
-  ContactsManager = require('../../ContactsManager/contacts-manager'),
-  ScrapManager = require('../../ScrapingManager/scrap-manager'),
-  mongodb = require('mongodb'),
-  md5 = require('blueimp-md5'),
-  MailinglistManager = require('../../MailinglistManager/mailinglist-manager'),
-  MailchimpManager = require('../../MailchimpManager/syncContacts');
-  var http403 = require('../../utils/403')();
+var express = require('express');
+var accountsettingsRouter = express.Router();
+var http403 = require('../../utils/403')();
 
 
-  //ACCESS CONTROL
-  accountsettingsRouter.use('*',http403.verifyAccess('accountsetting'));
+//ACCESS CONTROL
+accountsettingsRouter.use('*',http403.verifyAccess('accountsetting'));
+
+module.exports = accountsettingsRouter;

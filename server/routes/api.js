@@ -1,18 +1,23 @@
-var express = require('express'),
-  apiRouter = express.Router(),
-  dbHandler = require('../database-handler'),
-  jsonParser = require('body-parser').json(),
-  ContactsManager = require('../ContactsManager/contacts-manager'),
-  ScrapManager = require('../ScrapingManager/scrap-manager'),
-  dbManager = require('../DatabaseManager/database-manager'),
-  mongodb = require('mongodb'),
-  md5 = require('blueimp-md5'),
-  MailinglistManager = require('../MailinglistManager/mailinglist-manager'),
-  MailchimpManager = require('../MailchimpManager/syncContacts');
+var express = require('express');
+var apiRouter = express.Router();
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
-var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
+apiRouter.use(bodyParser.json({limit: '500mb'}));
+apiRouter.use(cookieParser());
 
-apiRouter.use('/', jsonParser, function(req, res, next) {
+apiRouter.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, X-Access-Token');
+  if(req.method === 'OPTIONS')
+    return res.status(200).send('Preflight get response');
+  else
+    return next();
+});
+
+
+apiRouter.use('/', function(req, res, next) {
   console.log('Welcome to the API page');
   next();
 });
@@ -23,9 +28,9 @@ var cookieGenerator = require('./protected/cookieMgmt.js');
 var dbMgmt = require('./protected/dbMgmt.js');
 
 //PATH
+apiRouter.use('/', cookieGenerator);
 apiRouter.use('/', leadfinderMgmt);
 apiRouter.use('/', leadlistMgmt);
 apiRouter.use('/', dbMgmt);
-apiRouter.use('/', cookieGenerator);
 
 module.exports = apiRouter;

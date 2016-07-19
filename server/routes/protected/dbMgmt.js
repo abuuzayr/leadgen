@@ -1,8 +1,7 @@
-var express = require('express'),
-  jsonParser = require('body-parser').json(),
-  dbHandler = require('../../database-handler'),
-  mongodb = require('mongodb'),
-  dbManager = require('../../DatabaseManager/database-manager');
+var express = require('express');
+var dbHandler = require('../../database-handler');
+var mongodb = require('mongodb');
+var dbManager = require('../../DatabaseManager/database-manager');
 
 var dbMgmtRouter = express.Router();
 
@@ -33,7 +32,7 @@ dbMgmtRouter.route('/dbmgmt/all')
       res.sendStatus(error);
     });
   })
-  .put(jsonParser,function(req,res){
+  .put(function(req,res){
     console.log('deleting contacts');
     if(!Array.isArray(req.body))
       res.sendStatus(400);
@@ -65,7 +64,7 @@ dbMgmtRouter.route('/dbmgmt/local')
       res.sendStatus(error);
     });
   })
-  .put(jsonParser,function(req,res){
+  .put(function(req,res){
     console.log('deleting local contacts');
     console.log(req.body);
     if(!Array.isArray(req.body))
@@ -84,7 +83,7 @@ dbMgmtRouter.route('/dbmgmt/local')
       });
     }
   })
-  .post(jsonParser,function(req,res){
+  .post(function(req,res){
     console.log(req.body);
     if(!Array.isArray(req.body.data))
       res.sendStatus(400);
@@ -151,7 +150,7 @@ dbMgmtRouter.route('/dbmgmt/external')
       res.sendStatus(failure);
     });
   })
-  .put(jsonParser,function(req,res){
+  .put(function(req,res){
     if(!Array.isArray(req.body))
       res.sendStatus(400);
     else{
@@ -168,7 +167,7 @@ dbMgmtRouter.route('/dbmgmt/external')
       });
     }
   })
-  .patch(jsonParser,function(req,res){
+  .patch(function(req,res){
     if(!Array.isArray(req.body) || req.body.length != 2)
       res.sendStatus(400);
     else{
