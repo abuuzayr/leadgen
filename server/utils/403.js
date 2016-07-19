@@ -5,6 +5,7 @@ module.exports = function(){
 
 	var service = {
 		authenticateToken: authenticateToken,
+		generateCookie : generateCookie,
 		checkStroage: checkStroage,
 		checkExpiration: checkExpiration,
 		decodeAccessInfo: decodeAccessInfo,
@@ -48,12 +49,12 @@ module.exports = function(){
 		}		
 	}
 
-	function generateCookie(req,res,next){
+	function generateCookie(req,res){
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
 		var token = req.cookies['session'];
 		console.log('Generate Cookie');//TOFIX
-		//console.log(token);//TOFIX
+		// console.log(token);//TOFIX
 
 		if(!token)
 			send403(req,res,"no token");
@@ -122,7 +123,7 @@ module.exports = function(){
 		return function(req,res,next){
 		var module = req.accessInfo[moduleName];
 		console.log('verifying access');//TOFIX
-		console.log(module);//TOFIX
+		console.log(req.accessInfo[moduleName]);//TOFIX
 		console.log('req.method: '+ req.method);//TOFIX		
 			switch(req.method){
 				case 'GET':

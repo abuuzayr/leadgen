@@ -6,6 +6,8 @@
 module.exports = {
   'port': process.env.PORT || 8080,
   'dbURI': 'mongodb://localhost:27017/app',
+  'superSecret' : 'ilovescotchscotchyscotchscotch',
+  'appSecret' : 'secret_for_bulletform',
   'successMsg': 'sucess',
   'errorMsg': 'error',
   'apiFile': 'apikey.txt',

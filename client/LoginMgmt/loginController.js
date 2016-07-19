@@ -128,9 +128,15 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
 
         function SuccessCallback(res) {
             return successFeedback('Logged in')
-                .then($http.get(API_URL + '/auth/'))
-                .then(function(res) {
+                .then(
+                    $http.get(API_URL + '/cookie')
+                    .then(function(res){
+                        $state.go('home');
+                    })
 
+                )
+                .then(function(res) {
+                    console.log(res);
                     $state.go('home');
                 })
                 .catch(function(err) {
