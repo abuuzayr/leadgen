@@ -116,7 +116,7 @@ module.exports = function(){
 			return send403(req,res,"Authentication failed with error: " + err.message);
 		}
 	}
-	function decodeCookie(req,res)
+	function decodeCookie(req,res,next)
 	{
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
