@@ -12,4 +12,5 @@ angular
             vm.showCorporate = false;
             console.log(vm.showConsumer);
         }
+
     }]);

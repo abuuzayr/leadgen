@@ -1,7 +1,8 @@
 #login-background {
     height: 100%;
     width: 100%;
-    background: #F5F5F5;
+    /*background: #F5F5F5;*/
+    background-image: url('assets/images/login-background.jpg');
 }
 
 body {
