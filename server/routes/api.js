@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
 apiRouter.use(bodyParser.json({limit: '500mb'}));
+apiRouter.use(bodyParser.urlencoded({limit: '500mb', extended:true}));
 apiRouter.use(cookieParser());
 
 apiRouter.use(function(req, res, next) {
