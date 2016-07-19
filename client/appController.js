@@ -4,6 +4,31 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
         var vm = this;
         vm.showLogout = false;
 
+        if (authServices.getToken() && authServices.getUserInfo().usertype === 'User') {
+            vm.showLead = true;
+            vm.showFinder = true;
+            vm.showAccount = true;
+            vm.showUser = false;
+            vm.showDatabase = false;
+            vm.showLogout = true;
+
+        } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'Admin') {
+            vm.showLead = true;
+            vm.showFinder = true;
+            vm.showAccount = true;
+            vm.showUser = true;
+            vm.showDatabase = false;
+            vm.showLogout = true;
+
+        } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'SuperAdmin') {
+            vm.showLead = false;
+            vm.showFinder = false;
+            vm.showAccount = false;
+            vm.showUser = false;
+            vm.showDatabase = true;
+            vm.showLogout = true;
+        }
+
         vm.update = function() {
 
             if (authServices.getToken() && authServices.getUserInfo().usertype === 'User') {
