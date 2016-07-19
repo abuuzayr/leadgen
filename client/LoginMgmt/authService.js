@@ -5,11 +5,10 @@
         .module("app")
         .factory("authServices", authServices)
 
-    authServices.$inject = ['appConfig', 'feedbackServices', '$http', '$window', '$state', '$location','$cookies'];
+    authServices.$inject = ['appConfig', 'feedbackServices', '$http', '$window', '$state', '$location', '$cookies'];
 
     function authServices(appConfig, feedbackServices, $http, $window, $state, $location, $cookies) {
         var service = {
-            login: login,
             logout: logout,
             getToken: getToken,
             deleteToken: deleteToken,
@@ -17,30 +16,6 @@
             getUserInfo: getUserInfo
         }
         return service;
-
-        function login(email, password) {
-            return $http.post(API_URL + '/auth/admin', {
-                    email: email,
-                    password: password
-                })
-                .then(loginSuccess)
-                .catch(loginError);
-
-            function loginSuccess(res) {
-                setToken(res.data.token);
-                feedbackServices.hideFeedback('#login-feedbackMessage')
-                    .then(feedbackServices.successFeedback('logged in', '#login-feedbackMessage'))
-                    .then($state.go('companies'));
-
-
-            }
-
-            function loginError(err) {
-                deleteToken();
-                feedbackServices.hideFeedback('#login-feedbackMessage')
-                    .then(feedbackServices.errorFeedback(err.data, '#login-feedbackMessage'));
-            }
-        }
 
         function logout() {
             deleteToken();
@@ -53,6 +28,7 @@
         }
 
         function deleteToken() {
+            console.log('remove cookie');
             return $cookies.remove('userTypeCookie');
         }
 
@@ -74,7 +50,9 @@
                 username: userInfo.username,
                 email: userInfo.email,
                 usertype: userInfo.usertype,
-                subType: userInfo.subscriptionType
+                subType: userInfo.subscriptionType,
+                companyName: userInfo.companyName,
+                companyId: userInfo.companyId
             };
         }
     }

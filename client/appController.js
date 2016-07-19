@@ -45,6 +45,7 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             console.log(vm.showAccount);
             console.log(vm.showUser);
             console.log(vm.showDatabase);
+            console.log(vm.showLogout);
         }
 
         // vm.logout = function() {
@@ -58,80 +59,22 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
         // }
 
         vm.logout = function() {
+            vm.showLead = false;
+            vm.showFinder = false;
+            vm.showAccount = false;
+            vm.showUser = false;
+            vm.showDatabase = false;
+
+            console.log('logout');
+            console.log(vm.showLead);
+            console.log(vm.showFinder);
+            console.log(vm.showAccount);
+            console.log(vm.showUser);
+            console.log(vm.showDatabase);
+            console.log(vm.showLogout);
+            // $cookies.remove('userTypeCookie');
+            // authServices.deleteToken();
             authServices.logout();
         }
-
-        // vm.showLead = userService.getShowLead();
-        // if (vm.showLead === '') {
-        //     vm.showLead = false;
-        // }
-        // console.log(vm.showLead);
-
-        // vm.showFinder = userService.getShowFinder();
-        // if (vm.showFinder === '') {
-        //     vm.showFinder = false;
-        // }
-        // console.log(vm.showFinder);
-
-        // vm.showAccount = userService.getShowAccount();
-        // if (vm.showAccount === '') {
-        //     vm.showAccount = false;
-        // }
-        // console.log(vm.showAccount);
-
-        // vm.showUser = userService.getShowUser();
-        // if (vm.showUser === '') {
-        //     vm.showUser = false;
-        // }
-        // console.log(vm.showUser);
-
-        // vm.showDatabase = userService.getShowDatabase();
-        // if (vm.showDatabase === '') {
-        //     vm.showDatabase = false;
-        // }
-        // console.log(vm.showDatabase);
-
-        // vm.showBar = userService.getShowBar();
-        // if (vm.showBar === '') {
-        //     vm.showBar = true;
-        // }
-
-        // vm.update = function() {
-        //     vm.type = userService.getType();
-        //     console.log(vm.type);
-        //     vm.showLead = userService.getShowLead();
-        //     vm.showFinder = userService.getShowFinder();
-        //     vm.showAccount = userService.getShowAccount();
-        //     vm.showUser = userService.getShowUser();
-        //     vm.showDatabase = userService.getShowDatabase();
-
-        //     if (vm.showLead === '') {
-        //         vm.showLead = false;
-        //     }
-
-        //     if (vm.showFinder === '') {
-        //         vm.showFinder = false;
-        //     }
-
-        //     if (vm.showAccount === '') {
-        //         vm.showAccount = false;
-        //     }
-        //     if (vm.showUser === '') {
-        //         vm.showUser = false;
-        //     }
-        //     if (vm.showDatabase === '') {
-        //         vm.showDatabase = false;
-        //     }
-
-        //     console.log(vm.showLead);
-        //     console.log(vm.showFinder);
-        //     console.log(vm.showAccount);
-        //     console.log(vm.showUser);
-        //     console.log(vm.showDatabase);
-        // }
-
-        // vm.hideBar = function() {
-        //     vm.showBar = false;
-        // }
     }
 ]);
