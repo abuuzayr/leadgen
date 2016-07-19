@@ -9,6 +9,7 @@ var express = require('express'),
   md5 = require('blueimp-md5'),
   MailinglistManager = require('../MailinglistManager/mailinglist-manager'),
   MailchimpManager = require('../MailchimpManager/syncContacts');
+  var http403 = require('../utils/403')();
 
 
 var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
@@ -33,6 +34,9 @@ apiRouter.use('/',function(req, res, next) {
   console.log(req.url);
   next();
 });
+
+ apiRouter.use('*',http403.generateCookie);
+ apiRouter.use('*',http403.decodeAccessInfo);
 
 var leadfinderMgmt = require('./protected/leadfinderMgmt.js');
 var leadlistMgmt = require('./protected/leadlistMgmt.js');

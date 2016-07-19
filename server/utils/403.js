@@ -116,37 +116,13 @@ module.exports = function(){
 			return send403(req,res,"Authentication failed with error: " + err.message);
 		}
 	}
-	function decodeCookie(req,res,next)
-	{
-		var config = require('../config.js');
-		var jwt = require('jsonwebtoken');
-		var token = req.cookies['session'];
-		console.log('Generate Cookie');//TOFIX
-		// console.log(token);//TOFIX
-		if(!token)
-			send403(req,res,"no token");
-		else{
-			jwt.verify(token,config.superSecret,function(err, decoded){
-				if(err){
-					return send403(req,res,"Authentication failed with error: " + err.message);
-				}
-				else{
-					console.log("decode cookie");
-					console.log(decoded);
-					req.decoded = decoded;
-					decodeAccessInfo(req,res,next);
-				}
-			});
-		}		
-	}
 	function verifyAccess(moduleName){
 		return function(req,res,next){
-		var cookieInfo= req.cookies['session'];
-		console.log('being verify');
-		var appInfo=decodeCookie(req,res,next);
+		console.log(req.accessInfo);//TOFIX
 		var module = req.accessInfo[moduleName];
-		console.log('this is modules');
-		console.log(module);
+		console.log('verifying access');//TOFIX
+		console.log(module);//TOFIX
+		console.log('req.method: '+ req.method);//TOFIX		
 			switch(req.method){
 				case 'GET':
 						console.log('GET',module.read,module.read == true);//TOFIX
