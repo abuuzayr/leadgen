@@ -131,6 +131,8 @@ module.exports = function(){
 					return send403(req,res,"Authentication failed with error: " + err.message);
 				}
 				else{
+					console.log("decode cookie");
+					console.log(decoded);
 					return req.decoded= decoded;
 				}
 			});
@@ -142,7 +144,7 @@ module.exports = function(){
 		console.log('being verify');
 		var appInfo=decodeCookie(req,res);
 		console.log("Application info:");
-		console.log(appInfo);
+		console.log(req.decoded);
 		decodeAccessInfo(req,res,next);
 		var module = req.accessInfo[moduleName];
 		console.log('this is modules');
