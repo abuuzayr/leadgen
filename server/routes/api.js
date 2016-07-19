@@ -1,7 +1,7 @@
 var express = require('express'),
   apiRouter = express.Router(),
   dbHandler = require('../database-handler'),
-  jsonParser = require('body-parser').json(),
+  bodyParser = require('body-parser'),
   ContactsManager = require('../ContactsManager/contacts-manager'),
   ScrapManager = require('../ScrapingManager/scrap-manager'),
   dbManager = require('../DatabaseManager/database-manager'),
@@ -12,8 +12,23 @@ var express = require('express'),
 
 
 var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
+var cookieParser = require('cookie-parser');
 
-apiRouter.use('/', function(req, res, next) {
+apiRouter.use(bodyParser.json({limit: '500mb'}));
+apiRouter.use(cookieParser());
+
+apiRouter.use( function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, X-Access-Token');
+  if(req.method === 'OPTIONS')
+    return res.status(200).send('Preflight get response');
+  else
+    return next();
+});
+
+
+apiRouter.use('/',function(req, res, next) {
   console.log('Welcome to the API page');
   console.log(req.url);
   next();

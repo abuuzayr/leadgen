@@ -121,6 +121,8 @@ module.exports = function(){
 
 	function verifyAccess(moduleName){
 		return function(req,res,next){
+		console.log(req);
+		console.log('verify access');
 		var module = req.accessInfo[moduleName];
 		console.log('verifying access');//TOFIX
 		console.log(req.accessInfo[moduleName]);//TOFIX
