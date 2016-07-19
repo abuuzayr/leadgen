@@ -10,6 +10,7 @@ module.exports = function(){
 		checkExpiration: checkExpiration,
 		decodeAccessInfo: decodeAccessInfo,
 		verifyAccess: verifyAccess,
+		decodeCookieInfo: decodeCookieInfo,
 		send403:send403
 	};
 	return service;
@@ -48,7 +49,7 @@ module.exports = function(){
 			});
 		}		
 	}
-	function decodeCookieInfo()
+	function decodeCookieInfo(req,res){
 	{
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
