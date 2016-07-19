@@ -146,7 +146,7 @@ module.exports = function(){
 			console.log(decodedAccessInfo);
 			req.accessInfo = JSON.parse(decodedAccessInfo);
 			console.log(req.accessInfo);//TOFIX
-			return next();
+			 next();
 		}catch(err){
 			console.log(err);//TOFIX
 			return send403(req,res,"Authentication failed with error: " + err.message);
