@@ -77,7 +77,7 @@ module.exports = function(){
                				    return send403(req,res,err.message);
                				}
                				res.cookie('userTypeCookie', token, { maxAge: 360000, httpOnly: false });
-               				res.sendStatus(200);
+               				next();
                				});
 				}
 			});

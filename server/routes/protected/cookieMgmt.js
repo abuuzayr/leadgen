@@ -24,6 +24,7 @@ var express = require('express'),
       res.sendStatus(400);
     else {
       http403.generateCookie(req,res);
+      res.sendStatus(200);
     }
   });
 
