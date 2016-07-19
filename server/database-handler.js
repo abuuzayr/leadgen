@@ -109,7 +109,7 @@ var dbHandler = {
     return new Promise(function(resolve, reject) {
       MongoClient.connect(config.dbURI, function(err, db) {
         if (err != null)
-          reject(err);
+          reject(500);
         else {
           var col = db.collection(collectionName);
           col.aggregate([{
@@ -121,7 +121,7 @@ var dbHandler = {
             }
           }]).toArray(function(err, docs) {
             if (err != null)
-              reject(err);
+              reject(500);
             else {
               db.close();
               resolve(docs);
@@ -135,8 +135,10 @@ var dbHandler = {
     return new Promise(function(resolve, reject) {
       var dbURL  = config.getDbUri(dbName);
       MongoClient.connect(dbURL, function(err, db) {
-        if (err != null)
-          reject(err);
+        if (err != null){
+          console.log(err);
+          reject(500);
+        }
         else {
           var col = db.collection(collectionName);
           if (obj != null) {
@@ -144,8 +146,10 @@ var dbHandler = {
               obj._id = new mongodb.ObjectID(obj._id);
           }
           col.find(obj).toArray(function(err, docs) {
-            if (err != null)
-              reject(err);
+            if (err != null){
+              console.log(err);
+              reject(500);
+            }
             else {
               db.close();
               resolve(docs);
