@@ -97,9 +97,9 @@ var ContactsManager = {
           }
 
         }
-        dbHandler.dbInsert('leadList',leadListArr)
+        dbHandler.dbInsertMany('leadList',leadListArr)
           .then(function(success1){
-            return dbHandler.dbInsert('blackList',blackListArr);
+            return dbHandler.dbInsertMany('blackList',blackListArr);
           })
           .then(function(success2) {
             callback(res, 201);

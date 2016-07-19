@@ -72,7 +72,28 @@ var dbHandler = {
           if (obj._id != undefined)
             delete obj._id;
           var col = db.collection(collectionName);
-          col.insert(obj, function(err, r) {
+          col.insertOne(obj, function(err, r) {
+            if (err != null) {
+              reject(500);
+            } else {
+              db.close();
+              resolve(201);
+            }
+          });
+        }
+      });
+    });
+  },
+  dbInsertMany: function(collectionName, obj) {
+    return new Promise(function(resolve, reject) {
+      MongoClient.connect(config.dbURI, function(err, db) {
+        if (err != null)
+          reject(500);
+        else {
+          for(var i in obj.length)
+            delete obj[i]._id;
+          var col = db.collection(collectionName);
+          col.insertMany(obj, function(err, r) {
             if (err != null) {
               reject(500);
             } else {
