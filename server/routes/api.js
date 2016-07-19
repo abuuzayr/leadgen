@@ -52,6 +52,6 @@ apiRouter.use('/', leadlistMgmt);
 apiRouter.use('/', dbMgmt);
 
 //UNDEFINED ROUTES
-protectedRoutes.use('*', http404.notFoundMiddleware);
+apiRouter.use('*', http404.notFoundMiddleware);
 
 module.exports = apiRouter;
