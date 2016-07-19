@@ -48,6 +48,40 @@ module.exports = function(){
 			});
 		}		
 	}
+	function decodeCookieInfo()
+	{
+		var config = require('../config.js');
+		var jwt = require('jsonwebtoken');
+		var token = req.cookies['session'];
+		console.log('Generate Cookie');//TOFIX
+		// console.log(token);//TOFIX
+
+		if(!token)
+			send403(req,res,"no token");
+		else{
+			jwt.verify(token,config.superSecret,function(err, decoded){
+				if(err){
+					return send403(req,res,"Authentication failed with error: " + err.message);
+				}
+				else{
+					req.decoded = decoded;
+					console.log(req.decoded);
+					jwt.sign({
+               			email: decoded.email,
+               			usertype: decoded.usertype,
+               			subscriptionType: decoded.subscriptionType
+               			},config.appSecret,{
+               				expiresIn: '1h'
+               			},function(err,token){
+               				if(err){	
+               				    return send403(req,res,err.message);
+               				}
+               				next();
+               				});
+				}
+			});
+		}		
+	}
 
 	function generateCookie(req,res){
 		var config = require('../config.js');
@@ -77,7 +111,7 @@ module.exports = function(){
                				    return send403(req,res,err.message);
                				}
                				res.cookie('userTypeCookie', token, { maxAge: 360000, httpOnly: false });
-               				next();
+               				res.sendStatus(200);
                				});
 				}
 			});

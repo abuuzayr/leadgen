@@ -13,7 +13,7 @@
   
   //ACCESS CONTROL
   console.log(1);
-  leadfinderRouter.use('*',http403.generateCookie);
+  leadfinderRouter.use('*',http403.decodeCookieInfo);
   console.log(2);
   leadfinderRouter.use('*',http403.decodeAccessInfo);
   leadfinderRouter.use('*',http403.verifyAccess('leadfinder'));
