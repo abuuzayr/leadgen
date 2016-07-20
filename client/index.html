@@ -60,7 +60,7 @@
     <script src="DatabaseMgmt/controllers/localDatabaseController.js "></script>
     <script src="ContactsMgmt/controllers/homepageController.js "></script>
     <script src="LoginMgmt/loginController.js "></script>
-    <script src="NavBarMgmt/navBarController.js "></script>
+    <script src="NavBarMgmt/appController.js "></script>
 
     <!--Services-->
     <script src="shared/feedbackService.js "></script>
@@ -103,7 +103,40 @@
 </head>
 
 <body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="appController as vm">
+        <!--<header class="mdl-layout__header ">
+            <div class="mdl-layout__header-row ">-->
+        <!-- Left aligned menu below button -->
+        <!--<button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon" ng-click="vm.update()">
+                    <i class="material-icons">more_vert</i>
+                </button>
+
+                <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
+                    <li class="mdl-menu__item" ui-sref="leadlist " ng-show="vm.showLead">Lead Management</li>
+                    <li class="mdl-menu__item" ui-sref=" leadFinder " ng-show="vm.showFinder">Lead Finder</li>
+                    <li class="mdl-menu__item" ui-sref="profile " ng-show="vm.showAccount">Account Settings</li>
+                    <li class="mdl-menu__item" ui-sref=" userManagementprofile " ng-show="vm.showUser">User Management</li>
+                    <li class="mdl-menu__item" ui-sref="externalDB " ng-show="vm.showDatabase">Database Management</li>
+                    <a class="mdl-menu__item" href=" https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
+                    <li class="mdl-menu__item" ng-click="vm.logout()" ng-show="vm.showLogout">Logout</li>
+                    </li>
+                </ul>-->
+        <!-- Title -->
+        <!--<span class="mdl-layout-title mdl "> <a style="color:#F2F1F1; " ui-sref="home "><b>BulletLead</b></a></span>-->
+        <!-- Add spacer, to align navigation to the right -->
+        <!--<div class="mdl-layout-spacer "></div>-->
+        <!-- Navigation. We hide it in small screens. -->
+        <!--<nav class="mdl-navigation mdl-layout--large-screen-only ">
+                    <a class="mdl-button mdl-js-button" ui-sref="leadlist " ng-if="vm.showLead">Lead Management</a>
+                    <a class="mdl-button mdl-js-button" ui-sref=" leadFinder " ng-show="vm.showFinder">Lead Finder</a>
+                    <a class="mdl-button mdl-js-button" ui-sref="profile " ng-show="vm.showAccount">Account Settings</a>
+                    <a class="mdl-button mdl-js-button" ui-sref=" userManagementprofile " ng-show="vm.showUser">User Management</a>
+                    <a class="mdl-button mdl-js-button" ui-sref="externalDB " ng-show="vm.showDatabase">Database Management</a>
+                    <a class="mdl-navigation__link" href=" https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
+                    <a class="mdl-button mdl-js-button" ng-click="vm.logout()" ng-show="vm.showLogout">Logout</a>
+                </nav>
+            </div>
+        </header>-->
         <main class="mdl-layout__content ">
             <div ui-view class="page-content "></div>
         </main>
