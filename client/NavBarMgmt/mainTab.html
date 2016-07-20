@@ -6,11 +6,11 @@
                 </button>
 
         <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
-            <li class="mdl-menu__item" ui-sref="leadlist " ng-show="vm.showLead">Lead Management</li>
-            <li class="mdl-menu__item" ui-sref=" leadFinder " ng-show="vm.showFinder">Lead Finder</li>
-            <li class="mdl-menu__item" ui-sref="profile " ng-show="vm.showAccount">Account Settings</li>
-            <li class="mdl-menu__item" ui-sref=" userManagementprofile " ng-show="vm.showUser">User Management</li>
-            <li class="mdl-menu__item" ui-sref="externalDB " ng-show="vm.showDatabase">Database Management</li>
+            <li class="mdl-menu__item" ui-sref="leadlist " ng-show="vm.showLead" ng-click="vm.update()">Lead Management</li>
+            <li class="mdl-menu__item" ui-sref=" leadFinder " ng-show="vm.showFinder" ng-click="vm.update()">Lead Finder</li>
+            <li class="mdl-menu__item" ui-sref="profile " ng-show="vm.showAccount" ng-click="vm.update()">Account Settings</li>
+            <li class="mdl-menu__item" ui-sref=" userManagementprofile " ng-show="vm.showUser" ng-click="vm.update()">User Management</li>
+            <li class="mdl-menu__item" ui-sref="externalDB " ng-show="vm.showDatabase" ng-click="vm.update()">Database Management</li>
             <a class="mdl-menu__item" href=" https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
             <li class="mdl-menu__item" ng-click="vm.logout()" ng-show="vm.showLogout">Logout</li>
             </li>
