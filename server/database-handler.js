@@ -87,8 +87,10 @@ var dbHandler = {
   dbInsertMany: function(collectionName, obj) {
     return new Promise(function(resolve, reject) {
       MongoClient.connect(config.dbURI, function(err, db) {
-        if (err != null)
-          reject(500);
+        if (err != null){
+          console.log(err);
+	  reject(500);
+	}
         else {
           for(var i in obj.length)
             delete obj[i]._id;
@@ -96,6 +98,7 @@ var dbHandler = {
           col.insertMany(obj, function(err, r) {
             if (err != null) {
               reject(500);
+	      console.log(err);
             } else {
               db.close();
               resolve(201);
@@ -194,8 +197,10 @@ var dbHandler = {
   dbUpdateMany: function(collectionName, originalObj, updateObj) {
     return new Promise(function(resolve, reject) {
       MongoClient.connect(config.dbURI, function(err, db) {
-        if (err != null)
+        if (err != null){
+	  console.log(err);
           reject(400);
+	}
         else {
           var col = db.collection(collectionName);
 
@@ -211,8 +216,10 @@ var dbHandler = {
             $set: updateObj
           };
           col.updateMany(originalObj, obj, function(err, results) {
-            if (err != null)
-              reject(400);
+            if (err != null){
+              console.log(err);	
+	      reject(400);
+	    }
             else {
               db.close();
               resolve(200);
