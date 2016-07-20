@@ -94,7 +94,7 @@ var dbHandler = {
         else {
           for(var i in obj.length)
             delete obj[i]._id;
-          var col = db.collection(collectionName);
+          var col = db.collection(collectionName).initializeOrderedBulkOp();
           col.insertMany(obj, function(err, r) {
             if (err != null) {
               reject(500);
