@@ -1,4 +1,10 @@
 <div ng-controller="viewMailListController as vmc">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <!---------------------------------------- Ng-include nav bars ---------------------------------------->
+        <div ng-include="'NavBarMgmt/mainTab.html'"></div>
+    </div>
+    <br>
+    <br>
     <br>
     <ul class="nav nav-tabs">
         <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click="vmc.refresh()">LeadList</a></li>
