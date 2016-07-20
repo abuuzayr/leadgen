@@ -1,5 +1,5 @@
 app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'leadsData', 'historyData', 'mailListData', 'contactsColumnData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', function($scope, $window, appConfig, leadsData, historyData, mailListData, contactsColumnData, $http, $interval, uiGridConstants, $q, $location, $timeout, feedbackServices) {
-    
+
     var cc = this;
 
     leadsData.success(function(data) {
@@ -151,9 +151,9 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
     };
 
     //refresh
-    cc.refresh = function() {
-        $window.location.reload();
-    };
+    // cc.refresh = function() {
+    //     $window.location.reload();
+    // };
 
     cc.fields = [];
     //Get columndefs
@@ -223,11 +223,11 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         var url = "/contacts/leadList/leads";
         var deleteStatus = $http.put(appConfig.API_URL + url, leads);
         $window.location.reload();
-        
+
     };
 
     // add field
-   cc.addField = function() {
+    cc.addField = function() {
         var fieldName = cc.field.name;
         var arrName = fieldName.split(" ");
         var editedField = "";
@@ -361,7 +361,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
     //Close popup dialog box
     cc.closeDialog = function(dialogName) {
         var dialog = document.querySelector('#' + dialogName);
-       cc.addResult = "";
+        cc.addResult = "";
         dialog.close();
     };
 
