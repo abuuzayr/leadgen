@@ -111,6 +111,7 @@ module.exports = function(){
                				if(err){	
                				    return send403(req,res,err.message);
                				}
+               				req.usertype=usertype;
                				res.cookie('userTypeCookie', token, { maxAge: 360000, httpOnly: false });
                				res.sendStatus(200);
                				});
