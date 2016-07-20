@@ -12,6 +12,12 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             vm.showDatabase = false;
             vm.showLogout = true;
             console.log('this is user');
+            console.log(vm.showLead);
+            console.log(vm.showFinder);
+            console.log(vm.showAccount);
+            console.log(vm.showUser);
+            console.log(vm.showDatabase);
+            console.log(vm.showLogout);
 
         } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'Admin') {
             vm.showLead = true;
@@ -20,6 +26,14 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             vm.showUser = true;
             vm.showDatabase = false;
             vm.showLogout = true;
+            console.log('this is admin');
+            console.log(vm.showLead);
+            console.log(vm.showFinder);
+            console.log(vm.showAccount);
+            console.log(vm.showUser);
+            console.log(vm.showDatabase);
+            console.log(vm.showLogout);
+
 
         } else if (authServices.getToken() && authServices.getUserInfo().usertype === 'SuperAdmin') {
             vm.showLead = false;
@@ -28,6 +42,13 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             vm.showUser = false;
             vm.showDatabase = true;
             vm.showLogout = true;
+            console.log('this is super admin');
+            console.log(vm.showLead);
+            console.log(vm.showFinder);
+            console.log(vm.showAccount);
+            console.log(vm.showUser);
+            console.log(vm.showDatabase);
+            console.log(vm.showLogout);
         }
 
         vm.update = function() {
