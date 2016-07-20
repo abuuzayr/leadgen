@@ -16,7 +16,7 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
             }),
             function errorCallback(err) {
 
-            }
+            };
 
         pc.getFromDatabase = function() {
             var path = '/protected/settings';
@@ -24,14 +24,14 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
                 method: 'GET',
                 url: appConfig.API_URL + path,
                 headers: {}
-            }
+            };
             if ($window.sessionStorage.token) {
                 req.headers.Authorization = $window.sessionStorage.token;
             }
 
             $http(req)
                 .then(SuccessCallback);
-                // .catch(ErrorCallback);
+            // .catch(ErrorCallback);
 
             function SuccessCallback(res) {
                 pc.profileData = res.data.adminData;
@@ -41,7 +41,7 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
             //     return feedbackServices.hideFeedback('#profileFeedback')
             //         .then(feedbackServices.errorFeedback('Unable to get data', '#profileFeedback'));
             // }
-        }
+        };
 
         // if need to change email and username
         // pc.updateDatabase = function() {
@@ -82,7 +82,7 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
                 data: {
                     pwd: pc.pwd
                 }
-            }
+            };
             if ($window.sessionStorage.token) {
                 req.headers.Authorization = $window.sessionStorage.token;
             }
@@ -99,7 +99,7 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
                 return feedbackServices.hideFeedback('#profileFeedback').
                 then(feedbackServices.errorFeedback('Unable to change password', '#profileFeedback'));
             }
-        }
+        };
 
         //validate password and change accordingly
         pc.validateNewPassword = function() {
@@ -110,7 +110,7 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
             }
             return feedbackServices.hideFeedback('#profileFeedback').
             then(feedbackServices.errorFeedback('New password inputs do not match', '#profileFeedback'));
-        }
+        };
 
         // var objToSend = {
         //     name: pc.userName,
@@ -142,6 +142,5 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
                 componentHandler.upgradeDom();
             }, 0);
         });
-
     }
 ]);

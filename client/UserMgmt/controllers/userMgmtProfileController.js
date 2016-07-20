@@ -40,7 +40,7 @@ app.controller('userMgmtProfileController', ['$scope', '$http', 'uiGridConstants
                 method: 'GET',
                 url: appConfig.API_URL + path,
                 headers: {}
-            }
+            };
 
             if ($window.sessionStorage.token) {
                 req.headers.Authorization = $window.sessionStorage.token;
@@ -58,7 +58,7 @@ app.controller('userMgmtProfileController', ['$scope', '$http', 'uiGridConstants
                 return feedbackServices.hideFeedback('#userFeedback')
                     .then(feedbackServices.errorFeedback('Unable to get data', '#userFeedback'));
             }
-        }
+        };
 
         /* =========================================== Load animation =========================================== */
         var viewContentLoaded = $q.defer();

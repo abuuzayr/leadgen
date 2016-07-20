@@ -4,9 +4,9 @@ app.factory('ypResults', ['$http', 'appConfig', function($http, appConfig) {
             method: 'GET',
             url: appConfig.API_URL + '/scrape/corporate/yp/' + category
         });
-    }
+    };
 
     return {
         scrapeYellowPageLeads: scrapeYellowPageLeads
-    }
+    };
 }]);

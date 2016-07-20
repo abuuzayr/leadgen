@@ -14,7 +14,7 @@
             deleteToken: deleteToken,
             decodeToken: decodeToken,
             getUserInfo: getUserInfo
-        }
+        };
         return service;
 
         function logout() {
