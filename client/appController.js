@@ -84,7 +84,9 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             console.log(vm.showUser);
             console.log(vm.showDatabase);
             console.log(vm.showLogout);
-        }
+        };
+
+        vm.update();
 
         vm.logout = function() {
             vm.showLead = false;
@@ -94,7 +96,7 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             vm.showDatabase = false;
             vm.showLogout = false;
             authServices.logout();
-        }
+        };
 
         var viewContentLoaded = $q.defer();
 
@@ -105,6 +107,7 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
         });
         viewContentLoaded.promise.then(function() {
             $timeout(function() {
+                vm.update();
                 componentHandler.upgradeDom();
             }, 0);
         });

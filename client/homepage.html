@@ -1,4 +1,4 @@
-<div ng-controller="homepageController">
+<div ng-controller="appController as vm">
     <!-- <br><br> -->
     <h3 style="padding:30px">Welcome to BulletLeads</h3>
     <!--<div class="container"><img src="TrueGif.gif" alt="HTML5 Icon" style="width:700px;height:350px;"></div>-->
@@ -6,7 +6,7 @@
     <div class="mdl-layout__container">
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <!---------------------------------------- Ng-include nav bars ---------------------------------------->
-            <header class="mdl-layout__header" ng-include="'NavBarMgmt/mainTab.html'"></header>
+            <div ng-include="'NavBarMgmt/mainTab.html'"></div>
             <h3>Testing</h3>
             <header class="mdl-layout__header ">
                 <div class="mdl-layout__header-row ">
