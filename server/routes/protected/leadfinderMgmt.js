@@ -20,7 +20,7 @@
 /*
 Scraping API
 */
-leadfinderRouter.get('/scrape/corporate/g/new/:category/:country', function(req, res) {
+leadfinderRouter.get('/corporate/g/new/:category/:country', function(req, res) {
   if (!req.params.category || !req.params.country)
     res.sendStatus(400);
   else {
@@ -36,7 +36,7 @@ leadfinderRouter.get('/scrape/corporate/g/new/:category/:country', function(req,
       });
   }
 });
-leadfinderRouter.get('/scrape/corporate/g/cont/:category/:country', function(req, res) {
+leadfinderRouter.get('/corporate/g/cont/:category/:country', function(req, res) {
   if (!req.params.category || !req.params.country)
     res.sendStatus(400);
   else {
@@ -52,7 +52,7 @@ leadfinderRouter.get('/scrape/corporate/g/cont/:category/:country', function(req
       });
   }
 });
-leadfinderRouter.get('/scrape/corporate/yp/:category', function(req, res) {
+leadfinderRouter.get('/corporate/yp/:category', function(req, res) {
   if (!req.params.category)
     res.sendStatus(400);
   else {
@@ -66,7 +66,7 @@ leadfinderRouter.get('/scrape/corporate/yp/:category', function(req, res) {
       });
   }
 });
-leadfinderRouter.get('/scrape/consumer/yp/:category', function(req, res) {
+leadfinderRouter.get('/consumer/yp/:category', function(req, res) {
   if (!req.params.category)
     res.sendStatus(400);
   else {
@@ -80,7 +80,7 @@ leadfinderRouter.get('/scrape/consumer/yp/:category', function(req, res) {
       });
   }
 });
-leadfinderRouter.post('/scrape/', jsonParser, function(req, res) {
+leadfinderRouter.post('/', jsonParser, function(req, res) {
   if (!req.body)
     res.sendStatus(400);
   else {
