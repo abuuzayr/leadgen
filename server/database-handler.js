@@ -7,7 +7,7 @@ var moment = require('moment');
 
 var deleteDB = function(collectionName, obj) {
   return new Promise(function(resolve, reject) {
-    MongoClient.connect(config.dbURI, function(err, db) {
+    MongoClient.connect(config.dbURI,{poolSize :100}, function(err, db) {
       if (err != null)
         reject(500);
       else {
@@ -203,7 +203,7 @@ var dbHandler = {
   },
   dbUpdateMany: function(collectionName, originalObj, updateObj) {
     return new Promise(function(resolve, reject) {
-      MongoClient.connect(config.dbURI, function(err, db) {
+      MongoClient.connect(config.dbURI,{poolSize :100},function(err, db) {
         if (err != null){
 	        console.log(err);
           reject(400);
