@@ -1,9 +1,9 @@
 angular.module("app")
     .controller("loginCtrl", loginCtrl);
 
-loginCtrl.$inject = ['$scope', '$q', '$location', '$timeout', '$state', '$http', 'appConfig', 'feedbackServices', 'dialogServices', 'userService', '$cookies', 'authServices'];
+loginCtrl.$inject = ['$scope', '$q', '$location', '$timeout', '$state', '$http', 'appConfig', 'feedbackServices', 'dialogServices', '$cookies', 'authServices'];
 
-function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, feedbackServices, dialogServices, userService, $cookies, authServices) {
+function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, feedbackServices, dialogServices, $cookies, authServices) {
 
     /* =========================================== Initialisation =========================================== */
     var vm = this;
@@ -22,64 +22,64 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
     vm.closeDialog = closeDialog;
     vm.openDialog = openDialog;
 
-    vm.testValidation = testValidation;
-    vm.determineType = determineType;
+    // vm.testValidation = testValidation;
+    // vm.determineType = determineType;
 
-    function testValidation() {
-        var email = '';
-        var password = '';
-        var errMsg = '';
+    // function testValidation() {
+    //     var email = '';
+    //     var password = '';
+    //     var errMsg = '';
 
-        var type = '';
+    //     var type = '';
 
-        if (isEmpty(vm.loginEmail) || isEmpty(vm.password)) {
-            return;
-        } else if (!isValidEmail(vm.loginEmail)) {
-            errMsg = 'Email is invalid.';
-        } else if (!isValidPassword(vm.password)) {
-            errMsg = 'Password is between ' + MIN_PASSWORD_LENGTH + ' and ' + MAX_PASSWORD_LENGTH + ' characters.';
-        } else {
-            email = vm.loginEmail
-            password = vm.password;
-            return determineType(email, password);
-        }
-        errorFeedback(errMsg);
-    }
+    //     if (isEmpty(vm.loginEmail) || isEmpty(vm.password)) {
+    //         return;
+    //     } else if (!isValidEmail(vm.loginEmail)) {
+    //         errMsg = 'Email is invalid.';
+    //     } else if (!isValidPassword(vm.password)) {
+    //         errMsg = 'Password is between ' + MIN_PASSWORD_LENGTH + ' and ' + MAX_PASSWORD_LENGTH + ' characters.';
+    //     } else {
+    //         email = vm.loginEmail
+    //         password = vm.password;
+    //         return determineType(email, password);
+    //     }
+    //     errorFeedback(errMsg);
+    // }
 
-    function determineType(email, password) {
-        if (email === 'user@bulletlead.com') {
-            if (password === 'password') {
-                successFeedback('Logged in');
-                userService.setUserType('user');
-                $cookies.put('type', 'user');
+    // function determineType(email, password) {
+    //     if (email === 'user@bulletlead.com') {
+    //         if (password === 'password') {
+    //             successFeedback('Logged in');
+    //             userService.setUserType('user');
+    //             $cookies.put('type', 'user');
 
-                $state.go('home');
-            } else {
-                errorFeedback('Unable to log in');;
-            }
-        } else if (email === 'admin@bulletlead.com') {
-            if (password === 'password') {
-                successFeedback('Logged in');
-                userService.setUserType('admin');
-                $cookies.put('type', 'admin');
+    //             $state.go('home');
+    //         } else {
+    //             errorFeedback('Unable to log in');;
+    //         }
+    //     } else if (email === 'admin@bulletlead.com') {
+    //         if (password === 'password') {
+    //             successFeedback('Logged in');
+    //             userService.setUserType('admin');
+    //             $cookies.put('type', 'admin');
 
-                $state.go('home');
-            } else {
-                errorFeedback('Unable to log in');;
-            }
-        } else if (email === 'superadmin@bulletlead.com') {
-            if (password === 'password') {
-                successFeedback('Logged in');
-                userService.setUserType('superadmin');
-                $cookies.put('type', 'superadmin');
+    //             $state.go('home');
+    //         } else {
+    //             errorFeedback('Unable to log in');;
+    //         }
+    //     } else if (email === 'superadmin@bulletlead.com') {
+    //         if (password === 'password') {
+    //             successFeedback('Logged in');
+    //             userService.setUserType('superadmin');
+    //             $cookies.put('type', 'superadmin');
 
 
-                $state.go('home');
-            } else {
-                errorFeedback('Unable to log in');;
-            }
-        }
-    }
+    //             $state.go('home');
+    //         } else {
+    //             errorFeedback('Unable to log in');;
+    //         }
+    //     }
+    // }
 
 
     /* =========================================== UI =========================================== */
