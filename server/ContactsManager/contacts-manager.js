@@ -88,20 +88,20 @@ var ContactsManager = {
           }
 
           if (matchFlag){
-            // blackListArr.push(arr[i]);
-            promiseArr.push(dbHandler.dbInsert('blackList', arr[i]));
+            blackListArr.push(arr[i]);
+            // promiseArr.push(dbHandler.dbInsert('blackList', arr[i]));
           }
           else{
-            // leadListArr.push(arr[i]);
-            promiseArr.push(dbHandler.dbInsert('leadList', arr[i]));
+            leadListArr.push(arr[i]);
+            // promiseArr.push(dbHandler.dbInsert('leadList', arr[i]));
           }
 
         }
-        /*dbHandler.dbInsertMany('leadList',leadListArr)
+        dbHandler.dbInsertMany('leadList',leadListArr)
           .then(function(success1){
             return dbHandler.dbInsertMany('blackList',blackListArr);
-          })*/
-          Promise.all(promiseArr)
+          })
+          // Promise.all(promiseArr)
           .then(function(success2) {
             callback(res, 201);
           })
