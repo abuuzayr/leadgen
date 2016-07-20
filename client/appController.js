@@ -39,8 +39,6 @@ app.controller('appController', ['$scope', '$q', '$location', '$timeout', 'userS
             console.log(vm.showLogout);
         };
 
-        vm.update();
-
         vm.logout = function() {
             vm.showLead = false;
             vm.showFinder = false;
