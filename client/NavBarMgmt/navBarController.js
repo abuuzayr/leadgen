@@ -1,5 +1,5 @@
-app.controller('navBarController', ['$scope', '$q', '$location', '$timeout', 'userService', '$cookies', 'authServices',
-    function($scope, $q, $location, $timeout, userService, $cookies, authServices) {
+app.controller('navBarController', ['$scope', '$q', '$location', '$timeout', '$cookies', 'authServices',
+    function($scope, $q, $location, $timeout, $cookies, authServices) {
 
         var vm = this;
         vm.showLogout = false;
