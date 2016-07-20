@@ -92,17 +92,24 @@ var dbHandler = {
 	        reject(500);
 	      }
         else {
-          for(var i in obj.length)
-            delete obj[i]._id;
           var col = db.collection(collectionName);
-          col.insertMany(obj,function(err, r){
-            if (err != null) {
-              reject(500);
-	            console.log(err);
-            } else {
-              db.close();
-              resolve(201);
-            }
+          for(var i in obj.length){
+	    delete obj[i]._id;
+          }
+	  var partitionLength = 500;
+          var promiseArr = [];
+	  for(var i=0; i<obj.length; i+=partitionLength){
+            var arr = obj.slice(i,i+partitionLength);
+            promiseArr.push(col.insertMany(arr)); 
+          }
+	  Promise.all(promiseArr)
+          .then(function(result){
+            db.close();
+            resolve(201);
+          })
+	  .catch(function(err){
+	    console.log(err);
+            reject(500); 
           });
         }
       });
