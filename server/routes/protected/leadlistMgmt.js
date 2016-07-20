@@ -3,7 +3,7 @@
   leadlistRouter = express.Router(),
   dbHandler = require('../../database-handler'),
   jsonParser = require('body-parser').json(),
-  ContactsManager = require('../../ContactsManager/contacts-manager'),
+  ContactsManager = require('../..Manager-manager'),
   ScrapManager = require('../../ScrapingManager/scrap-manager'),
   mongodb = require('mongodb'),
   md5 = require('blueimp-md5'),
@@ -18,7 +18,7 @@
 /*
 CRUD on leads
 */
-leadlistRouter.route('/contacts/leadList/leads')
+leadlistRouter.route('/leadList/leads')
   .get(function(req, res) {
     console.log('get leads');
     ContactsManager.displayLeads(null, deleteContact)
@@ -141,7 +141,7 @@ leadlistRouter.route('/contacts/leadList/leads')
         });
     }
   });
-leadlistRouter.put('/contacts/leadList/leads/duplicates', jsonParser, function(req, res) {
+leadlistRouter.put('/leadList/leads/duplicates', jsonParser, function(req, res) {
   if (!req.body)
     res.sendStatus(400);
   else {
@@ -154,7 +154,7 @@ leadlistRouter.put('/contacts/leadList/leads/duplicates', jsonParser, function(r
       });
   }
 });
-leadlistRouter.get('/contacts/leadList/leads/:id', function(req, res) {
+leadlistRouter.get('/leadList/leads/:id', function(req, res) {
   //TODO return history of lead
   if (!req.params.id)
     res.sendStatus(400);
@@ -171,7 +171,7 @@ leadlistRouter.get('/contacts/leadList/leads/:id', function(req, res) {
       });
   }
 });
-leadlistRouter.post('/contacts/leadList/import', jsonParser, function(req, res) {
+leadlistRouter.post('/leadList/import', jsonParser, function(req, res) {
   //console.log(req.body);
   if (!req.body)
     res.sendStatus(400);
@@ -196,7 +196,7 @@ Purpose: To retrieve information for front end display
     }
 ]
 */
-leadlistRouter.route('/contacts/mailingList')
+leadlistRouter.route('/mailingList')
   .get(function(req, res) {
     if (!req.body)
       returnStatusCode(res, 400);
@@ -305,7 +305,7 @@ leadlistRouter.route('/contacts/mailingList')
     }
   });
 
-leadlistRouter.route('/contacts/mailingList/subscriber')
+leadlistRouter.route('/mailingList/subscriber')
   .post(jsonParser, function(req, res) {
     if (!req.body)
       returnStatusCode(res, 400);
@@ -406,7 +406,7 @@ leadlistRouter.route('/mailinglist/getSubscriber')
 /*
 CRUD on fields
 */
-leadlistRouter.route('/contacts/leadList/fields')
+leadlistRouter.route('/leadList/fields')
   .get(function(req, res) {
     console.log('get columns');
     ContactsManager.displayList('columnDef', null)
@@ -462,7 +462,7 @@ leadlistRouter.route('/contacts/leadList/fields')
 /*
   BlackList API
 */
-leadlistRouter.route('/contacts/blackList/domain')
+leadlistRouter.route('/blackList/domain')
   .get(function(req, res) {
     dbHandler.dbQuery('blackListDomains', null, 'app')
       .then(function(results) {
@@ -510,7 +510,7 @@ leadlistRouter.route('/contacts/blackList/domain')
       }
     }
   });
-leadlistRouter.route('/contacts/blackList')
+leadlistRouter.route('/blackList')
   .get(function(req, res) {
     ContactsManager.displayList('blackList', null)
       .then(function(results) {

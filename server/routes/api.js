@@ -47,7 +47,7 @@ var dbMgmt = require('./protected/dbMgmt.js');
 
 apiRouter.use('/cookie', cookieGenerator);
 apiRouter.use('/scrape', leadfinderMgmt);
-apiRouter.use('/lead', leadlistMgmt);
+apiRouter.use('/contacts', leadlistMgmt);
 apiRouter.use('/dbmgmt', dbMgmt);
 
 //UNDEFINED ROUTES
