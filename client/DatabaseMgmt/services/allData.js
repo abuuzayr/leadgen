@@ -4,7 +4,7 @@ app.factory('allData', ['$http', 'appConfig', function($http, appConfig) {  
             method: 'GET',
             url: appConfig.API_URL + '/dbmgmt/all'
         });
-    }
+    };
 
     var deleteAllLeads = function(leadsToDelete) {
         return $http({
@@ -12,7 +12,7 @@ app.factory('allData', ['$http', 'appConfig', function($http, appConfig) {  
             url: appConfig.API_URL + '/dbmgmt/all',
             data: leadsToDelete
         });
-    }
+    };
 
     // var editAllLeads = function(leadsToEdit) {
     //     return $http({
@@ -26,5 +26,5 @@ app.factory('allData', ['$http', 'appConfig', function($http, appConfig) {  
         getAllLeads: getAllLeads,
         deleteAllLeads: deleteAllLeads,
         // editAllLeads: editAllLeads
-    }
+    };
 }]);

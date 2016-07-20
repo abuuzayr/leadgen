@@ -161,8 +161,8 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
                             };
                     }
                 }, 2000);
-            };
-        }
+            }
+        };
 
         gc.pauseScraping = function() {
             if (angular.isDefined(stop) /*&& stop !== 1*/ ) {
@@ -170,7 +170,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
                 stop = undefined;
 
             }
-        }
+        };
 
         //if press stop button, cannot continue scraping
         gc.pressStop = false;
@@ -197,7 +197,6 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             } else if (checkOnline === false) {
                 gc.status = true;
             }
-        }
-
+        };
     }
 ]);

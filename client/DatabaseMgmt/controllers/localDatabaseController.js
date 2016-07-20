@@ -22,7 +22,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             if (angular.isDefined(ld.importType)) {
                 ld.continue = false;
             }
-        }
+        };
 
         ld.gridOptions = {
             enableSorting: true,
@@ -85,14 +85,14 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
                 var importObjectToSend = {
                     type: ld.importType,
                     data: newObjects
-                }
+                };
 
                 localData.importToLocal(importObjectToSend).then(function successCallback(res) {
                         ld.importResponse = 'Imported Successfully';
                     }),
                     function errorCallback(err) {
                         ld.importResponse = "Error Occured";
-                    }
+                    };
             }
         };
 
@@ -102,7 +102,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             }),
             function errorCallback(err) {
 
-            }
+            };
 
         ld.gridOptions.onRegisterApi = function(gridApi) {
             ld.gridApi = gridApi;
@@ -147,7 +147,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             }
 
             localData.syncFromExternalLeads();
-        }
+        };
 
         // sync data to companies
         ld.responseMessage = "";
@@ -161,8 +161,8 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
                 function errorCallback(err) {
                     ld.responseMessage = "Error Occured";
                     ld.symbol = false;
-                }
-        }
+                };
+        };
 
         //delete selected leads
         ld.deleteSelected = function() {
@@ -173,7 +173,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             var selectedLeadsToDelete = ld.gridApi.selection.getSelectedRows();
             console.log(selectedLeadsToDelete);
             localData.deleteLocalLeads(selectedLeadsToDelete);
-        }
+        };
 
         //Open popup dialog box
         ld.openDialog = function(dialogName) {

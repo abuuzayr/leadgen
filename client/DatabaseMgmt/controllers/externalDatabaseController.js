@@ -1,4 +1,4 @@
-app.controller('externalDatabaseController', ['$scope','$window' ,'$http', 'externalData', 'uiGridConstants', '$q', '$location', '$timeout', 'sendDataToLocal', function($scope, $window ,$http, externalData, uiGridConstants, $q, $location, $timeout, sendDataToLocal) {
+app.controller('externalDatabaseController', ['$scope', '$window', '$http', 'externalData', 'uiGridConstants', '$q', '$location', '$timeout', 'sendDataToLocal', function($scope, $window, $http, externalData, uiGridConstants, $q, $location, $timeout, sendDataToLocal) {
     var ed = this;
 
     ed.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
@@ -101,13 +101,13 @@ app.controller('externalDatabaseController', ['$scope','$window' ,'$http', 'exte
         var selectedLeadsToDelete = ed.gridApi.selection.getSelectedRows();
         console.log(selectedLeadsToDelete);
         externalData.deleteExternalLeads(selectedLeadsToDelete);
-    }
+    };
 
     //update external database
     ed.updateExternal = function() {
 
         externalData.updateExternalLeads();
-    }
+    };
 
     //Open popup dialog box
     ed.openDialog = function(dialogName) {

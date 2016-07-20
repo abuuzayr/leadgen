@@ -74,7 +74,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
                 rc.gridOptions.data.splice(rc.gridOptions.data.lastIndexOf(data), 1);
                 rc.resultsLength -= 1;
             });
-        }
+        };
 
         rc.responseMessage = "";
         rc.symbol = true;
@@ -83,7 +83,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
             // rc.gridOptions.data = [];
             // rc.resultsLength = 0;
             shareData.clearData();
-        }
+        };
 
         var dataToContacts = [];
 
@@ -96,7 +96,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
 
                 // callback();
             });
-        }
+        };
 
         rc.saveToContacts = function() {
             var myJsonString;
@@ -119,7 +119,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
                     rc.responseMessage = "Error Occured";
                     rc.symbol = false;
                 };
-        }
+        };
 
         //Open popup dialog box
         rc.openDialog = function(dialogName) {

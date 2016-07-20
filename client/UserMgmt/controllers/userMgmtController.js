@@ -102,8 +102,8 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             }).catch(function errorCallback(err) {
                 return feedbackServices.hideFeedback('#userManagementFeedback').
                 then(feedbackServices.successFeedback(err.data, '#userManagementFeedback', 2000));
-            })
-        }
+            });
+        };
 
         uc.gridOptions.onRegisterApi = function(gridApi) {
             uc.gridApi = gridApi;

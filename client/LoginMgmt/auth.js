@@ -14,6 +14,6 @@
             if (error === false) {
                 $state.go('login');
             }
-        })
-    };
+        });
+    }
 })();
