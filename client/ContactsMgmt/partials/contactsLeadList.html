@@ -1,5 +1,9 @@
 <link rel="stylesheet" href="assets/css/contactsLeadList.css" />
 <div ng-controller="contactsMainController as cc">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <!---------------------------------------- Ng-include nav bars ---------------------------------------->
+        <div ng-include="'NavBarMgmt/mainTab.html'"></div>
+    </div>
     <br>
     <ul class="nav nav-tabs">
         <li class="active"><a ui-sref="leadlist" data-toggle="tab" ng-click="cc.refresh()">LeadList</a></li>

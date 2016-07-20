@@ -1,6 +1,10 @@
 <link rel="stylesheet" href="assets/css/mailList.css" />
 
 <div ng-controller="mailListController as mc">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <!---------------------------------------- Ng-include nav bars ---------------------------------------->
+        <div ng-include="'NavBarMgmt/mainTab.html'"></div>
+    </div>
     <br>
     <ul class="nav nav-tabs">
         <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click="mc.refresh()">LeadList</a></li>
@@ -48,7 +52,7 @@
 
     <dialog id="showFailure" class="mdl-dialog">
         <div class="mdl-dialog__content" layout="row" layout-wrap="" layout-margin="" layout-align="center">
-           <!--  <a href="https://imgflip.com/i/17dfoe"><img src="https://i.imgflip.com/17dfoe.jpg" title="made at imgflip.com"/></a> -->
+            <!--  <a href="https://imgflip.com/i/17dfoe"><img src="https://i.imgflip.com/17dfoe.jpg" title="made at imgflip.com"/></a> -->
             <p>Delete failed: Campaign ongoing</p>
         </div>
         <div class="mdl-dialog__actions">
