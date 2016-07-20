@@ -3,7 +3,7 @@
   leadlistRouter = express.Router(),
   dbHandler = require('../../database-handler'),
   jsonParser = require('body-parser').json(),
-  ContactsManager = require('../..Manager-manager'),
+  ContactsManager = require('../../ContactsManager/contacts-manager'),
   ScrapManager = require('../../ScrapingManager/scrap-manager'),
   mongodb = require('mongodb'),
   md5 = require('blueimp-md5'),
