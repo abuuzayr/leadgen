@@ -95,7 +95,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
         } else if (!isValidPassword(vm.password)) {
             errMsg = 'Password is between ' + MIN_PASSWORD_LENGTH + ' and ' + MAX_PASSWORD_LENGTH + ' characters.';
         } else {
-            email = vm.loginEmail
+            email = vm.loginEmail;
             password = vm.password;
             return login(email, password);
         }
@@ -110,7 +110,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
             errMsg = 'Email is invalid.';
             return errorFeedback(errMsg);
         } else {
-            email = vm.resetPwdEmail
+            email = vm.resetPwdEmail;
             return sendEmail(email);
         }
     }

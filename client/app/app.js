@@ -13,7 +13,6 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
         .state('home', {
             url: '/home',
             templateUrl: 'homepage.html',
-            controller: 'appController',
             // resolve: {
             //     security: ['$q', 'authServices', function($q, authServices) {
             //         if (authServices.getToken()) {
