@@ -160,8 +160,9 @@ module.exports = function(){
 		var module = req.accessInfo[moduleName];
 		console.log('verifying access');//TOFIX
 		console.log(module);//TOFIX
-		console.log('req.method: '+ req.method);//TOFIX		
-			switch(req.method){
+		console.log(moduleName);
+		console.log('req.method: '+ req.method);//TOFIX
+					switch(req.method){
 				case 'GET':
 						console.log('GET',module.read,module.read == true);//TOFIX
 						if(module.read == true)
