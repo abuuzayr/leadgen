@@ -89,14 +89,13 @@ var dbHandler = {
       MongoClient.connect(config.dbURI, function(err, db) {
         if (err != null){
           console.log(err);
-	  reject(500);
-	}
+	        reject(500);
+	      }
         else {
           for(var i in obj.length)
             delete obj[i]._id;
-          var col = db.collection(collectionName).initializeOrderedBulkOp();
-          col.insertMany(obj);
-          col.execute(function(err, r){
+          var col = db.collection(collectionName);
+          col.insertMany(obj,function(err, r){
             if (err != null) {
               reject(500);
 	            console.log(err);
@@ -203,7 +202,7 @@ var dbHandler = {
           reject(400);
 	      }
         else {
-          var col = db.collection(collectionName).initializeOrderedBulkOp();
+          var col = db.collection(collectionName);
 
           /*
             Wrap string to mongodb object id
@@ -216,8 +215,7 @@ var dbHandler = {
           var obj = {
             $set: updateObj
           };
-          col.updateMany(originalObj, obj);
-          col.execute(function(err, results) {
+          col.updateMany(originalObj, obj,function(err, results) {
             if (err != null){
               console.log(err);	
 	            reject(400);
