@@ -10,6 +10,9 @@ var express = require('express'),
   MailchimpManager = require('../../MailchimpManager/syncContacts');
   var http403 = require('../../utils/403')();
 
+
+  
+
   cookieGenerator.use('/',function(req,res,next){
     console.log(req.cookies);
     console.log('Welcome to cookie api');
