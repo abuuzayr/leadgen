@@ -46,9 +46,9 @@ var dbMgmt = require('./protected/dbMgmt.js');
 //PATH
 
 apiRouter.use('/cookie', cookieGenerator);
-apiRouter.use('/', leadfinderMgmt);
-apiRouter.use('/', leadlistMgmt);
-apiRouter.use('/', dbMgmt);
+apiRouter.use('/scrape', leadfinderMgmt);
+apiRouter.use('/lead', leadlistMgmt);
+apiRouter.use('/dbmgmt', dbMgmt);
 
 //UNDEFINED ROUTES
 //apiRouter.use('*', http404.notFoundMiddleware);

@@ -11,7 +11,7 @@ var http403 = require('../../utils/403')();
   //ACCESS CONTROL
 dbMgmtRouter.use('*',http403.verifyAccess('dbmgmt'));
 
-dbMgmtRouter.route('/dbmgmt/all')
+dbMgmtRouter.route('/all')
   .get(function(req,res){
     var leads = [];
     dbHandler.dbQuerySA('local',null)
@@ -55,7 +55,7 @@ dbMgmtRouter.route('/dbmgmt/all')
 
 
 
-dbMgmtRouter.route('/dbmgmt/local')
+dbMgmtRouter.route('/local')
   .get(function(req,res){
     dbHandler.dbQuerySA('local',null)
     .then(function(localLeads){
@@ -123,7 +123,7 @@ dbMgmtRouter.route('/dbmgmt/local')
     }
   });
 
-dbMgmtRouter.get('/dbmgmt/local/import',function(req,res){
+dbMgmtRouter.get('/local/import',function(req,res){
 
   dbHandler.dbQuerySA('external',null)
   .then(function(externalLeads){
@@ -141,7 +141,7 @@ dbMgmtRouter.get('/dbmgmt/local/import',function(req,res){
 
 
 
-dbMgmtRouter.route('/dbmgmt/external')
+dbMgmtRouter.route('/external')
   .get(function(req,res){
     dbHandler.dbQuerySA('external',null)
     .then(function(externalLeads){
@@ -185,7 +185,7 @@ dbMgmtRouter.route('/dbmgmt/external')
     }
   });
 
-dbMgmtRouter.get('/dbmgmt/external/update',function(req,res){
+dbMgmtRouter.get('/external/update',function(req,res){
   dbHandler.dbQuerySA('external',null)
   .then(function(externalLeads){
     if(externalLeads.length > 0)
