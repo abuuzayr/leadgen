@@ -3,6 +3,9 @@
     width: 50%;
     /*background: #F5F5F5;*/
     background-image: url('../images/login-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 body {
