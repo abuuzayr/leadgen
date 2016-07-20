@@ -95,10 +95,11 @@ var dbHandler = {
           for(var i in obj.length)
             delete obj[i]._id;
           var col = db.collection(collectionName).initializeOrderedBulkOp();
-          col.insertMany(obj, function(err, r) {
+          col.insertMany(obj);
+          col.execute(function(err, r){
             if (err != null) {
               reject(500);
-	      console.log(err);
+	            console.log(err);
             } else {
               db.close();
               resolve(201);
@@ -215,7 +216,8 @@ var dbHandler = {
           var obj = {
             $set: updateObj
           };
-          col.updateMany(originalObj, obj, function(err, results) {
+          col.updateMany(originalObj, obj);
+          col.execute(function(err, results) {
             if (err != null){
               console.log(err);	
 	            reject(400);
