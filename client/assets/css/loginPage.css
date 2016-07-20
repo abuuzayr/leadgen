@@ -1,6 +1,6 @@
 #login-background {
-    height: 50%;
-    width: 50%;
+    height: 100%;
+    width: 100%;
     /*background: #F5F5F5;*/
     background-image: url('../images/login-background.jpg');
     background-size: cover;
