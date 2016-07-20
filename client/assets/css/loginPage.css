@@ -1,4 +1,18 @@
-#login-background {
+/*#login-background {
+    height: 100%;
+    width: 100%;*/
+
+
+/*background: #F5F5F5;*/
+
+
+/*background-image: url('../images/login-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}*/
+
+.mdl-layout mdl-js-layout {
     height: 100%;
     width: 100%;
     /*background: #F5F5F5;*/
