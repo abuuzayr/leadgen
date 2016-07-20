@@ -198,11 +198,11 @@ var dbHandler = {
     return new Promise(function(resolve, reject) {
       MongoClient.connect(config.dbURI, function(err, db) {
         if (err != null){
-	  console.log(err);
+	        console.log(err);
           reject(400);
-	}
+	      }
         else {
-          var col = db.collection(collectionName);
+          var col = db.collection(collectionName).initializeOrderedBulkOp();
 
           /*
             Wrap string to mongodb object id
@@ -218,8 +218,8 @@ var dbHandler = {
           col.updateMany(originalObj, obj, function(err, results) {
             if (err != null){
               console.log(err);	
-	      reject(400);
-	    }
+	            reject(400);
+	          }
             else {
               db.close();
               resolve(200);
