@@ -15,13 +15,14 @@ body {
 
 #login-main {
     margin: auto;
-    height: 500px;
+    height: 850px;
 }
 
 #login-button {
     background-color: #eb3a40;
     text-align:center;
     width:100%;
+    font-weight: bold;
 }
 
 #login-main {
