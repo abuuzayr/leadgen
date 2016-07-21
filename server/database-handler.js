@@ -8,32 +8,22 @@ var moment = require('moment');
 var deleteDB = function(collectionName, obj) {
   return new Promise(function(resolve, reject) {
     MongoClient.connect(config.dbURI,{poolSize :100}, function(err, db) {
-      if (err != null){
-        console.log(err);
+      if (err != null)
         reject(500);
-      }
       else {
 
+        if (obj._id != undefined)
+          obj._id = new mongodb.ObjectID(obj._id);
+
         var col = db.collection(collectionName);
-
-        var promiseArr = [];
-
-        for(var i in obj.length){
-          if (obj[i]._id != undefined)
-            obj[i]._id = new mongodb.ObjectID(obj[i]._id);
-
-          promiseArr.push(col.deleteOne(obj[i]));
-        }
-      
-        Promise.all(promiseArr)
-        .then(function(results){
-          db.close();
-          resolve(200);
-        })
-        .catch(function(error){
-          console.log(error);
-          resolve(500);
-        })
+        col.deleteOne(obj, function(err, results) {
+          if (err != null)
+            reject(500);
+          else {
+            db.close();
+            resolve(200);
+          }
+        });
       }
     });
   });
