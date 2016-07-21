@@ -7,8 +7,8 @@
 
     <!--include tabs-->
     <ul class="nav nav-tabs">
-        <li><a ui-sref="userManagementprofile" data-toggle="tab" ng-click="uc.refresh()">Company Profile</a></li>
-        <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab" ng-click="uc.refresh()">Manage Users</a></li>
+        <li><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
+        <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
     </ul>
 
     <div class="container">
@@ -83,7 +83,7 @@
 
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addUser')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser'); uc.refresh()">Add</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser')">Add</button>
                         </div>
                     </form>
                 </div>
@@ -94,7 +94,7 @@
                     <p>Are you sure you want to delete the selected user(s)?</p>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteUser')">Cancel</button>
-                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser'); uc.refresh()">Yes</button>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser')">Yes</button>
                     </div>
                 </div>
             </dialog>
