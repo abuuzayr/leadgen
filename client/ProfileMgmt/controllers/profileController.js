@@ -138,7 +138,7 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
         });
         viewContentLoaded.promise.then(function() {
             $timeout(function() {
-                pc.getFromDatabase();
+                // pc.getFromDatabase();
                 componentHandler.upgradeDom();
             }, 0);
         });
