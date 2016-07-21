@@ -19,7 +19,7 @@
             <div class="modal-body row">
                 <div class="col-md-6">
                     <!-- Your first column here -->
-                    <h3>Company Details</h3><br>
+                    <h3>Company Profile</h3><br>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input id="username" class="mdl-textfield__input" type="text" placeholder="Name" ng-model="uc.company" />
                         <label class="mdl-textfield__label" for="companyName">Company Name:</label>
@@ -38,16 +38,9 @@
 
                 <div class="col-md-6 apiKey">
                     <!-- Your second column here -->
-                    <h3>API Keys</h3><br>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input id="username" class="mdl-textfield__input" type="text" placeholder="MailChimp API Key" ng-model="uc.mailChimpAPI" />
-                        <label class="mdl-textfield__label" for="mailchimp">MailChimp API Key:</label>
-                    </div>
                     <br>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input id="username" class="mdl-textfield__input" type="text" placeholder="Google API Key" ng-model="uc.googleAPI" />
-                        <label class="mdl-textfield__label" for="google">Google API Key:</label>
-                    </div>
+                    <h4>Subsciption Type:</h4>
+                    <h5 ng-repeat="type in uc.type">{{type}}</h5>
                 </div>
             </div><br>
         </div><br>
