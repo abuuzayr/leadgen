@@ -1,14 +1,14 @@
 <style>
-.mdl-layout__header-row {
-    background-color:#eb3a40;
-    font-family: 'Roboto Regular';
-
-}
-.mdl-button{
-    font-family:'Roboto Regular';
-    font-size: :18 px;
-    color:blue;
-}
+    .mdl-layout__header-row {
+        background-color: #eb3a40;
+        font-family: 'Roboto Regular';
+    }
+    
+    .mdl-button {
+        font-family: 'Roboto Regular';
+        font-size: : 18 px;
+        color: blue;
+    }
 </style>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="navBarController as vm">
     <header class="mdl-layout__header ">
@@ -39,7 +39,7 @@
                 <a style="color:#F2F1F1; " class="mdl-button mdl-js-button " ui-sref="profile " ng-show="vm.showAccount " ng-click="vm.update() ">Account Settings</a>
                 <a style="color:#F2F1F1; " class="mdl-button mdl-js-button " ui-sref=" userManagementprofile " ng-show="vm.showUser " ng-click="vm.update() ">User Management</a>
                 <a style="color:#F2F1F1; " class="mdl-button mdl-js-button " ui-sref="externalDB " ng-show="vm.showDatabase " ng-click="vm.update() ">Database Management</a>
-                <a style="color:#F2F1F1; " class="mdl-navigation__link " href=" https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
+                <a style="color:#F2F1F1; " class="mdl-button mdl-js-button " href=" https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
                 <a style="color:#F2F1F1; " class="mdl-button mdl-js-button " ng-click="vm.logout() " ng-show="vm.showLogout ">Logout</a>
             </nav>
         </div>
