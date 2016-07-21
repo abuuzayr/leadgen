@@ -24,8 +24,8 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
 
 
         if (authServices.getToken()) {
-            pc.userName = authServices.getToken().username;
-            pc.userEmail = authServices.getToken().email;
+            pc.userName = authServices.getUserInfo().username;
+            pc.userEmail = authServices.getUserInfo().email;
 
             console.log(pc.userName);
             console.log(pc.userEmail);
