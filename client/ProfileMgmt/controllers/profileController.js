@@ -22,9 +22,13 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
         pc.userName = '';
         pc.userEmail = '';
 
+
         if (authServices.getToken()) {
             pc.userName = authServices.getToken().username;
             pc.userEmail = authServices.getToken().email;
+
+            console.log(pc.userName);
+            console.log(pc.userEmail);
         }
 
         // pc.getFromDatabase = function() {
