@@ -35,6 +35,9 @@ body {
 
 #login-email-input {
     background-color:rgba(255,255,255,0.0);
+}
+
+#mdl-textfield {
     border:none;
     border-bottom:3px solid #757575;
 }
