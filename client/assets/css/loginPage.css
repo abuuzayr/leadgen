@@ -10,6 +10,7 @@
 
 body {
     background: #F5F5F5;
+    font-family:'Roboto';
 }
 
 #login-main {
@@ -19,6 +20,8 @@ body {
 
 #login-button {
     background-color: #eb3a40;
+    align:center;
+    width:100%;
 }
 
 #login-main {
