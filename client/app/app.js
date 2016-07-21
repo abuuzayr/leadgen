@@ -1,7 +1,7 @@
 var app = angular.module('app', ['ngMaterial', 'ngMessages', 'ngTouch', 'ui.grid', 'ui.router', 'ui.grid.selection', 'ui.grid.edit', 'ui.grid.autoResize', 'ui.grid.resizeColumns', 'ui.grid.importer', 'ngAnimate', 'ui.grid.exporter', 'ngCookies']);
 
 app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locationProvider', function($urlRouterProvider, $stateProvider, $compileProvider, $locationProvider) {
-    $locationProvider.html5Mode(true);
+    // $locationProvider.html5Mode(true);
     $compileProvider.debugInfoEnabled(false);
     $urlRouterProvider.otherwise('/login');
     $stateProvider
