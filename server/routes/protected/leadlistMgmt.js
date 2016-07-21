@@ -17,7 +17,7 @@ CRUD on leads
 leadlistRouter.route('/contacts/leadList/leads')
   .get(function(req, res) {
     console.log('get leads');
-    ContactsManager.displayLeads(null, deleteContact)
+    ContactsManager.displayLeads(null)
       .then(function(results) {
         res.json(results);
       })
@@ -56,6 +56,10 @@ leadlistRouter.route('/contacts/leadList/leads')
         // console.log(arr[i]);
       }
       Promise.all(promiseArr)
+        .then(function(objsToDelete){
+          console.log(objsToDelete);
+          return dbHandler.dbDelete('leadList', objsToDelete);
+        })
         .then(function(results) {
           res.sendStatus(200);
         })
@@ -564,13 +568,14 @@ var deleteContact = function(cid) {
               MailinglistManager.deleteListv2('mailinglists', temp)
                 .then(function(MLResults) {
                   console.log("Delete from contacts");
-                  ContactsManager.deleteLeads(obj)
-                    .then(function(results) {
-                      resolve(MLResults);
-                    })
-                    .catch(function(error) {
-                      reject(error);
-                    });
+                  resolve(obj);
+                  // ContactsManager.deleteLeads(obj)
+                  //   .then(function(results) {
+                  //     resolve(MLResults);
+                  //   })
+                  //   .catch(function(error) {
+                  //     reject(error);
+                  //   });
                 }).catch(function(MLerror) {
                  res.sendStatus(MLerror);
                 });
@@ -578,13 +583,14 @@ var deleteContact = function(cid) {
               res.sendStatus(MCerror);
             });
         } else {
-          ContactsManager.deleteLeads(obj)
+          resolve(obj);
+          /*ContactsManager.deleteLeads(obj)
             .then(function(results) {
               resolve(results);
             })
             .catch(function(error) {
               reject(error);
-            });
+            });*/
           //add a then function
         }
       }).catch(function(error) {
@@ -610,7 +616,6 @@ var updateContact = function(results, firstName, lastName, body) {
         MailinglistManager.updateMemberInfo('mailinglists', lastName, firstName, results.listID, results.email_hash)
           .then(function(MLResults) {
             console.log("update success");
-            resolve(MLResults);
             ContactsManager.updateContacts(body)
               .then(function(cResults) {
                 resolve(cResults);
