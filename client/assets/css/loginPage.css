@@ -35,7 +35,7 @@ body {
     background-color:rgba(255,255,255,0.0);
     border:none;
     color:black;
-    width:100%;
+    width:200%;
 }
 
 #login-email-input {
@@ -48,6 +48,7 @@ body {
 #mdl-textfield {
     border:none;
     border-bottom:3px solid rgba(255,255,255,0.0);
+    width: 200%;
 }
 .mdl-textfield__label
 {   
