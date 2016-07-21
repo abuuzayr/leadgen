@@ -30,23 +30,24 @@ body {
 }
 
 #login-password-input {
+    background-color:rgba(255,255,255,0.0);
     border:none;
-    background-color:black;
+    color:black;
 
 }
 
 #login-email-input {
+    background-color:rgba(255,255,255,0.0);
     border:none;
-    background-color:black;
+    color:black;
 }
 
 #mdl-textfield {
     border:none;
-    border-bottom:3px solid black;
+    border-bottom:3px solid #eb3a40;
 }
 .mdl-textfield__label
 {   
     font-family:'Roboto';
     font-size: :18 px;
-    color:black;
 }
