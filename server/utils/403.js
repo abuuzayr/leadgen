@@ -105,7 +105,11 @@ module.exports = function(){
 					jwt.sign({
                			email: decoded.email,
                			usertype: decoded.usertype,
-               			subscriptionType: decoded.subscriptionType
+               			subscriptionType: decoded.subscriptionType,
+										companyId : decoded.companyId,
+										userId : decoded._id,
+										username : decoded.username,
+										companyName : decoded.companyName
                			},config.appSecret,{
                				expiresIn: '1h'
                			},function(err,token){
