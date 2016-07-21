@@ -127,6 +127,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
             .catch(ErrorCallback);
 
         function SuccessCallback(res) {
+            console.log(res);
             return successFeedback('Logged in')
                 .then(
                     $http.get(API_URL + '/cookie')

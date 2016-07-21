@@ -89,7 +89,7 @@ module.exports = function(){
 		var jwt = require('jsonwebtoken');
 		var token = req.cookies['session'];
 		console.log('Generate Cookie');//TOFIX
-		// console.log(token);//TOFIX
+		console.log(token);//TOFIX
 
 		if(!token)
 			send403(req,res,"no token");
