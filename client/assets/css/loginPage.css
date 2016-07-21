@@ -35,20 +35,20 @@ body {
     background-color:rgba(255,255,255,0.0);
     border:none;
     color:black;
-    width:200%;
+    width:100%;
 }
 
 #login-email-input {
     background-color:rgba(255,255,255,0.0);
     border:none;
     color:black;
-    width:200%;
+    width:100%;
 }
 
 #mdl-textfield {
     border:none;
-    border-bottom:3px solid rgba(255,255,255,0.0);
-    border-bottom-width: 200%;
+    border-bottom:10000px solid rgba(255,255,255,0.0);
+    border-bottom-width: 200px;
 }
 .mdl-textfield__label
 {   
