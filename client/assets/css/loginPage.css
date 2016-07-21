@@ -26,7 +26,7 @@ body {
     background:rgba(255,255,255,0.8);
 }
 
-.mdl-textfield__input {
+#login-password-input {
     background-color:rgba(255,255,255,0.0);
     border:none;
     border-bottom:1px solid #757575;
