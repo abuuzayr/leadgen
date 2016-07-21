@@ -29,15 +29,13 @@
                         <input id="username" class="mdl-textfield__input" type="text" placeholder="Email" ng-model="uc.email" />
                         <label class="mdl-textfield__label" for="email">Email Address:</label>
                     </div>
+                    <br>
+                    <h4>Subsciption Type:</h4>
+                    <h5 ng-repeat="type in uc.type"><i class="material-icons">check_box</i>{{type}}</h5>
                 </div>
 
                 <div class="col-md-6 apiKey">
                     <!-- Your second column here -->
-                    <br>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input id="username" class="mdl-textfield__input" type="text" placeholder="Email" ng-model="uc.type" />
-                        <label class="mdl-textfield__label" for="type">Subscription Type:</label>
-                    </div>
                     <br>
                     <h4>Subsciption Type:</h4>
                     <h5 ng-repeat="type in uc.type"><i class="material-icons">check_box</i>{{type}}</h5>
