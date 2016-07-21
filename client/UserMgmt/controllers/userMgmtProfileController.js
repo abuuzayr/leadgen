@@ -61,18 +61,18 @@ app.controller('userMgmtProfileController', ['$scope', '$http', 'uiGridConstants
         };
 
         /* =========================================== Load animation =========================================== */
-        var viewContentLoaded = $q.defer();
+        // var viewContentLoaded = $q.defer();
 
-        $scope.$on('$viewContentLoaded', function() {
-            $timeout(function() {
-                viewContentLoaded.resolve();
-            }, 0);
-        });
-        viewContentLoaded.promise.then(function() {
-            $timeout(function() {
-                uc.getCompanyDetails();
-                componentHandler.upgradeDom();
-            }, 0);
-        });
+        // $scope.$on('$viewContentLoaded', function() {
+        //     $timeout(function() {
+        //         viewContentLoaded.resolve();
+        //     }, 0);
+        // });
+        // viewContentLoaded.promise.then(function() {
+        //     $timeout(function() {
+        //         uc.getCompanyDetails();
+        //         componentHandler.upgradeDom();
+        //     }, 0);
+        // });
     }
 ]);
