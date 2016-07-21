@@ -26,7 +26,6 @@ body {
     background:rgba(255,255,255,0.8);
 }
 
-.mdl-textfield {
-    background:#7f7f7f;
-    background:rgba(255,255,255,0.8);
+.mdl-textfield__input {
+    opacity: 0;
 }
