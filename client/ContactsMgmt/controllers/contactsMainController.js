@@ -151,9 +151,9 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
     };
 
     //refresh
-    // cc.refresh = function() {
-    //     $window.location.reload();
-    // };
+    cc.refresh = function() {
+        $window.location.reload();
+    };
 
     cc.fields = [];
     //Get columndefs
