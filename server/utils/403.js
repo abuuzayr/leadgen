@@ -101,7 +101,7 @@ module.exports = function(){
 				else{
 					req.decoded = decoded;
 					console.log('This is decoded');
-					console.log(decoded.subscriptionType);
+					console.log(decoded);
 					jwt.sign({
                			email: decoded.email,
                			usertype: decoded.usertype,
