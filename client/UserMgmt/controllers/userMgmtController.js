@@ -4,9 +4,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         var companyName = authServices.getUserInfo().companyName;
         var companyId = authServices.getUserInfo().companyId;
 
-        console.log(companyId);
-        console.log(companyName);
-
         uc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
             if (col.filters[0].term) {
                 return 'header-filtered';

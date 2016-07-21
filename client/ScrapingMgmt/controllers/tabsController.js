@@ -4,6 +4,7 @@ angular
         var vm = this;
         vm.showCorporate = true;
         vm.showConsumer = true;
+        console.log(authServices.getUserInfo().subType);
 
         if (authServices.getToken() && authServices.getUserInfo().subType.consumer === false) {
             vm.showConsumer = false;
