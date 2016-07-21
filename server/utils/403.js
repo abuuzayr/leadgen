@@ -1,4 +1,4 @@
-//Include autentication module, 
+//Include autentication module,
 //access level verification module,
 //and 403 ACCESS FORBIDDEN handler.
 module.exports = function(){
@@ -39,7 +39,7 @@ module.exports = function(){
                		},config.appSecret,{
                			expiresIn: '1h'
                		},function(err,token){
-               			if(err){	
+               			if(err){
                				return send403(req,res,err.message);
                			}
                		res.cookie('id', token, { maxAge: 360000, httpOnly: false });
@@ -47,7 +47,7 @@ module.exports = function(){
                		});
 				}
 			});
-		}		
+		}
 	}
 	function decodeCookieInfo(req,res,next)
 	{
@@ -74,14 +74,14 @@ module.exports = function(){
                			},config.appSecret,{
                				expiresIn: '1h'
                			},function(err,token){
-               				if(err){	
+               				if(err){
                				    return send403(req,res,err.message);
                				}
                				next();
                				});
 				}
 			});
-		}		
+		}
 	}
 
 	function generateCookie(req,res){
@@ -100,7 +100,8 @@ module.exports = function(){
 				}
 				else{
 					req.decoded = decoded;
-					console.log(req.decoded);
+					console.log('This is decoded');
+					console.log(decoded);
 					jwt.sign({
                			email: decoded.email,
                			usertype: decoded.usertype,
@@ -108,7 +109,7 @@ module.exports = function(){
                			},config.appSecret,{
                				expiresIn: '1h'
                			},function(err,token){
-               				if(err){	
+               				if(err){
                				    return send403(req,res,err.message);
                				}
                				res.cookie('userTypeCookie', token, { maxAge: 360000, httpOnly: false });
@@ -116,7 +117,7 @@ module.exports = function(){
                				});
 				}
 			});
-		}		
+		}
 	}
 	function checkStroage(req,res,next){
 		var connection = require('./connection')();
@@ -136,7 +137,7 @@ module.exports = function(){
 		var crypto = require('crypto');
 		var config = require('../config.js');
 		var algorithm = 'aes-256-ctr';
-		console.log('decodeing access info');//TOFIX	
+		console.log('decodeing access info');//TOFIX
 		var ecodedAccessInfo = req.decoded.application;
 		console.log(ecodedAccessInfo);//TOFIX
 		var decipher = crypto.createDecipher(algorithm,config.appSecret);
@@ -167,21 +168,21 @@ module.exports = function(){
 						console.log('GET',module.read,module.read == true);//TOFIX
 						if(module.read == true)
 							next();
-						else 
+						else
 							send403(req,res,'Unauthorized user group');
 						break;
 				case 'POST':
 						console.log('POSt');//TOFIX
 						if(module.create == true)
 							next();
-						else 
+						else
 							send403(req,res,'Unauthorized user group');
 
 					break;
 				case 'PUT':	console.log('PUt');//TOFIX
 						if(module.update == true)
 							next();
-						else 
+						else
 							send403(req,res,'Unauthorized user group');
 
 					break;
@@ -189,7 +190,7 @@ module.exports = function(){
 						console.log('DELETe');//TOFIX
 						if(module.delete == true)
 							next();
-						else 
+						else
 							send403(req,res,'Unauthorized user group');
 					break;
 				default:

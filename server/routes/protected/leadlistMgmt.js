@@ -10,9 +10,9 @@
   MailinglistManager = require('../../MailinglistManager/mailinglist-manager'),
   MailchimpManager = require('../../MailchimpManager/syncContacts');
   var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
-  
+
   var http403 = require('../../utils/403')();
-  
+
   //ACCESS CONTROL
   leadlistRouter.use('*',http403.verifyAccess('leadmgmt'));
 /*
@@ -21,6 +21,7 @@ CRUD on leads
 leadlistRouter.route('/leadList/leads')
   .get(function(req, res) {
     console.log('get leads');
+    console.log(req.cookies);
     ContactsManager.displayLeads(null, deleteContact)
       .then(function(results) {
         res.json(results);
@@ -77,7 +78,7 @@ leadlistRouter.route('/leadList/leads')
         2) If origin is YP, change to non origin
         3) Check if contact is in mailing list
         4) Update mail chimp server then app server
-        6) Update the contacts 
+        6) Update the contacts
         === SAMPLE POST ===
        [
         {
@@ -222,7 +223,7 @@ leadlistRouter.route('/mailingList')
       returnStatusCode(res, 400);
     else {
       //create mailinglist
-      MailchimpManager.addList(apiKey, req.body.listName) //1- 
+      MailchimpManager.addList(apiKey, req.body.listName) //1-
         .then(function(MCResults) {
           console.log("Mailchimp.addList Results:");
           console.log(MCResults);
@@ -257,8 +258,8 @@ leadlistRouter.route('/mailingList')
       MailchimpManager.deleteList(apiKey, req.body[0].listID) //1-
         .then(function(MCResults) {
 	  console.log(MCResults);
-          MailinglistManager.deleteList(res, 'mailinglists', req.body[0], returnStatusCode); //1-        
-        }).catch(function(MCError) { 
+          MailinglistManager.deleteList(res, 'mailinglists', req.body[0], returnStatusCode); //1-
+        }).catch(function(MCError) {
 	  res.sendStatus(405);
         });
     }
@@ -271,7 +272,7 @@ leadlistRouter.route('/mailingList')
         1) Update mailchimp with new name
         2) Update app server with new name*/
       /* ===SAMPLE JSON POST ===
-        
+
       [
         {
           "listID":"ba458816f3",
@@ -312,9 +313,9 @@ leadlistRouter.route('/mailingList/subscriber')
     else {
     //  console.log(req.body);
       //Suppose to sort incoming json file into merge fields so that it will be easier to add to mailchimp
-      /* 1) Add subscriber into mailchimp according to list 
+      /* 1) Add subscriber into mailchimp according to list
          2) After creating the batch, add the members in mailing list table
-         addMemberToList: function(apiKey,listID,memberInfo)      
+         addMemberToList: function(apiKey,listID,memberInfo)
 */
       var memberinfoPromiseArr = [];
       for (var i = 0; i < req.body[0].y.length; i++) {
@@ -373,7 +374,7 @@ leadlistRouter.route('/mailingList/subscriber')
                  {"listID": "6b444f37c4",
                  "email_hash": "1ff577ac1929480c2510398aa4999cad",
                  "_id":"aaaaa"
-                 }    
+                 }
             ]
           }*/
         var promiseArr = [];
