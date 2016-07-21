@@ -125,6 +125,20 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         uc.refresh = function() {
             $window.location.reload();
         };
+
+        /* =========================================== Load animation =========================================== */
+        var viewContentLoaded = $q.defer();
+
+        $scope.$on('$viewContentLoaded', function() {
+            $timeout(function() {
+                viewContentLoaded.resolve();
+            }, 0);
+        });
+        viewContentLoaded.promise.then(function() {
+            $timeout(function() {
+                componentHandler.upgradeDom();
+            }, 0);
+        });
     }
 ])
 

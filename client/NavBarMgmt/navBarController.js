@@ -31,12 +31,12 @@ app.controller('navBarController', ['$scope', '$q', '$location', '$timeout', '$c
                 vm.showLogout = true;
             }
 
-            console.log(vm.showLead);
-            console.log(vm.showFinder);
-            console.log(vm.showAccount);
-            console.log(vm.showUser);
-            console.log(vm.showDatabase);
-            console.log(vm.showLogout);
+            // console.log(vm.showLead);
+            // console.log(vm.showFinder);
+            // console.log(vm.showAccount);
+            // console.log(vm.showUser);
+            // console.log(vm.showDatabase);
+            // console.log(vm.showLogout);
         };
 
         vm.update();
