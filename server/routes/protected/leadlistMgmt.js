@@ -72,40 +72,6 @@ leadlistRouter.route('/leadList/leads')
     if (!req.body)
       returnStatusCode(res, 400);
     else {
-<<<<<<< HEAD
-=======
-      /*Required Steps: (Mailchimp Server, App Server)
-        1) Check origin of the contact
-        2) If origin is YP, change to non origin
-        3) Check if contact is in mailing list
-        4) Update mail chimp server then app server
-        6) Update the contacts
-        === SAMPLE POST ===
-       [
-        {
-          "_id": "5775cd2213c50d6605ef938e",
-          "firstName": "GRU",
-          "lastName": "TEST",
-          "email": null,
-          "companyName": "Fichtner (Asia) Pte Ltd",
-          "phoneNumber": "+65 6227 0227",
-          "category": "engineering",
-          "type": 1,
-          "origin": 1
-        },
-        {
-          "_id": "5775cd3013c50d6605ef938f",
-          "firstName": null,
-          "lastName": null,
-          "email": null,
-          "companyName": "Fichtner (Asia) Pte Ltd",
-          "phoneNumber": "+65 6227 0227",
-          "category": "engineering",
-          "type": 1,
-          "origin": 1
-        }
-      ]*/
->>>>>>> dbfd375c521bf34a981db9baac293e18181fd47b
       var originObj = req.body[0];
       var newObj = req.body[1];
       var cid = originObj._id;
