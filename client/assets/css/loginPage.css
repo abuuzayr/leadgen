@@ -30,16 +30,14 @@ body {
 }
 
 #login-password-input {
-    background-color:rgba(255,255,255,0.0);
     border:none;
-    color:black;
+    background-color:black;
 
 }
 
 #login-email-input {
-    background-color:rgba(255,255,255,0.0);
     border:none;
-    color:black;
+    background-color:black;
 }
 
 #mdl-textfield {
@@ -50,4 +48,5 @@ body {
 {   
     font-family:'Roboto';
     font-size: :18 px;
+    color:black;
 }
