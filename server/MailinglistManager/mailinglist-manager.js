@@ -8,7 +8,6 @@ var dbHandler = require('../database-handler'),
 var _ = require('lodash');
 
 var MailinglistManager = {
-
 	getMailingListMemberInfo: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
 			dbHandler.dbQuery(collectionName, obj, 'app')
@@ -30,16 +29,12 @@ var MailinglistManager = {
 				firstName: fname,
 				lastName: lname
 			};
-			console.log('updating');
-			console.log(object1);
-			console.log('with');
-			console.log(object2);
 			dbHandler.dbUpdate(collectionName, object1, object2)
 				.then(function(results) {
 					resolve(results);
 				})
 				.catch(function(error) {
-					console.log(error);
+					reject(error);
 				});
 		});
 	},
@@ -51,7 +46,7 @@ var MailinglistManager = {
 				callback(res, 200);
 			})
 			.catch(function(error) {
-				callback(res, error);
+				callback(res, 500);
 			});
 	},
 	addListMC: function(collectionName, obj) {
@@ -63,13 +58,13 @@ var MailinglistManager = {
 					resolve(results);
 				})
 				.catch(function(error) {
-					console.log('addList' + error);
+					reject(error);
 				});
 		});
 	},
 	addContactsChain: function(collectionName, obj, apiKey) {
 		return new Promise(function(resolve, reject) {
-			var tempC = {
+			var temp = {
 				firstName: obj.firstName,
 				lastName: obj.lastName,
 				email: obj.email_addr,
@@ -82,7 +77,7 @@ var MailinglistManager = {
 				origin: 1,
 				phone: null
 			};
-			contactsHandler.addContactMC(tempC, obj.email_hash, obj.listID, apiKey)
+			contactsHandler.addContactMC(temp, obj.email_hash, obj.listID, apiKey)
 				.then(function(results) {
 					var tempML = {
 						contactID: results + '',
@@ -94,17 +89,15 @@ var MailinglistManager = {
 						lastName: obj.lastName,
 						subscriberStatus: obj.subscriberStatus
 					};
-					console.log(tempC);
-					console.log(tempML);
 					dbHandler.dbInsert(collectionName, tempML)
 						.then(function(result) {
 							resolve(result);
 						}).catch(function(MLerror) {
-							console.log('insertML' + error);
+							reject(MLerror);
 						});
 				})
 				.catch(function(error) {
-					console.log('insertcontacts error' + error);
+					reject(error);
 				});
 		});
 	},
@@ -119,8 +112,6 @@ var MailinglistManager = {
 	},
 	deleteListv2: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
-		//	console.log('this is obj');
-		//	console.log(obj);
 			dbHandler.deleteManyDB(collectionName, obj)
 				.then(function(results) {
 					resolve(results);
@@ -149,7 +140,6 @@ var MailinglistManager = {
 				}
 				dbHandler.dbAggreateML(collectionName)
 					.then(function(resultsA) {
-						console.log(resultsA);
 						for (var i = 0; i < resultsA.length; i++) {
 							for (var j = 0; j < returnResults.length; j++) {
 								if (resultsA[i]._id == returnResults[j].listID) {
@@ -161,7 +151,7 @@ var MailinglistManager = {
 					});
 			})
 			.catch(function(error) {
-				callback(res, error);
+				reject(error);
 			});
 	},
 	updateContactMC: function(collectionName, obj) {
@@ -169,9 +159,6 @@ var MailinglistManager = {
 			//This is to allow us to filter out mailing list names only.
 			dbHandler.dbQuery(collectionName, obj[0], 'app')
 				.then(function(results) {
-					console.log('bb');
-					console.log(results);
-					console.log(obj);
 					var temp = [{
 						listID: obj[0].listID,
 						contactID: results[0].contactID,
@@ -187,11 +174,8 @@ var MailinglistManager = {
 						firstName: obj[1].firstName,
 						lastName: obj[1].lastName
 					}];
-					console.log(temp[0]);
-					console.log(temp[1]);
 					dbHandler.dbUpdateMany(collectionName, temp[0], temp[1])
 						.then(function(results1) {
-							//After integration
 							var temp2 = [{
 								_id: new mongodb.ObjectID(results[0].contactID)
 							}, {
@@ -202,15 +186,15 @@ var MailinglistManager = {
 								.then(function(results2) {
 									resolve(results2);
 								})
-								.catch(function(error2) {
-									console.log("updatecontact2" + error2);
+								.catch(function(error3) {
+									reject(error2);
 								});
-						}).catch(function(error) {
-							console.log('updateContactMC updateML' + error);
+						}).catch(function(error2) {
+							reject(error2);
 						});
 				})
 				.catch(function(error) {
-					console.log('updateContactMC query', error);
+					reject(error);
 				});
 		});
 	},
@@ -226,7 +210,7 @@ var MailinglistManager = {
 					resolve(results);
 				})
 				.catch(function(error) {
-					console.log('trying getListNamesMC failed :' + error);
+					reject(error);
 				});
 		});
 	},
@@ -237,7 +221,7 @@ var MailinglistManager = {
 					resolve(results);
 				})
 				.catch(function(error) {
-					console.log('trying to get all members failed :' + error);
+					reject(error);
 				});
 		});
 	},
@@ -249,7 +233,7 @@ var MailinglistManager = {
 					resolve(results);
 				})
 				.catch(function(error) {
-					resolve(results);
+					reject(error);
 				});
 		} else {
 			var arr = [];
@@ -261,7 +245,7 @@ var MailinglistManager = {
 					resolve(results);
 				})
 				.catch(function(error) {
-					resolve(results);
+					resolve(error);
 				});
 		}
 	},
@@ -269,10 +253,10 @@ var MailinglistManager = {
 		if (!Array.isArray(obj)) {
 			dbHandler.dbInsert(collectionName, obj)
 				.then(function(results) {
-					callback(res, results);
+					callback(res, 200);
 				})
 				.catch(function(error) {
-					callback(res, error);
+					callback(res, 500);
 				});
 		} else {
 			var arr = [];
@@ -284,7 +268,7 @@ var MailinglistManager = {
 					callback(res, 200);
 				})
 				.catch(function(error) {
-					callback(res, error);
+					callback(res, 500);
 				});
 		}
 	},
@@ -295,7 +279,7 @@ var MailinglistManager = {
 					resolve(results);
 				})
 				.catch(function(error) {
-					console.log('addMemberToListMC' + error);
+					reject(error);
 				});
 		});
 	},
@@ -305,26 +289,23 @@ var MailinglistManager = {
 				callback(res, 200);
 			})
 			.catch(function(error) {
-				callback(res, error);
+				callback(res, 500);
 			});
 	},
 	updateList: function(res, collectionName, obj, callback) {
 		if ((Array.isArray(obj)) && obj.length == 2) {
-			console.log(obj[0]);
-			console.log(obj[1]);
 			dbHandler.dbUpdateMany(collectionName, obj[0], obj[1])
 				.then(function(results) {
-					callback(res, results);
+					callback(res, 200);
 				})
 				.catch(function(error) {
-					callback(res, error);
+					callback(res, 500);
 				});
 		} else {
 			callback(res, 400);
 		}
 	},
 	getSubscribers: function(res, collectionName, obj, callback) {
-
 		var temp = {
 			listID: obj.listID
 		};
@@ -338,7 +319,6 @@ var MailinglistManager = {
 				}
 				var pArr = [];
 				for (var i = 0; i < returnResults.length; i++) {
-					console.log(returnResults[i].contactID);
 					var queryID = {
 						_id: returnResults[i].contactID
 					};
@@ -347,8 +327,6 @@ var MailinglistManager = {
 				Promise.all(pArr)
 					.then(function(promiseResults) {
 						var finalResults = [];
-						console.log(returnResults);
-						console.log(promiseResults);
 						for (var i = 0; i < returnResults.length; i++) {
 							for (var j = 0; j < promiseResults.length; j++) {
 								var itemID = promiseResults[j][0]._id + '';
@@ -362,11 +340,9 @@ var MailinglistManager = {
 								}
 							}
 						}
-						console.log("finalResults");
-						console.log(finalResults);
 						callback(res, finalResults);
 					}).catch(function(pAllError) {
-						console.log(pAllError);
+						reject(pAllError);
 					});
 			})
 			.catch(function(error) {
@@ -374,17 +350,14 @@ var MailinglistManager = {
 			});
 	},
 	updateListMC: function(collectionName, obj) {
-
 		return new Promise(function(resolve, reject) {
 			if ((Array.isArray(obj)) && obj.length == 2) {
-				console.log(obj[0]);
-				console.log(obj[1]);
 				dbHandler.dbUpdateMany(collectionName, obj[0], obj[1])
 					.then(function(results) {
 						resolve(results);
 					})
 					.catch(function(error) {
-						console.log('updateListMC' + error);
+						reject(error);
 					});
 			}
 		});
@@ -408,7 +381,7 @@ var MailinglistManager = {
 					callback(res, 200);
 				})
 				.catch(function(error) {
-					callback(res, error);
+					callback(res, 500);
 				});
 		}
 	},
@@ -419,7 +392,7 @@ var MailinglistManager = {
 					resolve(results);
 				})
 				.catch(function(error) {
-					console.log("deleteMemberMC" + error);
+					reject(error);
 				});
 		});
 	},
@@ -435,25 +408,23 @@ var MailinglistManager = {
 					resolve(obj);
 				})
 				.catch(function(error) {
-					console.log('addList' + error);
+					reject(error);
 				});
 		});
 	},
 	getAllData: function(collectionName) {
 		return new Promise(function(resolve, reject) {
-
 			dbHandler.dbQuery(collectionName, null, 'app')
 				.then(function(results) { //containing contactid
 					resolve(results);
 				})
 				.catch(function(error) {
-					console.log('addList' + error);
+					reject(error);
 				});
 		});
 	},
 	updateActivity: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
-
 			var obj1 = [{
 				_id: obj._id
 			}, {
@@ -461,31 +432,23 @@ var MailinglistManager = {
 				success: obj.success,
 				failure: obj.failure
 			}];
-			/*console.log('test');
-			console.log(obj1[0]);
-			console.log(obj1[1]);*/
 			dbHandler.dbUpdateMany(collectionName, obj1[0], obj1[1])
 				.then(function(results) {
 					resolve(results);
 				})
 				.catch(function(error) {
-					console.log('updateListMC' + error);
+					reject(error);
 				});
 		});
 	},
 	getFilterMembers: function(collectionName, para,results)
 	{
 		return new Promise (function(resolve,reject) {
-
 		var obj={
 			listID:para
 		};
 		dbHandler.dbQuery(collectionName,obj,'app')
 		.then(function(queryResults){//containing contactid
-			console.log(queryResults);
-			console.log("end of resultsq");
-			console.log(results);
-			console.log("end of obj");
 			var filterArr=[];
 			var duplicateFound=false;
 			for(var j=0;j<results.length;j++){
@@ -494,11 +457,9 @@ var MailinglistManager = {
 							 duplicateFound = true;
 						}
 				}
-				if(duplicateFound==false)
-				{
+				if(duplicateFound==false) {
 					filterArr.push(results[j]);
-				}else
-				{
+				}else {
 					duplicateFound=false;
 				}
 			}
@@ -506,7 +467,7 @@ var MailinglistManager = {
 			resolve(finalArray);
 		})
 		.catch(function(error){
-			console.log('addList'+error);
+			reject(error);
 		});
 		});
 	}

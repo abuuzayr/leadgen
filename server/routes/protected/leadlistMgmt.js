@@ -1,4 +1,3 @@
-
   var express = require('express'),
   leadlistRouter = express.Router(),
   dbHandler = require('../../database-handler'),
@@ -12,7 +11,6 @@
   var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
   
   var http403 = require('../../utils/403')();
-  
   //ACCESS CONTROL
   leadlistRouter.use('*',http403.verifyAccess('leadmgmt'));
 /*
@@ -72,37 +70,6 @@ leadlistRouter.route('/leadList/leads')
     if (!req.body)
       returnStatusCode(res, 400);
     else {
-      /*Required Steps: (Mailchimp Server, App Server)
-        1) Check origin of the contact
-        2) If origin is YP, change to non origin
-        3) Check if contact is in mailing list
-        4) Update mail chimp server then app server
-        6) Update the contacts 
-        === SAMPLE POST ===
-       [
-        {
-          "_id": "5775cd2213c50d6605ef938e",
-          "firstName": "GRU",
-          "lastName": "TEST",
-          "email": null,
-          "companyName": "Fichtner (Asia) Pte Ltd",
-          "phoneNumber": "+65 6227 0227",
-          "category": "engineering",
-          "type": 1,
-          "origin": 1
-        },
-        {
-          "_id": "5775cd3013c50d6605ef938f",
-          "firstName": null,
-          "lastName": null,
-          "email": null,
-          "companyName": "Fichtner (Asia) Pte Ltd",
-          "phoneNumber": "+65 6227 0227",
-          "category": "engineering",
-          "type": 1,
-          "origin": 1
-        }
-      ]*/
       var originObj = req.body[0];
       var newObj = req.body[1];
       var cid = originObj._id;
@@ -155,7 +122,6 @@ leadlistRouter.put('/leadList/leads/duplicates', jsonParser, function(req, res) 
   }
 });
 leadlistRouter.get('/leadList/leads/:id', function(req, res) {
-  //TODO return history of lead
   if (!req.params.id)
     res.sendStatus(400);
   else {
@@ -172,7 +138,6 @@ leadlistRouter.get('/leadList/leads/:id', function(req, res) {
   }
 });
 leadlistRouter.post('/leadList/import', jsonParser, function(req, res) {
-  //console.log(req.body);
   if (!req.body)
     res.sendStatus(400);
   else {
@@ -184,9 +149,7 @@ leadlistRouter.post('/leadList/import', jsonParser, function(req, res) {
   }
 });
 /*
-CRUD on leads list
-*/
-
+CRUD on leads list*/
 /*
 Purpose: To retrieve information for front end display
   ===SAMPLE POST JSON===
