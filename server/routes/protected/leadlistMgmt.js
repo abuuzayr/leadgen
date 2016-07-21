@@ -57,6 +57,7 @@ leadlistRouter.route('/contacts/leadList/leads')
       }
       Promise.all(promiseArr)
         .then(function(objsToDelete){
+          console.log("======leads to delete======")
           console.log(objsToDelete);
           return dbHandler.dbDelete('leadList', objsToDelete);
         })
