@@ -71,6 +71,7 @@ module.exports = function(){
                			email: decoded.email,
                			usertype: decoded.usertype,
                			subscriptionType: decoded.subscriptionType
+
                			},config.appSecret,{
                				expiresIn: '1h'
                			},function(err,token){
@@ -109,7 +110,8 @@ module.exports = function(){
 										companyId : decoded.companyId,
 										userId : decoded._id,
 										username : decoded.username,
-										companyName : decoded.companyName
+										companyName : decoded.companyName,
+										
                			},config.appSecret,{
                				expiresIn: '1h'
                			},function(err,token){
