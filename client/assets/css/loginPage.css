@@ -22,10 +22,25 @@ body {
 }
 
 #login-button {
-    width: 100%;
+    background-color: #eb3a40;
 }
 
 #login-main {
+    background:#7f7f7f;
+    background:rgba(255,255,255,0.5);
+}
+
+#login-email-input {
+    background:#7f7f7f;
+    background:rgba(255,255,255,0.5);
+}
+
+#login-password-input {
+    background:#7f7f7f;
+    background:rgba(255,255,255,0.5);
+}
+
+#login-button {
     background:#7f7f7f;
     background:rgba(255,255,255,0.5);
 }
