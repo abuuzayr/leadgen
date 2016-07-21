@@ -101,7 +101,7 @@ module.exports = function(){
 				else{
 					req.decoded = decoded;
 					console.log('This is decoded');
-					console.log(decoded);
+					console.log(decoded.subscriptionType);
 					jwt.sign({
                			email: decoded.email,
                			usertype: decoded.usertype,
@@ -109,6 +109,7 @@ module.exports = function(){
                			},config.appSecret,{
                				expiresIn: '1h'
                			},function(err,token){
+
                				if(err){
                				    return send403(req,res,err.message);
                				}
