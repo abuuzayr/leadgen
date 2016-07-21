@@ -12,20 +12,32 @@ body {
     background: #F5F5F5;
 }
 
-#login-heading {
-    background: #eb3a40;
-}
-
 #login-main {
     margin: auto;
-    height: 380px;
+    height: 500px;
 }
 
 #login-button {
-    width: 100%;
+    background-color: #eb3a40;
 }
 
 #login-main {
     background:#7f7f7f;
-    background:rgba(255,255,255,0.5);
+    background:rgba(255,255,255,0.8);
+}
+
+#login-password-input {
+    background-color:rgba(255,255,255,0.0);
+    border:none;
+
+}
+
+#login-email-input {
+    background-color:rgba(255,255,255,0.0);
+    border:none;
+}
+
+#mdl-textfield {
+    border:none;
+    border-bottom:3px solid #757575;
 }

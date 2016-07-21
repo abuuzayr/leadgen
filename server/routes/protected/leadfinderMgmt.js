@@ -1,4 +1,4 @@
-  var express = require('express'),
+var express = require('express'),
   leadfinderRouter = express.Router(),
   dbHandler = require('../../database-handler'),
   jsonParser = require('body-parser').json(),
@@ -9,13 +9,11 @@
   MailinglistManager = require('../../MailinglistManager/mailinglist-manager'),
   MailchimpManager = require('../../MailchimpManager/syncContacts');
 
-  var http403 = require('../../utils/403')();
+var http403 = require('../../utils/403')();
   
   //ACCESS CONTROL
-  leadfinderRouter.use('*',http403.verifyAccess('leadfinder'));
-  //var apiKey = req.accessInfo.application.bulletlead.googlePlacesAPIKey;
-
-  var index = 0; 
+leadfinderRouter.use('*',http403.verifyAccess('leadfinder'));
+var index = 0; 
 
 /*
 Scraping API
@@ -135,10 +133,10 @@ var deleteContact = function(cid) {
                       reject(error);
                     });
                 }).catch(function(MLerror) {
-                  console.log(MLerror);
+                  reject(MLerror);
                 });
             }).catch(function(MCerror) {
-              console.log(MCerror);
+              reject(MCerror);
             });
         } else {
           ContactsManager.deleteLeads(obj)
@@ -148,7 +146,6 @@ var deleteContact = function(cid) {
             .catch(function(error) {
               reject(error);
             });
-          //add a then function
         }
       }).catch(function(error) {
         reject(500);
@@ -158,7 +155,6 @@ var deleteContact = function(cid) {
 var updateContact = function(results, firstName, lastName, body) {
   return new Promise(function(resolve, reject) {
     //there is a contact in mailing list that need to be deleted.
-    console.log(results);
     var temp = {
       status: results.subscriberStatus,
       email_address: results.email_addr,
@@ -167,25 +163,23 @@ var updateContact = function(results, firstName, lastName, body) {
         LNAME: lastName
       }
     };
-    console.log(temp);
     MailchimpManager.updateMember(apiKey, results.listID, results.email_hash, temp)
       .then(function(MCresults) {
         MailinglistManager.updateMemberInfo('mailinglists', lastName, firstName, results.listID, results.email_hash)
           .then(function(MLResults) {
-            console.log("update success");
             resolve(MLResults);
             ContactsManager.updateContacts(body)
               .then(function(cResults) {
                 resolve(cResults);
               }).catch(function(cError) {
-                console.log(cError);
+                reject(cError);
               });
           })
           .catch(function(MLerror) {
-            console.log(MLerror);
+            reject(MLerror);
           });
       }).catch(function(MCerror) {
-        console.log(MCerror);
+        reject(MCerror);
       });
   });
 };

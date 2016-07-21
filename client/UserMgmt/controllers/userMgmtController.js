@@ -1,6 +1,8 @@
-app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', '$window',
-    function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackServices, $window) {
+app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', '$window', 'authServices',
+    function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackServices, $window, authServices) {
         var uc = this;
+        var companyName = authServices.getUserInfo().companyName;
+        var companyId = authServices.getUserInfo().companyId;
 
         uc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
             if (col.filters[0].term) {
@@ -16,17 +18,16 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             showGridFooter: true,
             minRowsToShow: 10,
             columnDefs: [{
-                field: 'firstName',
-                displayName: 'First Name',
+                field: 'userName',
+                displayName: 'Username',
                 minWidth: 100,
                 width: 150,
                 enableCellEdit: true,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
-                field: 'lastName',
-                displayName: 'Last Name',
-                minWidth: 100,
-                width: 150,
+                field: 'email',
+                displayName: 'Email',
+                minWidth: 200,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
                 field: 'role',
@@ -54,17 +55,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                     id: 2,
                     role: 'User'
                 }]
-            }, {
-                field: 'email',
-                displayName: 'Email',
-                minWidth: 200,
-                headerCellClass: uc.highlightFilteredHeader
-            }, {
-                field: 'phone',
-                displayName: 'Phone',
-                minWidth: 100,
-                width: 150,
-                headerCellClass: uc.highlightFilteredHeader
             }, ],
         };
 
@@ -73,11 +63,10 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         uc.addData = function() {
             var n = uc.gridOptions.data.length + 1;
             uc.gridOptions.data.push({
-                "firstName": uc.lead.first,
-                "lastName": uc.lead.last,
-                "role": uc.lead.role,
+                "userName": uc.lead.userName,
                 "email": uc.lead.email,
-                "phone": uc.lead.phone,
+                "pasword": uc.lead.password,
+                "role": uc.lead.role
             });
             uc.addResult = "Success!";
         };
@@ -138,6 +127,20 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         uc.refresh = function() {
             $window.location.reload();
         };
+
+        /* =========================================== Load animation =========================================== */
+        var viewContentLoaded = $q.defer();
+
+        $scope.$on('$viewContentLoaded', function() {
+            $timeout(function() {
+                viewContentLoaded.resolve();
+            }, 0);
+        });
+        viewContentLoaded.promise.then(function() {
+            $timeout(function() {
+                componentHandler.upgradeDom();
+            }, 0);
+        });
     }
 ])
 
