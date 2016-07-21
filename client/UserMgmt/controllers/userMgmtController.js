@@ -1,8 +1,8 @@
 app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', '$window', 'authServices',
     function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackServices, $window, authServices) {
         var uc = this;
-        var companyName = authServices.getUserInfo().companyName;
-        var companyId = authServices.getUserInfo().companyId;
+        // var companyName = authServices.getUserInfo().companyName;
+        // var companyId = authServices.getUserInfo().companyId;
 
         uc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
             if (col.filters[0].term) {
