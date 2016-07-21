@@ -15,7 +15,8 @@ body {
 
 #login-main {
     margin: auto;
-    height: 850px;
+    height: 500px;
+    width :850px;
 }
 
 #login-button {
