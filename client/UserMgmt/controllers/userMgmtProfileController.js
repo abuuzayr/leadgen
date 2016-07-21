@@ -70,7 +70,7 @@ app.controller('userMgmtProfileController', ['$scope', '$http', 'uiGridConstants
         });
         viewContentLoaded.promise.then(function() {
             $timeout(function() {
-                uc.getCompanyDetails();
+                // uc.getCompanyDetails();
                 componentHandler.upgradeDom();
             }, 0);
         });
