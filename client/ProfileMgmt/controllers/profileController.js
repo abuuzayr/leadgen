@@ -1,5 +1,5 @@
-app.controller('profileController', ['$scope', '$http', '$q', '$location', '$timeout', 'getDetails', 'appConfig', '$window', 'feedbackServices',
-    function($scope, $http, $q, $location, $timeout, getDetails, appConfig, $window, feedbackServices) {
+app.controller('profileController', ['$scope', '$http', '$q', '$location', '$timeout', 'getDetails', 'appConfig', '$window', 'feedbackServices', '$cookies', 'authServices',
+    function($scope, $http, $q, $location, $timeout, getDetails, appConfig, $window, feedbackServices, $cookies, authServices) {
 
         var pc = this;
         pc.profileData = {};
@@ -9,14 +9,23 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
         //properties: email,new password, retypePassword
 
         //get profile details
-        getDetails.getProfileDetails().then(function successCallback(res) {
-                pc.userName = res.data[0].name;
-                pc.userEmail = res.data[0].email;
-                pc.userPassword = res.data[0].password;
-            }),
-            function errorCallback(err) {
+        // getDetails.getProfileDetails().then(function successCallback(res) {
+        //         pc.userName = res.data[0].name;
+        //         pc.userEmail = res.data[0].email;
+        //         pc.userPassword = res.data[0].password;
+        //     }),
+        //     function errorCallback(err) {
 
-            };
+        //     };
+
+        //get profile from cookie
+        pc.userName = '';
+        pc.userEmail = '';
+
+        if (authServices.getToken()) {
+            pc.userName = authServices.getToken().username;
+            pc.userEmail = authServices.getToken().email;
+        }
 
         // pc.getFromDatabase = function() {
         //     var path = '/protected/settings';

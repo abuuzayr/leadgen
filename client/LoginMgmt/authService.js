@@ -54,7 +54,8 @@
                 usertype: userInfo.usertype,
                 subType: userInfo.subscriptionType,
                 companyName: userInfo.companyName,
-                companyId: userInfo.companyId
+                companyId: userInfo.companyId,
+                userId: userInfo.userId
             };
         }
     }
