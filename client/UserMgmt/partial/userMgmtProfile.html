@@ -29,35 +29,22 @@
                         <input id="username" class="mdl-textfield__input" type="text" placeholder="Email" ng-model="uc.email" />
                         <label class="mdl-textfield__label" for="email">Email Address:</label>
                     </div>
-                    <br>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input id="username" class="mdl-textfield__input" type="text" placeholder="Email" ng-model="uc.type" />
-                        <label class="mdl-textfield__label" for="type">Subscription Type:</label>
-                    </div>
                 </div>
 
                 <div class="col-md-6 apiKey">
                     <!-- Your second column here -->
                     <br>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input id="username" class="mdl-textfield__input" type="text" placeholder="Email" ng-model="uc.type" />
+                        <label class="mdl-textfield__label" for="type">Subscription Type:</label>
+                    </div>
+                    <br>
                     <h4>Subsciption Type:</h4>
-                    <h5 ng-repeat="type in uc.type">{{type}}</h5>
+                    <h5 ng-repeat="type in uc.type"><i class="material-icons">check_box</i>{{type}}</h5>
                 </div>
             </div><br>
-        </div><br>
-        <div class="moreDetails" ng-init="moreDetails = false">
-            <input type="checkbox" name="showMore" ng-model="moreDetails"> Show Expiration Date
-            <br><br>
-            <div ng-show="moreDetails">
-                <h4>Expiry: {{ uc.expiry }}</h4>
-                <h4>Storage Utilization: </h4>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{ uc.storage }}%;">
-                        {{ uc.storage }}%
-                    </div>
-                </div>
-            </div>
-            <br><br>
         </div>
+        <br><br>
     </div>
     <div id="userFeedback" aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-js-snackbar mdl-snackbar">
         <div class="mdl-snackbar__text"></div>
