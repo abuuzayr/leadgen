@@ -1,5 +1,5 @@
-app.controller('userMgmtProfileController', ['$scope', '$http', 'uiGridConstants', '$q', '$location', '$timeout', 'companyProfile', 'feedbackServices', 'appConfig',
-    function($scope, $http, uiGridConstants, $q, $location, $timeout, companyProfile, feedbackServices, appConfig) {
+app.controller('userMgmtProfileController', ['$scope', '$http', 'uiGridConstants', '$q', '$location', '$timeout', 'companyProfile', 'feedbackServices', 'appConfig', 'authServices',
+    function($scope, $http, uiGridConstants, $q, $location, $timeout, companyProfile, feedbackServices, appConfig, authServices) {
 
         var uc = this;
         // uc.companyData = {};
