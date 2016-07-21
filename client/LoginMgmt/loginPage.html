@@ -5,14 +5,14 @@
     <div class="mdl-layout mdl-js-layout" ng-controller="loginCtrl as vm">
         <div id="login-background" class="mdl-grid">
             <!---------------------------------------- Login main ---------------------------------------->
-            <div id="login-main" class="mdl-card" align="center">
-                <main class="mdl-layout__content" align="center">
+            <div id="login-main" class="mdl-card" align="left">
+                <main class="mdl-layout__content" align="left">
                     <div id="login-heading" class="mdl-card__title mdl-color-text--white">
-                        <img src="assets/images/bulletlead-logo.png" style="width:180px;height:150px;margin:0 auto;">
+                        <img src="assets/images/bulletlead-logo.png" style="width:180px;height:150px;margin-top:25px;">
                     </div>
                     <div class="mdl-card__supporting-text">
                         <!---------------------------------------- Login form ---------------------------------------->
-                        <form id="login-form" align="center">
+                        <form id="login-form" align="left">
                             <!-- Email input -->
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <input id="login-email-input" ng-model="vm.loginEmail" class="mdl-textfield__input" type="email" ng-required="true" />
@@ -26,13 +26,13 @@
                             </div>
                             <!-- Login button -->
                             <div class="mdl-card__actions" align="center" style="margin-left:30px;">
-                                <button align="center" id="login-button" type="submit" ng-click="vm.validateBeforeLogin()" class="mdl-button mdl-button--colored mdl-button--raised mdl-js-button mdl-js-ripple-effect">Log in
+                                <button align="center" id="login-button" type="submit" ng-click="vm.validateBeforeLogin()" class="mdl-button mdl-button--colored mdl-button--raised mdl-js-button mdl-js-ripple-effect" style="font-size:18px;">Log in
                         </button>
                             </div>
                         </form>
                         <br>
                         <div class="mdl-card__actions mdl-card--border">
-                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="color:black;font-size:20px;font-weight:bold;" ng-click="vm.openDialog()">Forgot password?</button>
+                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="color:black;font-size:18px;" ng-click="vm.openDialog()">Forgot password?</button>
                         </div>
                     </div>
                 </main>
