@@ -16,17 +16,16 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             showGridFooter: true,
             minRowsToShow: 10,
             columnDefs: [{
-                field: 'firstName',
-                displayName: 'First Name',
+                field: 'userName',
+                displayName: 'Username',
                 minWidth: 100,
                 width: 150,
                 enableCellEdit: true,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
-                field: 'lastName',
-                displayName: 'Last Name',
-                minWidth: 100,
-                width: 150,
+                field: 'email',
+                displayName: 'Email',
+                minWidth: 200,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
                 field: 'role',
@@ -54,17 +53,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                     id: 2,
                     role: 'User'
                 }]
-            }, {
-                field: 'email',
-                displayName: 'Email',
-                minWidth: 200,
-                headerCellClass: uc.highlightFilteredHeader
-            }, {
-                field: 'phone',
-                displayName: 'Phone',
-                minWidth: 100,
-                width: 150,
-                headerCellClass: uc.highlightFilteredHeader
             }, ],
         };
 
@@ -73,11 +61,10 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         uc.addData = function() {
             var n = uc.gridOptions.data.length + 1;
             uc.gridOptions.data.push({
-                "firstName": uc.lead.first,
-                "lastName": uc.lead.last,
-                "role": uc.lead.role,
+                "userName": uc.lead.userName,
                 "email": uc.lead.email,
-                "phone": uc.lead.phone,
+                "pasword": uc.lead.password,
+                "role": uc.lead.role
             });
             uc.addResult = "Success!";
         };
