@@ -27,5 +27,9 @@ body {
 }
 
 .mdl-textfield__input {
-    opacity: 0;
+    background:#7f7f7f;
+    background:rgba(255,255,255,0.0);
+    border:none;
+    border-bottom:1px solid #757575;
+
 }
