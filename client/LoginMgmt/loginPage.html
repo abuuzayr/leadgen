@@ -17,17 +17,17 @@
                             <!-- Email input -->
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <input id="login-email-input" ng-model="vm.loginEmail" class="mdl-textfield__input" type="email" ng-required="true" />
-                                <label class="mdl-textfield__label" for="login-email-input">Email</label>
+                                <label class="mdl-textfield__label" for="login-email-input">Email...</label>
                             </div>
                             <br>
                             <!-- Password input -->
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                 <input id='login-password-input' ng-model="vm.password" class="mdl-textfield__input" type="password" ng-required="true" />
-                                <label class="mdl-textfield__label" for='login-password-input'>Password</label>
+                                <label class="mdl-textfield__label" for='login-password-input'>Password...</label>
                             </div>
                             <!-- Login button -->
                             <div class="mdl-card__actions">
-                                <button id="login-button" type="submit" ng-click="vm.validateBeforeLogin()" class="mdl-button mdl-button--colored mdl-button--raised mdl-js-button mdl-js-ripple-effect">
+                                <button id="login-button" style="align:center;width:40%;" type="submit" ng-click="vm.validateBeforeLogin()" class="mdl-button mdl-button--colored mdl-button--raised mdl-js-button mdl-js-ripple-effect">
                         Log in
                         </button>
                             </div>
