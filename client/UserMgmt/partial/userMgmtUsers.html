@@ -27,7 +27,35 @@
                     <p>
                         Please enter the details.
                     </p>
+
                     <form class="add-leads-form" ng-submit="uc.addData()">
+                        <!-- Username input -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input id="username" class="mdl-textfield__input" type="text" placeholder="Username" ng-model="vm.username" ng-required="true" />
+                            <label class="mdl-textfield__label" for="username">Username*</label>
+                        </div>
+                        <br>
+                        <!-- Email input -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input id="userEmail" class="mdl-textfield__input" type="email" placeholder="Email" ng-model="vm.email" ng-required="true" />
+                            <label class="mdl-textfield__label" for="userEmail">Email*</label>
+                        </div>
+                        <br>
+                        <!-- Password input -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input id="userPassword" class="mdl-textfield__input" type="password" placeholder="Password (8-24 characters)" ng-model="vm.password" ng-required="true" ng-minlength="8" ng-maxlength="24" />
+                            <label class="mdl-textfield__label" for="userPassword">Password*</label>
+                        </div>
+                        <br>
+                        <!-- Access type select -->
+                        <div class="mdl-selectfield">
+                            <label for="userType-select" class="mdl-selectfield__label">Access Type</label>
+                            <select id="userType-select" ng-model="vm.selectedUserType" ng-required="vm.required" style="width:100%">
+                                <option value="">----- Select option -----</option>
+                                <option value="1">Admin</option>
+                                <option value="2">User</option>
+                                </select>
+                        </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="firstName">First Name</label>
                             <input class="mdl-textfield__input" type="text" id="firstName" ng-model="uc.lead.first" required>
