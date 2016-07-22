@@ -22,20 +22,20 @@
     <div id="myTabContent" class="tab-content">
         <div class="container">
             <br>
-            <button ng-click="cc.openDialog('addData')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored addButtons">Add lead</button>
-            <button ng-click="cc.openDialog('deleteLeads')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> Remove leads</button>
-            <button ng-click="cc.openDialog('addField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored pull-right addButtons">
+            <button ng-click="cc.openDialog('addData')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add lead</button>
+            <button ng-click="cc.openDialog('deleteLeads')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> REMOVE LEAD(S) </button>
+            <button ng-click="cc.openDialog('addField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored pull-right">
                 <i class="material-icons md-48">add_circle</i>
             </button>
-            <button ng-click="cc.openDialog('deleteField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent pull-right addButtons">
+            <button ng-click="cc.openDialog('deleteField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent pull-right">
                 <i class="material-icons md-48">remove_circle</i>
             </button>
             <br><br>
             <div id="grid1" ui-grid="cc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-importer ui-grid-resize-columns class="grid"></div>
             <br>
-            <button ng-click="cc.openDialog('addToMailingList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored addButtons">Add to Mailing List</button>
-            <button ng-click="cc.openDialog('removeDuplicate')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored addButtons">Remove Duplicate</button>
-            <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored pull-right" id="get_file addButtons" value="Import" />
+            <button ng-click="cc.openDialog('addToMailingList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add to Mailing List</button>
+            <button ng-click="cc.openDialog('removeDuplicate')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Remove Duplicate</button>
+            <input type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored pull-right" id="get_file" value="Import" />
             <form><input type="file" id="files" class="file-chooser" name="files[]" /></form>
 
             <dialog id="historyData" class="mdl-dialog">
