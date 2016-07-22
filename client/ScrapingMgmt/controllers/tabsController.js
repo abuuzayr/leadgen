@@ -9,7 +9,9 @@ angular
         if (authServices.getToken() && authServices.getUserInfo().subType.consumer === true) {
             vm.showConsumer = true;
             console.log(vm.showCorporate);
-        } else if (authServices.getToken() && authServices.getUserInfo().subType.corporate === true) {
+        }
+
+        if (authServices.getToken() && authServices.getUserInfo().subType.corporate === true) {
             vm.showCorporate = true;
             console.log(vm.showConsumer);
         }
