@@ -6,6 +6,7 @@
     font-size: :14 px;
     font-weight:400 px;
     text-transform:capitalize;
+    color:#F2F1F1;
 }
 .mdl-button:hover{
     font-weight:900 px;
@@ -39,17 +40,17 @@
             <div class="mdl-layout-spacer "></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only ">
-                <a style="color:#F2F1F1; " onMouseOver="this.style.font-weight=900"
+                <a  onMouseOver="this.style.font-weight=900"
    onMouseOut="this.style.font-weight=400" class="mdl-button mdl-js-button " ng-style="vm.leadMgmtStyle" ui-sref="leadlist " ng-if="vm.showLead " ng-click="vm.update() ">Lead Management</a>
-                <a style="color:#F2F1F1; "  onMouseOver="this.style.font-weight=900"
+                <a onMouseOver="this.style.font-weight=900"
    onMouseOut="this.style.font-weight=400" class="mdl-button mdl-js-button " ng-style="vm.leadFinderStyle"  ui-sref=" leadFinder " ng-show="vm.showFinder " ng-click="vm.update() ">Lead Finder</a>
-                <a style="color:#F2F1F1; "  onMouseOver="this.style.font-weight=900"
+                <a   onMouseOver="this.style.font-weight=900"
    onMouseOut="this.style.font-weight=400" class="mdl-button mdl-js-button " ng-style="vm.accountSettingsStyle"  ui-sref="profile " ng-show="vm.showAccount " ng-click="vm.update() ">Account Settings</a>
-                <a style="color:#F2F1F1; "  onMouseOver="this.style.font-weight=900"
+                <a   onMouseOver="this.style.font-weight=900"
    onMouseOut="this.style.font-weight=400" class="mdl-button mdl-js-button " ng-style="vm.userMgmtStyle"   ui-sref=" userManagementprofile " ng-show="vm.showUser " ng-click="vm.update() ">User Management</a>
-                <a style="color:#F2F1F1; "  onMouseOver="this.style.font-weight=900"
+                <a  onMouseOver="this.style.font-weight=900"
    onMouseOut="this.style.font-weight=400" class="mdl-button mdl-js-button " ng-style="vm.databaseMgmtStyle"   ui-sref="externalDB " ng-show="vm.showDatabase " ng-click="vm.update() ">Database Management</a>
-                <a style="color:#F2F1F1; "  onMouseOver="this.style.font-weight=900"
+                <a   onMouseOver="this.style.font-weight=900"
    onMouseOut="this.style.font-weight=400" class="mdl-button mdl-js-button " href=" https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
                 <a style="color:#F2F1F1;font-weight:900; " class="mdl-button mdl-js-button " ng-click="vm.logout() " ng-show="vm.showLogout ">Logout</a>
             </nav>
