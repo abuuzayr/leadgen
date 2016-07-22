@@ -1,25 +1,14 @@
-.details {
-    text-align: center;
-    font-weight: 900;
-    font-style: italic;
-    /*color: #9AD3DC;*/
-    color: #3399FF
+h4 {
+    display: inline-block;
+    margin-left: 0px;
 }
 
-.moreDetails {
-    text-align: center;
+#first {
+    display: inline-block;
+    margin-left: 20px;
 }
 
-.progress {
-    width: 500px;
-    margin: auto;
-}
-
-.apiKey {
-    font-weight: 900;
-    font-style: italic;
-}
-
-.modal-body {
-    text-align: center;
+#second {
+    display: inline-block;
+    margin-left: 20px;
 }
