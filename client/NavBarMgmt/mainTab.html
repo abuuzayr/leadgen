@@ -11,6 +11,13 @@
     font-size: :18 px;
 }
 </style>
+<script>
+         function changeNavigationStyle() {
+            var lastPart = url.split("/").pop();
+            alert(lastPart);
+        }
+        window.onload = changeNavigationStyle;
+</script>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header" ng-controller="navBarController as vm">
     <header class="mdl-layout__header ">
         <div class="mdl-layout__header-row ">
