@@ -111,12 +111,13 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
             }
 
             sendResults.sendLeads(myJsonString).then(function successCallback(res) {
-                    // rc.responseMessage = "Saved to Contacts!";
-                    successFeedback("Saved to Contacts!");
+                    rc.responseMessage = "Saved to Contacts!";
+                    // successFeedback("Saved to Contacts!", 5000);
                 })
                 .catch(function errorCallback(err) {
+                    rc.responseMessage = "Error Occured";
                     rc.symbol = false;
-                    errorFeedback('Unable to save to contacts');
+                    // errorFeedback('Unable to save to contacts');
                 });
         };
 
@@ -142,6 +143,5 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
         var errorFeedback = function(errData, timeout) {
             return feedbackServices.errorFeedback(errData, '#corporateResult-feedbackMessage');
         };
-
     }
 ]);

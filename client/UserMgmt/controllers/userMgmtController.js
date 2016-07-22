@@ -1,8 +1,7 @@
 app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', '$window', 'authServices',
     function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackServices, $window, authServices) {
         var uc = this;
-        // var companyName = authServices.getUserInfo().companyName;
-        // var companyId = authServices.getUserInfo().companyId;
+        var companyId = '';
 
         uc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
             if (col.filters[0].term) {
@@ -58,6 +57,18 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             }, ],
         };
 
+        //get company id from cookie
+        if (authServices.getToken()) {
+            companyId = authServices.getUserInfo().companyId;
+
+            // get data from server
+            allUsersData.getUserData(companyId).then(function successCallback(res) {
+                    uc.gridOptions.data = res.data;
+                }),
+                function errorCallback(err) {
+                    console.log('Cannot get users');
+                };
+        }
 
         //add new user
         uc.addData = function() {
@@ -71,12 +82,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             uc.addResult = "Success!";
         };
 
-        // get data from server
-        allUsersData.getUserData().then(function successCallback(res) {
-                uc.gridOptions.data = res.data;
-            }),
-            function errorCallback(err) {}
-
         //delete selected leads
         uc.deleteSelected = function() {
             angular.forEach(uc.gridApi.selection.getSelectedRows(), function(data, index) {
@@ -85,9 +90,11 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 
             var selectedUsersToDelete = uc.gridApi.selection.getSelectedRows();
             console.log(selectedUsersToDelete);
+
             allUsersData.deleteUserData(selectedUsersToDelete).then(function successCallback(res) {
                 return feedbackServices.hideFeedback('#userManagementFeedback').
                 then(feedbackServices.successFeedback('Deleted!', '#userManagementFeedback', 2000));
+
             }).catch(function errorCallback(err) {
                 return feedbackServices.hideFeedback('#userManagementFeedback').
                 then(feedbackServices.successFeedback(err.data, '#userManagementFeedback', 2000));
