@@ -168,8 +168,8 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             if (angular.isDefined(stop) /*&& stop !== 1*/ ) {
                 $interval.cancel(stop);
                 stop = undefined;
-
             }
+            gc.spinner = false;
         };
 
         //if press stop button, cannot continue scraping
@@ -178,9 +178,9 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             if (angular.isDefined(stop)) {
                 $interval.cancel(stop);
                 gc.pressStop = true;
-                //stop = 1;
             }
-        }
+            gc.spinner = false;
+        };
 
         gc.showResult = false;
         gc.showFunction = function() {
