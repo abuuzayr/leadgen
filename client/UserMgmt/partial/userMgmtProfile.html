@@ -16,7 +16,7 @@
         <br>
 
         <div class="container">
-            <div class="modal-body row">
+            <div class="modal-body row pull-left">
                 <!--<div class="col-md-6">-->
                 <!-- Your first column here -->
                 <h3>Company Profile</h3><br>
@@ -29,10 +29,24 @@
                     <input id="username" class="mdl-textfield__input" type="text" placeholder="Email" ng-model="uc.email" />
                     <label class="mdl-textfield__label" for="email">Email Address:</label>
                 </div>-->
+                <!--<h4>Subsciption Type:</h4>
+                <h5 ng-repeat="type in uc.type"><i class="material-icons">check_box</i>{{type}}</h5>-->
+                <!--</div>-->
+
                 <br>
                 <h4>Subsciption Type:</h4>
-                <h5 ng-repeat="type in uc.type"><i class="material-icons">check_box</i>{{type}}</h5>
-                <!--</div>-->
+                <div id='first' ng-show="uc.checkConsumer">
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+                        <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
+                        <span class="mdl-checkbox__label">Consumer</span>
+                    </label>
+                </div>
+                <div id='second' ng-show="uc.checkCorporate">
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+                        <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input">
+                        <span class="mdl-checkbox__label">Corporate</span>
+                    </label>
+                </div>
             </div><br>
         </div>
         <br><br>

@@ -8,7 +8,7 @@ app.controller('userMgmtProfileController', ['$scope', '$http', 'uiGridConstants
         uc.email = '';
         uc.checkConsumer = '';
         uc.checkCorporate = '';
-        uc.type = [];
+        // uc.type = [];
 
         if (authServices.getToken()) {
             uc.company = authServices.getUserInfo().companyName;
@@ -16,13 +16,13 @@ app.controller('userMgmtProfileController', ['$scope', '$http', 'uiGridConstants
             uc.checkConsumer = authServices.getUserInfo().subType.consumer;
             uc.checkCorporate = authServices.getUserInfo().subType.corporate;
 
-            if (uc.checkConsumer === true) {
-                uc.type.push('Consumer');
-            }
+            // if (uc.checkConsumer === true) {
+            //     uc.type.push('Consumer');
+            // }
 
-            if (uc.checkCorporate === true) {
-                uc.type.push('Corporate');
-            }
+            // if (uc.checkCorporate === true) {
+            //     uc.type.push('Corporate');
+            // }
 
             console.log(uc.company);
             console.log(uc.email);
