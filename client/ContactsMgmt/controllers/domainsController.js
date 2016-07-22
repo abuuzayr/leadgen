@@ -68,12 +68,10 @@ app.controller('domainsController', ['$scope', 'appConfig', '$window', 'domainsD
 
     dc.selectDeleteDomain = function() {
         dc.selectedDeleteDomain = dc.domainSelected;
-        console.log(dc.selectedDeleteDomain);
     };
 
     // delete domain
     dc.deleteDomain = function() {
-        console.log(dc.selectedDeleteDomain);
         for (var x in dc.gridOptions.data) {
             if ((dc.gridOptions.data[x].domain === dc.selectedDeleteDomain)) {
                 var domain = dc.gridOptions.data.splice(x, 1);
