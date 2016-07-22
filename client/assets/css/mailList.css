@@ -19,6 +19,6 @@
 }
 .deleteMLButton
 {
-	background-color: #838483;
-	text-transform:capitalize;
+	background-color: #838483 !important;
+	text-transform:capitalize !important;
 }
