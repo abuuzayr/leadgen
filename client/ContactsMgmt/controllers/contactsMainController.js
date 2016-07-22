@@ -158,7 +158,6 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
     cc.fields = [];
     //Get columndefs
     contactsColumnData.success(function(data) {
-        console.log(data);
         for (var x of data) {
             cc.gridOptions.columnDefs.push(x);
             cc.fields.push(x);
@@ -303,7 +302,6 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             listID: id,
             name: cc.listSelected
         }];
-        console.log(obj);
         var url = "/contacts/mailingList/subscriber";
         var addStatus = $http.post(appConfig.API_URL + url, obj);
     };
@@ -314,7 +312,6 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
 
     //Remove duplicates
     cc.removeDuplicate = function() {
-        console.log(cc.selectedDuplicateField);
         var field = "";
         for (var x of cc.gridOptions.columnDefs) {
             if (x.displayName === cc.selectedDuplicateField) {
@@ -335,7 +332,6 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
 
         if (target && target.files && target.files.length === 1) {
             var fileObject = target.files[0];
-            console.log("abc");
             cc.gridApi.importer.importFile(fileObject);
             target.form.reset();
         }
