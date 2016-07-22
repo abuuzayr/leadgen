@@ -170,11 +170,11 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
 
     /* =========================================== Helper Function =========================================== */
     function openDialog() {
-        return dialogServices.openDialog('forgot-password-dialog')
+        return dialogServices.openDialog('forgot-password-dialog');
     }
 
     function closeDialog() {
-        return dialogServices.closeDialog('forgot-password-dialog')
+        return dialogServices.closeDialog('forgot-password-dialog');
     }
 
     function successFeedback(msg, timeout) {

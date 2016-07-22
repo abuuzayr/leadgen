@@ -136,11 +136,11 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
         };
 
         var successFeedback = function(msg, timeout) {
-            return feedbackServices.successFeedback(msg, 'corporateResult-feedbackMessage', timeout);
+            return feedbackServices.successFeedback(msg, '#corporateResult-feedbackMessage', timeout);
         };
 
         var errorFeedback = function(errData, timeout) {
-            return feedbackServices.errorFeedback(errData, 'corporateResult-feedbackMessage');
+            return feedbackServices.errorFeedback(errData, '#corporateResult-feedbackMessage');
         };
 
     }
