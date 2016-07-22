@@ -36,7 +36,7 @@ app.controller('navBarController', ['$scope', '$q', '$location', '$timeout', '$c
             console.log(lastPart);
             if(lastPart=='lead-finder'){
                 console.log("aaa");
-                vm.leadMgmtStyle={"font-weight":"normal","color":"black"}
+                vm.leadMgmtStyle={"font-weight":"normal"}
                 vm.leadFinderStyle={"font-weight":"bold"}
                 vm.accountSettingsStyle={"font-weight":"normal"}
                 vm.userMgmtStyle={"font-weight":"normal"}
@@ -44,7 +44,7 @@ app.controller('navBarController', ['$scope', '$q', '$location', '$timeout', '$c
 
             }else if(lastPart=='leadlist'){
                 console.log("bbbb");
-                vm.leadMgmtStyle={"font-weight":"bold","color":"black"}
+                vm.leadMgmtStyle={"font-weight":"bold"}
                 vm.leadFinderStyle={"font-weight":"normal"}
                 vm.accountSettingsStyle={"font-weight":"normal"}
                 vm.userMgmtStyle={"font-weight":"normal"}
@@ -53,7 +53,7 @@ app.controller('navBarController', ['$scope', '$q', '$location', '$timeout', '$c
             }else if(lastPart=='profile'){
                 console.log("ccc");
                 vm.leadMgmtStyle={"font-weight":"normal"}
-                vm.leadFinderStyle={"font-weight":"normal","color":"black"}
+                vm.leadFinderStyle={"font-weight":"normal"}
                 vm.accountSettingsStyle={"font-weight":"bold"}
                 vm.userMgmtStyle={"font-weight":"normal"}
                 vm.databaseMgmtStyle={"font-weight":"normal"}
@@ -61,7 +61,7 @@ app.controller('navBarController', ['$scope', '$q', '$location', '$timeout', '$c
             }else if(lastPart=='externalDatabase'){
                 console.log("ddddd");
                 vm.leadMgmtStyle={"font-weight":"normal"}
-                vm.leadFinderStyle={"font-weight":"normal","color":"black"}
+                vm.leadFinderStyle={"font-weight":"normal"}
                 vm.accountSettingsStyle={"font-weight":"normal"}
                 vm.userMgmtStyle={"font-weight":"normal"}
                 vm.databaseMgmtStyle={"font-weight":"bold"}
