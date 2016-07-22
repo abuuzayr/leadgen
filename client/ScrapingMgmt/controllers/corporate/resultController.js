@@ -105,21 +105,20 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
             // if none selected, save all
             if (dataToContacts.length === 0) {
                 myJsonString = angular.toJson(rc.gridOptions.data);
-                // myJsonString = JSON.stringify(rc.gridOptions.data);
             } else {
-                myJsonString = angular.toJson(dataToContacts);
                 //save the selected contacts
-                // myJsonString = JSON.stringify(dataToContacts);
+                myJsonString = angular.toJson(dataToContacts);
             }
-
-            sendResults.sendLeads(myJsonString).then(function successCallback(res) {
-                    rc.responseMessage = "Saved to Contacts!";
-                }),
-                function errorCallback(err) {
-                    rc.responseMessage = "Error Occured";
-                    rc.symbol = false;
-                };
         };
+
+        sendResults.sendLeads(myJsonString).then(function successCallback(res) {
+                // rc.responseMessage = "Saved to Contacts!";
+                successFeedback("Saved to Contacts!");
+            })
+            .catch(function errorCallback(err) {
+                rc.symbol = false;
+                errorFeedback('Unable to save to contacts');
+            });
 
         //Open popup dialog box
         rc.openDialog = function(dialogName) {
@@ -134,6 +133,14 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
         rc.closeDialog = function(dialogName) {
             var dialog = document.querySelector('#' + dialogName);
             dialog.close();
+        };
+
+        var successFeedback = function(msg, timeout) {
+            return feedbackServices.successFeedback(msg, 'corporateResult-feedbackMessage', timeout);
+        };
+
+        var errorFeedback = function(errData, timeout) {
+            return feedbackServices.errorFeedback(errData, 'corporateResult-feedbackMessage');
         };
 
     }

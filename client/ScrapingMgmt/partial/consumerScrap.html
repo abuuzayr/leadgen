@@ -8,30 +8,30 @@
     <br>
     <div class='controlButtons'>
         <!-- Colored mini FAB button -->
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.transfer(); cs.playStatus()" ng-disabled="cs.pressStop">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" id="playButton" data-ng-click="cs.transfer(); cs.playStatus()" ng-disabled="cs.pressStop">
         <i class="material-icons">play_arrow</i>
       </button>
 
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.pauseScraping(); cs.pauseStatus()" ng-disabled="cs.pressStop">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" id="pauseButton" data-ng-click="cs.pauseScraping(); cs.pauseStatus()" ng-disabled="cs.pressStop">
         <i class="material-icons">pause</i>
       </button>
 
-        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-ng-click="cs.stopScraping(); cs.showFunction(); cs.stopStatus()">
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" id="stopButton" data-ng-click="cs.stopScraping(); cs.showFunction(); cs.stopStatus()">
         <i class="material-icons">stop</i>
       </button>
 
         <!-- Raised button -->
-        <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="cs.showResult">
+        <button class="mdl-button mdl-js-button mdl-button--raised" id="stopScraping" ng-show="cs.showResult">
         Scraping Stopped
       </button>
 
-        <button class="mdl-button mdl-js-button mdl-button--raised" ng-show="cs.status">
+        <button class="mdl-button mdl-js-button mdl-button--raised" id="stopScrapingNoInternet" ng-show="cs.status">
         Scraping Stopped. There is no Internet Connection
       </button>
 
         <!-- Colored raised button -->
         <a ui-sref="consumerResults">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" ng-show="cs.showResult">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="viewResults" ng-show="cs.showResult">
         View Results
         </button>
         </a>
