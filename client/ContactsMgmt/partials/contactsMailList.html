@@ -17,8 +17,8 @@
     <div class="mailGrid">
         <div class="grid1" ui-grid="mc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns></div>
         <br>
-        <button ng-click="mc.openDialog('addMailList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Mailing List</button>
-        <button ng-click="mc.openDialog('deleteConfirmation')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Mailing List</button>
+        <button ng-click="mc.openDialog('addMailList')" id="addMLButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Mailing List</button>
+        <button ng-click="mc.openDialog('deleteConfirmation')" id="deleteMLButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Delete Mailing List</button>
     </div>
 
     <dialog id="deleteConfirmation" class="mdl-dialog">

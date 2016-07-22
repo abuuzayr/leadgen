@@ -11,3 +11,14 @@
   height: auto;
   width: 300px;
 }
+
+#addMLButton
+{
+	background-color: #f15bfd;
+	text-transform:capitalize;
+}
+#deleteMLButton
+{
+	background-color: #838483;
+	text-transform:capitalize;
+}
