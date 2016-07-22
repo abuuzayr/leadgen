@@ -49,7 +49,7 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
             }
         };
 
-        cs.spinner = true;
+        cs.spinner = false;
         cs.playStatus = function() {
             cs.spinner = true;
         };
@@ -112,29 +112,29 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
                         gc.pauseScraping();
                         showInternet(navigator.onLine);
 
-                    }else{
+                    } else {
                         cs.stopScraping();
                         cs.showFunction();
                     }
-/*                    else {
-                        // console.log('continue scraping');
-                        consumerLeads.getConsumerLeads(cs.category).then(function successCallback(res) {
-                                if (angular.isDefined(res.data.status)) {
-                                    cs.stopScraping();
-                                    //show the 'view results' button
-                                    cs.showFunction();
-                                } else {
-                                    // console.log('res is ' + res.data);
-                                    cs.dataList = res.data;
-                                }
-                            }),
-                            function errorCallback(err) {
-                                console.log('err is ' + err);
-                                cs.stopScraping();
-                                //show the 'view results' button
-                                cs.showFunction();
-                            };
-                    }*/
+                    /*                    else {
+                                            // console.log('continue scraping');
+                                            consumerLeads.getConsumerLeads(cs.category).then(function successCallback(res) {
+                                                    if (angular.isDefined(res.data.status)) {
+                                                        cs.stopScraping();
+                                                        //show the 'view results' button
+                                                        cs.showFunction();
+                                                    } else {
+                                                        // console.log('res is ' + res.data);
+                                                        cs.dataList = res.data;
+                                                    }
+                                                }),
+                                                function errorCallback(err) {
+                                                    console.log('err is ' + err);
+                                                    cs.stopScraping();
+                                                    //show the 'view results' button
+                                                    cs.showFunction();
+                                                };
+                                        }*/
                 }, 2000);
             };
         }
