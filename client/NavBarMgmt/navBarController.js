@@ -34,38 +34,36 @@ app.controller('navBarController', ['$scope', '$q', '$location', '$timeout', '$c
             var url = window.location.href ;
             var lastPart = url.split("/").pop();
             console.log(lastPart);
-            if(lastPart=='lead-finder'){
-                console.log("aaa");
-                vm.leadMgmtStyle={"font-weight":"normal"}
-                vm.leadFinderStyle={"font-weight":"bold"}
-                vm.accountSettingsStyle={"font-weight":"normal"}
-                vm.userMgmtStyle={"font-weight":"normal"}
-                vm.databaseMgmtStyle={"font-weight":"normal"}
-
-            }else if(lastPart=='leadlist'){
-                console.log("bbbb");
-                vm.leadMgmtStyle={"font-weight":"bold"}
-                vm.leadFinderStyle={"font-weight":"normal"}
-                vm.accountSettingsStyle={"font-weight":"normal"}
-                vm.userMgmtStyle={"font-weight":"normal"}
-                vm.databaseMgmtStyle={"font-weight":"normal"}
-
+            if(lastPart=='lead-finder' || lastPart=='corporate' || lastPart=='consumer'){
+                vm.leadMgmtStyle={"font-weight":"400"}
+                vm.leadFinderStyle={"font-weight":"900"}
+                vm.accountSettingsStyle={"font-weight":"400"}
+                vm.userMgmtStyle={"font-weight":"400"}
+                vm.databaseMgmtStyle={"font-weight":"400"}
+            }else if(lastPart=='leadlist'|| lastPart=='maillist' || lastPart=='blacklist'){
+                vm.leadMgmtStyle={"font-weight":"900"}
+                vm.leadFinderStyle={"font-weight":"400"}
+                vm.accountSettingsStyle={"font-weight":"400"}
+                vm.userMgmtStyle={"font-weight":"400"}
+                vm.databaseMgmtStyle={"font-weight":"400"}
             }else if(lastPart=='profile'){
-                console.log("ccc");
-                vm.leadMgmtStyle={"font-weight":"normal"}
-                vm.leadFinderStyle={"font-weight":"normal"}
-                vm.accountSettingsStyle={"font-weight":"bold"}
-                vm.userMgmtStyle={"font-weight":"normal"}
-                vm.databaseMgmtStyle={"font-weight":"normal"}
-
+                vm.leadMgmtStyle={"font-weight":"400"}
+                vm.leadFinderStyle={"font-weight":"400"}
+                vm.accountSettingsStyle={"font-weight":"900"}
+                vm.userMgmtStyle={"font-weight":"400"}
+                vm.databaseMgmtStyle={"font-weight":"400"}
             }else if(lastPart=='externalDatabase'){
-                console.log("ddddd");
-                vm.leadMgmtStyle={"font-weight":"normal"}
-                vm.leadFinderStyle={"font-weight":"normal"}
-                vm.accountSettingsStyle={"font-weight":"normal"}
-                vm.userMgmtStyle={"font-weight":"normal"}
-                vm.databaseMgmtStyle={"font-weight":"bold"}
-
+                vm.leadMgmtStyle={"font-weight":"400"}
+                vm.leadFinderStyle={"font-weight":"400"}
+                vm.accountSettingsStyle={"font-weight":"400"}
+                vm.userMgmtStyle={"font-weight":"400"}
+                vm.databaseMgmtStyle={"font-weight":"900"}
+            }else {
+                                vm.leadMgmtStyle={"font-weight":"400"}
+                vm.leadFinderStyle={"font-weight":"400"}
+                vm.accountSettingsStyle={"font-weight":"400"}
+                vm.userMgmtStyle={"font-weight":"400"}
+                vm.databaseMgmtStyle={"font-weight":"400"}
             }
 
             // console.log(vm.showLead);
