@@ -31,6 +31,9 @@ app.controller('navBarController', ['$scope', '$q', '$location', '$timeout', '$c
                 vm.showLogout = true;
             }
 
+             var url = window.location.href ;
+            var lastPart = url.split("/").pop();
+            alert(lastPart);
             // console.log(vm.showLead);
             // console.log(vm.showFinder);
             // console.log(vm.showAccount);
