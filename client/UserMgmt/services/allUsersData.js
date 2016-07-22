@@ -1,8 +1,8 @@
-app.factory('allUsersData', ['$http', function($http) {  
-    var getUserData = function() {
+app.factory('allUsersData', ['$http', 'appConfig', function($http, appConfig) {  
+    var getUserData = function(companyId) {
         return $http({
             method: 'GET',
-            url: 'UserMgmt/testFiles/testData.json'
+            url: appConfig.UM_URL
         });
     }
 
