@@ -109,16 +109,16 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
                 //save the selected contacts
                 myJsonString = angular.toJson(dataToContacts);
             }
-        };
 
-        sendResults.sendLeads(myJsonString).then(function successCallback(res) {
-                // rc.responseMessage = "Saved to Contacts!";
-                successFeedback("Saved to Contacts!");
-            })
-            .catch(function errorCallback(err) {
-                rc.symbol = false;
-                errorFeedback('Unable to save to contacts');
-            });
+            sendResults.sendLeads(myJsonString).then(function successCallback(res) {
+                    // rc.responseMessage = "Saved to Contacts!";
+                    successFeedback("Saved to Contacts!");
+                })
+                .catch(function errorCallback(err) {
+                    rc.symbol = false;
+                    errorFeedback('Unable to save to contacts');
+                });
+        };
 
         //Open popup dialog box
         rc.openDialog = function(dialogName) {

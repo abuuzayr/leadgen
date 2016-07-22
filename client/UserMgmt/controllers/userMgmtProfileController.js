@@ -11,7 +11,7 @@ app.controller('userMgmtProfileController', ['$scope', '$http', 'uiGridConstants
         uc.type = [];
 
         if (authServices.getToken()) {
-            uc.company = authServices.getUserInfo().username;
+            uc.company = authServices.getUserInfo().companyName;
             uc.email = authServices.getUserInfo().email;
             uc.checkConsumer = authServices.getUserInfo().subType.consumer;
             uc.checkCorporate = authServices.getUserInfo().subType.corporate;
