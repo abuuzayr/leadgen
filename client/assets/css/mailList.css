@@ -12,7 +12,7 @@
   width: 300px;
 }
 
-#addMLButton
+.mdl-button--raised.mdl-button--colored {
 {
 	background-color: #f15bfd;
 	text-transform:capitalize;
