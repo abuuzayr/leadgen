@@ -6,7 +6,7 @@ var assert = require('assert');
 var dbHandler = require('./database-handler');
 var apiRouter = require('./routes/api');
 var ScrapManager = require('./ScrapingManager/scrap-manager');
-var mongodb = require('mongodb');
+var MongoClient = require('mongodb').MongoClient;
 var databaseManager = require('./DatabaseManager/database-manager');
 
 var url = config.dbURI;
@@ -17,13 +17,24 @@ app.use('/', express.static('../client'));
 
 app.use('/api', apiRouter);
 
-dbHandler.dbConnect(function(result) {
-  if (result == config.successMsg)
-    app.listen(config.port, function() {
+MongoClient.connect(config.dbURI)
+	.then(function (db1){
+		var superAdminUrl = config.getDbUri(null);
+		MongoClient.connect(superAdminUrl)
+		.then(function(db2){
+			module.exports = {
+				db1: db1,
+				db2: db2
+			};
 
-      console.log('Starting application server');
-    
-    });
-  else
-    console.log('Could not connect to database');
-});
+			app.listen(config.port,function(){
+				console.log('Express server listening on port '+ config.port);
+			});
+		})
+		.catch(function(err){
+			console.log(err);
+		});
+	})
+	.catch(function(err){
+		console.log(err);
+	});

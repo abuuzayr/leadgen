@@ -11,7 +11,7 @@ var MailinglistManager = {
 
 	getMailingListMemberInfo: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
-			dbHandler.dbQuery(collectionName, obj, 'app')
+			dbHandler.dbQuery(collectionName, obj)
 				.then(function(results) {
 					resolve(results);
 				})
@@ -137,7 +137,7 @@ var MailinglistManager = {
 			email_addr: '-'
 		};
 		var returnResults = [];
-		dbHandler.dbQuery(collectionName, obj, 'app')
+		dbHandler.dbQuery(collectionName, obj)
 			.then(function(results) {
 				for (var i = 0; i < results.length; i++) {
 					var temp = {
@@ -167,7 +167,7 @@ var MailinglistManager = {
 	updateContactMC: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
 			//This is to allow us to filter out mailing list names only.
-			dbHandler.dbQuery(collectionName, obj[0], 'app')
+			dbHandler.dbQuery(collectionName, obj[0])
 				.then(function(results) {
 					console.log('bb');
 					console.log(results);
@@ -221,7 +221,7 @@ var MailinglistManager = {
 				email_hash: '-',
 				email_addr: '-'
 			};
-			dbHandler.dbQuery(collectionName, obj, 'app')
+			dbHandler.dbQuery(collectionName, obj)
 				.then(function(results) {
 					resolve(results);
 				})
@@ -232,7 +232,7 @@ var MailinglistManager = {
 	},
 	getAllMembers: function(collectionName) {
 		return new Promise(function(resolve, reject) {
-			dbHandler.dbQuery(collectionName, null, 'app')
+			dbHandler.dbQuery(collectionName, null)
 				.then(function(results) {
 					resolve(results);
 				})
@@ -300,7 +300,7 @@ var MailinglistManager = {
 		});
 	},
 	dbDropCollection: function(res, collectionName, callback) {
-		dbHandler.dbDropCollection(collectionName,'app')
+		dbHandler.dbDropCollection(collectionName)
 			.then(function(results) {
 				callback(res, 200);
 			})
@@ -328,7 +328,7 @@ var MailinglistManager = {
 		var temp = {
 			listID: obj.listID
 		};
-		dbHandler.dbQuery(collectionName, temp, 'app')
+		dbHandler.dbQuery(collectionName, temp)
 			.then(function(results) {
 				var returnResults = [];
 				for (var i = 0; i < results.length; i++) {
@@ -429,7 +429,7 @@ var MailinglistManager = {
 				listID: obj.listID,
 				email_hash: obj.email_hash
 			};
-			dbHandler.dbQuery(collectionName, queryTemp, 'app')
+			dbHandler.dbQuery(collectionName, queryTemp)
 				.then(function(results) { //containing contactid
 					obj.contactID = results[0].contactID;
 					resolve(obj);
@@ -442,7 +442,7 @@ var MailinglistManager = {
 	getAllData: function(collectionName) {
 		return new Promise(function(resolve, reject) {
 
-			dbHandler.dbQuery(collectionName, null, 'app')
+			dbHandler.dbQuery(collectionName, null)
 				.then(function(results) { //containing contactid
 					resolve(results);
 				})
@@ -480,7 +480,7 @@ var MailinglistManager = {
 		var obj={
 			listID:para
 		};
-		dbHandler.dbQuery(collectionName,obj,'app')
+		dbHandler.dbQuery(collectionName,obj)
 		.then(function(queryResults){//containing contactid
 			console.log(queryResults);
 			console.log("end of resultsq");

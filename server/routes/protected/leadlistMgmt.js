@@ -158,7 +158,7 @@ leadlistRouter.get('/contacts/leadList/leads/:id', function(req, res) {
     var obj = {
       _id: req.params.id
     };
-    dbHandler.dbQuery('leadList', obj, 'app')
+    dbHandler.dbQuery('leadList', obj)
       .then(function(results) {
         res.json(results[0].history);
       })
@@ -460,7 +460,7 @@ leadlistRouter.route('/contacts/leadList/fields')
 */
 leadlistRouter.route('/contacts/blackList/domain')
   .get(function(req, res) {
-    dbHandler.dbQuery('blackListDomains', null, 'app')
+    dbHandler.dbQuery('blackListDomains', null)
       .then(function(results) {
         res.json(results);
       })

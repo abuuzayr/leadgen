@@ -126,13 +126,13 @@ dbMgmtRouter.get('/dbmgmt/local/import',function(req,res){
 
   dbHandler.dbQuerySA('external',null)
   .then(function(externalLeads){
-    console.log(externalLeads);
     return dbHandler.dbInsertSA('local',externalLeads); 
   })
   .then(function(success){
     res.sendStatus(success);
   })
   .catch(function(error){
+    console.log(error);
     res.sendStatus(error);
   });
 
@@ -147,7 +147,7 @@ dbMgmtRouter.route('/dbmgmt/external')
       res.json(externalLeads);
     })
     .catch(function(failure){
-      res.sendStatus(failure);
+      res.sendStatus(500);
     });
   })
   .put(function(req,res){
@@ -188,7 +188,7 @@ dbMgmtRouter.get('/dbmgmt/external/update',function(req,res){
   dbHandler.dbQuerySA('external',null)
   .then(function(externalLeads){
     if(externalLeads.length > 0)
-      return dbHandler.dbDropCollection('external',null);
+      return dbHandler.dbDropCollectionSA('external');
     else
       return 1;
   })
@@ -205,7 +205,8 @@ dbMgmtRouter.get('/dbmgmt/external/update',function(req,res){
     res.json(newLeads);
   })
   .catch(function(error){
-    res.sendStatus(error);
+    console.log(error);
+    res.sendStatus(500);
   });
 });
 

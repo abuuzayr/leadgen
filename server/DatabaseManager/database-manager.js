@@ -8,12 +8,11 @@ var databaseManager = {
 
       var externalLeads = [];
       
-      dbHandler.getListOfDB()        //Gets list of databases in server
+      dbHandler.getListOfCollections()        //Gets list of collections in server
       .then(function(results){
         var promiseArr=[];
-        for(var i=0;i<results.length;i++){
-          if(results[i].name != 's_admin')
-            promiseArr.push(dbHandler.dbQuery('leadList',{origin : 1},results[i].name));
+        for(var i in results){
+            promiseArr.push(dbHandler.dbQuery(results[i].name,{origin : 1}));
         }
         return Promise.all(promiseArr);
       })
@@ -29,7 +28,7 @@ var databaseManager = {
         resolve(externalLeads);
       })
       .catch(function(error){
-        reject(error);
+        reject(500);
       });
 
     });
