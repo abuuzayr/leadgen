@@ -4,8 +4,15 @@
 	background-color:#eb3a40;
 	font-family: 'Roboto';
 }
-
 </style>
+<script>
+
+	     function changeNavigationStyle() {
+	     	var lastPart = url.split("/").pop();
+            alert(lastPart);
+        }
+        window.onload = changeNavigationStyle;
+</script>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <!---------------------------------------- Ng-include nav bars ---------------------------------------->
     <div ng-include="'NavBarMgmt/mainTab.html'"></div>
