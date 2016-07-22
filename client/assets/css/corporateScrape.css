@@ -2,6 +2,22 @@
     margin-left: 0px;
 }
 
-#pauseButton #stopButton #stopScraping #stopScrapingNoInternet #viewResults {
-    margin-left: 30px;
+#pauseButton {
+    margin-left: 20px;
+}
+
+#stopButton {
+    margin-left: 20px;
+}
+
+#stopScraping {
+    margin-left: 20px;
+}
+
+#stopScrapingNoInternet {
+    margin-left: 20px;
+}
+
+#viewResults {
+    margin-left: 20px;
 }
