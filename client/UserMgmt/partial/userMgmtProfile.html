@@ -19,7 +19,7 @@
             <div class="modal-body row pull-left">
                 <!--<div class="col-md-6">-->
                 <!-- Your first column here -->
-                <h3>Company Profile</h3><br>
+                <h2>Company Profile</h2><br>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input id="username" class="mdl-textfield__input" type="text" placeholder="Name" ng-model="uc.company" />
                     <label class="mdl-textfield__label" for="companyName">Company Name:</label>
@@ -34,18 +34,20 @@
                 <!--</div>-->
 
                 <br>
-                <h4>Subsciption Type:</h4>
+                <h5>Subsciption Type:</h5>
                 <div id='first' ng-show="uc.checkConsumer">
-                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
+                    <i class="material-icons">check_box</i>Consumer
+                    <!--<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
                         <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
                         <span class="mdl-checkbox__label">Consumer</span>
-                    </label>
+                    </label>-->
                 </div>
                 <div id='second' ng-show="uc.checkCorporate">
-                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
-                        <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input">
+                    <i class="material-icons">check_box</i>Corporate
+                    <!--<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
+                        <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" checked>
                         <span class="mdl-checkbox__label">Corporate</span>
-                    </label>
+                    </label>-->
                 </div>
             </div><br>
         </div>
