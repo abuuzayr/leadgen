@@ -1,7 +1,8 @@
 <!doctype html>
-<html ng-app="app" ng-controller="appController as vm">
+<html ng-app="app">
 
 <head>
+    <!-- <base href="/"> -->
     <meta charset=" UTF-8 ">
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js "></script>
@@ -16,7 +17,7 @@
     <!-- Material Design Lite -->
     <script src="https://code.getmdl.io/1.1.3/material.min.js "></script>
     <link rel="stylesheet " href="https://code.getmdl.io/1.1.3/material.blue_grey-pink.min.css ">
-
+    
     <!-- Material Design icon font -->
     <link rel="stylesheet " href="https://fonts.googleapis.com/icon?family=Material+Icons ">
 
@@ -25,6 +26,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js "></script>
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css " rel="stylesheet ">
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/readable/bootstrap.min.css " rel="stylesheet " integrity="sha384-/x/+iIbAU4qS3UecK7KIjLZdUilKKCjUFVdwFx8ba7S/WvxbrYeQuKEt0n/HWqTx " crossorigin="anonymous ">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
     <!-- UI-Grid -->
     <link rel="stylesheet " type="text/css " href="assets/lib/node_modules/angular-ui-grid/ui-grid.css " />
@@ -50,6 +52,7 @@
     <script src="ScrapingMgmt/controllers/consumer/beforeConsumerController.js "></script>
     <script src="ScrapingMgmt/controllers/consumer/consumerScrapController.js "></script>
     <script src="ScrapingMgmt/controllers/consumer/consumerResultController.js "></script>
+    <script src="ScrapingMgmt/controllers/tabsController.js "></script>
     <script src="ProfileMgmt/controllers/profileController.js "></script>
     <script src="UserMgmt/controllers/userMgmtController.js "></script>
     <script src="UserMgmt/controllers/userMgmtProfileController.js "></script>
@@ -58,12 +61,11 @@
     <script src="DatabaseMgmt/controllers/localDatabaseController.js "></script>
     <script src="ContactsMgmt/controllers/homepageController.js "></script>
     <script src="LoginMgmt/loginController.js "></script>
-    <script src="appController.js "></script>
+    <script src="NavBarMgmt/navBarController.js "></script>
 
     <!--Services-->
     <script src="shared/feedbackService.js "></script>
     <script src="shared/dialogService.js "></script>
-    <script src="shared/userService.js "></script>
     <script src="ContactsMgmt/services/leadsData.js "></script>
     <script src="ContactsMgmt/services/mailListData.js "></script>
     <script src="ContactsMgmt/services/shareMailList.js "></script>
@@ -101,46 +103,40 @@
 </head>
 
 <body>
-    <!--<div ng-include="'mainTab.html'"></div>-->
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header ">
-        <header class="mdl-layout__header ">
-            <div class="mdl-layout__header-row ">
-                <!-- Left aligned menu below button -->
-                <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon" ng-click="vm.update()">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <!--<header class="mdl-layout__header ">
+            <div class="mdl-layout__header-row ">-->
+        <!-- Left aligned menu below button -->
+        <!--<button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon" ng-click="vm.update()">
                     <i class="material-icons">more_vert</i>
                 </button>
 
                 <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-left">
                     <li class="mdl-menu__item" ui-sref="leadlist " ng-show="vm.showLead">Lead Management</li>
-                    <li class="mdl-menu__item" ui-sref=" leadFinder " ng-show="vm.showFinder ">Lead Finder</li>
-                    <li class="mdl-menu__item" ui-sref="profile " ng-show="vm.showAccount ">Account Settings</li>
-                    <li class="mdl-menu__item" ui-sref=" userManagementprofile " ng-show="vm.showUser ">User Management</li>
-                    <li class="mdl-menu__item" ui-sref="externalDB " ng-show="vm.showDatabase ">Database Management</li>
+                    <li class="mdl-menu__item" ui-sref=" leadFinder " ng-show="vm.showFinder">Lead Finder</li>
+                    <li class="mdl-menu__item" ui-sref="profile " ng-show="vm.showAccount">Account Settings</li>
+                    <li class="mdl-menu__item" ui-sref=" userManagementprofile " ng-show="vm.showUser">User Management</li>
+                    <li class="mdl-menu__item" ui-sref="externalDB " ng-show="vm.showDatabase">Database Management</li>
                     <a class="mdl-menu__item" href=" https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
+                    <li class="mdl-menu__item" ng-click="vm.logout()" ng-show="vm.showLogout">Logout</li>
                     </li>
-                </ul>
-                <!-- Title -->
-                <span class="mdl-layout-title mdl "> <a style="color:#F2F1F1; " ui-sref="home "><b>BulletLead</b></a></span>
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer "></div>
-                <!-- Navigation. We hide it in small screens. -->
-                <nav class="mdl-navigation mdl-layout--large-screen-only ">
-                    <button class="mdl-button mdl-js-button " ui-sref="login" ng-click="vm.logout()">Logout</button>
+                </ul>-->
+        <!-- Title -->
+        <!--<span class="mdl-layout-title mdl "> <a style="color:#F2F1F1; " ui-sref="home "><b>BulletLead</b></a></span>-->
+        <!-- Add spacer, to align navigation to the right -->
+        <!--<div class="mdl-layout-spacer "></div>-->
+        <!-- Navigation. We hide it in small screens. -->
+        <!--<nav class="mdl-navigation mdl-layout--large-screen-only ">
+                    <a class="mdl-button mdl-js-button" ui-sref="leadlist " ng-if="vm.showLead">Lead Management</a>
+                    <a class="mdl-button mdl-js-button" ui-sref=" leadFinder " ng-show="vm.showFinder">Lead Finder</a>
+                    <a class="mdl-button mdl-js-button" ui-sref="profile " ng-show="vm.showAccount">Account Settings</a>
+                    <a class="mdl-button mdl-js-button" ui-sref=" userManagementprofile " ng-show="vm.showUser">User Management</a>
+                    <a class="mdl-button mdl-js-button" ui-sref="externalDB " ng-show="vm.showDatabase">Database Management</a>
+                    <a class="mdl-navigation__link" href=" https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
+                    <a class="mdl-button mdl-js-button" ng-click="vm.logout()" ng-show="vm.showLogout">Logout</a>
                 </nav>
             </div>
-        </header>
-        <!--<div class="mdl-layout__drawer " ng-click="vm.update() ">
-            <span class="mdl-layout-title ">BulletLead</span>
-            <nav class="mdl-navigation ">
-                <a class="mdl-navigation__link " ui-sref="leadlist " ng-show="vm.showLead ">Lead Management</a>
-                <a class="mdl-navigation__link " ui-sref="leadFinder " ng-show="vm.showFinder ">Lead Finder</a>
-                <a class="mdl-navigation__link " ui-sref="profile " ng-show="vm.showAccount ">Account Settings</a>
-                <a class="mdl-navigation__link " ui-sref="userManagementprofile " ng-show="vm.showUser ">User Management</a>
-                <a class="mdl-navigation__link " ui-sref="externalDB " ng-show="vm.showDatabase "> Database Management</a>
-                <a class="mdl-navigation__link " href="https://login.mailchimp.com/?_ga=1.172980195.1794096345.1467606105&wcookie=2c50d50ce1f2adcc1ff6 " target="_blank ">MailChimp</a>
-            </nav>
-        </div>-->
-        <!--Show Lead: {{ vm.showLead }} Show Finder: {{ vm.showFinder }} Show Account: {{ vm.showAccount }} Show User: {{ vm.showUser }} Show Database: {{ vm.showDatabase }} Bar: {{vm.showBar}}-->
+        </header>-->
         <main class="mdl-layout__content ">
             <div ui-view class="page-content "></div>
         </main>

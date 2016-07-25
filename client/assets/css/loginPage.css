@@ -1,26 +1,57 @@
 #login-background {
     height: 100%;
     width: 100%;
-    background: #F5F5F5;
+    /*background: #F5F5F5;*/
+    background-image: url('../images/login-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
 body {
     background: #F5F5F5;
-}
-
-#login-heading {
-    background: #607d8b;
+    font-family:'Roboto';
 }
 
 #login-main {
     margin: auto;
-    height: 380px;
+    height: 560px;
+    width : 400px;
 }
 
 #login-button {
-    width: 100%;
+    background-color: #eb3a40;
+    text-align:center;
+    width:100%;
+    font-weight: bold;
 }
 
 #login-main {
-    background: white;
+    background:#7f7f7f;
+    background:rgba(255,255,255,0.8);
+}
+
+#login-password-input {
+    background-color:rgba(255,255,255,0.0);
+    border:none;
+    color:black;
+    width:150%;
+}
+
+#login-email-input {
+    background-color:rgba(255,255,255,0.0);
+    border:none;
+    color:black;
+    width:150%;
+}
+
+#mdl-textfield {
+    border:none;
+    border-bottom:200px solid rgba(255,255,255,0.0);
+}
+.mdl-textfield__label
+{   
+    font-family:'Roboto';
+    font-size: :18 px;
+    font-weight: 300;
 }

@@ -1,6 +1,7 @@
-app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', '$window',
-    function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackServices, $window) {
+app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', '$window', 'authServices',
+    function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackServices, $window, authServices) {
         var uc = this;
+        var companyId = '';
 
         uc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
             if (col.filters[0].term) {
@@ -16,17 +17,16 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             showGridFooter: true,
             minRowsToShow: 10,
             columnDefs: [{
-                field: 'firstName',
-                displayName: 'First Name',
+                field: 'userName',
+                displayName: 'Username',
                 minWidth: 100,
                 width: 150,
                 enableCellEdit: true,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
-                field: 'lastName',
-                displayName: 'Last Name',
-                minWidth: 100,
-                width: 150,
+                field: 'email',
+                displayName: 'Email',
+                minWidth: 200,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
                 field: 'role',
@@ -54,39 +54,33 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                     id: 2,
                     role: 'User'
                 }]
-            }, {
-                field: 'email',
-                displayName: 'Email',
-                minWidth: 200,
-                headerCellClass: uc.highlightFilteredHeader
-            }, {
-                field: 'phone',
-                displayName: 'Phone',
-                minWidth: 100,
-                width: 150,
-                headerCellClass: uc.highlightFilteredHeader
             }, ],
         };
 
+        //get company id from cookie
+        if (authServices.getToken()) {
+            companyId = authServices.getUserInfo().companyId;
+
+            // get data from server
+            allUsersData.getUserData(companyId).then(function successCallback(res) {
+                    uc.gridOptions.data = res.data;
+                }),
+                function errorCallback(err) {
+                    console.log('Cannot get users');
+                };
+        }
 
         //add new user
         uc.addData = function() {
             var n = uc.gridOptions.data.length + 1;
             uc.gridOptions.data.push({
-                "firstName": uc.lead.first,
-                "lastName": uc.lead.last,
-                "role": uc.lead.role,
+                "userName": uc.lead.userName,
                 "email": uc.lead.email,
-                "phone": uc.lead.phone,
+                "pasword": uc.lead.password,
+                "role": uc.lead.role
             });
             uc.addResult = "Success!";
         };
-
-        // get data from server
-        allUsersData.getUserData().then(function successCallback(res) {
-                uc.gridOptions.data = res.data;
-            }),
-            function errorCallback(err) {}
 
         //delete selected leads
         uc.deleteSelected = function() {
@@ -96,14 +90,16 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 
             var selectedUsersToDelete = uc.gridApi.selection.getSelectedRows();
             console.log(selectedUsersToDelete);
+
             allUsersData.deleteUserData(selectedUsersToDelete).then(function successCallback(res) {
                 return feedbackServices.hideFeedback('#userManagementFeedback').
                 then(feedbackServices.successFeedback('Deleted!', '#userManagementFeedback', 2000));
+
             }).catch(function errorCallback(err) {
                 return feedbackServices.hideFeedback('#userManagementFeedback').
                 then(feedbackServices.successFeedback(err.data, '#userManagementFeedback', 2000));
-            })
-        }
+            });
+        };
 
         uc.gridOptions.onRegisterApi = function(gridApi) {
             uc.gridApi = gridApi;
@@ -138,6 +134,20 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         uc.refresh = function() {
             $window.location.reload();
         };
+
+        /* =========================================== Load animation =========================================== */
+        var viewContentLoaded = $q.defer();
+
+        $scope.$on('$viewContentLoaded', function() {
+            $timeout(function() {
+                viewContentLoaded.resolve();
+            }, 0);
+        });
+        viewContentLoaded.promise.then(function() {
+            $timeout(function() {
+                componentHandler.upgradeDom();
+            }, 0);
+        });
     }
 ])
 

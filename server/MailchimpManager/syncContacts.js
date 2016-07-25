@@ -45,7 +45,7 @@ var mailchimpHandler = {
 									return databaselist;
 								}).then(function(databaselist) {
 									//Now we need arrange he dbResults to fit mailchimp object format
-									console.log("====================App Database ========================================");
+								/*	console.log("====================App Database ========================================");
 									for (var i = 0; i < databaselist.length; i++) {
 										console.log(databaselist[i]);
 									}
@@ -54,7 +54,7 @@ var mailchimpHandler = {
 									for (var i = 0; i < mailchimplist.length; i++) {
 										console.log(mailchimplist[i]);
 									}
-									console.log("=========================================================");
+									console.log("=========================================================");*/
 									var returnArr = [];
 									returnArr.push(mailchimplist);
 									returnArr.push(databaselist);
@@ -64,7 +64,7 @@ var mailchimpHandler = {
 								})
 								.then(function(returnArr) {
 									//Now that we have both results, we compare them to see if there are the same,
-									//firstly we want to check that we have the most updated listname.
+									//First, we want to check that we have the most updated listname.
 									//Since when CRUD is performed at MC, contacts will not be updated immediately, we assume that MC will have the most updated ver.
 									var differenceArr = []; // this is detect and record down any difference found while comparing the two array
 									var mailchimplist = returnArr[0];
@@ -118,7 +118,6 @@ var mailchimpHandler = {
 										var listfound = false;
 										for (j = 0; j < mailchimplist.length; j++) {
 											if (appDatabase[i].listID == mailchimplist[j].listID) {
-												//to denote that the list exist at both severs
 												listfound = true;
 											}
 										}
@@ -136,12 +135,11 @@ var mailchimpHandler = {
 									}
 									return differenceArr;
 								}).then(function(differenceArr) {
-								console.log("====================Update Database ========================================");
+								/*	console.log("====================Update Database ========================================");
 									for (var i = 0; i < differenceArr.length; i++) {
 										console.log(differenceArr[i]);
 									}
-									console.log("========================End of Update=======================================");
-									//filter the different actions to perform, when the update array is completed
+									console.log("========================End of Update=======================================");*/
 									var promiseArr = [];
 									for (var i = 0; i < differenceArr.length; i++) {
 										//go through everylist check the action, perform the action.
@@ -164,7 +162,7 @@ var mailchimpHandler = {
 												firstName: '-',
 												lastName: '-',
 												subscriberStatus: '-'
-													//_id will be auto generated
+												//_id will be auto generated
 											};
 											promiseArr.push(mailinglistmanager.addListMC('mailinglists', createListTemp));
 											if (differenceArr[i].members.length != '0') {
@@ -193,7 +191,6 @@ var mailchimpHandler = {
 											}];
 											promiseArr.push(mailinglistmanager.updateListMC('mailinglists', updateListNameTemp));
 											for (var j = 0; j < differenceArr[i].members.length; j++) {
-												console.log(differenceArr[i].members[j].action);
 												//identify the type of update C/U/D
 												if (differenceArr[i].members[j].action == '1') {
 													//update member
@@ -286,12 +283,12 @@ var mailchimpHandler = {
 										.then(function(result) {
 											console.log('We are done with sync');
 										})
-										.catch(function(error) {
-											console.log(error);
+										.catch(function(error2) {
+											reject(error2);
 										});
 								})
 								.catch(function(error) {
-									console.log('error getting information :' + error);
+									reject(error);
 								}).done(function() {
 									mailchimpClass.getReports(getReportDetails, resolve, reject);
 								});
@@ -301,23 +298,21 @@ var mailchimpHandler = {
 	},
 	updateList: function(apiKey, listID, tempInfo) {
 		return new Promise(function(resolve, reject) {
-
 			mailchimpClass.updateList(apiKey, listID, tempInfo)
 				.then(function(results) {
 					resolve(results);
 				}).catch(function(error) {
-					console.log("Sync Contact update Error" + error);
+					reject(error);
 				});
 		});
 	},
 	addList: function(apiKey, listName) {
 		return new Promise(function(resolve, reject) {
-
 			mailchimpClass.addList(apiKey, listName)
 				.then(function(results) {
 					resolve(results);
 				}).catch(function(error) {
-					console.log("Sync Contact add list Error" + error);
+					reject(error);
 				});
 		});
 
@@ -329,7 +324,7 @@ var mailchimpHandler = {
 					resolve(results);
 				})
 				.catch(function(error) {
-					console.log("Sync Contact addMemberToList " + error);
+					reject(error);
 				});
 		});
 	},
@@ -339,7 +334,7 @@ var mailchimpHandler = {
 				.then(function(results) {
 					resolve(results);
 				}).catch(function(error) {
-					console.log("Sync contact update Error" + error);
+					reject(error);
 				});
 		});
 	},
@@ -350,7 +345,7 @@ var mailchimpHandler = {
 					resolve(results);
 				})
 				.catch(function(error) {
-					console.log('Sync Contact deleteMember' + error);
+					reject(error);
 				});
 		});
 	},
@@ -361,8 +356,6 @@ var mailchimpHandler = {
 					resolve(results);
 				})
 				.catch(function(error) {
-					//console.log('Sync Contact deleteList' + error);
-				        console.log(error);
 					reject(error);
 				});
 		});
@@ -373,7 +366,7 @@ var mailchimpHandler = {
 				.then(function(results) {
 					resolve(results);
 				}).catch(function(error) {
-					console.log("Sync contact update Member Error" + error);
+					reject(error);
 				});
 		});
 	}
@@ -388,7 +381,6 @@ var getReportDetails = function(results, resolve, reject) {
 	//Now we want to collate all these information and save them into another array
 	//mailing list ID and mc id will get us the contact id so we can add the relevant data.
 	//if there are duplicate action and timestamp we add action else, dont add action
-
 	for (var i = 0; i < results.length; i++) {
 		//console.log(results[i]);
 		for (var j = 0; j < results[i].emails.length; j++) {
@@ -401,7 +393,6 @@ var getReportDetails = function(results, resolve, reject) {
 				//One of the following actions: ‘open’, ‘click’, or ‘bounce’ and the date and time recorded for the action.
 				contactID: ''
 			};
-
 			if (results[i].emails[j].activity.length != 0) {
 				activityArr.push(temp);
 			}
@@ -421,22 +412,17 @@ var getReportDetails = function(results, resolve, reject) {
 			}
 			mailinglistmanager.getAllData('leadList')
 				.then(function(cResults) {
-					//console.log(activityArr);
 					for (var j = 0; j < cResults.length; j++) {
 						cResults[j].history = [];
 					}
 
 					for (var i = 0; i < cResults.length; i++) {
-
 						var sCount = 0;
 						var fCount = 0;
-
 						var itemID = cResults[i]._id + '';
 
 						for (var j = 0; j < activityArr.length; j++) {
-
 							if (activityArr[j].contactID == itemID) {
-								//console.log(activityArr[j].action);
 								if (activityArr[j].action[0].action == 'bounce')
 									fCount++;
 								else
@@ -446,9 +432,7 @@ var getReportDetails = function(results, resolve, reject) {
 						}
 						cResults[i].success = sCount;
 						cResults[i].failure = fCount;
-
 					}
-					//console.log(cResults);
 					var promiseActivityArr = [];
 					for (var k = 0; k < cResults.length; k++) {
 						promiseActivityArr.push(mailinglistmanager.updateActivity('leadList', cResults[k]));
@@ -458,22 +442,20 @@ var getReportDetails = function(results, resolve, reject) {
 							resolve(activityResults);
 						})
 						.catch(function(activityError) {
-							console.log('activityError' + activityError);
+							reject(activityError);
 						});
 				})
 				.catch(function(cError) {
-					console.log('cError' + cError);
+					reject(cError);
 				});
 		}).catch(function(mlError) {
-			console.log('mlError' + mlError);
+			reject(mlError);
 		});
 	resolve('true');
-	//return to front end
 };
 
 function compareMemberLists(mailchimpMembers, membersDatabase) {
 	var differenceMemArr = [];
-	//console.log("===========================In compareMember lists=====================");
 	for (var i = 0; i < mailchimpMembers.length; i++) {
 		var memberFound = false;
 		for (var j = 0; j < membersDatabase.length; j++) {
@@ -531,6 +513,5 @@ function compareMemberLists(mailchimpMembers, membersDatabase) {
 			differenceMemArr.push(temp);
 		}
 	}
-	//console.log("=======================================================================");
 	return differenceMemArr;
 }

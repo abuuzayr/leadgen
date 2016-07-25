@@ -112,7 +112,7 @@ app.controller('allDatabaseController', ['$scope', '$http', 'allData', 'uiGridCo
             var selectedLeadsToDelete = allDB.gridApi.selection.getSelectedRows();
             console.log(selectedLeadsToDelete);
             allData.deleteAllLeads(selectedLeadsToDelete);
-        }
+        };
 
         //Open popup dialog box
         allDB.openDialog = function(dialogName) {

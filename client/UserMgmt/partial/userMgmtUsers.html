@@ -1,10 +1,14 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <!---------------------------------------- Ng-include nav bars ---------------------------------------->
+    <div ng-include="'NavBarMgmt/mainTab.html'"></div>
+</div>
 <br>
 <div class="page-container" ng-controller="userMgmtController as uc">
 
     <!--include tabs-->
     <ul class="nav nav-tabs">
-        <li><a ui-sref="userManagementprofile" data-toggle="tab" ng-click="uc.refresh()">Company Profile</a></li>
-        <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab" ng-click="uc.refresh()">Manage Users</a></li>
+        <li><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
+        <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
     </ul>
 
     <div class="container">
@@ -23,8 +27,36 @@
                     <p>
                         Please enter the details.
                     </p>
+
                     <form class="add-leads-form" ng-submit="uc.addData()">
-                        <div class="mdl-textfield mdl-js-textfield">
+                        <!-- Username input -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input id="username" class="mdl-textfield__input" type="text" placeholder="Username" ng-model="uc.lead.userName" ng-required="true" />
+                            <label class="mdl-textfield__label" for="username">Username*</label>
+                        </div>
+                        <br>
+                        <!-- Email input -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input id="userEmail" class="mdl-textfield__input" type="email" placeholder="Email" ng-model="uc.lead.email" ng-required="true" />
+                            <label class="mdl-textfield__label" for="userEmail">Email*</label>
+                        </div>
+                        <br>
+                        <!-- Password input -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input id="userPassword" class="mdl-textfield__input" type="password" placeholder="Password (8-24 characters)" ng-model="us.lead.password" ng-required="true" ng-minlength="8" ng-maxlength="24" />
+                            <label class="mdl-textfield__label" for="userPassword">Password*</label>
+                        </div>
+                        <br>
+                        <!-- Access type select -->
+                        <div class="mdl-selectfield">
+                            <label for="userType-select" class="mdl-selectfield__label">Access Type</label>
+                            <select id="userType-select" ng-model="uc.lead.role" required style="width:100%">
+                                <option value="">----- Select option -----</option>
+                                <option value="1">Admin</option>
+                                <option value="2">User</option>
+                                </select>
+                        </div>
+                        <!--<div class="mdl-textfield mdl-js-textfield">
                             <label for="firstName">First Name</label>
                             <input class="mdl-textfield__input" type="text" id="firstName" ng-model="uc.lead.first" required>
                         </div>
@@ -41,21 +73,17 @@
                                 <option value="1">Admin</option>
                                 <option value="2">User</option>
                                 </select>
-                        </div>
+                        </div>-->
 
-                        <div class="mdl-textfield mdl-js-textfield">
+                        <!--<div class="mdl-textfield mdl-js-textfield">
                             <label for="email">Email</label>
                             <input class="mdl-textfield__input" type="email" id="email" ng-model="uc.lead.email" required>
-                        </div>
+                        </div>-->
 
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <label for="phone">Phone</label>
-                            <input class="mdl-textfield__input" type="number" id="phone" ng-model="uc.lead.phone">
-                        </div>
 
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addUser')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser'); uc.refresh()">Add</button>
+                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser')">Add</button>
                         </div>
                     </form>
                 </div>
@@ -66,7 +94,7 @@
                     <p>Are you sure you want to delete the selected user(s)?</p>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteUser')">Cancel</button>
-                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser'); uc.refresh()">Yes</button>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser')">Yes</button>
                     </div>
                 </div>
             </dialog>

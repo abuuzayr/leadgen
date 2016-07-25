@@ -36,3 +36,18 @@
     height: 400px;
     margin: auto;
 }
+
+#typeSelection {
+    display: inline-block;
+    margin-left: 0px;
+}
+
+#corporate {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+#consumer {
+    display: inline-block;
+    margin-left: 20px;
+}

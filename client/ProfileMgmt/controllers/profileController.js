@@ -1,5 +1,5 @@
-app.controller('profileController', ['$scope', '$http', '$q', '$location', '$timeout', 'getDetails', 'appConfig', '$window', 'feedbackServices',
-    function($scope, $http, $q, $location, $timeout, getDetails, appConfig, $window, feedbackServices) {
+app.controller('profileController', ['$scope', '$http', '$q', '$location', '$timeout', 'getDetails', 'appConfig', '$window', 'feedbackServices', '$cookies', 'authServices',
+    function($scope, $http, $q, $location, $timeout, getDetails, appConfig, $window, feedbackServices, $cookies, authServices) {
 
         var pc = this;
         pc.profileData = {};
@@ -9,39 +9,52 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
         //properties: email,new password, retypePassword
 
         //get profile details
-        getDetails.getProfileDetails().then(function successCallback(res) {
-                pc.userName = res.data[0].name;
-                pc.userEmail = res.data[0].email;
-                pc.userPassword = res.data[0].password;
-            }),
-            function errorCallback(err) {
+        // getDetails.getProfileDetails().then(function successCallback(res) {
+        //         pc.userName = res.data[0].name;
+        //         pc.userEmail = res.data[0].email;
+        //         pc.userPassword = res.data[0].password;
+        //     }),
+        //     function errorCallback(err) {
 
-            }
+        //     };
 
-        pc.getFromDatabase = function() {
-            var path = '/protected/settings';
-            var req = {
-                method: 'GET',
-                url: appConfig.API_URL + path,
-                headers: {}
-            }
-            if ($window.sessionStorage.token) {
-                req.headers.Authorization = $window.sessionStorage.token;
-            }
+        //get profile from cookie
+        pc.userName = '';
+        pc.userEmail = '';
 
-            $http(req)
-                .then(SuccessCallback);
-                // .catch(ErrorCallback);
 
-            function SuccessCallback(res) {
-                pc.profileData = res.data.adminData;
-            }
+        if (authServices.getToken()) {
+            pc.userName = authServices.getUserInfo().username;
+            pc.userEmail = authServices.getUserInfo().email;
 
-            // function ErrorCallback(err) {
-            //     return feedbackServices.hideFeedback('#profileFeedback')
-            //         .then(feedbackServices.errorFeedback('Unable to get data', '#profileFeedback'));
-            // }
+            console.log(pc.userName);
+            console.log(pc.userEmail);
         }
+
+        // pc.getFromDatabase = function() {
+        //     var path = '/protected/settings';
+        //     var req = {
+        //         method: 'GET',
+        //         url: appConfig.API_URL + path,
+        //         headers: {}
+        //     };
+        //     if ($window.sessionStorage.token) {
+        //         req.headers.Authorization = $window.sessionStorage.token;
+        //     }
+
+        //     $http(req)
+        //         .then(SuccessCallback);
+        //     // .catch(ErrorCallback);
+
+        //     function SuccessCallback(res) {
+        //         pc.profileData = res.data.adminData;
+        //     }
+
+        // function ErrorCallback(err) {
+        //     return feedbackServices.hideFeedback('#profileFeedback')
+        //         .then(feedbackServices.errorFeedback('Unable to get data', '#profileFeedback'));
+        // }
+        // };
 
         // if need to change email and username
         // pc.updateDatabase = function() {
@@ -73,33 +86,33 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
         //     }
         // }
 
-        pc.changePassword = function() {
-            var path = '/protected/settings/password';
-            var req = {
-                method: 'PUT',
-                url: appConstant.API_URL + path,
-                headers: {},
-                data: {
-                    pwd: pc.pwd
-                }
-            }
-            if ($window.sessionStorage.token) {
-                req.headers.Authorization = $window.sessionStorage.token;
-            }
-            return $http(req)
-                .then(SuccessCallback)
-                .catch(ErrorCallback);
+        // pc.changePassword = function() {
+        //     var path = '/protected/settings/password';
+        //     var req = {
+        //         method: 'PUT',
+        //         url: appConstant.API_URL + path,
+        //         headers: {},
+        //         data: {
+        //             pwd: pc.pwd
+        //         }
+        //     };
+        //     if ($window.sessionStorage.token) {
+        //         req.headers.Authorization = $window.sessionStorage.token;
+        //     }
+        //     return $http(req)
+        //         .then(SuccessCallback)
+        //         .catch(ErrorCallback);
 
-            function SuccessCallback(res) {
-                return feedbackServices.successFeedback('Password updated', '#profileFeedback', 2000)
-                    .then(delayLogout(1000));
-            }
+        //     function SuccessCallback(res) {
+        //         return feedbackServices.successFeedback('Password updated', '#profileFeedback', 2000)
+        //             .then(delayLogout(1000));
+        //     }
 
-            function ErrorCallback(err) {
-                return feedbackServices.hideFeedback('#profileFeedback').
-                then(feedbackServices.errorFeedback('Unable to change password', '#profileFeedback'));
-            }
-        }
+        //     function ErrorCallback(err) {
+        //         return feedbackServices.hideFeedback('#profileFeedback').
+        //         then(feedbackServices.errorFeedback('Unable to change password', '#profileFeedback'));
+        //     }
+        // };
 
         //validate password and change accordingly
         pc.validateNewPassword = function() {
@@ -110,7 +123,7 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
             }
             return feedbackServices.hideFeedback('#profileFeedback').
             then(feedbackServices.errorFeedback('New password inputs do not match', '#profileFeedback'));
-        }
+        };
 
         // var objToSend = {
         //     name: pc.userName,
@@ -138,10 +151,9 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
         });
         viewContentLoaded.promise.then(function() {
             $timeout(function() {
-                pc.getFromDatabase();
+                // pc.getFromDatabase();
                 componentHandler.upgradeDom();
             }, 0);
         });
-
     }
 ]);

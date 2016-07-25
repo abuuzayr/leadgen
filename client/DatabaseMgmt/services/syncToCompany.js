@@ -7,9 +7,9 @@ app.factory('syncToCompany', ['$http', function($http) {
             url: '',
             data: resultsToSend
         });
-    }
+    };
 
     return {
         sendToCompany: sendToCompany
-    }
-}])
+    };
+}]);

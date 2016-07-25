@@ -3,18 +3,17 @@ var leadfinderRouter = express.Router();
 var ContactsManager = require('../../ContactsManager/contacts-manager');
 var ScrapManager = require('../../ScrapingManager/scrap-manager');
 
-/*  var http403 = require('../../utils/403')();
+var http403 = require('../../utils/403')();
   
   //ACCESS CONTROL
-  leadfinderRouter.use('*',http403.verifyAccess('leadfinder'));*/
-  //var apiKey = req.accessInfo.application.bulletlead.googlePlacesAPIKey;
+leadfinderRouter.use('*',http403.verifyAccess('leadfinder'));
 
 var index = 0; 
 
 /*
 Scraping API
 */
-leadfinderRouter.get('/corporate/scrape/g/new/:category/:country', function(req, res) {
+leadfinderRouter.get('/corporate/g/new/:category/:country', function(req, res) {
   if (!req.params.category || !req.params.country)
     res.sendStatus(400);
   else {
@@ -30,7 +29,7 @@ leadfinderRouter.get('/corporate/scrape/g/new/:category/:country', function(req,
       });
   }
 });
-leadfinderRouter.get('/corporate/scrape/g/cont/:category/:country', function(req, res) {
+leadfinderRouter.get('/corporate/g/cont/:category/:country', function(req, res) {
   if (!req.params.category || !req.params.country)
     res.sendStatus(400);
   else {
@@ -46,7 +45,7 @@ leadfinderRouter.get('/corporate/scrape/g/cont/:category/:country', function(req
       });
   }
 });
-leadfinderRouter.get('/corporate/scrape/yp/:category', function(req, res) {
+leadfinderRouter.get('/corporate/yp/:category', function(req, res) {
   if (!req.params.category)
     res.sendStatus(400);
   else {
@@ -60,7 +59,7 @@ leadfinderRouter.get('/corporate/scrape/yp/:category', function(req, res) {
       });
   }
 });
-leadfinderRouter.get('/consumer/scrape/yp/:category', function(req, res) {
+leadfinderRouter.get('/consumer/yp/:category', function(req, res) {
   if (!req.params.category)
     res.sendStatus(400);
   else {
@@ -74,7 +73,8 @@ leadfinderRouter.get('/consumer/scrape/yp/:category', function(req, res) {
       });
   }
 });
-leadfinderRouter.post('/scrape/', function(req, res) {
+
+leadfinderRouter.post('/', function(req, res) {
   if (!req.body)
     res.sendStatus(400);
   else {
@@ -94,5 +94,4 @@ var returnStatusCode = function(res, statusCode) {
   res.sendStatus(statusCode);
 };
 
-
-  module.exports = leadfinderRouter;
+module.exports = leadfinderRouter;

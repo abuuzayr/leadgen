@@ -20,18 +20,23 @@ apiRouter.use(function(req, res, next) {
 
 apiRouter.use('/', function(req, res, next) {
   console.log('Welcome to the API page');
+  console.log(req.url);
   next();
 });
+
+apiRouter.use('*',http403.decodeCookieInfo);
+apiRouter.use('*',http403.decodeAccessInfo);
 
 var leadfinderMgmt = require('./protected/leadfinderMgmt.js');
 var leadlistMgmt = require('./protected/leadlistMgmt.js');
 var cookieGenerator = require('./protected/cookieMgmt.js');
 var dbMgmt = require('./protected/dbMgmt.js');
 
-//PATH
-apiRouter.use('/', cookieGenerator);
-apiRouter.use('/', leadfinderMgmt);
-apiRouter.use('/', leadlistMgmt);
-apiRouter.use('/', dbMgmt);
+apiRouter.use('/cookie', cookieGenerator);
+apiRouter.use('/scrape', leadfinderMgmt);
+apiRouter.use('/contacts', leadlistMgmt);
+apiRouter.use('/dbmgmt', dbMgmt);
+
+//apiRouter.use('*', http404.notFoundMiddleware);
 
 module.exports = apiRouter;

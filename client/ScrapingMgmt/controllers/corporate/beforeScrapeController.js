@@ -15,14 +15,13 @@ app.controller('beforeScrapeController', ['$scope', '$http', 'uiGridConstants', 
         beforeCorporate.setInput = function() {
             shareInput.setCategory(beforeCorporate.category);
             shareInput.setCountry(beforeCorporate.country);
-        }
+        };
 
         beforeCorporate.continue = true;
         beforeCorporate.continueScraping = function() {
             if (angular.isDefined(beforeCorporate.category)) {
                 beforeCorporate.continue = false;
             }
-        }
-
+        };
     }
 ]);

@@ -7,14 +7,13 @@ app.controller('beforeConsumerController', ['$scope', '$http', 'uiGridConstants'
 
         beforeConsumer.setInput = function() {
             consumerShareInput.setCategory(beforeConsumer.category);
-        }
+        };
 
         beforeConsumer.continue = true;
         beforeConsumer.continueScraping = function() {
             if (angular.isDefined(beforeConsumer.category)) {
                 beforeConsumer.continue = false;
             }
-        }
-
+        };
     }
 ]);

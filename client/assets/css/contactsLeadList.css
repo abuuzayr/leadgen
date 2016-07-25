@@ -5,4 +5,11 @@
 #historyData {
     width: 380px;
 }
-
+.addButtons
+{
+	background-color: #f15b5d !important;
+}
+.mdl-button--accent
+{
+	background-color: #838483 !important;
+}

@@ -1,9 +1,9 @@
 angular.module("app")
     .controller("loginCtrl", loginCtrl);
 
-loginCtrl.$inject = ['$scope', '$q', '$location', '$timeout', '$state', '$http', 'appConfig', 'feedbackServices', 'dialogServices', 'userService', '$cookies'];
+loginCtrl.$inject = ['$scope', '$q', '$location', '$timeout', '$state', '$http', 'appConfig', 'feedbackServices', 'dialogServices', '$cookies', 'authServices'];
 
-function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, feedbackServices, dialogServices, userService, $cookies) {
+function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, feedbackServices, dialogServices, $cookies, authServices) {
 
     /* =========================================== Initialisation =========================================== */
     var vm = this;
@@ -11,7 +11,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
     var MIN_PASSWORD_LENGTH = appConfig.MIN_PASSWORD_LENGTH;
     var AUTH_URL = appConfig.AUTH_URL;
     var FP_URL = appConfig.FP_URL;
-    var URL = 'http://10.4.1.145/api/cookie/getCookie'
+    var API_URL = appConfig.API_URL;
 
     vm.loginEmail = '';
     vm.password = '';
@@ -22,64 +22,64 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
     vm.closeDialog = closeDialog;
     vm.openDialog = openDialog;
 
-    vm.testValidation = testValidation;
-    vm.determineType = determineType;
+    // vm.testValidation = testValidation;
+    // vm.determineType = determineType;
 
-    function testValidation() {
-        var email = '';
-        var password = '';
-        var errMsg = '';
+    // function testValidation() {
+    //     var email = '';
+    //     var password = '';
+    //     var errMsg = '';
 
-        var type = '';
+    //     var type = '';
 
-        if (isEmpty(vm.loginEmail) || isEmpty(vm.password)) {
-            return;
-        } else if (!isValidEmail(vm.loginEmail)) {
-            errMsg = 'Email is invalid.';
-        } else if (!isValidPassword(vm.password)) {
-            errMsg = 'Password is between ' + MIN_PASSWORD_LENGTH + ' and ' + MAX_PASSWORD_LENGTH + ' characters.';
-        } else {
-            email = vm.loginEmail
-            password = vm.password;
-            return determineType(email, password);
-        }
-        errorFeedback(errMsg);
-    }
+    //     if (isEmpty(vm.loginEmail) || isEmpty(vm.password)) {
+    //         return;
+    //     } else if (!isValidEmail(vm.loginEmail)) {
+    //         errMsg = 'Email is invalid.';
+    //     } else if (!isValidPassword(vm.password)) {
+    //         errMsg = 'Password is between ' + MIN_PASSWORD_LENGTH + ' and ' + MAX_PASSWORD_LENGTH + ' characters.';
+    //     } else {
+    //         email = vm.loginEmail
+    //         password = vm.password;
+    //         return determineType(email, password);
+    //     }
+    //     errorFeedback(errMsg);
+    // }
 
-    function determineType(email, password) {
-        if (email === 'user@bulletlead.com') {
-            if (password === 'password') {
-                successFeedback('Logged in');
-                userService.setUserType('user');
-                $cookies.put('type', 'user');
+    // function determineType(email, password) {
+    //     if (email === 'user@bulletlead.com') {
+    //         if (password === 'password') {
+    //             successFeedback('Logged in');
+    //             userService.setUserType('user');
+    //             $cookies.put('type', 'user');
 
-                $state.go('home');
-            } else {
-                errorFeedback('Unable to log in');;
-            }
-        } else if (email === 'admin@bulletlead.com') {
-            if (password === 'password') {
-                successFeedback('Logged in');
-                userService.setUserType('admin');
-                $cookies.put('type', 'admin');
+    //             $state.go('home');
+    //         } else {
+    //             errorFeedback('Unable to log in');;
+    //         }
+    //     } else if (email === 'admin@bulletlead.com') {
+    //         if (password === 'password') {
+    //             successFeedback('Logged in');
+    //             userService.setUserType('admin');
+    //             $cookies.put('type', 'admin');
 
-                $state.go('home');
-            } else {
-                errorFeedback('Unable to log in');;
-            }
-        } else if (email === 'superadmin@bulletlead.com') {
-            if (password === 'password') {
-                successFeedback('Logged in');
-                userService.setUserType('superadmin');
-                $cookies.put('type', 'superadmin');
+    //             $state.go('home');
+    //         } else {
+    //             errorFeedback('Unable to log in');;
+    //         }
+    //     } else if (email === 'superadmin@bulletlead.com') {
+    //         if (password === 'password') {
+    //             successFeedback('Logged in');
+    //             userService.setUserType('superadmin');
+    //             $cookies.put('type', 'superadmin');
 
 
-                $state.go('home');
-            } else {
-                errorFeedback('Unable to log in');;
-            }
-        }
-    }
+    //             $state.go('home');
+    //         } else {
+    //             errorFeedback('Unable to log in');;
+    //         }
+    //     }
+    // }
 
 
     /* =========================================== UI =========================================== */
@@ -95,7 +95,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
         } else if (!isValidPassword(vm.password)) {
             errMsg = 'Password is between ' + MIN_PASSWORD_LENGTH + ' and ' + MAX_PASSWORD_LENGTH + ' characters.';
         } else {
-            email = vm.loginEmail
+            email = vm.loginEmail;
             password = vm.password;
             return login(email, password);
         }
@@ -110,7 +110,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
             errMsg = 'Email is invalid.';
             return errorFeedback(errMsg);
         } else {
-            email = vm.resetPwdEmail
+            email = vm.resetPwdEmail;
             return sendEmail(email);
         }
     }
@@ -121,25 +121,32 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
         $http.post(AUTH_URL, {
                 email: email,
                 password: password,
-                origin: 'bulletform.com'
+                origin: 'bulletlead.com'
             })
             .then(SuccessCallback)
             .catch(ErrorCallback);
 
         function SuccessCallback(res) {
-            $http.post(URL, {
-                    data: res
-                })
-                .then(SecondSuccess)
-                .catch(ErrorCallback);
-        }
+            console.log(res);
+            return successFeedback('Logged in')
+                .then(
+                    $http.get(API_URL + '/cookie')
+                    .then(function(res) {
+                        $state.go('home');
+                    })
 
-        function secondSuccess(res) {
-            successFeedback('Logged in');
-            $state.go('home');
+                )
+                .then(function(res) {
+                    console.log(res);
+                    $state.go('home');
+                })
+                .catch(function(err) {
+                    errorFeedback('Login blocked by app server');
+                });
         }
 
         function ErrorCallback(err) {
+            authServices.deleteToken();
             errorFeedback(err.data);
         }
     }
@@ -147,7 +154,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
     function sendEmail(email) {
         $http.post(FP_URL, {
                 email: email,
-                origin: 'bulletform.com'
+                origin: 'bulletlead.com'
             })
             .then(SuccessCallback)
             .catch(ErrorCallback);
@@ -163,11 +170,11 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
 
     /* =========================================== Helper Function =========================================== */
     function openDialog() {
-        return dialogServices.openDialog('forgot-password-dialog')
+        return dialogServices.openDialog('forgot-password-dialog');
     }
 
     function closeDialog() {
-        return dialogServices.closeDialog('forgot-password-dialog')
+        return dialogServices.closeDialog('forgot-password-dialog');
     }
 
     function successFeedback(msg, timeout) {

@@ -1,5 +1,9 @@
 <link rel="stylesheet" type="text/css" href="assets/css/allDatabase.css">
 <div ng-controller="localDatabaseController as ld">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <!---------------------------------------- Ng-include nav bars ---------------------------------------->
+        <div ng-include="'NavBarMgmt/mainTab.html'"></div>
+    </div>
     <br>
     <ul class="nav nav-tabs">
         <li><a ui-sref="externalDB" data-toggle="tab">External</a></li>
@@ -30,28 +34,33 @@
 
             <form name="myForm">
                 <div class="form-group pull-left">
-                    <label for="importSelection">Type:</label>
-                    <label>
+                    <label for="importSelection" id='typeSelection'>Type:</label>
+                    <div id='corporate'>
+                        <label>
                         <input type="radio" ng-model='ld.importType' ng-change="ld.continueToImport()" value="corporate">
                         Corporate
-                    </label><br/>
-                    <label>
+                    </label>
+                    </div>
+                    <br/>
+                    <div id='consumer'>
+                        <label>
                         <input type="radio" ng-model='ld.importType' ng-change="ld.continueToImport()" value="consumer">
                         Consumer
-                    </label><br/>
-                </div>
+                        </label>
+                    </div>
+                    <br/>
             </form>
-        </div>
-
-        <dialog id="deleteLead" class="mdl-dialog">
-            <div class="mdl-dialog__content">
-                <p>Are you sure ?</p>
-                <div class="mdl-dialog__actions">
-                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ld.closeDialog('deleteLead')">Cancel</button>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ld.deleteSelected();ld.closeDialog('deleteLead')">Yes</button>
-                </div>
             </div>
-        </dialog>
-        <br><br><br>
+
+            <dialog id="deleteLead" class="mdl-dialog">
+                <div class="mdl-dialog__content">
+                    <p>Are you sure ?</p>
+                    <div class="mdl-dialog__actions">
+                        <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ld.closeDialog('deleteLead')">Cancel</button>
+                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ld.deleteSelected();ld.closeDialog('deleteLead')">Yes</button>
+                    </div>
+                </div>
+            </dialog>
+            <br><br><br>
+        </div>
     </div>
-</div>

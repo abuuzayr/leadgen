@@ -7,16 +7,17 @@ var MailinglistManager = require('../../MailinglistManager/mailinglist-manager')
 var MailchimpManager = require('../../MailchimpManager/syncContacts');
 var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
   
-/*  var http403 = require('../../utils/403')();
-  
-  //ACCESS CONTROL
-  leadlistRouter.use('*',http403.verifyAccess('leadmgmt'));*/
+var http403 = require('../../utils/403')();
+//ACCESS CONTROL
+leadlistRouter.use('*',http403.verifyAccess('leadmgmt'));
+
 /*
 CRUD on leads
 */
-leadlistRouter.route('/contacts/leadList/leads')
+leadlistRouter.route('/leadList/leads')
   .get(function(req, res) {
     console.log('get leads');
+    console.log(req.cookies);
     ContactsManager.displayLeads(null, deleteContact)
       .then(function(results) {
         res.json(results);
@@ -68,37 +69,6 @@ leadlistRouter.route('/contacts/leadList/leads')
     if (!req.body)
       returnStatusCode(res, 400);
     else {
-      /*Required Steps: (Mailchimp Server, App Server)
-        1) Check origin of the contact
-        2) If origin is YP, change to non origin
-        3) Check if contact is in mailing list
-        4) Update mail chimp server then app server
-        6) Update the contacts 
-        === SAMPLE POST ===
-       [
-        {
-          "_id": "5775cd2213c50d6605ef938e",
-          "firstName": "GRU",
-          "lastName": "TEST",
-          "email": null,
-          "companyName": "Fichtner (Asia) Pte Ltd",
-          "phoneNumber": "+65 6227 0227",
-          "category": "engineering",
-          "type": 1,
-          "origin": 1
-        },
-        {
-          "_id": "5775cd3013c50d6605ef938f",
-          "firstName": null,
-          "lastName": null,
-          "email": null,
-          "companyName": "Fichtner (Asia) Pte Ltd",
-          "phoneNumber": "+65 6227 0227",
-          "category": "engineering",
-          "type": 1,
-          "origin": 1
-        }
-      ]*/
       var originObj = req.body[0];
       var newObj = req.body[1];
       var cid = originObj._id;
@@ -137,7 +107,8 @@ leadlistRouter.route('/contacts/leadList/leads')
         });
     }
   });
-leadlistRouter.put('/contacts/leadList/leads/duplicates',function(req, res) {
+
+leadlistRouter.put('/leadList/leads/duplicates', function(req, res) {
   if (!req.body)
     res.sendStatus(400);
   else {
@@ -150,8 +121,7 @@ leadlistRouter.put('/contacts/leadList/leads/duplicates',function(req, res) {
       });
   }
 });
-leadlistRouter.get('/contacts/leadList/leads/:id', function(req, res) {
-  //TODO return history of lead
+leadlistRouter.get('/leadList/leads/:id', function(req, res) {
   if (!req.params.id)
     res.sendStatus(400);
   else {
@@ -167,8 +137,8 @@ leadlistRouter.get('/contacts/leadList/leads/:id', function(req, res) {
       });
   }
 });
-leadlistRouter.post('/contacts/leadList/import', function(req, res) {
-  //console.log(req.body);
+
+leadlistRouter.post('/leadList/import', function(req, res) {
   if (!req.body)
     res.sendStatus(400);
   else {
@@ -180,9 +150,7 @@ leadlistRouter.post('/contacts/leadList/import', function(req, res) {
   }
 });
 /*
-CRUD on leads list
-*/
-
+CRUD on leads list*/
 /*
 Purpose: To retrieve information for front end display
   ===SAMPLE POST JSON===
@@ -192,7 +160,7 @@ Purpose: To retrieve information for front end display
     }
 ]
 */
-leadlistRouter.route('/contacts/mailingList')
+leadlistRouter.route('/mailingList')
   .get(function(req, res) {
     if (!req.body)
       returnStatusCode(res, 400);
@@ -218,7 +186,7 @@ leadlistRouter.route('/contacts/mailingList')
       returnStatusCode(res, 400);
     else {
       //create mailinglist
-      MailchimpManager.addList(apiKey, req.body.listName) //1- 
+      MailchimpManager.addList(apiKey, req.body.listName) //1-
         .then(function(MCResults) {
           console.log("Mailchimp.addList Results:");
           console.log(MCResults);
@@ -253,8 +221,8 @@ leadlistRouter.route('/contacts/mailingList')
       MailchimpManager.deleteList(apiKey, req.body[0].listID) //1-
         .then(function(MCResults) {
 	  console.log(MCResults);
-          MailinglistManager.deleteList(res, 'mailinglists', req.body[0], returnStatusCode); //1-        
-        }).catch(function(MCError) { 
+          MailinglistManager.deleteList(res, 'mailinglists', req.body[0], returnStatusCode); //1-
+        }).catch(function(MCError) {
 	  res.sendStatus(405);
         });
     }
@@ -267,7 +235,7 @@ leadlistRouter.route('/contacts/mailingList')
         1) Update mailchimp with new name
         2) Update app server with new name*/
       /* ===SAMPLE JSON POST ===
-        
+
       [
         {
           "listID":"ba458816f3",
@@ -301,16 +269,17 @@ leadlistRouter.route('/contacts/mailingList')
     }
   });
 
-leadlistRouter.route('/contacts/mailingList/subscriber')
+
+leadlistRouter.route('/mailingList/subscriber')
   .post(function(req, res) {
     if (!req.body)
       returnStatusCode(res, 400);
     else {
     //  console.log(req.body);
       //Suppose to sort incoming json file into merge fields so that it will be easier to add to mailchimp
-      /* 1) Add subscriber into mailchimp according to list 
+      /* 1) Add subscriber into mailchimp according to list
          2) After creating the batch, add the members in mailing list table
-         addMemberToList: function(apiKey,listID,memberInfo)      
+         addMemberToList: function(apiKey,listID,memberInfo)
 */
       var memberinfoPromiseArr = [];
       for (var i = 0; i < req.body[0].y.length; i++) {
@@ -369,7 +338,7 @@ leadlistRouter.route('/contacts/mailingList/subscriber')
                  {"listID": "6b444f37c4",
                  "email_hash": "1ff577ac1929480c2510398aa4999cad",
                  "_id":"aaaaa"
-                 }    
+                 }
             ]
           }*/
         var promiseArr = [];
@@ -402,7 +371,7 @@ leadlistRouter.route('/mailinglist/getSubscriber')
 /*
 CRUD on fields
 */
-leadlistRouter.route('/contacts/leadList/fields')
+leadlistRouter.route('/leadList/fields')
   .get(function(req, res) {
     console.log('get columns');
     ContactsManager.displayList('columnDef', null)
@@ -458,7 +427,7 @@ leadlistRouter.route('/contacts/leadList/fields')
 /*
   BlackList API
 */
-leadlistRouter.route('/contacts/blackList/domain')
+leadlistRouter.route('/blackList/domain')
   .get(function(req, res) {
     dbHandler.dbQuery('blackListDomains', null)
       .then(function(results) {
@@ -506,7 +475,7 @@ leadlistRouter.route('/contacts/blackList/domain')
       }
     }
   });
-leadlistRouter.route('/contacts/blackList')
+leadlistRouter.route('/blackList')
   .get(function(req, res) {
     ContactsManager.displayList('blackList', null)
       .then(function(results) {

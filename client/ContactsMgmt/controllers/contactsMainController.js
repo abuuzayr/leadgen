@@ -1,5 +1,5 @@
 app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'leadsData', 'historyData', 'mailListData', 'contactsColumnData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', function($scope, $window, appConfig, leadsData, historyData, mailListData, contactsColumnData, $http, $interval, uiGridConstants, $q, $location, $timeout, feedbackServices) {
-    
+
     var cc = this;
 
     leadsData.success(function(data) {
@@ -159,7 +159,6 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
     //Get columndefs
     cc.fields = [];
     contactsColumnData.success(function(data) {
-        console.log(data);
         for (var x of data) {
             cc.gridOptions.columnDefs.push(x);
             cc.fields.push(x);
@@ -223,18 +222,16 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         var leads = cc.gridApi.selection.getSelectedRows();
         var url = "/contacts/leadList/leads";
         $http.put(appConfig.API_URL + url, leads)
-	.then(function(res){
-	    $window.location.reload();
-	})
-	.catch(function(err){
-	    console.log(err);
-	})
-        //$window.location.reload();
-        
+		  .then(function(res){
+	        $window.location.reload();
+	      })
+		  .catch(function(err){
+	    	console.log(err);
+		  })
     };
 
     // add field
-   cc.addField = function() {
+    cc.addField = function() {
         var fieldName = cc.field.name;
         var arrName = fieldName.split(" ");
         var editedField = "";
@@ -290,13 +287,13 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
                 };
                 var url = "/contacts/leadList/fields";
                 var deleteStatus = $http.put(appConfig.API_URL + url, fieldObj);
+				$window.location.reload();
             }
         }
         for (var x in cc.fields) {
             if ((cc.fields[x].displayName === cc.selectedDeleteField)) {
                 var fieldName = cc.fields[x].field;
                 cc.fields.splice(x, 1);
-                $window.location.reload();
             }
         }
     };
@@ -316,7 +313,6 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             listID: id,
             name: cc.listSelected
         }];
-        console.log(obj);
         var url = "/contacts/mailingList/subscriber";
         var addStatus = $http.post(appConfig.API_URL + url, obj);
     };
@@ -327,7 +323,6 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
 
     //Remove duplicates
     cc.removeDuplicate = function() {
-        console.log(cc.selectedDuplicateField);
         var field = "";
         for (var x of cc.gridOptions.columnDefs) {
             if (x.displayName === cc.selectedDuplicateField) {
@@ -348,7 +343,6 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
 
         if (target && target.files && target.files.length === 1) {
             var fileObject = target.files[0];
-            console.log("abc");
             cc.gridApi.importer.importFile(fileObject);
             target.form.reset();
         }
@@ -374,7 +368,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
     //Close popup dialog box
     cc.closeDialog = function(dialogName) {
         var dialog = document.querySelector('#' + dialogName);
-       cc.addResult = "";
+        cc.addResult = "";
         dialog.close();
     };
 

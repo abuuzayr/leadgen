@@ -5,7 +5,7 @@ app.factory('externalData', ['$http', 'appConfig', function($http, appConfig) {â
             method: 'GET',
             url: appConfig.API_URL + '/dbmgmt/external/'
         });
-    }
+    };
 
     var deleteExternalLeads = function(leadsToDelete) {
         return $http({
@@ -13,7 +13,7 @@ app.factory('externalData', ['$http', 'appConfig', function($http, appConfig) {â
             url: appConfig.API_URL + '/dbmgmt/external/',
             data: leadsToDelete
         });
-    }
+    };
 
     var editExternalLeads = function(leadsToEdit) {
         return $http({
@@ -21,20 +21,20 @@ app.factory('externalData', ['$http', 'appConfig', function($http, appConfig) {â
             url: appConfig.API_URL + '/dbmgmt/external',
             data: leadsToEdit
         });
-    }
+    };
 
     var updateExternalLeads = function() {
         return $http({
             method: 'GET',
             url: appConfig.API_URL + '/dbmgmt/external/update'
         });
-    }
+    };
 
     return {
         getExternalLeads: getExternalLeads,
         deleteExternalLeads: deleteExternalLeads,
         editExternalLeads: editExternalLeads,
-        updateExternalLeads : updateExternalLeads
-    }
+        updateExternalLeads: updateExternalLeads
+    };
 
 }]);

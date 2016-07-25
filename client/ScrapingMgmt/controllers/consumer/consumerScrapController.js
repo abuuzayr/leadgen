@@ -112,29 +112,29 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
                         gc.pauseScraping();
                         showInternet(navigator.onLine);
 
-                    }else{
+                    } else {
                         cs.stopScraping();
                         cs.showFunction();
                     }
-/*                    else {
-                        // console.log('continue scraping');
-                        consumerLeads.getConsumerLeads(cs.category).then(function successCallback(res) {
-                                if (angular.isDefined(res.data.status)) {
-                                    cs.stopScraping();
-                                    //show the 'view results' button
-                                    cs.showFunction();
-                                } else {
-                                    // console.log('res is ' + res.data);
-                                    cs.dataList = res.data;
-                                }
-                            }),
-                            function errorCallback(err) {
-                                console.log('err is ' + err);
-                                cs.stopScraping();
-                                //show the 'view results' button
-                                cs.showFunction();
-                            };
-                    }*/
+                    /*                    else {
+                                            // console.log('continue scraping');
+                                            consumerLeads.getConsumerLeads(cs.category).then(function successCallback(res) {
+                                                    if (angular.isDefined(res.data.status)) {
+                                                        cs.stopScraping();
+                                                        //show the 'view results' button
+                                                        cs.showFunction();
+                                                    } else {
+                                                        // console.log('res is ' + res.data);
+                                                        cs.dataList = res.data;
+                                                    }
+                                                }),
+                                                function errorCallback(err) {
+                                                    console.log('err is ' + err);
+                                                    cs.stopScraping();
+                                                    //show the 'view results' button
+                                                    cs.showFunction();
+                                                };
+                                        }*/
                 }, 2000);
             };
         }
@@ -143,9 +143,9 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
             if (angular.isDefined(stop)) {
                 $interval.cancel(stop);
                 stop = undefined;
-
             }
-        }
+            cs.spinner = false;
+        };
 
         //if press stop button, cannot continue scraping
         cs.pressStop = false;
@@ -154,7 +154,8 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
                 $interval.cancel(stop);
                 cs.pressStop = true;
             }
-        }
+            cs.spinner = false;
+        };
 
         cs.showResult = false;
         cs.showFunction = function() {
@@ -171,7 +172,7 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
             } else if (checkOnline === false) {
                 cs.status = true;
             }
-        }
+        };
 
     }
 ]);

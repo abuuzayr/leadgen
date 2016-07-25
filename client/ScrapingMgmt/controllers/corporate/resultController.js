@@ -74,7 +74,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
                 rc.gridOptions.data.splice(rc.gridOptions.data.lastIndexOf(data), 1);
                 rc.resultsLength -= 1;
             });
-        }
+        };
 
         rc.responseMessage = "";
         rc.symbol = true;
@@ -83,7 +83,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
             // rc.gridOptions.data = [];
             // rc.resultsLength = 0;
             shareData.clearData();
-        }
+        };
 
         var dataToContacts = [];
 
@@ -96,7 +96,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
 
                 // callback();
             });
-        }
+        };
 
         rc.saveToContacts = function() {
             var myJsonString;
@@ -105,21 +105,21 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
             // if none selected, save all
             if (dataToContacts.length === 0) {
                 myJsonString = angular.toJson(rc.gridOptions.data);
-                // myJsonString = JSON.stringify(rc.gridOptions.data);
             } else {
-                myJsonString = angular.toJson(dataToContacts);
                 //save the selected contacts
-                // myJsonString = JSON.stringify(dataToContacts);
+                myJsonString = angular.toJson(dataToContacts);
             }
 
             sendResults.sendLeads(myJsonString).then(function successCallback(res) {
                     rc.responseMessage = "Saved to Contacts!";
-                }),
-                function errorCallback(err) {
+                    // successFeedback("Saved to Contacts!", 5000);
+                })
+                .catch(function errorCallback(err) {
                     rc.responseMessage = "Error Occured";
                     rc.symbol = false;
-                };
-        }
+                    // errorFeedback('Unable to save to contacts');
+                });
+        };
 
         //Open popup dialog box
         rc.openDialog = function(dialogName) {
@@ -136,5 +136,12 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
             dialog.close();
         };
 
+        var successFeedback = function(msg, timeout) {
+            return feedbackServices.successFeedback(msg, '#corporateResult-feedbackMessage', timeout);
+        };
+
+        var errorFeedback = function(errData, timeout) {
+            return feedbackServices.errorFeedback(errData, '#corporateResult-feedbackMessage');
+        };
     }
 ]);

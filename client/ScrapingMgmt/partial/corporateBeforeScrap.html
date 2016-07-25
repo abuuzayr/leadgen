@@ -1,9 +1,16 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <!---------------------------------------- Ng-include nav bars ---------------------------------------->
+    <div ng-include="'NavBarMgmt/mainTab.html'"></div>
+</div>
 <br>
 <div ng-controller="beforeScrapeController as beforeCorporate">
-    <ul class="nav nav-tabs">
-        <li class="active"><a ui-sref="corporate" data-toggle="tab">Corporate</a></li>
-        <li><a ui-sref="consumer" data-toggle="tab">Consumer</a></li>
-    </ul>
+    <div ng-controller="tabsController as vm">
+        <ul class="nav nav-tabs">
+            <li class="active"><a ui-sref="corporate" data-toggle="tab" ng-show="vm.showCorporate">Corporate</a></li>
+            <li><a ui-sref="consumer" ng-show="vm.showConsumer" data-toggle="tab">Consumer</a></li>
+        </ul>
+    </div>
+
     <div class="container">
         <form role="form">
             <div class="form-group">
