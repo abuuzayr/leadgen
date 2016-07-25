@@ -28,7 +28,7 @@
     background-color: #838483 !important;
 }
 
-#confirmDelete {
+#cancel {
     font-family: 'Roboto' !important;
     font-size: 14 px;
     font-weight: 400 px;
@@ -37,7 +37,7 @@
     color: #F2F1F1;
 }
 
-#cancel {
+#confirmDelete {
     font-family: 'Roboto' !important;
     font-size: 14 px;
     font-weight: 400 px;

@@ -96,7 +96,7 @@
                     <p>Are you sure you want to delete the selected user(s)?</p>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteUser')">Cancel</button>
-                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser')">Yes</button>
+                        <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser')">Yes</button>
                     </div>
                 </div>
             </dialog>
