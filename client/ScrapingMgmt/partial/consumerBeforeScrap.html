@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="assets/css/beforeScrape.css">
+
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <!---------------------------------------- Ng-include nav bars ---------------------------------------->
     <div ng-include="'NavBarMgmt/mainTab.html'"></div>
@@ -19,42 +21,41 @@
                 <h3>Scrap By:</h3>
                 <br>
                 <select class="form-control" id="category" ng-model='beforeConsumer.category' ng-change="beforeConsumer.continueScraping()">
-          <option>Agriculture & Livestock</option>
-          <option>Automotive & Transport</option>
-          <option>Banking & Finance</option>
-          <option>Beauty, Health & Medical</option>
-          <option>Business & Professional Services</option>
-          <option>Entertainment, Leisure & Hobbies</option>
-          <option>Fashion & Textile</option>
-          <option>Food & Beverages</option>
-          <option>Gifts & Collectibles</option>
-          <option>Government & Community</option>
-          <option>Home & Office</option>
-          <option>Industrial & Engineering</option>
-          <option>IT, Electronics & Telecoms</option>
-          <option>Marine, Oil & Gas</option>
-          <option>Media, Advertising & Printing</option>
-          <option>Others</option>
-          <option>Packing & Logistics</option>
-          <option>Real Estate & Construction</option>
-          <option>Safety & Security</option>
-          <option>Science, Research & Technology</option>
-          <option>Sports & Fitness</option>
-          <option>Tourism & Travel</option>
-          <option>Training & Education</option>
-        </select>
+                    <option>Agriculture & Livestock</option>
+                    <option>Automotive & Transport</option>
+                    <option>Banking & Finance</option>
+                    <option>Beauty, Health & Medical</option>
+                    <option>Business & Professional Services</option>
+                    <option>Entertainment, Leisure & Hobbies</option>
+                    <option>Fashion & Textile</option>
+                    <option>Food & Beverages</option>
+                    <option>Gifts & Collectibles</option>
+                    <option>Government & Community</option>
+                    <option>Home & Office</option>
+                    <option>Industrial & Engineering</option>
+                    <option>IT, Electronics & Telecoms</option>
+                    <option>Marine, Oil & Gas</option>
+                    <option>Media, Advertising & Printing</option>
+                    <option>Others</option>
+                    <option>Packing & Logistics</option>
+                    <option>Real Estate & Construction</option>
+                    <option>Safety & Security</option>
+                    <option>Science, Research & Technology</option>
+                    <option>Sports & Fitness</option>
+                    <option>Tourism & Travel</option>
+                    <option>Training & Education</option>
+                </select>
                 <br>
 
                 <!-- Accent-colored raised button with ripple -->
                 <a ui-sref=".consumerStartScrap">
                     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="beforeConsumer.setInput()" ng-disabled="beforeConsumer.continue">
-        Proceed to Scrape
-        </button>
+                        Proceed to Scrape
+                        </button>
                 </a>
             </div>
         </form>
         <div ui-view></div>
-        <br>
-        <br>
+        <br><br>
     </div>
 </div>

@@ -1,21 +1,35 @@
+.mdl-button {
+    font-family: 'Roboto' !important;
+    font-size: 14 px;
+    font-weight: 400 px;
+    text-transform: capitalize !important;
+    background-color: #eb3a40 !important;
+}
+
 #playButton {
     margin-left: 0px;
 }
 
 #pauseButton {
     margin-left: 20px;
+    background-color: #f15b5d !important;
 }
 
 #stopButton {
     margin-left: 20px;
+    background-color: #f58a80 !important;
 }
 
 #stopScraping {
     margin-left: 20px;
+    background-color: #838483 !important;
+    color: #F2F1F1;
 }
 
 #stopScrapingNoInternet {
     margin-left: 20px;
+    background-color: #838483 !important;
+    color: #F2F1F1;
 }
 
 #viewResults {
