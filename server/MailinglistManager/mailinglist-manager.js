@@ -62,8 +62,10 @@ var MailinglistManager = {
 				});
 		});
 	},
-	addContactsChain: function(collectionName, obj, apiKey) {
+	addContactsChain: function(collectionName, obj, apiKey, coId) {
 		return new Promise(function(resolve, reject) {
+			console.log('++++++++++++ADDCONTACTSCHAIN+++++++++++++');	
+			console.log(coId);
 			var temp = {
 				firstName: obj.firstName,
 				lastName: obj.lastName,
@@ -77,7 +79,7 @@ var MailinglistManager = {
 				origin: 1,
 				phone: null
 			};
-			contactsHandler.addContactMC(temp, obj.email_hash, obj.listID, apiKey)
+			contactsHandler.addContactMC(temp, obj.email_hash, obj.listID, apiKey, coId)
 				.then(function(results) {
 					var tempML = {
 						contactID: results + '',

@@ -8,7 +8,7 @@ var apiKey = require('../apikey.json').googleAPI;
 var coord = [];
 
 var ScrapManager = {
-  scrapCorporateGoogleNew: function(type, country) {
+  scrapCorporateGoogleNew: function(type, country, apiKey) {
     return new Promise(function(resolve, reject) {
       
       var formatType = type.replace(/ /g , '+');
@@ -102,7 +102,7 @@ var ScrapManager = {
     });
   },
 
-  scrapCorporateGoogleCont: function(index, type, country) {
+  scrapCorporateGoogleCont: function(index, type, country, apiKey) {
     return new Promise(function(resolve, reject) {
 
       var formatType = type.replace(/ /g , '+');

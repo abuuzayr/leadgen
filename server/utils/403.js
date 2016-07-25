@@ -31,7 +31,6 @@ module.exports = function(){
 				}
 				else{
 					req.decoded = decoded;
-					console.log(req.decoded);
 					jwt.sign({
                			username: decoded.username,
                			email: decoded.email,
@@ -66,7 +65,7 @@ module.exports = function(){
 				}
 				else{
 					req.decoded = decoded;
-					console.log(req.decoded);
+					//console.log(req.decoded);
 					jwt.sign({
                			email: decoded.email,
                			usertype: decoded.usertype,
@@ -90,7 +89,7 @@ module.exports = function(){
 		var jwt = require('jsonwebtoken');
 		var token = req.cookies['session'];
 		console.log('Generate Cookie');//TOFIX
-		console.log(token);//TOFIX
+		//console.log(token);//TOFIX
 
 		if(!token)
 			send403(req,res,"no token");
@@ -102,7 +101,7 @@ module.exports = function(){
 				else{
 					req.decoded = decoded;
 					console.log('This is decoded');
-					console.log(decoded);
+					//console.log(decoded);
 					jwt.sign({
                			email: decoded.email,
                			usertype: decoded.usertype,
@@ -146,16 +145,16 @@ module.exports = function(){
 		var algorithm = 'aes-256-ctr';
 		console.log('decodeing access info');//TOFIX
 		var ecodedAccessInfo = req.decoded.application;
-		console.log(ecodedAccessInfo);//TOFIX
+		//console.log(ecodedAccessInfo);//TOFIX
 		var decipher = crypto.createDecipher(algorithm,config.appSecret);
 		try{
 			var decodedAccessInfo = decipher.update(ecodedAccessInfo,'hex','utf8');
 			decodedAccessInfo += decipher.final('utf8');
 			console.log("decoded access info");
-			console.log(decodedAccessInfo);
+			//console.log(decodedAccessInfo);
 			req.accessInfo = JSON.parse(decodedAccessInfo);
 			console.log("lalala");
-			console.log(req.accessInfo);//TOFIX
+			//console.log(req.accessInfo);//TOFIX
 			 next();
 		}catch(err){
 			console.log(err);//TOFIX
@@ -167,8 +166,8 @@ module.exports = function(){
 		console.log(req.accessInfo);//TOFIX
 		var module = req.accessInfo[moduleName];
 		console.log('verifying access');//TOFIX
-		console.log(module);//TOFIX
-		console.log(moduleName);
+		// console.log(module);//TOFIX
+		// console.log(moduleName);
 		console.log('req.method: '+ req.method);//TOFIX
 					switch(req.method){
 				case 'GET':
@@ -186,14 +185,14 @@ module.exports = function(){
 							send403(req,res,'Unauthorized user group');
 
 					break;
-				case 'PUT':	console.log('PUt');//TOFIX
+				case 'PATCH':	console.log('PUt');//TOFIX
 						if(module.update == true)
 							next();
 						else
 							send403(req,res,'Unauthorized user group');
 
 					break;
-				case 'DELETE':
+				case 'PUT':
 						console.log('DELETe');//TOFIX
 						if(module.delete == true)
 							next();

@@ -111,8 +111,10 @@ app.controller('blackListController', ['$scope', 'appConfig', '$window', 'domain
         });
         var leads = bc.gridApi.selection.getSelectedRows();
         var url = "/contacts/blackList";
-        var deleteStatus = $http.put(appConfig.API_URL + url, leads);
-        $window.location.reload();
+        $http.put(appConfig.API_URL + url, leads)
+        .then(function(res){
+            $window.location.reload();
+        }); 
     }
 
     bc.gridOptions.onRegisterApi = function(gridApi) {

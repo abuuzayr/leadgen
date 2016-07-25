@@ -144,8 +144,11 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
                 obj[colDef.name] = newValue;
                 var editData = [rowEntity, obj];
                 var url = "/contacts/leadList/leads";
-                var editStatus = $http.patch(appConfig.API_URL + url, editData);
-                $window.location.reload();
+                $http.patch(appConfig.API_URL + url, editData)
+                .success(function(res){
+                    $window.location.reload();
+                });
+                
             });
         }
     };

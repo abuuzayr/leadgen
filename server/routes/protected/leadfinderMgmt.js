@@ -14,13 +14,14 @@ var index = 0;
 Scraping API
 */
 leadfinderRouter.get('/corporate/g/new/:category/:country', function(req, res) {
+  console.log('Google places api key = ' + req.accessInfo.googlePlacesAPIKey);
   if (!req.params.category || !req.params.country)
     res.sendStatus(400);
   else {
     var type = req.params.category;
     var country = req.params.country.replace('+', ' ');
     index = 0;
-    ScrapManager.scrapCorporateGoogleNew(type, country)
+    ScrapManager.scrapCorporateGoogleNew(type, country,req.accessInfo.googlePlacesAPIKey)
       .then(function(results) {
         res.json(results);
       })
@@ -36,7 +37,7 @@ leadfinderRouter.get('/corporate/g/cont/:category/:country', function(req, res) 
     var type = req.params.category;
     var country = req.params.country.replace('+', ' ');
     index++;
-    ScrapManager.scrapCorporateGoogleCont(index, type, country)
+    ScrapManager.scrapCorporateGoogleCont(index, type, country, req.accessInfo.googlePlacesAPIKey)
       .then(function(results) {
         res.json(results);
       })

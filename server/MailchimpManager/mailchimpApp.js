@@ -177,7 +177,7 @@ var mailchimpApp = {
 				});
 		});
 	},
-	getReports: function(getReportDetails, resolve, reject) {
+	getReports: function(getReportDetails, coId, resolve, reject) {
 		mailchimp
 			.get('reports')
 			.then(function(report) {
@@ -188,7 +188,7 @@ var mailchimpApp = {
 						.then(function(activity) {
 							results.push(activity);
 							if (results.length == report.reports.length) {
-								getReportDetails(results, resolve, reject);
+								getReportDetails(results, coId, resolve, reject);
 							}
 						});
 				}
