@@ -39,10 +39,17 @@ accountsettingsRouter.route('/')
       res.sendStatus(500);
     }
     else{
+      var arr = [];
       for(var i in body){
         console.log(body[i].application.bulletlead)
+        var obj = {
+          username = body[i].username,
+          email = body[i].email,
+          usertype = body[i].application.bulletlead.usertype
+        };
+        arr.push(obj);
       }
-      res.json(body);
+      res.json(arr);
     }
   });
 })

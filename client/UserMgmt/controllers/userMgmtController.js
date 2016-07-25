@@ -19,7 +19,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             multiSelect: false,
             minRowsToShow: 10,
             columnDefs: [{
-                field: 'userName',
+                field: 'username',
                 displayName: 'Username',
                 minWidth: 100,
                 width: 150,
@@ -31,17 +31,17 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 minWidth: 200,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
-                field: 'role',
+                field: 'usertype',
                 displayName: 'Role',
                 minWidth: 100,
                 width: 120,
                 filter: {
                     type: uiGridConstants.filter.SELECT,
                     selectOptions: [{
-                        value: '1',
+                        value: 'Admin',
                         label: 'Admin'
                     }, {
-                        value: '2',
+                        value: 'User',
                         label: 'User'
                     }]
                 },
@@ -50,10 +50,10 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 editDropdownValueLabel: 'role',
                 editableCellTemplate: 'ui-grid/dropdownEditor',
                 editDropdownOptionsArray: [{
-                    id: 1,
+                    id: 'Admin',
                     role: 'Admin'
                 }, {
-                    id: 2,
+                    id: 'User',
                     role: 'User'
                 }]
             }, ],
