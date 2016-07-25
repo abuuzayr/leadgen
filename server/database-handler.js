@@ -286,7 +286,7 @@ var dbHandler = {
   getListOfCollections : function(){
     return new Promise(function(resolve,reject){
       connection.Do(function(db){  
-        db.listCollections({name:'leadList'}).toArray(function(err,items){
+        db.listCollections(null).toArray(function(err,items){
           if(err !== null)
             reject(500);
           else{

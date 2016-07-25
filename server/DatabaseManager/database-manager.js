@@ -12,11 +12,16 @@ var databaseManager = {
       .then(function(results){
         var promiseArr=[];
         for(var i in results){
-            promiseArr.push(dbHandler.dbQuery(results[i].name,{origin : 1}));
+            console.log(results[i].name);
+            if(results[i].name.indexOf('leads') != -1){
+              console.log(results[i].name);
+              promiseArr.push(dbHandler.dbQuery(results[i].name,{origin : 1}));
+            }
         }
         return Promise.all(promiseArr);
       })
       .then(function(results){
+        console.log(results);
         var externalLeads = [];
         for(var i=0;i<results.length;i++){
           var leads = results[i];
