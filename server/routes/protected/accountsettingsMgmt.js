@@ -14,8 +14,6 @@ accountsettingsRouter.use('*',http403.verifyAccess('accountsetting'));
 
 accountsettingsRouter.route('/')
 .get(function(req,res){
-  var coId = req.decoded.companyId;
-  
   var url = 'https://10.4.1.198/req/api/usermgmt';
 
   var j = request.jar();
@@ -41,13 +39,43 @@ accountsettingsRouter.route('/')
       res.sendStatus(500);
     }
     else{
-      console.log(response);
+      for(var i in body){
+        console.log(body[i].application.bulletlead)
+      }
       res.json(body);
-    }	
+    }
   });
 })
 .post(function(req,res){
+  var url = 'https://10.4.1.198/req/api/usermgmt';
 
+  var j = request.jar();
+  var cookie = request.cookie('session='+req.cookies.session);
+  j.setCookie(cookie,url);
+
+  console.log(req.body);
+  request({
+            url: url,
+	    headers:{
+             'Host' : '10.4.1.213'
+            },
+            agentOptions:{
+              cert: fs.readFileSync(certFile),
+              key: fs.readFileSync(keyFile),
+	      rejectUnauthorized: false
+            },
+            method:'POST',
+            json:true,
+            jar: j
+          },function(err,response,body ){
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    }
+    else{
+      res.sendStatus(201);
+    }
+  });
 });
 
 accountsettingsRouter.route('/:id')
