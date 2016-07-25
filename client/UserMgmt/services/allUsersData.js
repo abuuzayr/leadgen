@@ -2,7 +2,7 @@ app.factory('allUsersData', ['$http', 'appConfig', function($http, appConfig) {â
     var getUserData = function(companyId) {
         return $http({
             method: 'GET',
-            url: appConfig.UM_URL + '/' + companyId
+            url: appConfig.UM_URL
         });
     };
 
@@ -31,6 +31,7 @@ app.factory('allUsersData', ['$http', 'appConfig', function($http, appConfig) {â
 
     return {
         getUserData: getUserData,
+        addUserData: addUserData,
         deleteUserData: deleteUserData,
         editUserData: editUserData
     };

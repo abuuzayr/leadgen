@@ -31,11 +31,13 @@ var leadfinderMgmt = require('./protected/leadfinderMgmt.js');
 var leadlistMgmt = require('./protected/leadlistMgmt.js');
 var cookieGenerator = require('./protected/cookieMgmt.js');
 var dbMgmt = require('./protected/dbMgmt.js');
+var account = require('./protected/accountsettingsMgmt.js');
 
 apiRouter.use('/cookie', cookieGenerator);
 apiRouter.use('/scrape', leadfinderMgmt);
 apiRouter.use('/contacts', leadlistMgmt);
 apiRouter.use('/dbmgmt', dbMgmt);
+apiRouter.use('/acct', account);
 
 //apiRouter.use('*', http404.notFoundMiddleware);
 
