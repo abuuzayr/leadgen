@@ -4,8 +4,9 @@ var request = require('request');
 var http403 = require('../../utils/403')();
 
 var fs = require('fs');
-var certFile = '../../../certs/server.crt';
-var keyFile = '../../../certs/server.key';
+var path = require('path');
+var certFile = path.resolve(__dirname, '../../../certs/server.crt');
+var keyFile = path.resolve(__dirname, '../../../certs/server.key');
 
 //ACCESS CONTROL
 accountsettingsRouter.use('*',http403.verifyAccess('accountsetting'));
@@ -14,26 +15,35 @@ accountsettingsRouter.use('*',http403.verifyAccess('accountsetting'));
 accountsettingsRouter.route('/')
 .get(function(req,res){
   var coId = req.decoded.companyId;
-  var cookie = req.cookies.session;
-  console.log("======Cookie is ========");
-  console.log(cookie);
+  
+  var url = 'https://10.4.1.198/req/api/usermgmt';
+
+  var j = request.jar();
+  var cookie = request.cookie('session='+req.cookies.session);
+  j.setCookie(cookie,url);
+
   request({
-            url:'https://10.4.1.198/api/usermgmt',
+            url: url,
+	    headers:{
+             'Host' : '10.4.1.213'
+            },
             agentOptions:{
-              cert: fs.readFileSync(certFile);
-              key: fs.readFileSync(keyFile);
-            }
+              cert: fs.readFileSync(certFile),
+              key: fs.readFileSync(keyFile),
+	      rejectUnauthorized: false
+            },
             method:'GET',
             json:true,
-            jar:true
+            jar: j
           },function(err,response,body ){
     if(err){
       console.log(err);
       res.sendStatus(500);
     }
-    else
-    res.json(body);
-
+    else{
+      console.log(response);
+      res.json(body);
+    }	
   });
 })
 .post(function(req,res){
