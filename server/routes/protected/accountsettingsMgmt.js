@@ -8,33 +8,37 @@ var http403 = require('../../utils/403')();
 accountsettingsRouter.use('*',http403.verifyAccess('accountsetting'));
 
 
-accountsettingRouter.route('/')
+accountsettingsRouter.route('/')
 .get(function(req,res){
   var coId = req.decoded.companyId;
+  var cookie = req.cookie.session;
+  console.log("======Cookie is ========");
+  console.log(cookie);
   request({
             url:'//10.4.1.198/api/usermgmt',
             method:'GET',
-            json:true
+            json:true,
+            jar:true
           },function(err,response,body ){
     if(err)
       res.sendStatus(500);
     else
     res.json(body);
 
-  })
+  });
 })
 .post(function(req,res){
 
 });
 
-accountsettingRouter.route('/:id')
+accountsettingsRouter.route('/:id')
 .get(function(req,res){
 
 })
 .put(function(req,res){
 
-});
-.patchs(function(req,res){
+})
+.patch(function(req,res){
 
 });
 

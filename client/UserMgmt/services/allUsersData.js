@@ -2,7 +2,7 @@ app.factory('allUsersData', ['$http', 'appConfig', function($http, appConfig) {â
     var getUserData = function(companyId) {
         return $http({
             method: 'GET',
-            url: appConfig.UM_URL
+            url: appConfig.API_URL + '/acct'
         });
     };
 
