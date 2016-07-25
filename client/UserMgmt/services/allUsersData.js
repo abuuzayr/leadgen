@@ -2,14 +2,14 @@ app.factory('allUsersData', ['$http', 'appConfig', function($http, appConfig) {â
     var getUserData = function(companyId) {
         return $http({
             method: 'GET',
-            url: appConfig.API_URL + '/acct'
+            url: appConfig.API_URL + '/usermgmt'
         });
     };
 
     var addUserData = function(newUserData) {
         return $http({
             method: 'POST',
-            url: appConfig.UM_URL,
+            url: appConfig.API_URL + '/usermgmt',
             data: newUserData
         });
     };
