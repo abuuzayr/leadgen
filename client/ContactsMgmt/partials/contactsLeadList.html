@@ -27,8 +27,8 @@
             <button ng-click="cc.openDialog('addField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored pull-right addButtons">
                 <i class="material-icons md-48">add_circle</i>
             </button>
-            <button ng-click="cc.openDialog('deleteField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent pull-right addButtons">
-                <i class="material-icons md-48" id="removeField">remove_circle</i>
+            <button ng-click="cc.openDialog('deleteField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent pull-right addButtons" id="removeField">
+                <i class="material-icons md-48" id="removeFieldSign">remove_circle</i>
             </button>
             <br><br>
             <div id="grid1" ui-grid="cc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-importer ui-grid-resize-columns class="grid"></div>
@@ -132,7 +132,7 @@
                         </div>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="cc.closeDialog('addField')">Close</button>
-                            <button id="addField" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button>
+                            <button id="addFieldButton" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button>
                         </div>
                     </form>
                 </div>
@@ -150,7 +150,7 @@
                         </select>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="cc.closeDialog('deleteField')">Close</button>
-                            <button id="deleteField" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="cc.openDialog('deleteFieldConfirmation')">Delete</button>
+                            <button id="deleteFieldButton" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="cc.openDialog('deleteFieldConfirmation')">Delete</button>
                         </div>
                     </form>
                 </div>

@@ -31,6 +31,10 @@
     background-color: #838483 !important;
 }
 
+#removeFieldSign {
+    background-color: #838483 !important;
+}
+
 #confirmAdd {
     background-color: #838483 !important;
 }
@@ -47,7 +51,7 @@
     background-color: #838483 !important;
 }
 
-#deleteField {
+#deleteFieldButton {
     background-color: #838483 !important;
 }
 
@@ -59,6 +63,6 @@
     background-color: #838483 !important;
 }
 
-#addField {
+#addFieldButton {
     background-color: #838483 !important;
 }
