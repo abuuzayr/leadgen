@@ -8,17 +8,30 @@
 }
 
 #showFailure {
-  height: auto;
-  width: 300px;
+    height: auto;
+    width: 300px;
 }
 
-.mdl-button--raised.mdl-button--colored {
-{
-	background-color: #f15b5d;
-	text-transform:capitalize;
+
+/*.mdl-button--raised.mdl-button--colored {
+    background-color: #f15b5d;
+    text-transform: capitalize;
 }
-.deleteMLButton
-{
-	background-color: #838483 !important;
-	text-transform:capitalize !important;
+
+.deleteMLButton {
+    background-color: #838483 !important;
+    text-transform: capitalize !important;
+}*/
+
+.mdl-button {
+    font-family: 'Roboto';
+    font-size: 14 px;
+    font-weight: 400 px;
+    text-transform: capitalize !important;
+    color: #F2F1F1 !important;
+    background-color: #eb3a40 !important;
+}
+
+#deleteList {
+    background-color: #838483 !important;
 }

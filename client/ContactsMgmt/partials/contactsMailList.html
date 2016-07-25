@@ -1,10 +1,9 @@
 <link rel="stylesheet" href="assets/css/mailList.css" />
 <style>
-.mdl-button{
-
-    background-color: #f15bfd !important;
-    text-transform:capitalize;
-}
+    .mdl-button {
+        background-color: #f15bfd !important;
+        text-transform: capitalize;
+    }
 </style>
 <div ng-controller="mailListController as mc">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -24,7 +23,7 @@
         <div class="grid1" ui-grid="mc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns></div>
         <br>
         <button ng-click="mc.openDialog('addMailList')" style="background-color: #f15bfd;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Mailing List</button>
-        <button ng-click="mc.openDialog('deleteConfirmation')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteMLButton">Delete Mailing List</button>
+        <button ng-click="mc.openDialog('deleteConfirmation')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteMLButton" id="deleteList">Delete Mailing List</button>
     </div>
 
     <dialog id="deleteConfirmation" class="mdl-dialog">

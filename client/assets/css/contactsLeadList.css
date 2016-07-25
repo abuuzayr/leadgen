@@ -5,11 +5,60 @@
 #historyData {
     width: 380px;
 }
-.addButtons
-{
-	background-color: #f15b5d !important;
+
+.mdl-button {
+    font-family: 'Roboto';
+    font-size: 14 px;
+    font-weight: 400 px;
+    text-transform: capitalize !important;
+    color: #F2F1F1 !important;
+    background-color: #eb3a40 !important;
 }
-.mdl-button--accent
-{
-	background-color: #838483 !important;
+
+#removeLead {
+    background-color: #838483 !important;
+}
+
+#removeDuplicate {
+    background-color: #838483 !important;
+}
+
+#get_file {
+    background-color: #838483 !important;
+}
+
+#removeField {
+    background-color: #838483 !important;
+}
+
+#confirmAdd {
+    background-color: #838483 !important;
+}
+
+#confirmDelete {
+    background-color: #838483 !important;
+}
+
+#selectList {
+    background-color: #838483 !important;
+}
+
+#confirmRemove {
+    background-color: #838483 !important;
+}
+
+#deleteField {
+    background-color: #838483 !important;
+}
+
+#deleteFieldConfirm {
+    background-color: #838483 !important;
+}
+
+#secondRemoveDup {
+    background-color: #838483 !important;
+}
+
+#addField {
+    background-color: #838483 !important;
 }
