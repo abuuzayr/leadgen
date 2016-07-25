@@ -28,7 +28,7 @@
             </p>
             <div class="mdl-dialog__actions">
                 <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="mc.closeDialog('deleteConfirmation')">No</button>
-                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.deleteSelected(); mc.closeDialog('deleteConfirmation')">Yes</button>
+                <button id="deleteList" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.deleteSelected(); mc.closeDialog('deleteConfirmation')">Yes</button>
             </div>
         </div>
     </dialog>
@@ -46,7 +46,7 @@
 
                 <div class="mdl-dialog__actions">
                     <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="mc.closeDialog('addMailList')">Close</button>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.closeDialog('addMailList')">Add</button>
+                    <button id="addList" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.closeDialog('addMailList')">Add</button>
                 </div>
             </form>
         </div>
