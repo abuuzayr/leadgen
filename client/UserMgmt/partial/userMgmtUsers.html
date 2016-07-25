@@ -1,3 +1,5 @@
+<link rel="stylesheet" type="text/css" href="assets/css/allUsers.css">
+
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <!---------------------------------------- Ng-include nav bars ---------------------------------------->
     <div ng-include="'NavBarMgmt/mainTab.html'"></div>
@@ -18,7 +20,7 @@
             <br>
 
             <button ng-click="uc.openDialog('addUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add New User</button>
-            <button ng-click="uc.openDialog('deleteUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"> Remove User(S) </button>
+            <button ng-click="uc.openDialog('deleteUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="removeUser"> Remove User </button>
 
             <br><br>
 
@@ -83,7 +85,7 @@
 
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addUser')">Close</button>
-                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser')">Add</button>
+                            <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser')">Add</button>
                         </div>
                     </form>
                 </div>

@@ -1,0 +1,33 @@
+ .mdl-button {
+     font-family: 'Roboto' !important;
+     font-size: 14 px;
+     font-weight: 400 px;
+     text-transform: capitalize !important;
+     background-color: #eb3a40 !important;
+ }
+ 
+ #removeUser {
+     font-family: 'Roboto' !important;
+     font-size: 14 px;
+     font-weight: 400 px;
+     text-transform: capitalize !important;
+     background-color: #838483 !important;
+ }
+ 
+ #confirmDelete {
+     font-family: 'Roboto' !important;
+     font-size: 14 px;
+     font-weight: 400 px;
+     text-transform: capitalize !important;
+     background-color: #eb3a40 !important;
+     color: #F2F1F1;
+ }
+ 
+ #cancel {
+     font-family: 'Roboto' !important;
+     font-size: 14 px;
+     font-weight: 400 px;
+     text-transform: capitalize !important;
+     background-color: #838483 !important;
+     color: #F2F1F1;
+ }

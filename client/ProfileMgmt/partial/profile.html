@@ -1,4 +1,4 @@
-<!--<link rel="stylesheet" type="text/css" href="assets/css/userProfile.css">-->
+<link rel="stylesheet" type="text/css" href="assets/css/userProfile.css">
 <div class="mdl-layout__container" ng-controller="profileController as pc">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <!---------------------------------------- Ng-include nav bars ---------------------------------------->
@@ -7,7 +7,7 @@
     <br><br><br>
     <div class="mdl-grid">
         <div id="settings-grid" class="mdl-cell mdl-cell--6-col">
-            <h3>Account Settings</h3>
+            <h3>Account Details</h3>
             <form id="change-settings" action="#">
                 <!-- Username input -->
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -25,9 +25,10 @@
                 <!-- Change timezone -->
                 <div id="timezone" class="mdl-selectfield">
                     <label class="mdl-selectfield__label">Timezone</label>
+                    <br>
                     <select>
-                                <option value="singapore">Singapore GMT +8</option>
-                            </select>
+                        <option value="singapore">Singapore GMT +8</option>
+                    </select>
                 </div><br><br>
             </form>
         </div>
