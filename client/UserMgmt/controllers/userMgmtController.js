@@ -1,7 +1,8 @@
 app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', '$window', 'authServices',
     function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackServices, $window, authServices) {
         var uc = this;
-        var companyId = '';
+        var companyId;
+        var userId;
 
         uc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
             if (col.filters[0].term) {
@@ -60,7 +61,10 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         //get company id from cookie
         if (authServices.getToken()) {
             companyId = authServices.getUserInfo().companyId;
+            userId = authServices.getUserInfo().userId;
+        }
 
+        if (angular.isDefined(companyId)) {
             // get data from server
             allUsersData.getUserData(companyId).then(function successCallback(res) {
                     uc.gridOptions.data = res.data;
@@ -73,13 +77,26 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         //add new user
         uc.addData = function() {
             var n = uc.gridOptions.data.length + 1;
+            var newUser = {};
             uc.gridOptions.data.push({
                 "userName": uc.lead.userName,
                 "email": uc.lead.email,
                 "pasword": uc.lead.password,
                 "role": uc.lead.role
             });
-            uc.addResult = "Success!";
+            newUser = {
+                username: uc.lead.userName,
+                email: uc.lead.email,
+                password: uc.lead.password,
+                role: uc.lead.role
+            };
+
+            allUsersData.addUserData(newUser).then(function successCallback(res) {
+                console.log('Added');
+            }).catch(function errorCallback(err) {
+                console.log('Unable to add user');
+            });
+
         };
 
         //delete selected leads
@@ -112,7 +129,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 var obj = {};
                 obj[colDef.name] = newValue;
                 var editData = [rowEntity, obj];
-                allUsersData.editUserData(editData);
+                allUsersData.editUserData(editData, userId);
                 // $window.location.reload();
             });
         };

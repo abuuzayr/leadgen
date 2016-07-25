@@ -2,29 +2,36 @@ app.factory('allUsersData', ['$http', 'appConfig', function($http, appConfig) {â
     var getUserData = function(companyId) {
         return $http({
             method: 'GET',
-            url: appConfig.UM_URL
+            url: appConfig.UM_URL + '/' + companyId
         });
-    }
+    };
 
-    var deleteUserData = function(usersToRemove) {
+    var addUserData = function(newUserData) {
+        return $http({
+            method: 'POST',
+            url: appConfig.UM_URL,
+            data: newUserData
+        });
+    };
+
+    var deleteUserData = function(userId) {
+        return $http({
+            method: 'DELETE',
+            url: appConfig.UM_URL + '/' + userId,
+        });
+    };
+
+    var editUserData = function(editedUser, userId) {
         return $http({
             method: 'PUT',
-            url: '',
-            data: usersToRemove
-        })
-    }
-
-    var editUserData = function(editedUser) {
-        return $http({
-            method: 'PATCH',
-            url: '',
+            url: appConfig.UM_URL + '/' + userId,
             data: editedUser
-        })
-    }
+        });
+    };
 
     return {
         getUserData: getUserData,
         deleteUserData: deleteUserData,
         editUserData: editUserData
-    }
+    };
 }]);
