@@ -3,6 +3,10 @@ var accountsettingsRouter = express.Router();
 var request = require('request');
 var http403 = require('../../utils/403')();
 
+var fs = require('fs');
+var certFile = '../../../certs/server.crt';
+var keyFile = '../../../certs/server.key';
+
 //ACCESS CONTROL
 accountsettingsRouter.use('*',http403.verifyAccess('accountsetting'));
 
@@ -15,6 +19,10 @@ accountsettingsRouter.route('/')
   console.log(cookie);
   request({
             url:'https://10.4.1.198/api/usermgmt',
+            agentOptions:{
+              cert: fs.readFileSync(certFile);
+              key: fs.readFileSync(keyFile);
+            }
             method:'GET',
             json:true,
             jar:true
