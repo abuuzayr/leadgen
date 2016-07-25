@@ -25,7 +25,7 @@
 
         <div class='buttons'>
 
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" ng-click="ld.openDialog('deleteLead')">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" id="deleteSelectedInternal" ng-click="ld.openDialog('deleteLead')">
             Deleted Selected
             </button>
 
@@ -57,7 +57,7 @@
                     <p>Are you sure ?</p>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ld.closeDialog('deleteLead')">Cancel</button>
-                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ld.deleteSelected();ld.closeDialog('deleteLead')">Yes</button>
+                        <button id='confirmDelete' type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ld.deleteSelected();ld.closeDialog('deleteLead')">Yes</button>
                     </div>
                 </div>
             </dialog>
