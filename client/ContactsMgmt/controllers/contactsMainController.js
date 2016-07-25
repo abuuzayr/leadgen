@@ -2,6 +2,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
 
     var cc = this;
 
+    /** This is used to get leads from database */
     leadsData.success(function(data) {
         cc.gridOptions.data = data;
     });
@@ -128,6 +129,11 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             headerCellClass: cc.highlightFilteredHeader,
             cellTemplate: '<button class="btn primary" ng-click="grid.appScope.cc.showMe(row.entity)">View</button>'
         }],
+
+        /** 
+         * This method takes in a file object and a grid as it’s parameters. 
+         * The method adds the data within the file into the grid and stores the data into the database. 
+         */
         importerDataAddCallback: function(grid, newObjects) {
             cc.gridOptions.data = cc.gridOptions.data.concat(newObjects);
             var url = "/contacts/leadList/import";
@@ -150,12 +156,15 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         }
     };
 
-    //refresh
+    /** 
+     * This method refreshes the page. 
+     * It is used to update the data shown in UI-Grid
+     */
     cc.refresh = function() {
         $window.location.reload();
     };
 
-    
+
     //Get columndefs
     cc.fields = [];
     contactsColumnData.success(function(data) {
@@ -165,7 +174,12 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         }
     });
 
-    //show history dialog
+
+    /** 
+     * This method takes in a parameter which is a selected row entity. 
+     * It retrieves the history data of the row entity and displays the data in a dialog.
+     * @param {} value - The selected row entity
+     */
     cc.showMe = function(value) {
         historyData.getHistory(value._id).then(function successCallback(res) {
                 cc.history = res.data;
@@ -183,7 +197,12 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         dialog.showModal();
     };
 
-    //add new lead
+    /** 
+     * This method adds a new lead into the database based 
+     * on the data retrieve using ng-model.
+     * This method also updates the database with the new lead
+     * @param {} lead - The lead to be added
+     */
     cc.addData = function() {
         var n = cc.gridOptions.data.length + 1;
         cc.gridOptions.data.push({
@@ -214,7 +233,12 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         var addStatus = $http.post(appConfig.API_URL + url, lead);
     };
 
-    //delete selected leads
+    /** 
+     * This method retrieves and removes the selected rows from UI-Grid table
+     *  and deletes the data from the database. The page will be reloaded when 
+     *  deleting the lead from the database is successful to update the UI-Grid
+     *  @param {array} leads - The selected rows to delete 
+     */
     cc.deleteSelected = function() {
         angular.forEach(cc.gridApi.selection.getSelectedRows(), function(data, index) {
             cc.gridOptions.data.splice(cc.gridOptions.data.lastIndexOf(data), 1);
@@ -222,15 +246,19 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         var leads = cc.gridApi.selection.getSelectedRows();
         var url = "/contacts/leadList/leads";
         $http.put(appConfig.API_URL + url, leads)
-		  .then(function(res){
-	        $window.location.reload();
-	      })
-		  .catch(function(err){
-	    	console.log(err);
-		  })
+            .then(function(res) {
+                $window.location.reload();
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
     };
 
-    // add field
+    /** 
+     * This method adds a new field into the UI-Grid table 
+     * and stores the new field into the database based on data retrieve using ng-model.
+     * @param {} field - The new field to be added 
+     */
     cc.addField = function() {
         var fieldName = cc.field.name;
         var arrName = fieldName.split(" ");
@@ -272,11 +300,23 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         $window.location.reload();
     };
 
+    /** 
+     * This method creates a new variable to store the data of the field to be deleted. 
+     * It is retrieve using ng-model. 
+     * This method is called so as to 
+     * facilitate the confirmation of delete via popup dialog.
+     */
     cc.selectDeleteField = function() {
         cc.selectedDeleteField = cc.fieldSelected;
     };
 
-    // delete field
+    /** 
+     * This method deletes a field based on the data binded to the variable created 
+     *  when selectDeleteField() method is called.
+     *  The selected field will also be deleted from the database and the page
+     *  will be reloaded to update the UI Grid table.
+     *  @param {} fieldObj - The selected field to be deleted
+     */
     cc.deleteField = function() {
         for (var x in cc.gridOptions.columnDefs) {
             if ((cc.gridOptions.columnDefs[x].displayName === cc.selectedDeleteField)) {
@@ -287,7 +327,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
                 };
                 var url = "/contacts/leadList/fields";
                 var deleteStatus = $http.put(appConfig.API_URL + url, fieldObj);
-				$window.location.reload();
+                $window.location.reload();
             }
         }
         for (var x in cc.fields) {
@@ -298,7 +338,12 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         }
     };
 
-    // add leads to mailing list
+    /**
+     * This method retrieves leads based on selected rows and 
+     * add them to a mailing list based on the specific mailing list retrieve from ng-model.
+     * It also updates the database 
+     * @param {} obj - The name of the mailing list and leads to be added
+     */
     cc.addToMailingList = function() {
         var id = "";
         for (var x of cc.mailingList) {
@@ -321,7 +366,11 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         cc.selectedDuplicateField = cc.fieldSelected;
     };
 
-    //Remove duplicates
+    /**
+     * This method removes duplicated leads based on the specific field selected. 
+     * Data of specific field selected is retrieve using ng-model.
+     * It also updates the database.
+     */
     cc.removeDuplicate = function() {
         var field = "";
         for (var x of cc.gridOptions.columnDefs) {
@@ -337,7 +386,11 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         $window.location.reload();
     };
 
-    //import function
+    /**
+     * This method is called when an import event occurs. 
+     * It retrieves the file object from the event and pass on to the import function.
+     * @param {} event 
+     */
     var handleFileSelect = function(event) {
         var target = event.srcElement || event.target;
 
@@ -372,6 +425,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         dialog.close();
     };
 
+    /** This method is called to initialize and display a success message via a snackbar upon successfully adding new data. */
     cc.addFeedback = function() {
         feedbackServices.successFeedback("Added!", '#addFeedbackID');
     };
