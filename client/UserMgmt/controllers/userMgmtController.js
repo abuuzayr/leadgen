@@ -16,6 +16,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             enableSorting: true,
             enableFiltering: true,
             showGridFooter: true,
+            multiSelect: false,
             minRowsToShow: 10,
             columnDefs: [{
                 field: 'userName',
@@ -77,14 +78,13 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         //add new user
         uc.addData = function() {
             var n = uc.gridOptions.data.length + 1;
-            var newUser = {};
             uc.gridOptions.data.push({
                 "userName": uc.lead.userName,
                 "email": uc.lead.email,
                 "pasword": uc.lead.password,
                 "role": uc.lead.role
             });
-            newUser = {
+            var newUser = {
                 username: uc.lead.userName,
                 email: uc.lead.email,
                 password: uc.lead.password,

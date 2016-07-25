@@ -1,0 +1,8 @@
+.mdl-button {
+    font-family: 'Roboto';
+    font-size: 14 px;
+    font-weight: 400 px;
+    text-transform: capitalize;
+    color: #F2F1F1;
+    width: 50px;
+}

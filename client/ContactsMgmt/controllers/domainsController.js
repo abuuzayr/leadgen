@@ -2,6 +2,7 @@ app.controller('domainsController', ['$scope', 'appConfig', '$window', 'domainsD
 
     var dc = this;
 
+    /** This is used to get the blocked domains from database */
     domainsData.success(function(data) {
         dc.gridOptions.data = data;
     });
@@ -26,6 +27,7 @@ app.controller('domainsController', ['$scope', 'appConfig', '$window', 'domainsD
         }
     };
 
+    /** UI Grid for blocked domains */
     dc.gridOptions = {
         showGridFooter: true,
         enableFiltering: true,
@@ -39,12 +41,15 @@ app.controller('domainsController', ['$scope', 'appConfig', '$window', 'domainsD
         }],
     };
 
-    //refresh
+    /** 
+     * This method refreshes the page. 
+     * It is used to update the data shown in UI-Grid
+     */
     dc.refresh = function() {
         $window.location.reload();
     };
 
-    // add domain
+    /** This method adds a new lead into the database based on the data retrieve using ng-model */
     dc.addDomain = function() {
         var domain = dc.domainSelected;
         var arrName = domain.split(" ");
@@ -64,13 +69,21 @@ app.controller('domainsController', ['$scope', 'appConfig', '$window', 'domainsD
         var url = "/contacts/blackList/domain";
         var addStatus = $http.post(appConfig.API_URL + url, domain);
         $window.location.reload();
-    }
+    };
 
+    /**
+     * This method creates a new variable to store the data of the domain to be deleted. 
+     * It is retrieve using ng-model. 
+     * This method is called so as to facilitate the confirmation of delete via popup dialog.
+     */
     dc.selectDeleteDomain = function() {
         dc.selectedDeleteDomain = dc.domainSelected;
     };
 
-    // delete domain
+    /**
+     * This method deletes a domain based on the data binded to the variable created when 
+     * selectDeleteDomain() method is called.
+     */
     dc.deleteDomain = function() {
         for (var x in dc.gridOptions.data) {
             if ((dc.gridOptions.data[x].domain === dc.selectedDeleteDomain)) {

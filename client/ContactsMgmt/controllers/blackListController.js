@@ -2,6 +2,7 @@ app.controller('blackListController', ['$scope', 'appConfig', '$window', 'domain
 
     var bc = this;
 
+    /** This is used to get leads from database */
     blackLeadsData.success(function(data) {
         bc.gridOptions.data = data;
     });
@@ -99,12 +100,19 @@ app.controller('blackListController', ['$scope', 'appConfig', '$window', 'domain
         }, ],
     };
 
-    //refresh
+    /** 
+     * This method refreshes the page. 
+     * It is used to update the data shown in UI-Grid
+     */
     bc.refresh = function() {
         $window.location.reload();
-    }
+    };
 
-    //delete selected leads
+    /** 
+     * This method retrieves and removes the selected rows from UI-Grid table
+     *  and deletes the data from the database.
+     *  @param [] leads - The selected rows to delete 
+     */
     bc.deleteSelected = function() {
         angular.forEach(bc.gridApi.selection.getSelectedRows(), function(data, index) {
             bc.gridOptions.data.splice(bc.gridOptions.data.lastIndexOf(data), 1);
