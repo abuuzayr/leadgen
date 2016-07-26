@@ -32,9 +32,10 @@
 }
 
 .externalDatabase {
-    width: 1100px;
-    height: 400px;
+    /*width: 1100px;
+    height: 400px;*/
     margin: auto;
+    width: 90%;
 }
 
 #typeSelection {
@@ -64,12 +65,13 @@
 .tabs {
     border-bottom: solid;
     border-bottom-width: 1px;
+    width: 20%;
 }
 
 .nav-tabs {
     /*margin-left: 500px;*/
-    right: 50%;
-    left: 50%;
+    right: 40%;
+    left: 40%;
     position: relative;
 }
 
