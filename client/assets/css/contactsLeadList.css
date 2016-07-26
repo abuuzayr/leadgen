@@ -80,3 +80,21 @@
     background-color: #838483 !important;
     color :white !important;
 }
+
+.ui-grid-menu .ui-grid-menu-inner ul li button {
+
+  min-width: 100%;
+  padding: 8px;
+  text-align: left;
+  background: transparent;
+  border: none;
+}
+
+.ui-grid-menu .ui-grid-menu-inner ul li button:hover {
+  color:red !important;
+  min-width: 100%;
+  padding: 8px;
+  text-align: left;
+  background: transparent;
+  border: none;
+}
