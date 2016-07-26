@@ -16,15 +16,15 @@ app.factory('allUsersData', ['$http', 'appConfig', function($http, appConfig) {â
 
     var deleteUserData = function(userId) {
         return $http({
-            method: 'DELETE',
-            url: appConfig.API_URL + '/' + userId,
+            method: 'PUT',
+            url: appConfig.API_URL + '/usermgmt/' + userId,
         });
     };
 
     var editUserData = function(editedUser, userId) {
         return $http({
-            method: 'PUT',
-            url: appConfig.API_URL + '/' + userId,
+            method: 'PATCH',
+            url: appConfig.API_URL + '/usermgmt/' + userId,
             data: editedUser
         });
     };

@@ -39,16 +39,11 @@ accountsettingsRouter.route('/')
       res.sendStatus(500);
     }
     else{
+      console.log(body);
       var arr = [];
       for(var i in body){
-        console.log(body[i].application.bulletlead);
-        var obj = {
-          username : body[i].username,
-          email : body[i].email,
-          usertype : body[i].application.bulletlead.usertype
-        };
-        if(obj.usertype !== 'SuperAdmin')
-          arr.push(obj);
+        if(body[i].application.bulletlead.usertype !== 'SuperAdmin')
+          arr.push(body[i]);
       }
       res.json(arr);
     }
@@ -91,9 +86,9 @@ accountsettingsRouter.route('/')
 });
 
 accountsettingsRouter.route('/:id')
-.put(function(req,res){
-  var url = 'https://10.4.1.198/req/api/usermgmt';
-
+.patch(function(req,res){
+  var url = 'https://10.4.1.198/req/api/usermgmt/' + req.params.id;
+  console.log(url);
   var j = request.jar();
   var cookie = request.cookie('session='+req.cookies.session);
   j.setCookie(cookie,url);
@@ -111,23 +106,25 @@ accountsettingsRouter.route('/:id')
               key: fs.readFileSync(keyFile),
               rejectUnauthorized: false
             },
-            method:'POST',
+            method:'PUT',
             json:true,
             jar: j,
             body:obj
           },function(err,response,body ){
     if(err){
+      console.log(err);
       res.sendStatus(500);
     }
     else{
+      console.log(body);
       res.sendStatus(201);
     }
   });
 })
-.delete(function(req,res){
+.put(function(req,res){
 
-  var url = 'https://10.4.1.198/req/api/usermgmt';
-
+  var url = 'https://10.4.1.198/req/api/usermgmt/' + req.params.id;
+  console.log(url);
   var j = request.jar();
   var cookie = request.cookie('session='+req.cookies.session);
   j.setCookie(cookie,url);
@@ -146,9 +143,11 @@ accountsettingsRouter.route('/:id')
             jar: j
           },function(err,response,body ){
     if(err){
+      console.log(err);
       res.sendStatus(500);
     }
     else{
+      console.log(body);
       res.sendStatus(201);
     }
   });

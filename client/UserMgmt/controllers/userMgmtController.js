@@ -32,7 +32,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 minWidth: 200,
                 headerCellClass: uc.highlightFilteredHeader
             }, {
-                field: 'usertype',
+                field: 'application.bulletlead.usertype',
                 displayName: 'Role',
                 minWidth: 100,
                 width: 120,
@@ -83,7 +83,11 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             uc.gridOptions.data.push({
                 "username": uc.lead.userName,
                 "email": uc.lead.email,
-                "usertype": uc.lead.role
+                "application": {
+		   "bulletlead":{
+  		     "usertype":uc.lead.role
+		   }
+  		}
             });
             var newUser = {
                 username: uc.lead.userName,
@@ -113,9 +117,9 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             });
 
             var selectedUsersToDelete = uc.gridApi.selection.getSelectedRows();
-            console.log(selectedUsersToDelete);
+            console.log(selectedUsersToDelete[0]._id);
 
-            allUsersData.deleteUserData(selectedUsersToDelete).then(function successCallback(res) {
+            allUsersData.deleteUserData(selectedUsersToDelete[0]._id).then(function successCallback(res) {
                 return feedbackServices.hideFeedback('#userManagementFeedback').
                 then(feedbackServices.successFeedback('Deleted!', '#userManagementFeedback', 2000));
 
@@ -130,13 +134,11 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-                console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                 $scope.$apply();
 
                 var obj = {};
                 obj[colDef.name] = newValue;
-                var editData = [rowEntity, obj];
-                allUsersData.editUserData(editData, userId);
+                allUsersData.editUserData(rowEntity, rowEntity._id);
                 // $window.location.reload();
             });
         };
