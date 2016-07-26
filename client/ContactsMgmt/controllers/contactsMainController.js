@@ -299,8 +299,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             width: 200
         };
         var url = "/contacts/leadList/fields";
-        var addStatus = $http.post(appConfig.API_URL + url, field);
-       // $window.location.reload();
+        $http.post(appConfig.API_URL + url, field)
+        .then(function(res){
+          $window.location.reload();
+        });
     };
 
     /** 
@@ -385,8 +387,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             fieldName: field
         };
         var url = "/contacts/leadList/leads/duplicates";
-        var removeStatus = $http.put(appConfig.API_URL + url, fieldObj);
-        $window.location.reload();
+        $http.put(appConfig.API_URL + url, fieldObj)
+        .then(function(res){
+            $window.location.reload(); 
+        });
     };
 
     /**
