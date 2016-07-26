@@ -7,11 +7,14 @@
     <br>
     <br>
     <br>
-    <ul class="nav nav-tabs">
-        <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click="bc.refresh()">LeadList</a></li>
-        <li class=""><a ui-sref="maillist" data-toggle="tab" ng-click="bc.refresh()">Mailing List</a></li>
-        <li class="active"><a ui-sref="blacklist" data-toggle="tab" ng-click="bc.refresh()">BlackList</a></li>
-    </ul>
+    <div class='tabs'>
+        <ul class="nav nav-tabs">
+            <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click="bc.refresh()">LeadList</a></li>
+            <li class=""><a ui-sref="maillist" data-toggle="tab" ng-click="bc.refresh()">Mailing List</a></li>
+            <li class="active"><a ui-sref="blacklist" data-toggle="tab" ng-click="bc.refresh()">BlackList</a></li>
+        </ul>
+    </div>
+
     <div id="myTabContent" class="tab-content">
         <br>
         <div ng-controller="domainsController as dc">
