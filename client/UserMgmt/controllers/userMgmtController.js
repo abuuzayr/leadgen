@@ -137,7 +137,14 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 $scope.$apply();
 
                 var obj = {};
-                obj[colDef.name] = newValue;
+                if(colDef.field === 'application.bulletlead.usertype'){
+                    obj.application = {};
+                    obj.application.bulletlead = {};
+                    obj.application.bulletlead.usertype = newValue;
+                }else{
+                    obj[colDef.field] =newValue;
+                }
+                console.log(obj);
                 allUsersData.editUserData(rowEntity, rowEntity._id);
                 // $window.location.reload();
             });
