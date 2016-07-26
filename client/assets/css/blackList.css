@@ -3,3 +3,41 @@
     height: 200px !important;
     margin: auto;
 }
+
+.mailGrid {
+    width: 960px !important;
+    margin: auto;
+}
+
+.grid1 {
+    height: 300px !important;
+}
+
+#showFailure {
+    height: auto;
+    width: 300px;
+}
+
+
+/*.mdl-button--raised.mdl-button--colored {
+    background-color: #f15b5d;
+    text-transform: capitalize;
+}
+
+.deleteMLButton {
+    background-color: #838483 !important;
+    text-transform: capitalize !important;
+}*/
+
+.mdl-button {
+    font-family: 'Roboto';
+    font-size: 14 px;
+    font-weight: 400 px;
+    text-transform: capitalize !important;
+    color: #F2F1F1 !important;
+    background-color: #eb3a40 !important;
+}
+
+#delBlackLead {
+    background-color: #838483 !important;
+}
