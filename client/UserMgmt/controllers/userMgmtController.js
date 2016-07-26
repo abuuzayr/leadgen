@@ -3,6 +3,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         var uc = this;
         var companyId;
         var userId;
+        var companyName;
 
         uc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
             if (col.filters[0].term) {
@@ -63,6 +64,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         if (authServices.getToken()) {
             companyId = authServices.getUserInfo().companyId;
             userId = authServices.getUserInfo().userId;
+            companyName = authServices.getUserInfo().companyName;
         }
 
         if (angular.isDefined(companyId)) {
@@ -88,8 +90,13 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 username: uc.lead.userName,
                 email: uc.lead.email,
                 password: uc.lead.password,
-                role: uc.lead.role
+                companyId: companyId,
+                companyName: companyName,
+
             };
+
+            newUser.bulletlead = {};
+            newUser.bulletlead.usertype = uc.lead.role;
 
             allUsersData.addUserData(newUser).then(function successCallback(res) {
                 console.log('Added');
