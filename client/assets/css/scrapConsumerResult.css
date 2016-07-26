@@ -46,3 +46,36 @@
     background-color: #838483 !important;
     color: #F2F1F1;
 }
+
+.ui-grid-menu .ui-grid-menu-inner ul li button {
+
+  min-width: 100%;
+  padding: 8px;
+  text-align: left;
+  background: transparent;
+  border: none;
+  outline:none;
+}
+
+.ui-grid-menu .ui-grid-menu-inner ul li button:hover {
+  color:red !important;
+  min-width: 100%;
+  padding: 8px;
+  text-align: left;
+  background: transparent;
+  color:#f15b5d;
+    outline:none;
+}
+
+
+.ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item-active {
+    -webkit-box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
+    color:red;
+    background: transparent !important;
+    outline:none;border:3px solid #f15b5d
+}
+.ui-grid-grid-footer{
+    color:#f15b5d !important;
+}
