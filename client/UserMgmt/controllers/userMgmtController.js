@@ -172,8 +172,8 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 //filter drop down option hashing
 .filter('mapRole', function() {
     var roleHash = {
-        1: 'Admin',
-        2: 'User'
+        'Admin': 'Admin',
+        'User': 'User'
     };
 
     return function(input) {
