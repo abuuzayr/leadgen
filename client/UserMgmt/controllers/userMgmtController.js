@@ -94,8 +94,9 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 
             };
 
-            newUser.bulletlead = {};
-            newUser.bulletlead.usertype = uc.lead.role;
+            newUser.application = {};
+	    newUser.application.bulletlead = {};
+            newUser.application.bulletlead.usertype = uc.lead.role;
 
             allUsersData.addUserData(newUser).then(function successCallback(res) {
                 console.log('Added');

@@ -55,6 +55,8 @@ accountsettingsRouter.route('/')
   });
 })
 .post(function(req,res){
+  
+ 
   var url = 'https://10.4.1.198/req/api/usermgmt';
 
   var j = request.jar();
@@ -77,14 +79,12 @@ accountsettingsRouter.route('/')
             method:'POST',
             json:true,
             jar: j,
-            body: JSON.stringify(obj)
+            body:obj
           },function(err,response,body ){
     if(err){
-      console.log(err);
       res.sendStatus(500);
     }
     else{
-      console.log(body);
       res.sendStatus(201);
     }
   });
