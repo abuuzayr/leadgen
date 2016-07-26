@@ -14,6 +14,21 @@
         color: #F2F1F1;
     }
     
+    #leadMgmt {
+        font-family: 'Roboto';
+        font-size: : 14 px;
+        font-weight: 400 px;
+        text-transform: capitalize;
+        color: #F2F1F1;
+    }
+    
+    #leadMgmt:hover {
+        font-weight: 900 !important;
+        color: #F2F1F1;
+        text-decoration: underline;
+        background-color: #eb3a40;
+    }
+    
     .mdl-button:hover {
         font-weight: 900 !important;
         color: #F2F1F1;
@@ -30,7 +45,7 @@
             <div class="mdl-layout-spacer "></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only ">
-                <a class="mdl-button mdl-js-button " ng-style="vm.leadMgmtStyle" ui-sref="leadlist " ng-if="vm.showLead " ng-click="vm.update() ">Lead Management</a>
+                <a class="mdl-button mdl-js-button " id="leadMgmt" ng-style="vm.leadMgmtStyle" ui-sref="leadlist " ng-if="vm.showLead " ng-click="vm.update() ">Lead Management</a>
                 <a class="mdl-button mdl-js-button " ng-style="vm.leadFinderStyle" ui-sref=" leadFinder " ng-show="vm.showFinder " ng-click="vm.update() ">Lead Finder</a>
                 <a class="mdl-button mdl-js-button " ng-style="vm.accountSettingsStyle" ui-sref="profile " ng-show="vm.showAccount " ng-click="vm.update() ">Account</a>
                 <a class="mdl-button mdl-js-button " ng-style="vm.userMgmtStyle" ui-sref=" userManagementprofile " ng-show="vm.showUser " ng-click="vm.update() ">User Management</a>
