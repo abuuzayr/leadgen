@@ -7,9 +7,15 @@
 }
 
 .tabs {
+    border-bottom: solid;
+    border-bottom-width: 1px;
+}
+
+.nav-tabs {
     margin-left: 500px;
-    /*margin-right: 300px;*/
-    border-style: solid;
+    border-bottom: solid;
+    border-bottom-width: 1px;
+    /*   margin-right: 300px; */
 }
 
 .mdl-button {
