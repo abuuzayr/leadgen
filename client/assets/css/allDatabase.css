@@ -32,7 +32,7 @@
 }
 
 .externalDatabase {
-    width: 1200px;
+    width: 1100px;
     height: 400px;
     margin: auto;
 }
@@ -67,7 +67,10 @@
 }
 
 .nav-tabs {
-    margin-left: 500px;
+    /*margin-left: 500px;*/
+    right: 50%;
+    left: 50%;
+    position: relative;
 }
 
 
