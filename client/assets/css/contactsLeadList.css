@@ -99,9 +99,6 @@
     outline:none;
 }
 
-.ui-grid-menu .ui-grid-menu-inner ul li button:hover, .ui-grid-menu .ui-grid-menu-inner ul li button:focus {
-    outline:none;border:3px solid red
-}
 
 .ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item-active {
     -webkit-box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
