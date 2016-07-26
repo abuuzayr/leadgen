@@ -90,7 +90,7 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
             var path = '/acct';
             var req = {
                 method: 'PATCH',
-                url: appConstant.API_URL + path,
+                url: appConfig.API_URL + path,
                 headers: {},
                 data: {
                     pwd: pc.pwd
