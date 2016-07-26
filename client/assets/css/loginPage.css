@@ -68,3 +68,10 @@ body {
    -webkit-box-shadow: inset 0 -2px 0 #f15b5d;
    box-shadow: inset 0 -2px 0 #f15b5d;
 }
+.input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:focus
+{
+    border-color: #e9322d;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
