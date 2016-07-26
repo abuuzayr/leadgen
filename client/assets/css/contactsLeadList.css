@@ -20,13 +20,21 @@
     font-size: 14 px;
     font-weight: 400 px;
     text-transform: capitalize !important;
-    background-color: #f15b5d !important;
+    background-color: #eb3a40 !important;
     color: white !important;
+}
+
+#addLead {
+    background-color: #f15b5d !important;
 }
 
 #removeLead {
     background-color: #838483 !important;
     color: white !important;
+}
+
+#addToList {
+    background-color: #f15b5d !important;
 }
 
 #removeDuplicate {
@@ -37,6 +45,14 @@
 #get_file {
     background-color: #838483 !important;
     color: white !important;
+}
+
+#addField {
+    background-color: #f15b5d !important;
+}
+
+#addFieldSign {
+    background-color: #f15b5d !important;
 }
 
 #removeField {
