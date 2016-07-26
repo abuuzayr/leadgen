@@ -81,6 +81,7 @@ accountsettingsRouter.route('/')
       res.sendStatus(500);
     }
     else{
+      console.log(response);
       res.sendStatus(201);
     }
   });
