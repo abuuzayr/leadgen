@@ -231,10 +231,6 @@ var dbHandler = {
   dbDropCollection: function(collectionName) {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){     
-        if (err !== null){
-          reject(500);
-        }
-        else {
           db.dropCollection(collectionName, function(err, result) {
             if (err !== null){
               reject(500);
@@ -243,7 +239,6 @@ var dbHandler = {
               resolve(200);
             }
           });
-        }
       });
     });
   },
