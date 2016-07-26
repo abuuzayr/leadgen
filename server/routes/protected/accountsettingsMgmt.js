@@ -19,7 +19,9 @@ accountsettingsRouter.patch('/',function(req,res){
   var cookie = request.cookie('session='+req.cookies.session);
   j.setCookie(cookie,url);
   var obj = {
-    password : req.body.pwd.newPwd
+    userData : {
+      password : req.body.pwd.newPwd
+    }
   };
   console.log(obj);
   request({
