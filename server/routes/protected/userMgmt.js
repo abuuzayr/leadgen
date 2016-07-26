@@ -60,8 +60,10 @@ accountsettingsRouter.route('/')
   var j = request.jar();
   var cookie = request.cookie('session='+req.cookies.session);
   j.setCookie(cookie,url);
-
-  console.log(req.body);
+  var obj = {
+    userData : req.body
+  }
+  console.log(obj);
   request({
             url: url,
 	    headers:{
@@ -74,14 +76,15 @@ accountsettingsRouter.route('/')
             },
             method:'POST',
             json:true,
-            jar: j
+            jar: j,
+            body: JSON.stringify(obj)
           },function(err,response,body ){
     if(err){
       console.log(err);
       res.sendStatus(500);
     }
     else{
-      console.log(response);
+      console.log(body);
       res.sendStatus(201);
     }
   });
