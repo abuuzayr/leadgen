@@ -41,13 +41,14 @@ accountsettingsRouter.route('/')
     else{
       var arr = [];
       for(var i in body){
-        console.log(body[i].application.bulletlead)
+        console.log(body[i].application.bulletlead);
         var obj = {
           username : body[i].username,
           email : body[i].email,
           usertype : body[i].application.bulletlead.usertype
         };
-        arr.push(obj);
+        if(obj.usertype !== 'SuperAdmin')
+          arr.push(obj);
       }
       res.json(arr);
     }
