@@ -32,12 +32,14 @@ var leadlistMgmt = require('./protected/leadlistMgmt.js');
 var cookieGenerator = require('./protected/cookieMgmt.js');
 var dbMgmt = require('./protected/dbMgmt.js');
 var usermgmt = require('./protected/userMgmt.js');
+var acctMgmt = require('./protected/accountsettingsMgmt.js');
 
 apiRouter.use('/cookie', cookieGenerator);
 apiRouter.use('/scrape', leadfinderMgmt);
 apiRouter.use('/contacts', leadlistMgmt);
 apiRouter.use('/dbmgmt', dbMgmt);
 apiRouter.use('/usermgmt', usermgmt);
+apiRouter.use('/acct'.acctMgmt);
 
 //apiRouter.use('*', http404.notFoundMiddleware);
 
