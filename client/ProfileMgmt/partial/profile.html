@@ -12,7 +12,7 @@
                 <!-- Username input -->
                 <div class="form-group">
                     <label for="username" class="col-lg-2 control-label">Username</label>
-                    <div class="col-lg-10">
+                    <div class="col-lg-10" style="width:50% !important;">
                         <input type="text" class="form-control" id="username" placeholder="Username" ng-model="pc.userName" ng-required="true ">
                     </div>
                 </div>
@@ -20,11 +20,10 @@
                 <!-- Email -->
                 <div class="form-group">
                     <label for="email" class="col-lg-2 control-label">Email</label>
-                    <div class="col-lg-10">
+                    <div class="col-lg-10" style="width:50% !important;">
                         <input type="text" class="form-control" id="email" placeholder="Email" ng-model="pc.userEmail" ng-required="true">
                     </div>
                 </div>
-                <br />
                 <br />
                 <!-- Change timezone -->
                 <div id="timezone" class="mdl-selectfield">
@@ -64,7 +63,6 @@
                         <input type="text"  class="form-control" id="newpassword2" placeholder="Retype Password" ng-model="pc.retypePwd">
                     </div>
                 </div>
-                <br />
                 <br />
                 <!-- Submit button -->
                 <div id="login-button" class="mdl-card__actions mdl-card--border" style="margin-bottom:20px;"><br>
