@@ -5,8 +5,8 @@
         <div ng-include="'NavBarMgmt/mainTab.html'"></div>
     </div>
     <br><br><br>
-    <div class="mdl-grid" style="width:75%; align:center; ">
-        <div id="settings-grid" class="mdl-cell mdl-cell--6-col" style="width:25%;">
+    <div class="mdl-grid" style="width:75%; align:center; border-style:solid;">
+        <div id="settings-grid" class="mdl-cell mdl-cell--6-col" style="width:25%;border-style:solid;">
             <h3>Account Details</h3>
             <form id="change-settings" action="#">
                 <!-- Username input -->
@@ -38,7 +38,7 @@
             </form>
         </div>
 
-        <div id="settings-grid" class="mdl-cell mdl-cell--6-col" style="width:25% !important;margin-left:25% !important;">
+        <div id="settings-grid" class="mdl-cell mdl-cell--6-col" style="width:25% !important;margin-left:25% !important;border-style:solid;">
             <h3>Change Password</h3>
             <form id="password-settings" ng-submit="pc.validateNewPassword()">
                 <!-- Password input -->
