@@ -96,7 +96,8 @@
   padding: 8px;
   text-align: left;
   background: transparent;
-  border: none;
+  outline-color: red !important;
+  outline-style: auto  !important;
 }
 
 .ui-grid-menu .ui-grid-menu-inner ul li button:hover, .ui-grid-menu .ui-grid-menu-inner ul li button:focus {
