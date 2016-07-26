@@ -39,7 +39,7 @@ apiRouter.use('/scrape', leadfinderMgmt);
 apiRouter.use('/contacts', leadlistMgmt);
 apiRouter.use('/dbmgmt', dbMgmt);
 apiRouter.use('/usermgmt', usermgmt);
-apiRouter.use('/acct'.acctMgmt);
+apiRouter.use('/acct', acctMgmt);
 
 //apiRouter.use('*', http404.notFoundMiddleware);
 
