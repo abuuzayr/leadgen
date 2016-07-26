@@ -45,7 +45,7 @@ accountsettingsRouter.patch('/',function(req,res){
     }
     else{
       console.log(body);
-      res.sendStatus(201);
+      res.sendStatus(200);
     }
   });  
 });

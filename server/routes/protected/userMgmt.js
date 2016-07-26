@@ -117,7 +117,7 @@ accountsettingsRouter.route('/:id')
     }
     else{
       console.log(body);
-      res.sendStatus(201);
+      res.sendStatus(200);
     }
   });
 })
@@ -148,7 +148,7 @@ accountsettingsRouter.route('/:id')
     }
     else{
       console.log(body);
-      res.sendStatus(201);
+      res.sendStatus(200);
     }
   });
 });

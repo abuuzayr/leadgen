@@ -153,17 +153,18 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
 
     function sendEmail(email) {
         $http.post(FP_URL, {
-                email: email,
-                origin: 'bulletlead.com'
+                email: email
             })
             .then(SuccessCallback)
             .catch(ErrorCallback);
 
         function SuccessCallback(res) {
+            console.log(res);
             return successFeedback('email sent to' + email);
         }
 
         function ErrorCallback(err) {
+            console.log(err);
             return errorFeedback(err.data);
         }
     }
