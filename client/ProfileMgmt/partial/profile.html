@@ -16,7 +16,7 @@
                         <input type="text" class="form-control" id="username" placeholder="Username" ng-model="pc.userName" ng-required="true ">
                     </div>
                 </div>
-                <br>
+                <br />
                 <!-- Email -->
                 <div class="form-group">
                     <label for="email" class="col-lg-2 control-label">Email</label>
@@ -24,8 +24,8 @@
                         <input type="text" class="form-control" id="email" placeholder="Email" ng-model="pc.userEmail" ng-required="true">
                     </div>
                 </div>
-                <br>
-                <br>
+                <br />
+                <br />
                 <!-- Change timezone -->
                 <div id="timezone" class="mdl-selectfield">
                     <label class="mdl-selectfield__label">Timezone</label>
@@ -40,9 +40,9 @@
 
         <div id="settings-grid" class="mdl-cell mdl-cell--6-col" style="width:45% !important;margin-right:0% !important;border-style:solid;">
             <h3>Change Password</h3>
-            <form id="password-settings" ng-submit="pc.validateNewPassword()">
+            <form id="password-settings" ng-submit="pc.validateNewPassword()" style="margin-bottom:20px;">
                 <!-- Password input -->
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom:20px;">
                     <label for="password" class="col-lg-2 control-label">Old Password</label>
                     <div class="col-lg-10">
                         <input type="text" class="form-control" id="password" placeholder="Old Password" ng-model="pc.userPassword">
@@ -50,7 +50,7 @@
                 </div>
                 <br />
                 <!-- New password input -->
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom:20px;">
                     <label for="newpassword" class="col-lg-2 control-label">New Password</label>
                     <div class="col-lg-10">
                         <input type="password" class="form-control" id="newpassword1" placeholder="New Password" ng-model="pc.newPwd">
@@ -58,7 +58,7 @@
                 </div>
                 <br />
                 <!-- New password input again -->
-                <div class="form-group">
+                <div class="form-group" style="margin-bottom:20px;">
                     <label for="retypepassword" class="col-lg-2 control-label">Confirm New Password</label>
                     <div class="col-lg-10">
                         <input type="text" class="form-control" id="newpassword2" placeholder="Retype Password" ng-model="pc.retypePwd">
@@ -67,7 +67,7 @@
                 <br />
                 <br />
                 <!-- Submit button -->
-                <div id="login-button" class="mdl-card__actions mdl-card--border"><br>
+                <div id="login-button" class="mdl-card__actions mdl-card--border" style="margin-bottom:20px;"><br>
                     <button class="mdl-button mdl-button--accent mdl-button--raised mdl-js-button mdl-js-ripple-effect" type='submit'>
                             Update Password
                         </button>
