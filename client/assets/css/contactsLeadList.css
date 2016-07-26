@@ -122,3 +122,9 @@
 .ui-grid-grid-footer {
     color: #f15b5d !important;
 }
+..nav-tabs>li.active>a, .nav-tabs>li.active>a:focus {
+    border: none;
+    -webkit-box-shadow: inset 0 -2px 0 #f15b5d;
+    box-shadow: inset 0 -2px 0 #f15b5d;
+    color: #f15b5d;
+}
