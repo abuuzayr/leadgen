@@ -55,3 +55,11 @@ body {
     font-size: :18 px;
     font-weight: 300;
 }
+
+.footer
+{
+    margin-bottom: 0px !important;  
+    background-color: black !important;
+    height: 20% !important;
+    width: 100% !important;
+}
