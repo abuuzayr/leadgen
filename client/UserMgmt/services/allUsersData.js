@@ -17,14 +17,14 @@ app.factory('allUsersData', ['$http', 'appConfig', function($http, appConfig) {â
     var deleteUserData = function(userId) {
         return $http({
             method: 'DELETE',
-            url: appConfig.UM_URL + '/' + userId,
+            url: appConfig.API_URL + '/' + userId,
         });
     };
 
     var editUserData = function(editedUser, userId) {
         return $http({
             method: 'PUT',
-            url: appConfig.UM_URL + '/' + userId,
+            url: appConfig.API_URL + '/' + userId,
             data: editedUser
         });
     };

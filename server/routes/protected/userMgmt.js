@@ -64,7 +64,7 @@ accountsettingsRouter.route('/')
   j.setCookie(cookie,url);
   var obj = {
     userData : req.body
-  }
+  };
   console.log(obj);
   request({
             url: url,
@@ -91,14 +91,67 @@ accountsettingsRouter.route('/')
 });
 
 accountsettingsRouter.route('/:id')
-.get(function(req,res){
-
-})
 .put(function(req,res){
+  var url = 'https://10.4.1.198/req/api/usermgmt';
 
+  var j = request.jar();
+  var cookie = request.cookie('session='+req.cookies.session);
+  j.setCookie(cookie,url);
+  var obj = {
+    userData : req.body
+  };
+  console.log(obj);
+  request({
+            url: url,
+      headers:{
+             'Host' : '10.4.1.213'
+            },
+            agentOptions:{
+              cert: fs.readFileSync(certFile),
+              key: fs.readFileSync(keyFile),
+              rejectUnauthorized: false
+            },
+            method:'POST',
+            json:true,
+            jar: j,
+            body:obj
+          },function(err,response,body ){
+    if(err){
+      res.sendStatus(500);
+    }
+    else{
+      res.sendStatus(201);
+    }
+  });
 })
-.patch(function(req,res){
+.delete(function(req,res){
 
+  var url = 'https://10.4.1.198/req/api/usermgmt';
+
+  var j = request.jar();
+  var cookie = request.cookie('session='+req.cookies.session);
+  j.setCookie(cookie,url);
+  request({
+            url: url,
+      headers:{
+             'Host' : '10.4.1.213'
+            },
+            agentOptions:{
+              cert: fs.readFileSync(certFile),
+              key: fs.readFileSync(keyFile),
+              rejectUnauthorized: false
+            },
+            method:'DELETE',
+            json:true,
+            jar: j
+          },function(err,response,body ){
+    if(err){
+      res.sendStatus(500);
+    }
+    else{
+      res.sendStatus(201);
+    }
+  });
 });
 
 module.exports = accountsettingsRouter;
