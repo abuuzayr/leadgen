@@ -24,7 +24,7 @@
 }
 
 .nav-tabs {
-    margin-left: 500px;
+    margin-left: 43%;
 }
 
 .mdl-button {
@@ -93,7 +93,8 @@
     color: #141213 !important;
 }
 
-.blockedLeads {
+
+/*.blockedLeads {
     margin: auto;
     width: 80%;
-}
+}*/
