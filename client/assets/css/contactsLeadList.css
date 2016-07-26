@@ -96,13 +96,11 @@
   padding: 8px;
   text-align: left;
   background: transparent;
-  outline-color: red !important;
-  outline-style: auto  !important;
+    outline:none;border:1px solid red
 }
 
 .ui-grid-menu .ui-grid-menu-inner ul li button:hover, .ui-grid-menu .ui-grid-menu-inner ul li button:focus {
-  outline-color: red !important;
-  outline-style: auto  !important;
+    outline:none;border:1px solid red
 }
 
 .ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item-active {
@@ -110,6 +108,5 @@
     -moz-box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
     background: transparent !important;
-     outline-color: red !important;
-     outline-style: auto  !important;
+    outline:none;border:1px solid red
 }
