@@ -10,5 +10,12 @@
  #confirmDelete {
      background-color: #838483 !important;
  }
-
  
+ .tabs {
+     border-bottom: solid;
+     border-bottom-width: 1px;
+ }
+ 
+ .nav-tabs {
+     margin-left: 500px;
+ }

@@ -8,11 +8,13 @@
     <br>
     <br>
     <br>
-    <ul class="nav nav-tabs">
-        <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click="mc.refresh()">LeadList</a></li>
-        <li class="active"><a ui-sref="maillist" data-toggle="tab" ng-click="mc.refresh()">Mailing List</a></li>
-        <li class=""><a ui-sref="blacklist" data-toggle="tab" ng-click="mc.refresh()">BlackList</a></li>
-    </ul>
+    <div class='tabs'>
+        <ul class="nav nav-tabs">
+            <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click="mc.refresh()">LeadList</a></li>
+            <li class="active"><a ui-sref="maillist" data-toggle="tab" ng-click="mc.refresh()">Mailing List</a></li>
+            <li class=""><a ui-sref="blacklist" data-toggle="tab" ng-click="mc.refresh()">BlackList</a></li>
+        </ul>
+    </div>
     <br><br>
     <div class="mailGrid">
         <div class="grid1" ui-grid="mc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns></div>
