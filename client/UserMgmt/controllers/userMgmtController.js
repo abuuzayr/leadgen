@@ -81,9 +81,9 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         uc.addData = function() {
             var n = uc.gridOptions.data.length + 1;
             uc.gridOptions.data.push({
-                "userName": uc.lead.userName,
+                "username": uc.lead.userName,
                 "email": uc.lead.email,
-                "role": uc.lead.role
+                "usertype": uc.lead.role
             });
             var newUser = {
                 username: uc.lead.userName,
