@@ -78,6 +78,10 @@
     color: #F2F1F1;
 }
 
+#externalDelete {
+    background-color: #f15b5d !important;
+}
+
 
 /*For all database*/
 
@@ -101,6 +105,10 @@
 
 #syncCompanies {
     background-color: #838483 !important;
+}
+
+#addFromExternal {
+    background-color: #f15b5d !important;
 }
 
 #get_file {
