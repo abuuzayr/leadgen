@@ -8,10 +8,12 @@
 <div class="page-container" ng-controller="userMgmtController as uc">
 
     <!--include tabs-->
-    <ul class="nav nav-tabs">
-        <li><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
-        <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
-    </ul>
+    <div class='tabs'>
+        <ul class="nav nav-tabs">
+            <li><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
+            <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
+        </ul>
+    </div>
 
     <div class="container">
         <h3>Users</h3>

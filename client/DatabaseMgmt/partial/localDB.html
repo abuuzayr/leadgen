@@ -5,11 +5,13 @@
         <div ng-include="'NavBarMgmt/mainTab.html'"></div>
     </div>
     <br>
-    <ul class="nav nav-tabs">
-        <li><a ui-sref="externalDB" data-toggle="tab">External</a></li>
-        <li class="active"><a ui-sref="internalDB" data-toggle="tab">Local</a></li>
-        <li><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
-    </ul>
+    <div class='tabs'>
+        <ul class="nav nav-tabs">
+            <li><a ui-sref="externalDB" data-toggle="tab">External</a></li>
+            <li class="active"><a ui-sref="internalDB" data-toggle="tab">Local</a></li>
+            <li><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
+        </ul>
+    </div>
     <br>
     <div class='local'>
         <h3 class="pull-left">Local</h3>
