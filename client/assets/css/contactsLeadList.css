@@ -11,58 +11,72 @@
     font-size: 14 px;
     font-weight: 400 px;
     text-transform: capitalize !important;
-    color: #F2F1F1 !important;
     background-color: #eb3a40 !important;
+    color :white !important;
 }
 
 #removeLead {
     background-color: #838483 !important;
+    color :white !important;
 }
 
 #removeDuplicate {
     background-color: #838483 !important;
+    color :white !important;
 }
 
 #get_file {
     background-color: #838483 !important;
+    color :white !important;
 }
 
 #removeField {
     background-color: #838483 !important;
+    color :white !important;
 }
 
 #removeFieldSign {
     background-color: #838483 !important;
+    color :white !important;
 }
 
 #confirmAdd {
     background-color: #838483 !important;
+    color :white !important;
 }
 
 #confirmDelete {
     background-color: #838483 !important;
+    color :white !important;
+    color :white !important;
 }
 
 #selectList {
     background-color: #838483 !important;
+    color :white !important;
 }
 
 #confirmRemove {
     background-color: #838483 !important;
+    color :white !important;
 }
 
 #deleteFieldButton {
     background-color: #838483 !important;
+    color :white !important;
 }
 
 #deleteFieldConfirm {
     background-color: #838483 !important;
+    color :white !important;
 }
 
 #secondRemoveDup {
     background-color: #838483 !important;
+    color :white !important;
 }
 
 #addFieldButton {
     background-color: #838483 !important;
+    color :white !important;
 }
