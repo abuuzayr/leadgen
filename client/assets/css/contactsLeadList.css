@@ -97,7 +97,7 @@
   padding: 8px;
   text-align: left;
   background: transparent;
-  color:red;
+  color:#f15b5d;
     outline:none;
 }
 
@@ -108,5 +108,8 @@
     box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
     color:red;
     background: transparent !important;
-    outline:none;border:3px solid red
+    outline:none;border:3px solid #f15b5d
+}
+.ui-grid-grid-footer{
+    color:red !important;
 }
