@@ -135,16 +135,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 $scope.$apply();
-
-                var obj = {};
-                if(colDef.field === 'application.bulletlead.usertype'){
-                    obj.application = {};
-                    obj.application.bulletlead = {};
-                    obj.application.bulletlead.usertype = newValue;
-                }else{
-                    obj[colDef.field] =newValue;
-                }
-                console.log(obj);
                 allUsersData.editUserData(rowEntity, rowEntity._id);
                 // $window.location.reload();
             });
