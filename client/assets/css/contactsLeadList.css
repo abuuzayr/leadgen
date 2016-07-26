@@ -98,3 +98,10 @@
   background: transparent;
   border: none;
 }
+
+.ui-grid-menu .ui-grid-menu-inner ul li button:focus {
+  -webkit-box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
+  outline-color: red;
+  outline-style: auto;
+}
