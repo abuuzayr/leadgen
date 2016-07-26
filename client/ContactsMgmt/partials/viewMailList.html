@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="assets/css/viewMailList.css" />
 <div ng-controller="viewMailListController as vmc">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <!---------------------------------------- Ng-include nav bars ---------------------------------------->
@@ -28,7 +29,7 @@
             </p>
             <div class="mdl-dialog__actions">
                 <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="vmc.closeDialog('deleteMailLeads')">No</button>
-                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="vmc.deleteSelected(); vmc.closeDialog('deleteMailLeads')">Yes</button>
+                <button id="confirmDelete" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="vmc.deleteSelected(); vmc.closeDialog('deleteMailLeads')">Yes</button>
             </div>
         </div>
     </dialog>
