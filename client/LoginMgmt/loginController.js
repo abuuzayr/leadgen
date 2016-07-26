@@ -105,7 +105,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
     function validateBeforeSend() {
         var email = '';
         var errMsg = '';
-
+	console.log('Email : ' + vm.resetPwdEmail);
         if (!isValidEmail(vm.resetPwdEmail)) {
             errMsg = 'Email is invalid.';
             return errorFeedback(errMsg);
@@ -160,6 +160,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
 
         function SuccessCallback(res) {
             console.log(res);
+	    vm.resetPwdEmail = '';
             return successFeedback('email sent to' + email);
         }
 
