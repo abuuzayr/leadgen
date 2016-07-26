@@ -82,7 +82,8 @@ leadfinderRouter.post('/', function(req, res) {
     if (!Array.isArray(req.body))
       res.sendStatus(400);
     else {
-      ContactsManager.addBulkContacts(res, req.body, returnStatusCode);
+      var coId = req.decoded.companyId;	
+      ContactsManager.addBulkContacts(res, req.body, returnStatusCode, coId);
     }
   }
 });
