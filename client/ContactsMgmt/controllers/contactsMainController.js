@@ -300,7 +300,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         };
         var url = "/contacts/leadList/fields";
         var addStatus = $http.post(appConfig.API_URL + url, field);
-        $window.location.reload();
+       // $window.location.reload();
     };
 
     /** 
