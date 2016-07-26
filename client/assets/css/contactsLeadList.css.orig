@@ -87,6 +87,22 @@
 }
 
 .ui-grid-menu .ui-grid-menu-inner ul li button {
+<<<<<<< HEAD
+    min-width: 100%;
+    padding: 8px;
+    text-align: left;
+    background: transparent;
+    border: none;
+}
+
+.ui-grid-menu .ui-grid-menu-inner ul li button:hover {
+    color: red !important;
+    min-width: 100%;
+    padding: 8px;
+    text-align: left;
+    background: transparent;
+    border: none;
+=======
 
   min-width: 100%;
   padding: 8px;
@@ -117,4 +133,5 @@
 }
 .ui-grid-grid-footer{
     color:#f15b5d !important;
+>>>>>>> 90a52df2466500849c1b2d2a67e8845f1c9348fc
 }
