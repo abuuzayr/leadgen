@@ -192,9 +192,11 @@ var mailchimpApp = {
 					.then(function(result) {
 						console.log(result);
 						console.log('We retrieved the report');
+						resolve(result);
 					})
 					.catch(function(error2) {
-						reject(error2);
+						console.log(error2);
+						reject(500);
 					});
 			}).catch(function(error) {
 				reject(error);
