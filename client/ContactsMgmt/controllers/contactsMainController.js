@@ -365,10 +365,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             name: cc.listSelected
         }];
         var url = "/contacts/mailingList/subscriber";
-        $http.post(appConfig.API_URL + url, obj).then(function successCallback(res) {
-            addFeedback();
-            cc.closeDialog('addToMailingList');
-        });
+        $http.post(appConfig.API_URL + url, obj);
     };
 
     cc.removeDuplicateField = function() {
