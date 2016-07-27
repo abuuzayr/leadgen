@@ -205,13 +205,13 @@ var mailchimpApp = {
 	getIndividualReport: function(url)
 	{
 		return new Promise(function(resolve, reject) {
-			mailchimp.setApiKey(apiKey);
 			mailchimp.get(url)
 				.then(function(activity) {
 					console.log(activity);
 					resolve(activity);
 				})
 				.catch(function(error) {
+					console.log(error);
 					reject(error);
 				});
 
