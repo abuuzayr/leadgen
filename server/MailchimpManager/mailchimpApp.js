@@ -200,7 +200,7 @@ var mailchimpApp = {
 						reject(500);
 					});
 			}).catch(function(error) {
-				console.log(error;)
+				console.log(error);
 				reject(500);
 			});
 	},
