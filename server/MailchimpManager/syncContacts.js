@@ -398,7 +398,6 @@ var getReportDetails = function(results, coId, resolve, reject) {
 			}
 		}
 	}
-	console.log('1');
 	mailinglistmanager.getAllData(coId+' mailinglists')
 		.then(function(mlResults) {
 			//console.log('printing activities');
@@ -422,8 +421,6 @@ var getReportDetails = function(results, coId, resolve, reject) {
 						var fCount = 0;
 						var itemID = cResults[i]._id + '';
 						for (var j = 0; j < activityArr.length; j++) {
-								console.log(activityArr[j].contactID);
-								console.log(itemID);
 							if (activityArr[j].contactID == itemID) {
 								if (activityArr[j].action[0].action == 'bounce')
 									fCount++;
