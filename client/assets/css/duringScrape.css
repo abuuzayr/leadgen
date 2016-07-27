@@ -28,7 +28,7 @@
 }
 
 #stopScraping:hover {
-    text-decoration: null;
+    text-decoration: null !important;
 }
 
 #stopScrapingNoInternet {
@@ -38,7 +38,7 @@
 }
 
 #stopScrapingNoInternet:hover {
-    text-decoration: null;
+    text-decoration: null !important;
 }
 
 #viewResults {
