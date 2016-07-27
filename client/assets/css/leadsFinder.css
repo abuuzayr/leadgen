@@ -4,7 +4,8 @@
 }
 
 .nav-tabs {
-    margin-left: 500px;
+    margin-left: 42%;
+    color: #141213 !important;
 }
 
 .nav-tabs>li>a:hover,
