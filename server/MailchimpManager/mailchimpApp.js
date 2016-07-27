@@ -184,20 +184,35 @@ var mailchimpApp = {
 				console.log('reportCount');
 				console.log(report.reports.length);
 				var results = [];
+				var reportPromiseArr=[];
 				for (var i = 0; i < report.reports.length; i++) {
-					mailchimp
-						.get('reports/' + report.reports[i].id + '/email-activity?count=1000000')
-						.then(function(activity) {
-							console.log('Retrieve Loop:'+i);
-							results.push(activity);
-							if (results.length == report.reports.length) {
-								getReportDetails(results, coId, resolve, reject);
-							}
-						});
+					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity?count=1000000'))
 				}
+				Promise.all(reportPromiseArr)
+					.then(function(result) {
+						console.log(result);
+						console.log('We retrieved the report');
+					})
+					.catch(function(error2) {
+						reject(error2);
+					});
 			}).catch(function(error) {
 				reject(error);
 			});
+	},
+	getIndividualReport: function(url)
+	{
+		return new Promise(function(resolve, reject) {
+			mailchimp.setApiKey(apiKey);
+			mailchimp.get('reports/' + report.reports[i].id + '/email-activity?count=1000000')
+				.then(function(activity) {
+					resolve(activity);
+				})
+				.catch(function(error) {
+					reject(error);
+				});
+
+		});
 	}
 };
 module.exports = mailchimpApp;
