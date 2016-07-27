@@ -25,7 +25,7 @@
 }
 
 #addLead,
-#addField,
+#addFieldButton,
 #addFieldSign,
 #addToList {
     background-color: #f15b5d !important;
@@ -43,7 +43,7 @@
 #deleteFieldButton,
 #deleteFieldConfirm,
 #secondRemoveDup,
-#addFieldButton {
+#addFieldButtonConfirm {
     background-color: #838483 !important;
 }
 

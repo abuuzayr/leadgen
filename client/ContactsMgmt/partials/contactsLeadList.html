@@ -26,7 +26,7 @@
             <br>
             <button ng-click="cc.openDialog('addData')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored addButtons" id="addLead">Add Lead</button>
             <button ng-click="cc.openDialog('deleteLeads')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="removeLead"> Remove Lead </button>
-            <button ng-click="cc.openDialog('addField')" style="margin-left:20px !important;" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored pull-right addButtons" id="addField">
+            <button ng-click="cc.openDialog('addField')" style="margin-left:20px !important;" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored pull-right addButtons" id="addFieldButton">
                 <i class="material-icons md-48" id="addFieldSign">add_circle</i>
             </button> &nbsp; &nbsp; &nbsp; &nbsp;
             <button ng-click="cc.openDialog('deleteField')" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--accent pull-right addButtons" style="margin-left:20px !important;" id="removeField">
@@ -134,7 +134,7 @@
                         </div>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="cc.closeDialog('addField')">Close</button>
-                            <button id="addFieldButton" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button>
+                            <button id="addFieldConfirm" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button>
                         </div>
                     </form>
                 </div>
