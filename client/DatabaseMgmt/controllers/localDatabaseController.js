@@ -123,7 +123,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
         };
 
         ld.editUser = function() {
-            $scope.$apply();
+            // $scope.$apply();
 
             var obj = {};
             obj[colDef.name] = newValue;
