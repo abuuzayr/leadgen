@@ -9,9 +9,9 @@
     <br>
     <div class='tabs'>
         <ul class="nav nav-tabs">
-            <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click="vmc.refresh()">LeadList</a></li>
-            <li class="active"><a ui-sref="maillist" data-toggle="tab" ng-click="vmc.refresh()">Mailing List</a></li>
-            <li class=""><a ui-sref="blacklist" data-toggle="tab" ng-click="vmc.refresh()">BlackList</a></li>
+            <li class=""><a ui-sref="leadlist" data-toggle="tab">LeadList</a></li>
+            <li class="active"><a ui-sref="maillist" data-toggle="tab">Mailing List</a></li>
+            <li class=""><a ui-sref="blacklist" data-toggle="tab">BlackList</a></li>
         </ul>
     </div>
     <br><br>
@@ -32,6 +32,17 @@
             <div class="mdl-dialog__actions">
                 <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="vmc.closeDialog('deleteMailLeads')">No</button>
                 <button id="confirmDelete" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="vmc.deleteSelected(); vmc.closeDialog('deleteMailLeads')">Yes</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="deleteLimit" class="mdl-dialog">
+        <div class="mdl-dialog__content">
+            <p>
+                Unable to delete more than 5 leads
+            </p>
+            <div class="mdl-dialog__actions">
+                <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="vmc.closeDialog('deleteLimit')">Close</button>
             </div>
         </div>
     </dialog>
