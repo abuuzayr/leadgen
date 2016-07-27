@@ -82,7 +82,7 @@ input[type=number]:focus,
 .input:focus:invalid:focus,
 textarea:focus:invalid:focus,
 select:focus:invalid:focus {
-    border-color: #e9322d;
+    /*border-color: #e9322d;*/
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
