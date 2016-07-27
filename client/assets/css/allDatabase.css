@@ -55,7 +55,6 @@
     font-weight: 400 px;
     text-transform: capitalize !important;
     background-color: #eb3a40 !important;
-    color: #F2F1F1 !important;
 }
 
 .tabs {
@@ -75,12 +74,13 @@
 #updateExternal {
     margin-left: 15px;
     background-color: #838483 !important;
-    color: #F2F1F1;
+    color: #F2F1F1 !important;
 }
 
 #externalDelete,
 #cancel {
     background-color: #f15b5d !important;
+    color: #F2F1F1 !important;
 }
 
 
@@ -89,7 +89,7 @@
 #deleteSelected {
     margin-left: 15px;
     background-color: #838483 !important;
-    color: #F2F1F1;
+    color: #F2F1F1 !important;
 }
 
 .form-group {
@@ -100,24 +100,27 @@
 #exportButton,
 #cancel {
     background-color: #f15b5d !important;
+    color: #F2F1F1 !important;
 }
 
 
 /*For internal database*/
 
-#syncCompanies,
 #confirmDelete {
     background-color: #838483 !important;
+    color: #F2F1F1 !important;
 }
 
 #addFromExternal,
 #deleteSelectedInternal,
 #cancel {
     background-color: #f15b5d !important;
+    color: #F2F1F1 !important;
 }
 
 #get_file {
     background-color: #f58a80 !important;
+    color: #F2F1F1 !important;
 }
 
 .ui-grid-menu .ui-grid-menu-inner ul li button {
