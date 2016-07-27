@@ -184,12 +184,12 @@ var mailchimpApp = {
 				var results = [];
 				var reportPromiseArr=[];
 				for (var i = 0; i < report.reports.length; i++) {
-					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity?count=10000'));
+					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity?count=10'));
 				}
 				Promise.all(reportPromiseArr)
 					.then(function(result) {
 						console.log(result);
-						getReportDetails(result,coId, resolve, reject);
+						getReportDetails(result, coId, resolve, reject);
 					})
 					.catch(function(error2) {
 						console.log(error2);
@@ -253,6 +253,7 @@ var	getIndividualReport = function(url){
 				resolve(activity);
 			})
 			.catch(function(error) {
+				console.log(error);
 				reject(500);
 			});
 
