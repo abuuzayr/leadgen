@@ -5,19 +5,17 @@
         <div ng-include="'NavBarMgmt/mainTab.html'"></div>
     </div>
     <br>
-    <ul class="nav nav-tabs">
-        <li><a ui-sref="externalDB" data-toggle="tab">External</a></li>
-        <li class="active"><a ui-sref="internalDB" data-toggle="tab">Local</a></li>
-        <li><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
-    </ul>
+    <div class='tabs'>
+        <ul class="nav nav-tabs">
+            <li><a ui-sref="externalDB" data-toggle="tab">External</a></li>
+            <li class="active"><a ui-sref="internalDB" data-toggle="tab">Local</a></li>
+            <li><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
+        </ul>
+    </div>
     <br>
     <div class='local'>
         <h3 class="pull-left">Local</h3>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored pull-right" id="syncCompanies" ng-click="ld.syncToCompany()">
-            Sync to Companies
-        </button>
-
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored pull-right" ng-click="ld.syncFromExternal()">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored pull-right" id="addFromExternal" ng-click="ld.syncFromExternal()">
             Add from External
         </button>
 
@@ -25,7 +23,7 @@
 
         <div class='buttons'>
 
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" ng-click="ld.openDialog('deleteLead')">
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect pull-right" id="deleteSelectedInternal" ng-click="ld.openDialog('deleteLead')">
             Deleted Selected
             </button>
 
@@ -57,10 +55,21 @@
                     <p>Are you sure ?</p>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ld.closeDialog('deleteLead')">Cancel</button>
-                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ld.deleteSelected();ld.closeDialog('deleteLead')">Yes</button>
+                        <button id='confirmDelete' type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ld.deleteSelected();ld.closeDialog('deleteLead')">Yes</button>
                     </div>
                 </div>
             </dialog>
+
+            <dialog id="editUser" class="mdl-dialog">
+                <div class="mdl-dialog__content">
+                    <p>Save changes?</p>
+                    <div class="mdl-dialog__actions">
+                        <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ld.closeDialog('editUser')">Cancel</button>
+                        <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ld.editUser()">Yes</button>
+                    </div>
+                </div>
+            </dialog>
+
             <br><br><br>
         </div>
     </div>

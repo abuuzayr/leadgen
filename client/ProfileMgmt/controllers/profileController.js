@@ -87,10 +87,12 @@ app.controller('profileController', ['$scope', '$http', '$q', '$location', '$tim
         // }
 
         pc.changePassword = function() {
+
             var path = '/acct';
             var req = {
                 method: 'PATCH',
                 url: appConfig.API_URL + path,
+
                 headers: {},
                 data: {
                     pwd: pc.pwd

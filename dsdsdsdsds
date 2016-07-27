@@ -1,0 +1,292 @@
+[33mcommit fddae7515cf2db1a53a67fb727de11de41892c8f[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 17:40:32 2016 +0800
+
+    Styling
+
+[33mcommit 9bc6e41e491427a367574b33db590f2ec2c90944[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 17:37:29 2016 +0800
+
+    Styling
+
+[33mcommit 6ccf68bd809ae60cff607603bb800224cce5688d[m
+Merge: 6a227d9 40f9c44
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 17:31:57 2016 +0800
+
+    Merge branch 'integrateUserMgmt' of http://git.groventure.com/bullet-mail/leadgen into integrateUserMgmt
+
+[33mcommit 40f9c4439deabd8caf5b175359832e8ec42e6112[m
+Author: Nelson Tham <Nelson Tham>
+Date:   Fri Jul 22 17:38:41 2016 +0800
+
+    delete all console.log
+
+[33mcommit 6a227d900dc27a5728e910687a66c15ed69cdcd2[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 17:31:40 2016 +0800
+
+    Styling
+
+[33mcommit 23e6fd7aab642573c2dc44c1d5022282e22fcc75[m
+Merge: e64b49b 42400f1
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 17:27:42 2016 +0800
+
+    Merge branch 'integrateUserMgmt' of http://git.groventure.com/bullet-mail/leadgen into integrateUserMgmt
+
+[33mcommit 42400f15bf855d353139b7c69f720cf64473b942[m
+Author: tanching <tanching@outlook.com>
+Date:   Fri Jul 22 17:32:51 2016 +0800
+
+    change layout for export type for local database
+
+[33mcommit e64b49bd1e465567ffd16c4a4c6aadf52c57960f[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 17:27:24 2016 +0800
+
+    Styling
+
+[33mcommit ac7a8ca7e2cb96811151dc7d727dcc77ab4f1060[m
+Author: tanching <tanching@outlook.com>
+Date:   Fri Jul 22 17:26:53 2016 +0800
+
+    change checkbox in user management
+
+[33mcommit ccfc9b90984c1727b14f5416cf89db955aeed5dd[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 17:17:43 2016 +0800
+
+    Styling
+
+[33mcommit 5fe8f509969722bb435b4f767d155fd06ded1038[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 17:17:05 2016 +0800
+
+    Styling
+
+[33mcommit 8d89fabc51fee708dfd2351a3cadf03ffb4d0717[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 17:13:43 2016 +0800
+
+    Styling
+
+[33mcommit 8c52fbdf4db53949349c4b030293bdf0f24388ed[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 17:03:46 2016 +0800
+
+    Styling
+
+[33mcommit dce1e5c550e45575202dd8f622455c6da9f7337b[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 17:01:10 2016 +0800
+
+    Styling
+
+[33mcommit 697590b4138b9dc69b8416a1e0c62df1a8954aaa[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 16:58:13 2016 +0800
+
+    Styling
+
+[33mcommit 2257583af3c39a9fe25608f214f51c4652f0703e[m
+Merge: 2e5fd2b 6eff0bf
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 16:55:13 2016 +0800
+
+    Merge branch 'integrateUserMgmt' of http://git.groventure.com/bullet-mail/leadgen into integrateUserMgmt
+
+[33mcommit 6eff0bf580b74001d4a9d29c3893f72bc14293cd[m
+Author: tanching <tanching@outlook.com>
+Date:   Fri Jul 22 16:58:33 2016 +0800
+
+    change layout for user management profile
+
+[33mcommit 2e5fd2b8036740d55d18bc6ac0d5f61dd394cfc1[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 16:54:40 2016 +0800
+
+    Styling
+
+[33mcommit 1275538268646ee7968bfe17893e14aca3286b7d[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 16:47:53 2016 +0800
+
+    Styling
+
+[33mcommit 77f406db22553e6ae8cbaf6d820e4ccb06e83266[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 16:43:00 2016 +0800
+
+    Styling
+
+[33mcommit c8549bd07b8d6dee89d9709eb5a5ef8e819d6835[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 16:16:31 2016 +0800
+
+    Styling
+
+[33mcommit fd65360e010caf649e632b404ecfc5d665469f62[m
+Merge: c14aa45 4f839c8
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 16:08:08 2016 +0800
+
+    Merge branch 'integrateUserMgmt' of http://git.groventure.com/bullet-mail/leadgen into integrateUserMgmt
+
+[33mcommit 4f839c8354d22755565ff69819e4e85f57704fad[m
+Author: tanching <tanching@outlook.com>
+Date:   Fri Jul 22 16:12:03 2016 +0800
+
+    change UM url
+
+[33mcommit c14aa45396275563e771744022f6c001ca05620d[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 16:07:52 2016 +0800
+
+    Styling
+
+[33mcommit 9c84ec6de82af4df2aafabd5da3e52ae8ff10300[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 16:03:46 2016 +0800
+
+    Styling
+
+[33mcommit 3e2e0dc60fcfa3cd7398e44ee89b7d481d2fb39e[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 16:01:09 2016 +0800
+
+    Styling
+
+[33mcommit 60d137b0e3eda7ad86ecb82b6c67a06088d476d4[m
+Merge: a835511 dd0e901
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:59:27 2016 +0800
+
+    Merge branch 'integrateUserMgmt' of http://git.groventure.com/bullet-mail/leadgen into integrateUserMgmt
+
+[33mcommit dd0e901dd832da7bb87892d27af7ea8ba761689d[m
+Author: tanching <tanching@outlook.com>
+Date:   Fri Jul 22 16:05:48 2016 +0800
+
+    include UM_URL, get users from UM
+
+[33mcommit 107c1456f01605da6055dc7358321ed36fe9ca1d[m
+Author: tanching <tanching@outlook.com>
+Date:   Fri Jul 22 15:48:19 2016 +0800
+
+    temp remove feedback for result
+
+[33mcommit a8355110cd690e9244eb61e897215417b22582c5[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:59:12 2016 +0800
+
+    Styling
+
+[33mcommit b5052e61f63e15db7c273f1b67cde5e59d221623[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:55:24 2016 +0800
+
+    Styling
+
+[33mcommit e606a0a802c2b01dda567cc83884dc6e03ab415a[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:52:40 2016 +0800
+
+    Styling
+
+[33mcommit a5433b78e6dfe5a126ffe62c93f718631a93a9c7[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:46:46 2016 +0800
+
+    Styling
+
+[33mcommit 5e9f0604bd16b4ad4e6839095e20505e0281d09d[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:40:57 2016 +0800
+
+    Styling
+
+[33mcommit 7285ed9d555aa0e11000f9cfcd3622ceec062a3d[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:39:30 2016 +0800
+
+    Styling
+
+[33mcommit 2e3a3acf465bbaf5b08a2b5c1bc62328ef0d493a[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:36:54 2016 +0800
+
+    Styling
+
+[33mcommit 5bff28136d9cb2f63a9fd9faeabd0547d6ea44f4[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:35:20 2016 +0800
+
+    Styling
+
+[33mcommit b7be21ac5cec58a422d2c046a7c0884cabbef497[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:26:05 2016 +0800
+
+    Styling
+
+[33mcommit d9ce1a7ec4a60e705f39cff57ec85fee2fdb70ef[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:24:13 2016 +0800
+
+    Styling
+
+[33mcommit 0716c5d686830d1fbac01e898ebdd4366055fe64[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:14:25 2016 +0800
+
+    Styling
+
+[33mcommit b45e880f33d3b2d8a8ab96f3d7ba53c2741e98bb[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:08:51 2016 +0800
+
+    Styling
+
+[33mcommit 8937429961d3ec5328595446654a697b20cdd60a[m
+Merge: 1b96723 eae11d1
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:07:29 2016 +0800
+
+    Merge branch 'integrateUserMgmt' of http://git.groventure.com/bullet-mail/leadgen into integrateUserMgmt
+
+[33mcommit 1b96723f8274428ed3086c23c9f03642aebaa4ba[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 15:03:35 2016 +0800
+
+    Styling
+
+[33mcommit eae11d13b937391fb369c2ef3ebdaa693f3e84a9[m
+Author: tanching <tanching@outlook.com>
+Date:   Fri Jul 22 14:59:59 2016 +0800
+
+    make changes for feedback service for result
+
+[33mcommit e75697dd6c89efcbe2672e8aa18a7a5e6181f63d[m
+Merge: ffd7bdb f2e18e4
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 14:54:17 2016 +0800
+
+    Merge branch 'integrateUserMgmt' of http://git.groventure.com/bullet-mail/leadgen into integrateUserMgmt
+
+[33mcommit ffd7bdb83977235161e673d39af863b74aea087c[m
+Author: an zhi <xiaoturtle93@gmail.com>
+Date:   Fri Jul 22 14:53:56 2016 +0800
+
+    Styling
+
+[33mcommit f2e18e48644f87517ed9f103e207571931561fa3[m
+Author: tanching <tanching@outlook.com>
+Date:   Fri Jul 22 14:47:12 2016 +0800
+
+    fix bug in resultcontroller
+
+[33mcommit 9ed990a73ab1914e3e7e8a6598f28143b1c71537[m
+Author: tanching <tanching@outlook.com>
+Date:   Fri Jul 22 14:40:07 2

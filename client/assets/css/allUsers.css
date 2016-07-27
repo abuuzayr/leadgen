@@ -1,16 +1,42 @@
-h4 {
-    display: inline-block;
-    margin-left: 0px;
+.userMgmtDiv {
+    width: 90%;
+    margin: auto;
 }
 
-#first {
-    display: inline-block;
-    margin-left: 20px;
+#addUser {
+    font-family: 'Roboto' !important;
+    font-size: 14 px;
+    font-weight: 400 px;
+    text-transform: capitalize !important;
+    background-color: #f15b5d !important;
 }
 
-#second {
-    display: inline-block;
-    margin-left: 20px;
+#removeUser {
+    font-family: 'Roboto' !important;
+    font-size: 14 px;
+    font-weight: 400 px;
+    text-transform: capitalize !important;
+    background-color: #838483 !important;
+    margin-left: 10px;
+}
+
+#cancel {
+    font-family: 'Roboto' !important;
+    font-size: 14 px;
+    font-weight: 400 px;
+    text-transform: capitalize !important;
+    background-color: #f15b5d !important;
+    color: #F2F1F1;
+}
+
+#confirmDelete {
+    font-family: 'Roboto' !important;
+    font-size: 14 px;
+    font-weight: 400 px;
+    text-transform: capitalize !important;
+    background-color: #838483 !important;
+    color: #F2F1F1;
+    margin-right: 10px;
 }
 
 .ui-grid-menu .ui-grid-menu-inner ul li button {
@@ -52,10 +78,7 @@ h4 {
 }
 
 .nav-tabs {
-    margin-left: 43%;
-}
-
-.nav-tabs {
+    margin-left: 42%;
     color: #141213 !important;
 }
 

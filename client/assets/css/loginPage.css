@@ -1,7 +1,6 @@
 #login-background {
     height: 100%;
     width: 100%;
-    /*background: #F5F5F5;*/
     background-image: url('../images/login-background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -10,48 +9,98 @@
 
 body {
     background: #F5F5F5;
-    font-family:'Roboto';
+    font-family: 'Roboto';
 }
 
 #login-main {
     margin: auto;
     height: 560px;
-    width : 400px;
+    width: 400px;
 }
 
 #login-button {
     background-color: #eb3a40;
-    text-align:center;
-    width:100%;
+    text-align: center;
+    width: 100%;
     font-weight: bold;
 }
 
 #login-main {
-    background:#7f7f7f;
-    background:rgba(255,255,255,0.8);
+    background: #7f7f7f;
+    background: rgba(255, 255, 255, 0.8);
 }
 
 #login-password-input {
-    background-color:rgba(255,255,255,0.0);
-    border:none;
-    color:black;
-    width:150%;
+    background-color: rgba(255, 255, 255, 0.0);
+    border: none;
+    color: black;
+    width: 150%;
 }
 
 #login-email-input {
-    background-color:rgba(255,255,255,0.0);
-    border:none;
-    color:black;
-    width:150%;
+    background-color: rgba(255, 255, 255, 0.0);
+    border: none;
+    color: black;
+    width: 150%;
 }
 
 #mdl-textfield {
-    border:none;
-    border-bottom:200px solid rgba(255,255,255,0.0);
+    border: none;
+    border-bottom: 200px solid rgba(255, 255, 255, 0.0);
 }
-.mdl-textfield__label
-{   
-    font-family:'Roboto';
-    font-size: :18 px;
+
+.mdl-textfield__label {
+    font-family: 'Roboto';
+    font-size: 18 px;
     font-weight: 300;
 }
+
+.footer {
+    margin-bottom: 0px !important;
+    background-color: black !important;
+    height: 10% !important;
+    width: 100% !important;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    /*background-color: rgb(250, 255, 189);*/
+    background: transparent;
+    background-image: none;
+    color: rgb(0, 0, 0);
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+    background: transparent;
+    background-image: none;
+    color: rgb(0, 0, 0);
+}
+
+
+/*.textarea:focus,
+textarea.form-control:focus,
+input.form-control:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=number]:focus,
+[type=text].form-control:focus,
+[type=password].form-control:focus,
+[type=email].form-control:focus,
+[type=tel].form-control:focus,
+[contenteditable].form-control:focus {
+    -webkit-box-shadow: inset 0 -2px 0 #f15b5d;
+    box-shadow: inset 0 -2px 0 #f15b5d;
+}
+
+.input:focus:invalid:focus,
+textarea:focus:invalid:focus,
+select:focus:invalid:focus {
+    border-color: #e9322d;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}*/

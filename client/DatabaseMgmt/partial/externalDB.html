@@ -5,21 +5,23 @@
         <div ng-include="'NavBarMgmt/mainTab.html'"></div>
     </div>
     <br>
-    <ul class="nav nav-tabs">
-        <li class="active"><a ui-sref="externalDB" data-toggle="tab">External</a></li>
-        <li><a ui-sref="internalDB" data-toggle="tab">Local</a></li>
-        <li><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
-    </ul>
+    <div class='tabs'>
+        <ul class="nav nav-tabs">
+            <li class="active"><a ui-sref="externalDB" data-toggle="tab">External</a></li>
+            <li><a ui-sref="internalDB" data-toggle="tab">Local</a></li>
+            <li><a ui-sref="allDatabase" data-toggle="tab">All</a></li>
+        </ul>
+    </div>
     <br>
     <div class='externalDatabase'>
         <h3 class="pull-left">External</h3>
         <div id="grid1" ui-grid="ed.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"></div>
         <br>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-click="ed.openDialog('deleteLead')">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="externalDelete" ng-click="ed.openDialog('deleteLead')">
         Delete Selected
         </button>
 
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" ng-click="ed.updateExternal();ed.refresh()">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="updateExternal" ng-click="ed.updateExternal();ed.refresh()">
         Update External DB
         </button>
         <br><br>
@@ -29,7 +31,7 @@
                 <p>Are you sure ?</p>
                 <div class="mdl-dialog__actions">
                     <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ed.closeDialog('deleteLead')">Cancel</button>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ed.deleteSelected();ed.closeDialog('deleteLead')">Yes</button>
+                    <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ed.deleteSelected();ed.closeDialog('deleteLead')">Yes</button>
                 </div>
             </div>
         </dialog>

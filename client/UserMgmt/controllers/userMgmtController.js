@@ -136,8 +136,11 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 $scope.$apply();
-                allUsersData.editUserData(rowEntity, rowEntity._id);
-                // $window.location.reload();
+                allUsersData.editUserData(rowEntity, rowEntity._id)
+                .then(function(res){
+                    $window.location.reload();
+                });
+
             });
         };
 

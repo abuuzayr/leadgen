@@ -19,11 +19,11 @@
         <h4>Total Leads Scraped: {{rc.resultsLength}}</h4>
 
         <!-- Accent-colored raised button with ripple -->
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.openDialog('deleteLead')">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="deleteSelected" data-ng-click="rc.openDialog('deleteLead')">
         Deleted Selected
     </button>
 
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="rc.showFunction(); rc.addSelected(); rc.saveToContacts(); rc.clearData()">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="addToLeadList" data-ng-click="rc.showFunction(); rc.addSelected(); rc.saveToContacts(); rc.clearData()">
         Add to LeadList
     </button>
 
@@ -32,12 +32,12 @@
                 <p>Are you sure ?</p>
                 <div class="mdl-dialog__actions">
                     <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="rc.closeDialog('deleteLead')">Cancel</button>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="rc.deleteSelected();rc.closeDialog('deleteLead');rc.deleteFeedback()">Yes</button>
+                    <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="rc.deleteSelected();rc.closeDialog('deleteLead');rc.deleteFeedback()">Yes</button>
                 </div>
             </div>
         </dialog>
 
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-show="rc.showResult">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-show="rc.showResult" id="response">
     {{ rc.responseMessage }}
     <i class="material-icons" ng-show="rc.symbol">done</i>
     <i class="material-icons" ng-hide="rc.symbol">clear</i>

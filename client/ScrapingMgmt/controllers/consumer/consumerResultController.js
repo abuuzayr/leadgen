@@ -8,12 +8,12 @@ app.controller('consumerResultController', ['$scope', 'consumerShareData', 'send
         minRowsToShow: 10,
         data: [],
         columnDefs: [
-            { field: 'firstName', displayName: 'First Name', minWidth: 80, width: 150, headerCellClass: cr.highlightFilteredHeader },
-            { field: 'lastName', displayName: 'Last Name', minWidth: 80, width: 150, headerCellClass: cr.highlightFilteredHeader },
-            { field: 'email', displayName: 'Email', minWidth: 80, width: 200, headerCellClass: cr.highlightFilteredHeader },
-            { field: 'company', displayName: 'Company', minWidth: 80, width: 150, headerCellClass: cr.highlightFilteredHeader },
-            { field: 'phone', displayName: 'Phone No.', minWidth: 80, width: 150, headerCellClass: cr.highlightFilteredHeader },
-            { field: 'category', displayName: 'Category', minWidth: 80, width: 150, headerCellClass: cr.highlightFilteredHeader },
+            { field: 'firstName', displayName: 'First Name', headerCellClass: cr.highlightFilteredHeader },
+            { field: 'lastName', displayName: 'Last Name', headerCellClass: cr.highlightFilteredHeader },
+            { field: 'email', displayName: 'Email', headerCellClass: cr.highlightFilteredHeader },
+            { field: 'company', displayName: 'Company', headerCellClass: cr.highlightFilteredHeader },
+            { field: 'phone', displayName: 'Phone No.', headerCellClass: cr.highlightFilteredHeader },
+            { field: 'category', displayName: 'Category', headerCellClass: cr.highlightFilteredHeader },
         ],
         onRegisterApi: function(gridApi) {
             cr.gridApi = gridApi;
