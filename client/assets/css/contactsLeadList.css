@@ -24,86 +24,27 @@
     color: white !important;
 }
 
-#addLead {
-    background-color: #f15b5d !important;
-}
-
-#removeLead {
-    background-color: #838483 !important;
-    color: white !important;
-}
-
+#addLead,
+#addField,
+#addFieldSign,
 #addToList {
     background-color: #f15b5d !important;
 }
 
-#removeDuplicate {
-    background-color: #838483 !important;
-    color: white !important;
-}
-
-#get_file {
-    background-color: #838483 !important;
-    color: white !important;
-}
-
-#addField {
-    background-color: #f15b5d !important;
-}
-
-#addFieldSign {
-    background-color: #f15b5d !important;
-}
-
-#removeField {
-    background-color: #838483 !important;
-    color: white !important;
-}
-
-#removeFieldSign {
-    background-color: #838483 !important;
-    color: white !important;
-}
-
-#confirmAdd {
-    background-color: #838483 !important;
-    color: white !important;
-}
-
-#confirmDelete {
-    background-color: #838483 !important;
-    color: white !important;
-    color: white !important;
-}
-
-#selectList {
-    background-color: #838483 !important;
-    color: white !important;
-}
-
-#confirmRemove {
-    background-color: #838483 !important;
-    color: white !important;
-}
-
-#deleteFieldButton {
-    background-color: #838483 !important;
-    color: white !important;
-}
-
-#deleteFieldConfirm {
-    background-color: #838483 !important;
-    color: white !important;
-}
-
-#secondRemoveDup {
-    background-color: #838483 !important;
-    color: white !important;
-}
-
+#removeLead,
+#removeDuplicate,
+#get_file,
+#removeField,
+#removeFieldSign,
+#confirmAdd,
+#confirmDelete,
+#selectList,
+#confirmRemove,
+#deleteFieldButton,
+#deleteFieldConfirm,
+#secondRemoveDup,
 #addFieldButton {
     background-color: #838483 !important;
-    color: white !important;
 }
 
 .ui-grid-menu .ui-grid-menu-inner ul li button {

@@ -26,19 +26,8 @@
     background-color: #f15b5d !important;
 }
 
-#deleteList {
-    background-color: #838483 !important;
-}
-
-#addListConfirm {
-    background-color: #838483 !important;
-}
-
-
-/*#cancel {
-    background-color: #f15b5d !important;
-}*/
-
+#deleteList,
+#addListConfirm,
 #deleteList {
     background-color: #838483 !important;
 }
