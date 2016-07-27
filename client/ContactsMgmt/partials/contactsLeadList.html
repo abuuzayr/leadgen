@@ -85,11 +85,11 @@
                     <div class='formInput'>
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="firstName">First Name</label>
-                            <input class="mdl-textfield__input" type="text" id="firstName" ng-model="cc.lead.first" required>
+                            <input class="mdl-textfield__input" type="text" id="firstName" ng-model="cc.lead.first" ng-required="true">
                         </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="lastName">Last Name</label>
-                            <input class="mdl-textfield__input" type="text" id="lastName" ng-model="cc.lead.last" required>
+                            <input class="mdl-textfield__input" type="text" id="lastName" ng-model="cc.lead.last" ng-required="true">
                         </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="company">Company</label>
@@ -97,11 +97,11 @@
                         </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="email">Email</label>
-                            <input class="mdl-textfield__input" type="email" id="email" ng-model="cc.lead.email" required>
+                            <input class="mdl-textfield__input" type="email" id="email" ng-model="cc.lead.email" ng-required="true">
                         </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="phone">Phone</label>
-                            <input class="mdl-textfield__input" type="number" id="phone" ng-model="cc.lead.phone" required>
+                            <input class="mdl-textfield__input" type="number" id="phone" ng-model="cc.lead.phone" ng-required="true">
                         </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="category">Category</label>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="mdl-textfield mdl-js-textfield">
                             <label for="type">Type:</label>
-                            <select ng-model="cc.lead.type" id="type" required>
+                            <select ng-model="cc.lead.type" id="type" ng-required="true">
                                 <option value="">Please select</option>
                                 <option value="1">Corporate</option>
                                 <option value="2">Consumer</option>
