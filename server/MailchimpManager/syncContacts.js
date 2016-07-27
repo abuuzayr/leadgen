@@ -382,7 +382,6 @@ var getReportDetails = function(results, coId, resolve, reject) {
 	//Now we want to collate all these information and save them into another array
 	//mailing list ID and mc id will get us the contact id so we can add the relevant data.
 	//if there are duplicate action and timestamp we add action else, dont add action
-	console.log(results[0].emails[0].list_id);
 	for (var i = 0; i < results.length; i++) {
 		//console.log(results[i]);
 		for (var j = 0; j < results[i].emails.length; j++) {
@@ -397,6 +396,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 			};
 			if (results[i].emails[j].activity.length != 0) {
 				activityArr.push(temp);
+				console.log(temp);
 			}
 		}
 	}
