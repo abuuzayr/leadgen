@@ -17,23 +17,30 @@
     font-size: 14 px;
     font-weight: 400 px;
     text-transform: capitalize !important;
+    background-color: #eb3a40 !important;
+    color: white !important;
+}
+
+#addList,
+#cancel {
     background-color: #f15b5d !important;
-    color: white !important;
 }
 
 #deleteList {
     background-color: #838483 !important;
-    color: white !important;
 }
 
-#addList {
+#addListConfirm {
     background-color: #838483 !important;
-    color: white !important;
 }
+
+
+/*#cancel {
+    background-color: #f15b5d !important;
+}*/
 
 #deleteList {
     background-color: #838483 !important;
-    color: white !important;
 }
 
 .ui-grid-menu .ui-grid-menu-inner ul li button {

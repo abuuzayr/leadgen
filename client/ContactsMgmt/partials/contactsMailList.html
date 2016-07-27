@@ -19,7 +19,7 @@
     <div class="mailGrid">
         <div class="grid1" ui-grid="mc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns></div>
         <br>
-        <button ng-click="mc.openDialog('addMailList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Mailing List</button>
+        <button ng-click="mc.openDialog('addMailList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id='addList'>Add Mailing List</button>
         <button ng-click="mc.openDialog('deleteConfirmation')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteMLButton" id="deleteList">Delete Mailing List</button>
     </div>
 
@@ -48,7 +48,7 @@
 
                 <div class="mdl-dialog__actions">
                     <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="mc.closeDialog('addMailList')">Close</button>
-                    <button id="addList" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.closeDialog('addMailList')">Add</button>
+                    <button id="addListConfirm" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.closeDialog('addMailList')">Add</button>
                 </div>
             </form>
         </div>
