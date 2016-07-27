@@ -1,3 +1,8 @@
+.leadListDiv {
+    margin: auto;
+    width: 80%;
+}
+
 #files {
     display: none;
 }
