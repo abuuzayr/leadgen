@@ -181,13 +181,12 @@ var mailchimpApp = {
 		mailchimp
 			.get('reports')
 			.then(function(report) {
-				console.log('reportCount');
-				console.log(report.reports.length);
 				var results = [];
 				var reportPromiseArr=[];
 				for (var i = 0; i < report.reports.length; i++) {
 					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity?count=1000000'))
 				}
+				console.log('end of loop');
 				Promise.all(reportPromiseArr)
 					.then(function(result) {
 						console.log(result);
@@ -205,8 +204,10 @@ var mailchimpApp = {
 	getIndividualReport: function(url)
 	{
 		return new Promise(function(resolve, reject) {
+			console.log(url);
 			mailchimp.get(url)
 				.then(function(activity) {
+					console.log(url);
 					console.log(activity);
 					resolve(activity);
 				})
