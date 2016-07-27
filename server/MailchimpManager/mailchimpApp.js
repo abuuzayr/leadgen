@@ -181,9 +181,11 @@ var mailchimpApp = {
 		mailchimp
 			.get('reports')
 			.then(function(report) {
+				console.log('hihihihhih');
 				var results = [];
 				var reportPromiseArr=[];
 				for (var i = 0; i < report.reports.length; i++) {
+					console.log(i);
 					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity?count=1000000'))
 				}
 				console.log('end of loop');
@@ -198,7 +200,7 @@ var mailchimpApp = {
 						reject(500);
 					});
 			}).catch(function(error) {
-				reject(error);
+				reject(500);
 			});
 	},
 	getIndividualReport: function(url)
@@ -213,7 +215,7 @@ var mailchimpApp = {
 				})
 				.catch(function(error) {
 					console.log(error);
-					reject(error);
+					reject(500);
 				});
 
 		});
