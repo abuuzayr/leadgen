@@ -59,6 +59,17 @@
                     </div>
                 </div>
             </dialog>
+
+            <dialog id="editUser" class="mdl-dialog">
+                <div class="mdl-dialog__content">
+                    <p>Save changes?</p>
+                    <div class="mdl-dialog__actions">
+                        <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ld.closeDialog('editUser')">Cancel</button>
+                        <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ld.editUser()">Yes</button>
+                    </div>
+                </div>
+            </dialog>
+
             <br><br><br>
         </div>
     </div>
