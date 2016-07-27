@@ -181,11 +181,14 @@ var mailchimpApp = {
 		mailchimp
 			.get('reports')
 			.then(function(report) {
+				console.log('reportCount');
+				console.log(report.reports.length);
 				var results = [];
 				for (var i = 0; i < report.reports.length; i++) {
 					mailchimp
 						.get('reports/' + report.reports[i].id + '/email-activity?count=1000000')
 						.then(function(activity) {
+							console.log('Retrieve Loop:'+i);
 							results.push(activity);
 							if (results.length == report.reports.length) {
 								getReportDetails(results, coId, resolve, reject);
