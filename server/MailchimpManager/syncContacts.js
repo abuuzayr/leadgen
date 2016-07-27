@@ -202,7 +202,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													}];
-													promiseArr.push(mailinglistmanager.updateContactMC((coId+' mailinglists'), updateListNameTemp));
+													promiseArr.push(mailinglistmanager.updateContactMC((coId+' mailinglists'), updateListNameTemp, coId));
 												} else if (differenceArr[i].members[j].action == '2') {
 													//create member
 													var createContactTemp = {
@@ -242,7 +242,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													}];
-													promiseArr.push(mailinglistmanager.updateContactMC((coId+' mailinglists'), updateListNameTemp));
+													promiseArr.push(mailinglistmanager.updateContactMC((coId+' mailinglists'), updateListNameTemp, coId));
 												} else if (differenceArr[i].members[j].action == '2') {
 													//create member
 													var createContactTemp = {

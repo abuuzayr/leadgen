@@ -156,7 +156,7 @@ var MailinglistManager = {
 				reject(error);
 			});
 	},
-	updateContactMC: function(collectionName, obj) {
+	updateContactMC: function(collectionName, obj, coId) {
 		return new Promise(function(resolve, reject) {
 			//This is to allow us to filter out mailing list names only.
 			dbHandler.dbQuery(collectionName, obj[0])
@@ -184,7 +184,7 @@ var MailinglistManager = {
 								firstName: obj[1].firstName,
 								lastName: obj[1].lastName
 							}];
-							dbHandler.dbUpdateMany('leadList', temp2[0], temp2[1])
+							dbHandler.dbUpdateMany((coId+' leadList'), temp2[0], temp2[1])
 								.then(function(results2) {
 									resolve(results2);
 								})
@@ -307,7 +307,7 @@ var MailinglistManager = {
 			callback(res, 400);
 		}
 	},
-	getSubscribers: function(res, collectionName, obj, callback) {
+	getSubscribers: function(res, collectionName, obj, callback, coId) {
 		var temp = {
 			listID: obj.listID
 		};
@@ -324,7 +324,7 @@ var MailinglistManager = {
 					var queryID = {
 						_id: returnResults[i].contactID
 					};
-					pArr.push(dbHandler.getSubscriberContact('leadList', queryID));
+					pArr.push(dbHandler.getSubscriberContact((coId+' leadList'), queryID));
 				}
 				Promise.all(pArr)
 					.then(function(promiseResults) {

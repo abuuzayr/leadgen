@@ -397,7 +397,7 @@ leadlistRouter.route('/mailinglist/getSubscriber')
         }
       */
       var coId = req.decoded.companyId;
-      MailinglistManager.getSubscribers(res, (coId+' mailinglists'), req.body, displayResultsCallback);
+      MailinglistManager.getSubscribers(res, (coId+' mailinglists'), req.body, displayResultsCallback, coId);
     }
   });
 /*
