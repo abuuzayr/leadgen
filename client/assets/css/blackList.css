@@ -39,7 +39,8 @@
 #removeFieldSign,
 #removeFieldButton,
 #addDomainConfirm,
-#deleteDomainConfirm {
+#deleteDomainConfirm,
+#addLeadConfirm {
     background-color: #838483 !important;
 }
 

@@ -47,8 +47,8 @@
                         Are you sure?
                     </p>
                     <div class="mdl-dialog__actions">
-                        <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent delBlackLead" ng-click="bc.closeDialog('deleteLeads')">No</button>
-                        <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect delBlackLead mdl-button--colored" ng-click="bc.deleteSelected(); bc.closeDialog('deleteLeads')">Yes</button>
+                        <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="bc.closeDialog('deleteLeads')">No</button>
+                        <button id='addLeadConfirm' type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="bc.deleteSelected(); bc.closeDialog('deleteLeads')">Yes</button>
                     </div>
                 </div>
             </dialog>
@@ -67,8 +67,8 @@
                         </div>
 
                         <div class="mdl-dialog__actions">
-                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent delBlackLead" ng-click="dc.closeDialog('addDomain')">Close</button>
-                            <button id='addDomainConfirm' type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored delBlackLead" ng-click="dc.closeDialog('addDomain')">Add</button>
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="dc.closeDialog('addDomain')">Close</button>
+                            <button id='addDomainConfirm' type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="dc.closeDialog('addDomain')">Add</button>
                         </div>
                     </form>
                 </div>
@@ -84,8 +84,8 @@
                             <option ng-repeat="domain in dc.gridOptions.data">{{domain.domain}}</option>
                         </select>
                         <div class="mdl-dialog__actions">
-                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent delBlackLead" ng-click="dc.closeDialog('deleteDomain')">Close</button>
-                            <button id='deleteDomainConfirm' type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored delBlackLead" ng-click="dc.openDialog('deleteDomainConfirmation')">Delete</button>
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="dc.closeDialog('deleteDomain')">Close</button>
+                            <button id='deleteDomainConfirm' type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="dc.openDialog('deleteDomainConfirmation')">Delete</button>
                         </div>
                     </form>
                 </div>
@@ -98,8 +98,8 @@
                     </p>
                     <form class="delete-domain-form" ng-submit="dc.deleteDomain()">
                         <div class="mdl-dialog__actions">
-                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent delBlackLead" ng-click="dc.closeDialog('deleteDomainConfirmation')">No</button>
-                            <button id='deleteDomainConfirm' type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored delBlackLead" ng-click="dc.closeDialog('deleteDomainConfirmation'); dc.closeDialog('deleteDomain')">Yes</button>
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="dc.closeDialog('deleteDomainConfirmation')">No</button>
+                            <button id='deleteDomainConfirm' type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="dc.closeDialog('deleteDomainConfirmation'); dc.closeDialog('deleteDomain')">Yes</button>
                         </div>
                     </form>
                 </div>
