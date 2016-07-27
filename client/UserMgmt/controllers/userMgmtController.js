@@ -124,16 +124,30 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
-                $scope.$apply();
+                uc.openDialog('editUser');
 
-                var obj = {};
-                obj[colDef.name] = newValue;
-                var editData = [rowEntity, obj];
-                allUsersData.editUserData(editData, userId).then(function successCallback(res) {
-                    $window.location.reload();
-                });
+                // $scope.$apply();
+
+                // var obj = {};
+                // obj[colDef.name] = newValue;
+                // var editData = [rowEntity, obj];
+                // allUsersData.editUserData(editData, userId).then(function successCallback(res) {
+                //     $window.location.reload();
+                // });
             });
         };
+
+        uc.editUser = function() {
+            $scope.$apply();
+
+            var obj = {};
+            obj[colDef.name] = newValue;
+            var editData = [rowEntity, obj];
+            allUsersData.editUserData(editData, userId).then(function successCallback(res) {
+                uc.closeDialog('editUser');
+                $window.location.reload();
+            });
+        }
 
         //popup dialog box
         uc.openDialog = function(dialogName) {

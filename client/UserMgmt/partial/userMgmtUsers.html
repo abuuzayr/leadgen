@@ -79,30 +79,6 @@
                                 <option value="2">User</option>
                                 </select>
                         </div>
-                        <!--<div class="mdl-textfield mdl-js-textfield">
-                            <label for="firstName">First Name</label>
-                            <input class="mdl-textfield__input" type="text" id="firstName" ng-model="uc.lead.first" required>
-                        </div>
-
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <label for="lastName">Last Name</label>
-                            <input class="mdl-textfield__input" type="text" id="lastName" ng-model="uc.lead.last" required>
-                        </div>
-
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <label for="role">Role</label>
-                            <select ng-model="uc.lead.role" id="role" required>
-                                <option value="">Please select</option>
-                                <option value="1">Admin</option>
-                                <option value="2">User</option>
-                                </select>
-                        </div>-->
-
-                        <!--<div class="mdl-textfield mdl-js-textfield">
-                            <label for="email">Email</label>
-                            <input class="mdl-textfield__input" type="email" id="email" ng-model="uc.lead.email" required>
-                        </div>-->
-
 
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addUser')">Close</button>
@@ -118,6 +94,16 @@
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteUser')">Cancel</button>
                         <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser')">Yes</button>
+                    </div>
+                </div>
+            </dialog>
+
+            <dialog id="editUser" class="mdl-dialog">
+                <div class="mdl-dialog__content">
+                    <p>Save changes?</p>
+                    <div class="mdl-dialog__actions">
+                        <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('editUser')">Cancel</button>
+                        <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.editUser()">Yes</button>
                     </div>
                 </div>
             </dialog>
