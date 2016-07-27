@@ -398,6 +398,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 			}
 		}
 	}
+	console.log('1');
 	mailinglistmanager.getAllData(coId+' mailinglists')
 		.then(function(mlResults) {
 			//console.log('printing activities');
@@ -410,6 +411,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 					}
 				}
 			}
+	console.log('2');
 			mailinglistmanager.getAllData(coId+' leadList')
 				.then(function(cResults) {
 					for (var j = 0; j < cResults.length; j++) {
