@@ -184,16 +184,12 @@ var mailchimpApp = {
 				var results = [];
 				var reportPromiseArr=[];
 				for (var i = 0; i < report.reports.length; i++) {
-					console.log(i);
-					console.log('reports/' + report.reports[i].id + '/email-activity?count=1');
-					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity?count=1'));
+					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity?count=10000'));
 				}
 				console.log('end of loop');
 				Promise.all(reportPromiseArr)
 					.then(function(result) {
-						console.log(result);
-						console.log('We retrieved the report');
-						resolve(result);
+						getReportDetails(result, resolve, reject);
 					})
 					.catch(function(error2) {
 						console.log(error2);
@@ -252,15 +248,11 @@ var getMembers = function(id, name, apiKey) {
 };
 var	getIndividualReport = function(url){
 	return new Promise(function(resolve, reject) {
-		console.log(url);
 		mailchimp.get(url)
 			.then(function(activity) {
-				console.log(url);
-				console.log(activity);
 				resolve(activity);
 			})
 			.catch(function(error) {
-				console.log(error);
 				reject(500);
 			});
 
