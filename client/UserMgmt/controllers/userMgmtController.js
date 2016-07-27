@@ -129,8 +129,9 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 var obj = {};
                 obj[colDef.name] = newValue;
                 var editData = [rowEntity, obj];
-                allUsersData.editUserData(editData, userId);
-                // $window.location.reload();
+                allUsersData.editUserData(editData, userId).then(function successCallback(res) {
+                    $window.location.reload();
+                });
             });
         };
 

@@ -115,8 +115,9 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
                 var obj = {};
                 obj[colDef.name] = newValue;
                 var editData = [rowEntity, obj];
-                localData.editLocalLeads(editData);
-                // $window.location.reload();
+                localData.editLocalLeads(editData).then(function successCallback(res) {
+                    $window.location.reload();
+                });
             });
         };
 
