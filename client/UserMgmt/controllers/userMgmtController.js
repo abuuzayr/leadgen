@@ -147,7 +147,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 uc.closeDialog('editUser');
                 $window.location.reload();
             });
-        }
+        };
 
         //popup dialog box
         uc.openDialog = function(dialogName) {

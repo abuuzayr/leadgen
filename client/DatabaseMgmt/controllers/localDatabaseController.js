@@ -122,14 +122,14 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             });
         };
 
-        uc.editUser = function() {
+        ld.editUser = function() {
             $scope.$apply();
 
             var obj = {};
             obj[colDef.name] = newValue;
             var editData = [rowEntity, obj];
             allUsersData.editUserData(editData, userId).then(function successCallback(res) {
-                uc.closeDialog('editUser');
+                ld.closeDialog('editUser');
                 $window.location.reload();
             });
         };
