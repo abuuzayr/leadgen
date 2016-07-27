@@ -110,6 +110,7 @@
     overflow-y: auto;
 }
 
-.mdl-dialog__content {
+.mdl-dialog__content,
+.mdl-dialog {
     width: 400px;
 }
