@@ -105,7 +105,8 @@
 
 .add-leads-form {
     height: auto;
-    min-height: 150px;
-    max-height: 250px;
+    width: 200px;
+    min-height: 250px;
+    max-height: 350px;
     overflow-y: auto;
 }
