@@ -3,12 +3,17 @@
      font-size: 14 px;
      font-weight: 400 px;
      text-transform: capitalize !important;
-     background-color: #f15b5d !important;
+     background-color: #eb3a40 !important;
      color: #F2F1F1 !important;
  }
  
  #confirmDelete {
      background-color: #838483 !important;
+ }
+ 
+ #deleteButton,
+ #cancel {
+     background-color: #f15b5d !important;
  }
  
  .tabs {

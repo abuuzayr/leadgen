@@ -33,11 +33,21 @@
     font-weight: 400 px;
     text-transform: capitalize !important;
     color: white !important;
-    background-color: #f15b5d !important;
+    background-color: #eb3a40 !important;
 }
 
-#delBlackLead {
+#removeFieldSign,
+#removeFieldButton,
+#addDomainConfirm,
+#deleteDomainConfirm {
     background-color: #838483 !important;
+}
+
+#addFieldButton,
+#addFieldSign,
+#delBlackLead,
+#cancel {
+    background-color: #f15b5d !important;
 }
 
 .ui-grid-menu .ui-grid-menu-inner ul li button {
