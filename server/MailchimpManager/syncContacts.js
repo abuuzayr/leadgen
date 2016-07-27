@@ -412,6 +412,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 				}
 			}
 	console.log('2');
+	console.log(activityArr);
 			mailinglistmanager.getAllData(coId+' leadList')
 				.then(function(cResults) {
 					for (var j = 0; j < cResults.length; j++) {
