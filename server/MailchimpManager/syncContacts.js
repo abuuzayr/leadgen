@@ -377,6 +377,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 	//Sort to handle email activity information
 	var activityArr = [];
 	console.log("===================Report activity ==============================");
+	console.log(results);
 	//console.log(results[0].emails[0].activity);// retrieve activity information.
 	//Now we want to collate all these information and save them into another array
 	//mailing list ID and mc id will get us the contact id so we can add the relevant data.
