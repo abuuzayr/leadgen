@@ -246,15 +246,12 @@ var dbHandler = {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){     
         var col = db.collection(collectionName);
-        if (obj !== null) {
-          if (obj._id !== undefined)
-            obj._id = new mongodb.ObjectID(obj._id);
-        }
+        if (obj._id !== undefined)
+          obj._id = new mongodb.ObjectID(obj._id);
         col.find(obj).toArray(function(err, docs) {
           if (err !== null)
             reject(err);
           else {
-            
             resolve(docs);
           }
         });
