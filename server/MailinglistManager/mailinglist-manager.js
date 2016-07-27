@@ -342,12 +342,16 @@ var MailinglistManager = {
 								}
 							}
 						}
+						console.log('final results');
+						console.log(finalResults);
 						callback(res, finalResults);
 					}).catch(function(pAllError) {
-						reject(pAllError);
+						console.log(pAllError);
+						callback(res,pAllError);
 					});
 			})
 			.catch(function(error) {
+				console.log(error);
 				callback(res, error);
 			});
 	},

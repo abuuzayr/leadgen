@@ -5,7 +5,8 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
   vmc.mailListResult = shareMailList.getData();
 
   detailedMailListData.getMailListData(vmc.mailListResult).then(function successCallback(res) {
-      vmc.gridOptions.data = res.data;
+      	console.log(res);
+	vmc.gridOptions.data = res.data;
     }),
     function errorCallback(err) {
       console.log('err is ' + err);
