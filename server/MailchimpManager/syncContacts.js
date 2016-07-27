@@ -411,7 +411,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 					}
 				}
 			}
-			mailinglistmanager.getAllData(coId+' leadList')
+			mailinglistmanager.getAllData(coId+' leads')
 				.then(function(cResults) {
 					for (var j = 0; j < cResults.length; j++) {
 						cResults[j].history = [];
@@ -437,7 +437,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 					}
 					var promiseActivityArr = [];
 					for (var k = 0; k < cResults.length; k++) {
-						promiseActivityArr.push(mailinglistmanager.updateActivity((coId+' leadList'), cResults[k]));
+						promiseActivityArr.push(mailinglistmanager.updateActivity((coId+' leads'), cResults[k]));
 					}
 					Promise.all(activityArr)
 						.then(function(activityResults) {
