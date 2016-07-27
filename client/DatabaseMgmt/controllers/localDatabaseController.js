@@ -110,32 +110,32 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
-                ld.openDialog('editUser');
-                // $scope.$apply();
-
-                // var obj = {};
-                // obj[colDef.name] = newValue;
-                // var editData = [rowEntity, obj];
-                // localData.editLocalLeads(editData).then(function successCallback(res) {
-                //     $window.location.reload();
-                // });
-            });
-        };
-
-        ld.editUser = function(gridApi) {
-            // $scope.$apply();
-            ld.gridApi = gridApi;
-            gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+                // ld.openDialog('editUser');
+                $scope.$apply();
 
                 var obj = {};
                 obj[colDef.name] = newValue;
                 var editData = [rowEntity, obj];
-                allUsersData.editUserData(editData, userId).then(function successCallback(res) {
-                    ld.closeDialog('editUser');
+                localData.editLocalLeads(editData).then(function successCallback(res) {
                     $window.location.reload();
                 });
             });
         };
+
+        // ld.editUser = function(gridApi) {
+        //     // $scope.$apply();
+        //     ld.gridApi = gridApi;
+        //     gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+
+        //         var obj = {};
+        //         obj[colDef.name] = newValue;
+        //         var editData = [rowEntity, obj];
+        //         allUsersData.editUserData(editData, userId).then(function successCallback(res) {
+        //             ld.closeDialog('editUser');
+        //             $window.location.reload();
+        //         });
+        //     });
+        // };
 
         var handleFileSelect = function(event) {
             var target = event.srcElement || event.target;
