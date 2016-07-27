@@ -63,7 +63,11 @@ app.controller('externalDatabaseController', ['$scope', '$window', '$http', 'ext
                 id: 2,
                 type: 'Consumer'
             }]
-        }, ],
+        }, {
+            field: 'source',
+            displayName: 'Source',
+            headerCellClass: ed.highlightFilteredHeader
+        }],
     };
 
     //get leads
