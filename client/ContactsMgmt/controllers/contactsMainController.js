@@ -127,7 +127,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             enableSorting: false,
             enableEdit: false,
             headerCellClass: cc.highlightFilteredHeader,
-            cellTemplate: '<button class="btn primary" style="margin:auto" ng-click="grid.appScope.cc.showMe(row.entity)">View</button>'
+            cellTemplate: '<button class="btn primary" style="margin:auto;" ng-click="grid.appScope.cc.showMe(row.entity)">View</button>'
         }],
 
         /** 
