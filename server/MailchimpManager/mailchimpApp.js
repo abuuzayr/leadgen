@@ -188,6 +188,7 @@ var mailchimpApp = {
 				}
 				Promise.all(reportPromiseArr)
 					.then(function(result) {
+						console.log(result);
 						getReportDetails(result,coId, resolve, reject);
 					})
 					.catch(function(error2) {
