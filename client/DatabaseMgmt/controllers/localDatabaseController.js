@@ -149,21 +149,6 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             localData.syncFromExternalLeads();
         };
 
-        // sync data to companies
-        ld.responseMessage = "";
-        ld.symbol = true;
-
-        ld.syncToCompany = function() {
-            var jsonFileToCompany = angular.toJson(ld.gridOptions.data);
-            syncToCompany.sendToCompany(jsonFileToCompany).then(function successCallback(res) {
-                    ld.responseMessage = "Synced to Companies!";
-                }),
-                function errorCallback(err) {
-                    ld.responseMessage = "Error Occured";
-                    ld.symbol = false;
-                };
-        };
-
         //delete selected leads
         ld.deleteSelected = function() {
             angular.forEach(ld.gridApi.selection.getSelectedRows(), function(data, index) {

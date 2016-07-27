@@ -78,7 +78,8 @@
     color: #F2F1F1;
 }
 
-#externalDelete {
+#externalDelete,
+#cancel {
     background-color: #f15b5d !important;
 }
 
@@ -96,31 +97,27 @@
     font-weight: bold
 }
 
-#exportButton {
+#exportButton,
+#cancel {
     background-color: #f15b5d !important;
 }
 
 
 /*For internal database*/
 
-#syncCompanies {
+#syncCompanies,
+#confirmDelete {
     background-color: #838483 !important;
 }
 
-#addFromExternal {
+#addFromExternal,
+#deleteSelectedInternal,
+#cancel {
     background-color: #f15b5d !important;
 }
 
 #get_file {
     background-color: #f58a80 !important;
-}
-
-#deleteSelectedInternal {
-    background-color: #f15b5d !important;
-}
-
-#confirmDelete {
-    background-color: #838483 !important;
 }
 
 .ui-grid-menu .ui-grid-menu-inner ul li button {
