@@ -314,6 +314,7 @@ var MailinglistManager = {
 		};
 		dbHandler.dbQuery(collectionName, temp)
 			.then(function(results) {
+				console.log(results);
 				var returnResults = [];
 				for (var i = 0; i < results.length; i++) {
 					if (results[i].email_hash != '-') {
@@ -329,6 +330,7 @@ var MailinglistManager = {
 				}
 				Promise.all(pArr)
 					.then(function(promiseResults) {
+						//console.log(promiseResults);
 						var finalResults = [];
 						for (var i = 0; i < returnResults.length; i++) {
 							for (var j = 0; j < promiseResults.length; j++) {
@@ -343,6 +345,7 @@ var MailinglistManager = {
 								}
 							}
 						}
+						//console.log(finalResults);
 						callback(res, finalResults);
 					}).catch(function(pAllError) {
 						callback(res,pAllError);

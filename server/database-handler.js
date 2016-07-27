@@ -244,14 +244,16 @@ var dbHandler = {
   },
   getSubscriberContact: function(collectionName, obj) {
     return new Promise(function(resolve, reject) {
-      connection.Do(function(db){     
+      connection.Do(function(db){
+	console.log(collectionName);     
         var col = db.collection(collectionName);
-        if (obj._id !== undefined)
+        if (obj._id != undefined)
           obj._id = new mongodb.ObjectID(obj._id);
         col.find(obj).toArray(function(err, docs) {
           if (err !== null)
             reject(err);
           else {
+	    console.log(docs);
             resolve(docs);
           }
         });
