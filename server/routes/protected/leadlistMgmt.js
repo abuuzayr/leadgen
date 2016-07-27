@@ -322,9 +322,11 @@ leadlistRouter.route('/mailingList/subscriber')
             LNAME: req.body[0].y[i].lastName
           }
         };
-        memberinfoPromiseArr.push(MailchimpManager.addMemberToList(apiKey,req.body[1].listID,temp));
+      //  memberinfoPromiseArr.push(MailchimpManager.addMemberToList(apiKey,req.body[1].listID,temp));
+      memberinfoPromiseArr.push(temp);
       }
-      Promise.all(memberinfoPromiseArr)
+   //   Promise.all(memberinfoPromiseArr)
+      MailchimpManager.addMemberToList(apiKey,req.body[1].listID,memberinfoPromiseArr)
         .then(function(MCResults)
         {
         console.log(MCResults);

@@ -46,7 +46,7 @@ var mailchimpApp = {
 
 		});
 	},
-	addMemberToList: function(apiKey, listID, memberInfo) {
+/*	addMemberToList: function(apiKey, listID, memberInfo) {
 		return new Promise(function(resolve, reject) {
 			mailchimp.setApiKey(apiKey);
 			mailchimp
@@ -60,6 +60,33 @@ var mailchimpApp = {
 				})
 				.catch(function(error) {
 					console.log("Add members in list" + error);
+				});
+		});
+	},*/
+	addMemberToList: function(apiKey, listID, memberInfo) {
+		return new Promise(function(resolve, reject) {
+			mailchimp.setApiKey(apiKey);
+			var batch = mailchimp.createBatch('lists/' + listID + '/members', 'POST');
+			console.log("We are in add member");
+			var batches = [];
+			for (var i = 0; i < memberInfo.length; i++) {
+				console.log(memberInfo[i].merge_fields);
+				batches.push({
+					body: {
+						status: 'subscribed',
+						email_address: memberInfo[i].email_address,
+						merge_fields: memberInfo[i].merge_fields
+					}
+				});
+			}
+			batch
+				.add(batches)
+				.send()
+				.then(function(result) {
+					resolve(result);
+				})
+				.catch(function(error) {
+					console.log(error);
 				});
 		});
 	},

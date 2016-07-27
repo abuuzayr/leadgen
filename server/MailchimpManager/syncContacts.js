@@ -447,6 +447,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 		}).catch(function(mlError) {
 			reject(mlError);
 		});
+	console.log("End of Report activity");
 	resolve('true');
 };
 
