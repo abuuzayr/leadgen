@@ -64,7 +64,8 @@
 }
 
 .nav-tabs {
-    margin: auto;
+    margin-left: 42%;
+    color: #141213 !important;
 }
 
 
@@ -147,10 +148,6 @@
 
 .ui-grid-grid-footer {
     color: #f15b5d !important;
-}
-
-.nav-tabs {
-    color: #141213 !important;
 }
 
 .nav-tabs>li.active>a,
