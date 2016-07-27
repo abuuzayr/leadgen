@@ -27,18 +27,10 @@
     color: #F2F1F1;
 }
 
-#stopScraping:hover {
-    text-decoration: null !important;
-}
-
 #stopScrapingNoInternet {
     margin-left: 20px;
     background-color: #838483 !important;
     color: #F2F1F1;
-}
-
-#stopScrapingNoInternet:hover {
-    text-decoration: null !important;
 }
 
 #viewResults {
