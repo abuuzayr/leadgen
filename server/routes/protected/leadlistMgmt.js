@@ -19,11 +19,12 @@ leadlistRouter.route('/leadList/leads')
     console.log('get leads');
     
     var coId = req.decoded.companyId;
+    var coName = req.decoded.companyName;
     var apiKey = req.accessInfo.mailchimpAPIKey;
 
     console.log(coId);
 
-    MailchimpManager.syncContacts(apiKey,coId)
+    MailchimpManager.syncContacts(apiKey,coId,coName)
     .then(function(success){
       return ContactsManager.displayLeads((coId+ ' leads'),null);
     })
@@ -38,12 +39,13 @@ leadlistRouter.route('/leadList/leads')
     console.log('add leads');
     
     var coId = req.decoded.companyId;
+    var coName = req.decoded.companyName;
     
     console.log(req.body);
     if (!req.body)
       res.sendStatus(400);
     else {
-      ContactsManager.addContacts(req.body,coId)
+      ContactsManager.addContacts(req.body,coId,coName)
         .then(function(results) {
           res.sendStatus(results);
         })
@@ -162,11 +164,12 @@ leadlistRouter.post('/leadList/import', function(req, res) {
     res.sendStatus(400);
   else {
     var coId = req.decoded.companyId;
+    var coName = req.decoded.companyName;
     if (!Array.isArray(req.body))
       res.sendStatus(400);
     else {
       console.log(req.body.length);
-      ContactsManager.addBulkContacts(res, req.body, returnStatusCode, coId);
+      ContactsManager.addBulkContacts(res, req.body, returnStatusCode, coId, coName);
     }
   }
 });

@@ -18,7 +18,7 @@ var ContactsManager = {
         });
     });
   },
-  addContacts: function(obj, coId) {
+  addContacts: function(obj, coId, coName) {
     return new Promise(function(resolve, reject) {
       if (obj.type != 1 && obj.type != 2)
         reject(400);
@@ -35,8 +35,9 @@ var ContactsManager = {
               }
             }
 
-            if (obj.origin != 1)
-              obj.origin = 1;
+            
+            obj.origin = 1;
+            obj.source = coName;
 
             if (matchFlag) {
               dbHandler.dbInsert(coId + ' blackList', obj)
@@ -63,7 +64,7 @@ var ContactsManager = {
       }
     });
   },
-  addBulkContacts: function(res, arr, callback, coId) {
+  addBulkContacts: function(res, arr, callback, coId, coName) {
     var promiseArr = [];
     dbHandler.dbQuery(coId + ' blackListDomains', null)
       .then(function(domains) {
@@ -77,6 +78,8 @@ var ContactsManager = {
 
           if (arr[i].type === undefined)
             arr[i].type = 2;
+
+          arr[i].source = coName;
 
           for (var j = 0; j < domains.length; j++) {
             if (arr[i].email != null || arr[i].email != undefined) {
@@ -350,7 +353,7 @@ var ContactsManager = {
       }
     });
   },
-  addContactMC: function(obj, hash, id, apiKey,coId) {
+  addContactMC: function(obj, hash, id, apiKey, coId) {
     return new Promise(function(resolve, reject) {
       console.log(coId);
       dbHandler.dbInsertReturnID((coId+' leads'), obj)

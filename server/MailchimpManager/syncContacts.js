@@ -2,7 +2,7 @@ var mailchimpClass = require('./mailchimpApp');
 var mailinglistmanager = require('../MailinglistManager/mailinglist-manager');
 var Promise = require('bluebird');
 var mailchimpHandler = {
-	syncContacts: function(apiKey,coId) {
+	syncContacts: function(apiKey,coId,coName) {
 		return new Promise(function(resolve, reject) {
 			mailchimpClass.getMyList(apiKey)
 				.then(function(results) {
@@ -177,7 +177,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													};
-													promiseArr.push(mailinglistmanager.addContactsChain((coId+' mailinglists'), createContactTemp, apiKey, coId));
+													promiseArr.push(mailinglistmanager.addContactsChain((coId+' mailinglists'), createContactTemp, apiKey, coId, coName));
 												}
 											}
 										} else if (differenceArr[i].action == '3') {
@@ -214,7 +214,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													};
-													promiseArr.push(mailinglistmanager.addContactsChain((coId+' mailinglists'), createContactTemp, apiKey, coId));
+													promiseArr.push(mailinglistmanager.addContactsChain((coId+' mailinglists'), createContactTemp, apiKey, coId, coName));
 												} else if (differenceArr[i].members[j].action == '3') {
 													//delete member
 													var deleteContactTemp = {
@@ -254,7 +254,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													};
-													promiseArr.push(mailinglistmanager.addContactsChain((coId+' mailinglists'), createContactTemp, apiKey, coId));
+													promiseArr.push(mailinglistmanager.addContactsChain((coId+' mailinglists'), createContactTemp, apiKey, coId, coName));
 												} else if (differenceArr[i].members[j].action == '3') {
 													//delete member
 													var deleteContactTemp = {

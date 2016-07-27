@@ -62,7 +62,7 @@ var MailinglistManager = {
 				});
 		});
 	},
-	addContactsChain: function(collectionName, obj, apiKey, coId) {
+	addContactsChain: function(collectionName, obj, apiKey, coId, coName) {
 		return new Promise(function(resolve, reject) {
 			console.log('++++++++++++ADDCONTACTSCHAIN+++++++++++++');	
 			console.log(coId);
@@ -77,7 +77,8 @@ var MailinglistManager = {
 				type: 2,
 				category: null,
 				origin: 1,
-				phone: null
+				phone: null,
+				source: coName
 			};
 			contactsHandler.addContactMC(temp, obj.email_hash, obj.listID, apiKey, coId)
 				.then(function(results) {
