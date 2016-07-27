@@ -186,9 +186,9 @@ var mailchimpApp = {
 				for (var i = 0; i < report.reports.length; i++) {
 					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity?count=10000'));
 				}
-				console.log('end of loop');
 				Promise.all(reportPromiseArr)
 					.then(function(result) {
+						console.log(result);
 						getReportDetails(result, resolve, reject);
 					})
 					.catch(function(error2) {
