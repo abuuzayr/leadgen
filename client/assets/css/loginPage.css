@@ -1,7 +1,6 @@
 #login-background {
     height: 100%;
     width: 100%;
-    /*background: #F5F5F5;*/
     background-image: url('../images/login-background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -63,7 +62,8 @@ body {
     width: 100% !important;
 }
 
-.textarea:focus,
+
+/*.textarea:focus,
 textarea.form-control:focus,
 input.form-control:focus,
 input[type=text]:focus,
@@ -82,8 +82,8 @@ input[type=number]:focus,
 .input:focus:invalid:focus,
 textarea:focus:invalid:focus,
 select:focus:invalid:focus {
-    /*border-color: #e9322d;*/
+    border-color: #e9322d;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
-}
+}*/
