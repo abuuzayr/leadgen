@@ -82,37 +82,39 @@
                     Please enter the details.
                 </p>
                 <form class="add-leads-form" ng-submit="cc.addData()">
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <label for="firstName">First Name</label>
-                        <input class="mdl-textfield__input" type="text" id="firstName" ng-model="cc.lead.first" required>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <label for="lastName">Last Name</label>
-                        <input class="mdl-textfield__input" type="text" id="lastName" ng-model="cc.lead.last" required>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <label for="company">Company</label>
-                        <input class="mdl-textfield__input" type="text" id="company" ng-model="cc.lead.company">
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <label for="email">Email</label>
-                        <input class="mdl-textfield__input" type="email" id="email" ng-model="cc.lead.email" required>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <label for="phone">Phone</label>
-                        <input class="mdl-textfield__input" type="number" id="phone" ng-model="cc.lead.phone" required>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <label for="category">Category</label>
-                        <input class="mdl-textfield__input" type="text" id="category" ng-model="cc.lead.category">
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <label for="type">Type</label>
-                        <select ng-model="cc.lead.type" id="type" required>
+                    <div class='formInput'>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="firstName">First Name</label>
+                            <input class="mdl-textfield__input" type="text" id="firstName" ng-model="cc.lead.first" required>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="lastName">Last Name</label>
+                            <input class="mdl-textfield__input" type="text" id="lastName" ng-model="cc.lead.last" required>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="company">Company</label>
+                            <input class="mdl-textfield__input" type="text" id="company" ng-model="cc.lead.company">
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="email">Email</label>
+                            <input class="mdl-textfield__input" type="email" id="email" ng-model="cc.lead.email" required>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="phone">Phone</label>
+                            <input class="mdl-textfield__input" type="number" id="phone" ng-model="cc.lead.phone" required>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="category">Category</label>
+                            <input class="mdl-textfield__input" type="text" id="category" ng-model="cc.lead.category">
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <label for="type">Type</label>
+                            <select ng-model="cc.lead.type" id="type" required>
                                 <option value="">Please select</option>
                                 <option value="1">Corporate</option>
                                 <option value="2">Consumer</option>
                             </select>
+                        </div>
                     </div>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="cc.closeDialog('addData')">Close</button>
