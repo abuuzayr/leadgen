@@ -8,12 +8,14 @@
     margin: auto;
 }
 
-#deleteSelected {
+#deleteSelected,
+#cancel {
     font-family: 'Roboto' !important;
     font-size: 14 px;
     font-weight: 400 px;
     text-transform: capitalize !important;
     background-color: #f15b5d !important;
+    color: #F2F1F1;
 }
 
 #addToLeadList {
@@ -25,23 +27,7 @@
     margin-left: 10px;
 }
 
-#response {
-    font-family: 'Roboto' !important;
-    font-size: 14 px;
-    font-weight: 400 px;
-    text-transform: capitalize !important;
-    background-color: #838483 !important;
-}
-
-#cancel {
-    font-family: 'Roboto' !important;
-    font-size: 14 px;
-    font-weight: 400 px;
-    text-transform: capitalize !important;
-    background-color: #f15b5d !important;
-    color: #F2F1F1;
-}
-
+#response,
 #confirmDelete {
     font-family: 'Roboto' !important;
     font-size: 14 px;

@@ -3,7 +3,8 @@
     font-size: 14 px;
     font-weight: 400 px;
     text-transform: capitalize !important;
-    background-color: #f15b5d !important;
+    background-color: #eb3a40 !important;
+    color: white !important;
 }
 
 #playButton {
@@ -34,6 +35,7 @@
 
 #viewResults {
     margin-left: 20px;
+    background-color: #f15b5d !important;
 }
 
 .ui-grid-menu .ui-grid-menu-inner ul li button {
