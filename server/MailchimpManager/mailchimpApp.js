@@ -206,8 +206,9 @@ var mailchimpApp = {
 	{
 		return new Promise(function(resolve, reject) {
 			mailchimp.setApiKey(apiKey);
-			mailchimp.get('reports/' + report.reports[i].id + '/email-activity?count=1000000')
+			mailchimp.get(url)
 				.then(function(activity) {
+					console.log(activity);
 					resolve(activity);
 				})
 				.catch(function(error) {
