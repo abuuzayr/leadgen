@@ -151,10 +151,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
                 var editData = [rowEntity, obj];
                 var url = "/contacts/leadList/leads";
                 $http.patch(appConfig.API_URL + url, editData)
-                .success(function(res){
-                    $window.location.reload();
-                });
-                
+                    .success(function(res) {
+                        $window.location.reload();
+                    });
+
             });
         }
     };
@@ -233,7 +233,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             "history": '',
         };
         var url = "/contacts/leadList/leads";
-        var addStatus = $http.post(appConfig.API_URL + url, lead);
+        $http.post(appConfig.API_URL + url, lead).then(function successCallback(res) {
+            addFeedback();
+            cc.closeDialog('addData');
+        });
     };
 
     /** 
@@ -429,7 +432,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
     };
 
     /** This method is called to initialize and display a success message via a snackbar upon successfully adding new data. */
-    cc.addFeedback = function() {
+    var addFeedback = function() {
         feedbackServices.successFeedback("Added!", '#addFeedbackID');
     };
 }])
