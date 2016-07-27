@@ -382,7 +382,6 @@ var getReportDetails = function(results, coId, resolve, reject) {
 	//mailing list ID and mc id will get us the contact id so we can add the relevant data.
 	//if there are duplicate action and timestamp we add action else, dont add action
 	for (var i = 0; i < results.length; i++) {
-		//console.log(results[i]);
 		for (var j = 0; j < results[i].emails.length; j++) {
 			var temp = {
 				listID: results[i].emails[j].list_id, //The unique id for the list.
@@ -400,7 +399,6 @@ var getReportDetails = function(results, coId, resolve, reject) {
 	}
 	mailinglistmanager.getAllData(coId+' mailinglists')
 		.then(function(mlResults) {
-			//console.log('printing activities');
 			for (var i = 0; i < activityArr.length; i++) {
 				for (var j = 0; j < mlResults.length; j++) {
 					if (activityArr[i].listID == mlResults[j].listID) {
@@ -415,7 +413,6 @@ var getReportDetails = function(results, coId, resolve, reject) {
 					for (var j = 0; j < cResults.length; j++) {
 						cResults[j].history = [];
 					}
-					console.log(cResults);
 					for (var i = 0; i < cResults.length; i++) {
 						var sCount = 0;
 						var fCount = 0;
