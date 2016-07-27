@@ -186,7 +186,7 @@ var mailchimpApp = {
 				for (var i = 0; i < report.reports.length; i++) {
 					console.log(i);
 					console.log('reports/' + report.reports[i].id + '/email-activity?count=1');
-					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity?count=1'));
+					reportPromiseArr.push(this.getIndividualReport('reports/' + report.reports[i].id + '/email-activity?count=1'));
 				}
 				console.log('end of loop');
 				Promise.all(reportPromiseArr)
@@ -203,24 +203,8 @@ var mailchimpApp = {
 				console.log(error);
 				reject(500);
 			});
-	},
-	getIndividualReport: function(url)
-	{
-		return new Promise(function(resolve, reject) {
-			console.log(url);
-			mailchimp.get(url)
-				.then(function(activity) {
-					console.log(url);
-					console.log(activity);
-					resolve(activity);
-				})
-				.catch(function(error) {
-					console.log(error);
-					reject(500);
-				});
-
-		});
 	}
+
 };
 module.exports = mailchimpApp;
 
@@ -266,3 +250,19 @@ var getMembers = function(id, name, apiKey) {
 		});
 	});
 };
+var	getIndividualReport = function(url){
+	return new Promise(function(resolve, reject) {
+		console.log(url);
+		mailchimp.get(url)
+			.then(function(activity) {
+				console.log(url);
+				console.log(activity);
+				resolve(activity);
+			})
+			.catch(function(error) {
+				console.log(error);
+				reject(500);
+			});
+
+	});
+}
