@@ -110,3 +110,7 @@
     max-height: 350px;
     /*overflow-y: auto;*/
 }
+
+.mdl-textfield__input {
+    width: 100px;
+}
