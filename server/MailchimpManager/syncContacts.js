@@ -377,8 +377,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 	//Sort to handle email activity information
 	var activityArr = [];
 	console.log("===================Report activity ==============================");
-//	console.log(results);
-	//console.log(results[0].emails[0].activity);// retrieve activity information.
+	// retrieve activity information.
 	//Now we want to collate all these information and save them into another array
 	//mailing list ID and mc id will get us the contact id so we can add the relevant data.
 	//if there are duplicate action and timestamp we add action else, dont add action
@@ -396,7 +395,6 @@ var getReportDetails = function(results, coId, resolve, reject) {
 			};
 			if (results[i].emails[j].activity.length != 0) {
 				activityArr.push(temp);
-				console.log(temp);
 			}
 		}
 	}
@@ -424,6 +422,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 						var itemID = cResults[i]._id + '';
 						for (var j = 0; j < activityArr.length; j++) {
 							if (activityArr[j].contactID == itemID) {
+								console.log(activityArr[j].action[0].action);
 								if (activityArr[j].action[0].action == 'bounce')
 									fCount++;
 								else
