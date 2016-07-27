@@ -122,15 +122,18 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             });
         };
 
-        ld.editUser = function(rowEntity, colDef, newValue, oldValue) {
+        ld.editUser = function() {
             // $scope.$apply();
 
-            var obj = {};
-            obj[colDef.name] = newValue;
-            var editData = [rowEntity, obj];
-            allUsersData.editUserData(editData, userId).then(function successCallback(res) {
-                ld.closeDialog('editUser');
-                $window.location.reload();
+            gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+
+                var obj = {};
+                obj[colDef.name] = newValue;
+                var editData = [rowEntity, obj];
+                allUsersData.editUserData(editData, userId).then(function successCallback(res) {
+                    ld.closeDialog('editUser');
+                    $window.location.reload();
+                });
             });
         };
 
