@@ -122,7 +122,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             });
         };
 
-        ld.editUser = function() {
+        ld.editUser = function(rowEntity, colDef, newValue, oldValue) {
             // $scope.$apply();
 
             var obj = {};
