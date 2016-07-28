@@ -1,9 +1,10 @@
 app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'leadsData', 'historyData', 'mailListData', 'contactsColumnData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', function($scope, $window, appConfig, leadsData, historyData, mailListData, contactsColumnData, $http, $interval, uiGridConstants, $q, $location, $timeout, feedbackServices) {
 
     var cc = this;
-
+    cc.spinner = true;
     /** This is used to get leads from database */
     leadsData.success(function(data) {
+        cc.spinner = false;
         cc.gridOptions.data = data;
     });
 
@@ -303,9 +304,9 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         };
         var url = "/contacts/leadList/fields";
         $http.post(appConfig.API_URL + url, field)
-        .then(function(res){
-          $window.location.reload();
-        });
+            .then(function(res) {
+                $window.location.reload();
+            });
     };
 
     /** 
@@ -391,9 +392,9 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         };
         var url = "/contacts/leadList/leads/duplicates";
         $http.put(appConfig.API_URL + url, fieldObj)
-        .then(function(res){
-            $window.location.reload(); 
-        });
+            .then(function(res) {
+                $window.location.reload();
+            });
     };
 
     /**
