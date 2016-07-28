@@ -35,7 +35,7 @@
         function decodeToken(token) {
             console.log(token);
             if (!token)
-                console.log('no cookie') //	return logout();
+                console.log('no cookie'); //	return logout();
             var payload = token.split('.')[1];
             var decoded = JSON.parse(atob(payload));
             return decoded;
