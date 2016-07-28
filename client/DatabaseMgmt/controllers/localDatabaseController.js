@@ -127,7 +127,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             ld.gridApi = gridApi;
             // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
 
-            localData.editUserData(rowEntity, rowEntity._id)
+            localData.editLocalLeads(rowEntity)
                 .then(function(res) {
                     ld.closeDialog('editUser');
                     $window.location.reload();
