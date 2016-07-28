@@ -108,7 +108,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 
             allUsersData.addUserData(newUser).then(function successCallback(res) {
                 console.log('Added');
-                addFeedback();
+                // addFeedback();
                 uc.closeDialog('addUser');
             }).catch(function errorCallback(err) {
                 console.log('Unable to add user');
