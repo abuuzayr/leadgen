@@ -135,12 +135,13 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             // $scope.$apply();
             ld.gridApi = gridApi;
             // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-            var obj = {};
             console.log(colName);
             console.log(editedValue);
             if (angular.isDefined(colName) && angular.isDefined(editedValue)) {
+                var obj = {};
                 obj[colName] = editedValue;
                 var editData = [rowEntity, obj];
+                console.log(editData);
                 localData.editLocalLeads(editData)
                     .then(function(res) {
                         ld.closeDialog('editUser');
