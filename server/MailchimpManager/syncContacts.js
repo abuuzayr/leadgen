@@ -55,6 +55,7 @@ var mailchimpHandler = {
 										console.log(mailchimplist[i]);
 									}
 									console.log("=========================================================");*/
+									console.log("mailinglist has "+ mailchimplist.length);
 									var returnArr = [];
 									returnArr.push(mailchimplist);
 									returnArr.push(databaselist);
