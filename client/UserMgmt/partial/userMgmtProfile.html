@@ -23,28 +23,23 @@
                 <!-- Your first column here -->
                 <h3>Company Profile</h3><br>
                 <div class="form-group has-error">
-                    <label for="inputEmail" class="col-lg-2 control-label">Company Name:</label>
+                    <label for="inputEmail" class="col-lg-6 control-label">Company Name:</label>
                     <div class="col-lg-12">
                         <input type="text" class="form-control" id="companyName" placeholder="Company Name" ng-model="uc.company">
                     </div>
                 </div>
                 <br>
-                <h5>Subsciption Type:</h5>
-                <div id='first' ng-show="uc.checkConsumer">
-                    <i class="material-icons">check_box</i>Consumer
-                    <!--<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1">
-                        <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked>
-                        <span class="mdl-checkbox__label">Consumer</span>
-                    </label>-->
+                <div class='form-group'>
+                    <h5>Subsciption Type:</h5>
+                    <div id='first' ng-show="uc.checkConsumer">
+                        <i class="material-icons">check_box</i>Consumer
+                    </div>
+                    <div id='second' ng-show="uc.checkCorporate">
+                        <i class="material-icons">check_box</i>Corporate
+                    </div>
                 </div>
-                <div id='second' ng-show="uc.checkCorporate">
-                    <i class="material-icons">check_box</i>Corporate
-                    <!--<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
-                        <input type="checkbox" id="checkbox-2" class="mdl-checkbox__input" checked>
-                        <span class="mdl-checkbox__label">Corporate</span>
-                    </label>-->
-                </div>
-            </div><br>
+            </div>
+            <br>
         </div>
         <br><br>
     </div>

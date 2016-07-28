@@ -71,6 +71,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             // get data from server
             allUsersData.getUserData(companyId).then(function successCallback(res) {
                     uc.gridOptions.data = res.data;
+                    console.log('get users');
                 }),
                 function errorCallback(err) {
                     console.log('Cannot get users');
