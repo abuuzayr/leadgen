@@ -122,12 +122,14 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             });
         };
 
-        ld.editUser = function(gridApi, rowEntity) {
+        ld.editUser = function(gridApi, rowEntity, colDef) {
             // $scope.$apply();
             ld.gridApi = gridApi;
             // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-
-            localData.editLocalLeads(rowEntity)
+            var obj = {};
+            obj[colDef.name] = newValue;
+            var editData = [rowEntity, obj];
+            localData.editLocalLeads(editData)
                 .then(function(res) {
                     ld.closeDialog('editUser');
                     $window.location.reload();
