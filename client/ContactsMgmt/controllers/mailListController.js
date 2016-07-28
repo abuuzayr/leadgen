@@ -33,7 +33,7 @@
           showGridFooter: true,
           multiSelect: false,
           columnDefs: [{
-              field: 'name',
+              field: 'listName',
               displayName: 'List Name',
               minWidth: 150,
               width: 540,
