@@ -82,6 +82,7 @@
               "listName": mc.mailListName,
               "subscribers": 0
           });
+
           var mailingList = {
               "listName": mc.mailListName,
               "subscribers": 0
@@ -90,7 +91,7 @@
           addStatus = $http.post(appConfig.API_URL + url, mailingList)
               .then(function successCallback(res) {
                   mc.closeDialog('addMailList');
-                  $window.location.reload();
+                  //   $window.location.reload();
               });
       };
 
