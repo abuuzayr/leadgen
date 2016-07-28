@@ -84,16 +84,16 @@ select:-webkit-autofill {
     color: rgb(0, 0, 0);
 }
 .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
-    color: #838483 !important;
+    color: #eb3a40 !important;
 }
 
 .mdl-textfield--floating-label.is-focused .mdl-textfield__label,
 .mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
-    color: #838483 !important;
+    color: #eb3a40 !important;
 }
 
 .mdl-textfield.is-invalid .mdl-textfield__label:after {
-    background-color: #838483 !important;
+    background-color: #eb3a40 !important;
 }
 
 /*.textarea:focus,
