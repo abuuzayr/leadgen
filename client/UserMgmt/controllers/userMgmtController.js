@@ -168,6 +168,11 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             }
         };
 
+        uc.cancelEdit = function() {
+            uc.closeDialog('editUser');
+            $window.location.reload();
+        };
+
         //popup dialog box
         uc.openDialog = function(dialogName) {
             var dialog = document.querySelector('#' + dialogName);
