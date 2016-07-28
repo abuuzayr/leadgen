@@ -187,14 +187,15 @@ var mailchimpApp = {
 				});
 		});
 	},
-	getReports: function(getReportDetails, coId, resolve, reject) {
+	/*getReports: function(getReportDetails, coId, resolve, reject) {
 		mailchimp
 			.get('reports')
 			.then(function(report) {
 				var results = [];
+				var init = 0;
 				var reportPromiseArr=[];
-				for (var i = 0; i < report.reports.length; i++) {
-					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity?count=100'));
+				for (var i = init; i < report.reports.length; i++) {
+					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity'));
 				}
 				Promise.all(reportPromiseArr)
 					.then(function(result) {
@@ -205,12 +206,42 @@ var mailchimpApp = {
 						console.log(error2);
 						reject(500);
 					});
+				//get reports 10 at a time.
+			}).catch(function(error) {
+				console.log(error);
+				reject(500);
+			});
+	}*/
+	getReports: function(getReportDetails, coId, resolve, reject) {
+		mailchimp
+			.get('reports')
+			.then(function(report) {
+				var results = [];
+				var finalResults=[];
+				var init = 0;
+				var reportPromiseArr=[];
+				for (var i = init; i < report.reports.length; i++) {
+					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity'));
+				}
+				//Promise.all(reportPromiseArr)
+				Promise.each(reportPromiseArr ,function(result)
+				{
+					finalResults.push(result);
+				})
+					.then(function(result) {
+						console.log(result);
+						getReportDetails(result, coId, resolve, reject);
+					})
+					.catch(function(error2) {
+						console.log(error2);
+						reject(500);
+					});
+				//get reports 10 at a time.
 			}).catch(function(error) {
 				console.log(error);
 				reject(500);
 			});
 	}
-
 };
 module.exports = mailchimpApp;
 
