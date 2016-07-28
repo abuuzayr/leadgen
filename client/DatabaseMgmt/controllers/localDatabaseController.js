@@ -137,6 +137,11 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             // });
         };
 
+        ld.cancelEdit = function() {
+            ld.closeDialog('editUser');
+            $window.location.reload();
+        };
+
         var handleFileSelect = function(event) {
             var target = event.srcElement || event.target;
 
