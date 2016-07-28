@@ -141,7 +141,9 @@ var mailchimpHandler = {
 									*/for (var i = 0; i < differenceArr.length; i++) {
 									//	console.log(differenceArr[i]);
 									}
-									//console.log("========================End of Update=======================================");*/
+
+									console.log(differenceArr.length);
+									console.log("========================End of Update=======================================");
 									var promiseArr = [];
 									for (var i = 0; i < differenceArr.length; i++) {
 										//go through everylist check the action, perform the action.
