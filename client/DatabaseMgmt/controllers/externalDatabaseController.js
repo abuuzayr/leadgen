@@ -90,7 +90,11 @@ app.controller('externalDatabaseController', ['$scope', '$window', '$http', 'ext
         //save after edit
         gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
             console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
+            ed.openDialog('editUser');
             $scope.$apply();
+            colName = colDef.name;
+            editedValue = newValue;
+            row = rowEntity;
 
             // var obj = {};
             // obj[colDef.name] = newValue;
