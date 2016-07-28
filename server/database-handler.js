@@ -52,7 +52,7 @@ var dbHandler = {
         };
               col.find(filter).toArray()
               .then(function(results){
-                if(results.length >0){
+                if(results.length >1){
           	    console.log('duplicate found');
                 resolve(200);
     	  }else{
