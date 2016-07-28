@@ -54,9 +54,10 @@ var dbHandler = {
         };
               col.find(filter).toArray()
               .then(function(results){
-                if(results.length > 0 && collectionName!="mailinglists"){
-      	    console.log('duplicate found');
-	  }else{
+                if(results.length >0){
+          	    console.log('duplicate found');
+                resolve(200);
+    	  }else{
             col.insertOne(obj)
             .then(function(success){
               resolve(200);
