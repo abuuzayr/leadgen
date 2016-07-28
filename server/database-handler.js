@@ -56,7 +56,6 @@ var dbHandler = {
         .then(function(results){
           if(results.length > 0){
 	    console.log('duplicate found');
-	    reject(500);
 	  }else{
             col.insertOne(obj)
             .then(function(success){
