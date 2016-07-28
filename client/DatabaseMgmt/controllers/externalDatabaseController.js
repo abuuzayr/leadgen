@@ -63,7 +63,11 @@ app.controller('externalDatabaseController', ['$scope', '$window', '$http', 'ext
                 id: 2,
                 type: 'Consumer'
             }]
-        }, ],
+        }, {
+            field: 'source',
+            displayName: 'Source',
+            headerCellClass: ed.highlightFilteredHeader
+        }],
     };
 
     //get leads
@@ -87,8 +91,9 @@ app.controller('externalDatabaseController', ['$scope', '$window', '$http', 'ext
             var obj = {};
             obj[colDef.name] = newValue;
             var editData = [rowEntity, obj];
-            externalData.editExternalLeads(editData);
-            // $window.location.reload();s
+            externalData.editExternalLeads(editData).then(function successCallback(res) {
+                $window.location.reload();
+            });
         });
     };
 

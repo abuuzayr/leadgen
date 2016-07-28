@@ -1,5 +1,5 @@
-app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGridConstants', '$q', '$location', '$timeout', 'sendDataToLocal', 'syncToCompany',
-    function($scope, $http, localData, uiGridConstants, $q, $location, $timeout, sendDataToLocal, syncToCompany) {
+app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGridConstants', '$q', '$location', '$timeout', 'sendDataToLocal', 'syncToCompany', '$window',
+    function($scope, $http, localData, uiGridConstants, $q, $location, $timeout, sendDataToLocal, syncToCompany, $window) {
         var ld = this;
 
         ld.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
@@ -110,15 +110,32 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
+                // ld.openDialog('editUser');
                 $scope.$apply();
 
                 var obj = {};
                 obj[colDef.name] = newValue;
                 var editData = [rowEntity, obj];
-                localData.editLocalLeads(editData);
-                // $window.location.reload();
+                localData.editLocalLeads(editData).then(function successCallback(res) {
+                    $window.location.reload();
+                });
             });
         };
+
+        // ld.editUser = function(gridApi) {
+        //     // $scope.$apply();
+        //     ld.gridApi = gridApi;
+        //     gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+
+        //         var obj = {};
+        //         obj[colDef.name] = newValue;
+        //         var editData = [rowEntity, obj];
+        //         allUsersData.editUserData(editData, userId).then(function successCallback(res) {
+        //             ld.closeDialog('editUser');
+        //             $window.location.reload();
+        //         });
+        //     });
+        // };
 
         var handleFileSelect = function(event) {
             var target = event.srcElement || event.target;
@@ -147,21 +164,6 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             }
 
             localData.syncFromExternalLeads();
-        };
-
-        // sync data to companies
-        ld.responseMessage = "";
-        ld.symbol = true;
-
-        ld.syncToCompany = function() {
-            var jsonFileToCompany = angular.toJson(ld.gridOptions.data);
-            syncToCompany.sendToCompany(jsonFileToCompany).then(function successCallback(res) {
-                    ld.responseMessage = "Synced to Companies!";
-                }),
-                function errorCallback(err) {
-                    ld.responseMessage = "Error Occured";
-                    ld.symbol = false;
-                };
         };
 
         //delete selected leads

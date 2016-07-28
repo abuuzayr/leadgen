@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="assets/css/beforeScrapeBiz.css">
+<link rel="stylesheet" type="text/css" href="assets/css/beforeScrape.css">
 
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <!---------------------------------------- Ng-include nav bars ---------------------------------------->
@@ -6,7 +6,7 @@
 </div>
 <br>
 <div ng-controller="beforeScrapeController as beforeCorporate">
-    <div ng-controller="tabsController as vm">
+    <div class='tabs' ng-controller="tabsController as vm">
         <ul class="nav nav-tabs">
             <li class="active"><a ui-sref="corporate" data-toggle="tab" ng-show="vm.showCorporate">Corporate</a></li>
             <li><a ui-sref="consumer" ng-show="vm.showConsumer" data-toggle="tab">Consumer</a></li>
@@ -53,7 +53,7 @@
                 <br>
 
                 <a ui-sref=".corporateStartScrap">
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-click="beforeCorporate.setInput()" ng-disabled="beforeCorporate.continue">
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id='proceedScrape' ng-click="beforeCorporate.setInput()" ng-disabled="beforeCorporate.continue">
                         Proceed to Scrape
                     </button>
                 </a>

@@ -14,11 +14,11 @@
         <h4>Total Leads Scraped: {{cr.resultsLength}}</h4>
 
         <!-- Accent-colored raised button with ripple -->
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="cr.openDialog('deleteLead')">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="deleteSelected" data-ng-click="cr.openDialog('deleteLead')">
             Deleted Selected
         </button>
 
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" data-ng-click="cr.showFunction(); cr.saveToContacts(); cr.clearData(); cr.addSelected()">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="addToLeadList" data-ng-click="cr.showFunction(); cr.saveToContacts(); cr.clearData(); cr.addSelected()">
             Add to LeadList
         </button>
 
@@ -27,12 +27,12 @@
                 <p>Are you sure?</p>
                 <div class="mdl-dialog__actions">
                     <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="cr.closeDialog('deleteLead')">Cancel</button>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="cr.deleteSelected();cr.closeDialog('deleteLead')">Yes</button>
+                    <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="cr.deleteSelected();cr.closeDialog('deleteLead')">Yes</button>
                 </div>
             </div>
         </dialog>
 
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-show="cr.showResult">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" ng-show="cr.showResult" id="response">
             {{ cr.responseMessage }}
             <i class="material-icons" ng-show="cr.symbol">done</i>
             <i class="material-icons" ng-hide="cr.symbol">clear</i>

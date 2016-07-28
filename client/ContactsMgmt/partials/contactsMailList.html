@@ -1,11 +1,5 @@
 <link rel="stylesheet" href="assets/css/mailList.css" />
-<style>
-.mdl-button{
 
-    background-color: #f15bfd !important;
-    text-transform:capitalize;
-}
-</style>
 <div ng-controller="mailListController as mc">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <!---------------------------------------- Ng-include nav bars ---------------------------------------->
@@ -14,17 +8,19 @@
     <br>
     <br>
     <br>
-    <ul class="nav nav-tabs">
-        <li class=""><a ui-sref="leadlist" data-toggle="tab" ng-click="mc.refresh()">LeadList</a></li>
-        <li class="active"><a ui-sref="maillist" data-toggle="tab" ng-click="mc.refresh()">Mailing List</a></li>
-        <li class=""><a ui-sref="blacklist" data-toggle="tab" ng-click="mc.refresh()">BlackList</a></li>
-    </ul>
+    <div class='tabs'>
+        <ul class="nav nav-tabs">
+            <li class=""><a ui-sref="leadlist" data-toggle="tab">LeadList</a></li>
+            <li class="active"><a ui-sref="maillist" data-toggle="tab">Mailing List</a></li>
+            <li class=""><a ui-sref="blacklist" data-toggle="tab">BlackList</a></li>
+        </ul>
+    </div>
     <br><br>
     <div class="mailGrid">
         <div class="grid1" ui-grid="mc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns></div>
         <br>
-        <button ng-click="mc.openDialog('addMailList')" style="background-color: #f15bfd;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Add Mailing List</button>
-        <button ng-click="mc.openDialog('deleteConfirmation')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteMLButton">Delete Mailing List</button>
+        <button ng-click="mc.openDialog('addMailList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id='addList'>Add Mailing List</button>
+        <button ng-click="mc.openDialog('deleteConfirmation')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent deleteMLButton" id="deleteList">Delete Mailing List</button>
     </div>
 
     <dialog id="deleteConfirmation" class="mdl-dialog">
@@ -34,7 +30,7 @@
             </p>
             <div class="mdl-dialog__actions">
                 <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="mc.closeDialog('deleteConfirmation')">No</button>
-                <button type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.deleteSelected(); mc.closeDialog('deleteConfirmation')">Yes</button>
+                <button id="deleteList" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.deleteSelected(); mc.closeDialog('deleteConfirmation')">Yes</button>
             </div>
         </div>
     </dialog>
@@ -52,7 +48,7 @@
 
                 <div class="mdl-dialog__actions">
                     <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="mc.closeDialog('addMailList')">Close</button>
-                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.closeDialog('addMailList')">Add</button>
+                    <button id="addListConfirm" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="mc.closeDialog('addMailList')">Add</button>
                 </div>
             </form>
         </div>

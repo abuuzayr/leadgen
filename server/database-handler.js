@@ -49,13 +49,26 @@ var dbHandler = {
         if (obj._id !== undefined)
           delete obj._id;
         var col = db.collection(collectionName);
-        col.insertOne(obj, function(err, r) {
-          if (err !== null) {
-            reject(500);
-          } else {
-            
-            resolve(201);
+        var filter = {
+          email : obj.email
+        };
+        col.find(filter).toArray()
+        .then(function(results){
+          if(results.length > 0){
+	    console.log('duplicate found');
+	    reject(500);
+	  }else{
+            col.insertOne(obj)
+            .then(function(success){
+              resolve(200);
+            })
+            .catch(function(error){
+              reject(500);
+            });
           }
+        })
+        .catch(function(error){
+          reject(500);
         });
       });
     });

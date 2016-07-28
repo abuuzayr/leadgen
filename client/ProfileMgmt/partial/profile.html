@@ -1,62 +1,73 @@
-<!--<link rel="stylesheet" type="text/css" href="assets/css/userProfile.css">-->
+<link rel="stylesheet" type="text/css" href="assets/css/userProfile.css">
 <div class="mdl-layout__container" ng-controller="profileController as pc">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <!---------------------------------------- Ng-include nav bars ---------------------------------------->
         <div ng-include="'NavBarMgmt/mainTab.html'"></div>
     </div>
     <br><br><br>
-    <div class="mdl-grid">
-        <div id="settings-grid" class="mdl-cell mdl-cell--6-col">
-            <h3>Account Settings</h3>
+    <div class="mdl-grid" style="width:80%;height:80%; align:center;">
+        <div id="settings-grid" class="mdl-cell mdl-cell--6-col" style="width:40%;float:left;">
+            <h3>Account Details</h3>
             <form id="change-settings" action="#">
                 <!-- Username input -->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input id="username" class="mdl-textfield__input" type="text" placeholder="Username" ng-model="pc.userName" ng-required="true " />
-                    <label class="mdl-textfield__label" for="username">Username</label>
+                <div class="form-group">
+                    <label for="username" class="col-lg-2 control-label" style="width:40% !important;">Username</label>
+                    <div class="col-lg-10" style="width:50% !important;">
+                        <input type="text" class="form-control" id="username" placeholder="Username" ng-model="pc.userName" ng-required="true ">
+                    </div>
                 </div>
-                <br>
+                <br />
                 <!-- Email -->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input id="email" class="mdl-textfield__input" type="text" ng-model="pc.userEmail" placeholder="Email" ng-required="true" />
-                    <label class="mdl-textfield__label" for="email">Email</label>
+                <div class="form-group">
+                    <label for="email" class="col-lg-2 control-label" style="width:40% !important;">Email</label>
+                    <div class="col-lg-10" style="width:50% !important;">
+                        <input type="text" class="form-control" id="email" placeholder="Email" ng-model="pc.userEmail" ng-required="true">
+                    </div>
                 </div>
-                <br>
-                <br>
+                <br />
                 <!-- Change timezone -->
                 <div id="timezone" class="mdl-selectfield">
                     <label class="mdl-selectfield__label">Timezone</label>
+                    <br>
                     <select>
-                                <option value="singapore">Singapore GMT +8</option>
-                            </select>
-                </div><br><br>
+                        <option value="singapore">Singapore GMT +8</option>
+                    </select>
+                </div>
+                <br><br>
             </form>
         </div>
 
-        <div id="settings-grid" class="mdl-cell mdl-cell--6-col">
+        <div id="settings-grid" class="mdl-cell mdl-cell--6-col" style="width:45% !important;align:right;float:right;  border-style-right: solid">
             <h3>Change Password</h3>
-            <form id="password-settings" ng-submit="pc.validateNewPassword()">
+            <form id="password-settings" ng-submit="pc.validateNewPassword()" style="margin-bottom:20px;">
                 <!-- Password input -->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input id="password" class="mdl-textfield__input" type="password" ng-model="pc.userPassword" />
-                    <label class="mdl-textfield__label" for="password" required>Old Password</label>
+                <!--<div class="form-group" style="margin-bottom:20px;">
+                    <label for="password" class="col-lg-2 control-label" style="width:40% !important;">Old Password</label>
+                    <div class="col-lg-10" style="width:50%;">
+                        <input type="text" class="form-control" id="password" placeholder="Old Password" ng-model="pc.userPassword">
+                    </div>
                 </div>
-                <br>
+                <br />-->
                 <!-- New password input -->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input id="newpassword1" class="mdl-textfield__input" type="password" ng-model="pc.newPwd" />
-                    <label class="mdl-textfield__label" for="password">New Password</label>
+                <div class="form-group" style="margin-bottom:20px;">
+                    <label for="newpassword" class="col-lg-2 control-label" style="width:40% !important;">New Password</label>
+                    <div class="col-lg-10" style="width:50% !important;">
+                        <input type="password" class="form-control" id="newpassword1" placeholder="New Password" ng-model="pc.newPwd">
+                    </div>
                 </div>
-                <br>
+                <br />
                 <!-- New password input again -->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input id="newpassword2" class="mdl-textfield__input" type="password" ng-model="pc.retypePwd" />
-                    <label class="mdl-textfield__label" for="password">Confirm New Password</label>
+                <div class="form-group" style="margin-bottom:20px;">
+                    <label for="retypepassword" class="col-lg-2 control-label" style="width:40% !important;">Confirm New Password</label>
+                    <div class="col-lg-10" style="width:50% !important;">
+                        <input type="text" class="form-control" id="newpassword2" placeholder="Retype Password" ng-model="pc.retypePwd">
+                    </div>
                 </div>
                 <br>
                 <br>
                 <!-- Submit button -->
-                <div id="login-button" class="mdl-card__actions mdl-card--border"><br>
-                    <button class="mdl-button mdl-button--accent mdl-button--raised mdl-js-button mdl-js-ripple-effect" type='submit'>
+                <div class="mdl-card__actions mdl-card--border" style="margin-bottom:20px;"><br>
+                    <button class="mdl-button mdl-button--accent mdl-button--raised mdl-js-button mdl-js-ripple-effect" id="login-button" type='submit'>
                             Update Password
                         </button>
                 </div>

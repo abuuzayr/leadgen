@@ -1,23 +1,72 @@
+.mdl-button {
+    font-family: 'Roboto' !important;
+    font-size: 14 px;
+    font-weight: 400 px;
+    text-transform: capitalize !important;
+    background-color: #eb3a40 !important;
+    color: white !important;
+}
+
 #playButton {
     margin-left: 0px;
 }
 
 #pauseButton {
     margin-left: 20px;
+    background-color: #f15b5d !important;
 }
 
 #stopButton {
     margin-left: 20px;
+    background-color: #f58a80 !important;
 }
 
 #stopScraping {
     margin-left: 20px;
+    background-color: #838483 !important;
+    color: #F2F1F1;
 }
 
 #stopScrapingNoInternet {
     margin-left: 20px;
+    background-color: #838483 !important;
+    color: #F2F1F1;
 }
 
 #viewResults {
     margin-left: 20px;
+    background-color: #f15b5d !important;
+}
+
+.ui-grid-menu .ui-grid-menu-inner ul li button {
+    min-width: 100%;
+    padding: 8px;
+    text-align: left;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.ui-grid-menu .ui-grid-menu-inner ul li button:hover {
+    color: red !important;
+    min-width: 100%;
+    padding: 8px;
+    text-align: left;
+    background: transparent;
+    color: #f15b5d;
+    outline: none;
+}
+
+.ui-grid-menu .ui-grid-menu-inner ul li button.ui-grid-menu-item-active {
+    -webkit-box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
+    color: red;
+    background: transparent !important;
+    outline: none;
+    border: 3px solid #f15b5d
+}
+
+.ui-grid-grid-footer {
+    color: #f15b5d !important;
 }
