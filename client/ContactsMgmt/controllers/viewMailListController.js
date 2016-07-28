@@ -135,15 +135,10 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
 
     //delete selected leads
     vmc.deleteSelected = function() {
-        var count = 0;
         angular.forEach(vmc.gridApi.selection.getSelectedRows(), function(data, index) {
-            count++;
-            if (count <= 5) {
-                vmc.gridOptions.data.splice(vmc.gridOptions.data.lastIndexOf(data), 1);
-            } else if (count > 5) {
-                vmc.openDialog('deleteLimit');
-            }
+            vmc.gridOptions.data.splice(vmc.gridOptions.data.lastIndexOf(data), 1);
         });
+
         var leads = $vmc.gridApi.selection.getSelectedRows();
         var url = "/contacts/mailingList/subscriber";
         var deleteStatus = $http.put(appConfig.API_URL + url, leads);
