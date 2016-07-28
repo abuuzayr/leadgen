@@ -94,10 +94,13 @@ var MailinglistManager = {
 					};
 					console.log("Adding to mailing list");
 					console.log(tempML);
+					console.log(collectionName);
 					dbHandler.dbInsert(collectionName, tempML)
 						.then(function(result) {
+							console.log("can add");
 							resolve(result);
 						}).catch(function(MLerror) {
+							console.log("cannot add");
 							reject(MLerror);
 						});
 				})
