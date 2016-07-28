@@ -84,23 +84,31 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 "username": uc.lead.userName,
                 "email": uc.lead.email,
                 "application": {
-		   "bulletlead":{
-  		     "usertype":uc.lead.role
-		   }
-  		}
+                    "bulletlead": {
+                        "usertype": uc.lead.role
+                    }
+                }
             });
-            var newUser = {
-                username: uc.lead.userName,
-                email: uc.lead.email,
-                password: uc.lead.password,
-                companyId: companyId,
-                companyName: companyName,
 
-            };
+            var newUser = {};
+            newUser.username = uc.lead.userName;
+            newUser.email = uc.lead.email;
+            newUser.password = uc.lead.password;
+            newUser.companyId = companyId;
+            newUser.companyName = companyName;
+
+            // var newUser = {
+            //     username: uc.lead.userName,
+            //     email: uc.lead.email,
+            //     password: uc.lead.password,
+            //     companyId: companyId,
+            //     companyName: companyName,
+
+            // };
 
             newUser.application = {};
-	    newUser.application.bulletlead = {};
-	    newUser.application.bulletlead.isUser = true;
+            newUser.application.bulletlead = {};
+            newUser.application.bulletlead.isUser = true;
             newUser.application.bulletlead.usertype = uc.lead.role;
 
             allUsersData.addUserData(newUser).then(function successCallback(res) {
@@ -137,9 +145,9 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 $scope.$apply();
                 allUsersData.editUserData(rowEntity, rowEntity._id)
-                .then(function(res){
-                    $window.location.reload();
-                });
+                    .then(function(res) {
+                        $window.location.reload();
+                    });
 
             });
         };
