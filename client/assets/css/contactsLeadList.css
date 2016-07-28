@@ -8,7 +8,11 @@
 }
 
 #historyData {
-    width: 400px;
+    width: 350px;
+}
+
+#historyTable {
+    width: 250px;
 }
 
 .tabs {
