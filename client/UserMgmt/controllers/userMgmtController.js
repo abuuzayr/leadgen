@@ -162,6 +162,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             if (angular.isDefined(row)) {
                 allUsersData.editUserData(row, row._id)
                     .then(function(res) {
+                        console.log('success');
                         uc.closeDialog('editUser');
                         $window.location.reload();
                     });
