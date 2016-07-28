@@ -135,6 +135,9 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
 
     //delete selected leads
     vmc.deleteSelected = function() {
+
+        var count = vmc.gridApi.selection.getSelectedRows().length;
+        console.log(count);
         angular.forEach(vmc.gridApi.selection.getSelectedRows(), function(data, index) {
             vmc.gridOptions.data.splice(vmc.gridOptions.data.lastIndexOf(data), 1);
         });
