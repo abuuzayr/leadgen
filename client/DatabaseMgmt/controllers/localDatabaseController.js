@@ -133,14 +133,16 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             var obj = {};
             console.log(colName);
             console.log(editedValue);
-            obj[colName] = editedValue;
-            var editData = [rowEntity, obj];
-            localData.editLocalLeads(editData)
-                .then(function(res) {
-                    ld.closeDialog('editUser');
-                    $window.location.reload();
-                });
-            // });
+            if (angular.isDefined(colName) && angular.isDefined(editedValue)) {
+                obj[colName] = editedValue;
+                var editData = [rowEntity, obj];
+                localData.editLocalLeads(editData)
+                    .then(function(res) {
+                        ld.closeDialog('editUser');
+                        $window.location.reload();
+                    });
+                // });
+            }
         };
 
         ld.cancelEdit = function() {
