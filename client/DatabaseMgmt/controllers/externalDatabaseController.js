@@ -78,7 +78,7 @@ app.controller('externalDatabaseController', ['$scope', '$window', '$http', 'ext
         }),
         function errorCallback(err) {
 
-        }
+        };
 
     ed.gridOptions.onRegisterApi = function(gridApi) {
         ed.gridApi = gridApi;

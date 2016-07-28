@@ -110,7 +110,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
-                // ld.openDialog('editUser');
+                ld.openDialog('editUser');
                 $scope.$apply();
 
                 var obj = {};
