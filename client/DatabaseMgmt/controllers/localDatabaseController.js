@@ -131,6 +131,8 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             ld.gridApi = gridApi;
             // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
             var obj = {};
+            console.log(colName);
+            console.log(editedValue);
             obj[colName] = editedValue;
             var editData = [rowEntity, obj];
             localData.editLocalLeads(editData)
