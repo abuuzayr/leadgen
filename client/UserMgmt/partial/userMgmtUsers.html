@@ -26,61 +26,63 @@
 
             <br><br>
 
-            <dialog id="addUser" class="mdl-dialog">
-                <div class="mdl-dialog__content">
+            <dialog id="addUser" class="mdl-dialog addUserClass">
+                <div class="mdl-dialog__content" id="addUserDiv">
                     <p>
                         Please enter the details.
                     </p>
 
                     <form class="add-leads-form" ng-submit="uc.addData()">
                         <!-- Username input -->
-                        <div class="form-group">
-                            <label for="username" class="col-lg-2 control-label">Username*</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" id="username" placeholder="Username" ng-model="uc.lead.userName" ng-required="true">
+                        <div class='formInput'>
+                            <div class="form-group">
+                                <label for="username" class="col-lg-2 control-label">Username*</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="username" placeholder="Username" ng-model="uc.lead.userName" ng-required="true">
+                                </div>
                             </div>
-                        </div>
-                        <br>
-                        <!-- Email input -->
-                        <div class="form-group">
-                            <label for="userEmail" class="col-lg-2 control-label">Email*</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" id="userEmail" placeholder="Email" ng-model="uc.lead.email" ng-required="true">
+                            <br>
+                            <!-- Email input -->
+                            <div class="form-group">
+                                <label for="userEmail" class="col-lg-2 control-label">Email*</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="userEmail" placeholder="Email" ng-model="uc.lead.email" ng-required="true">
+                                </div>
                             </div>
-                        </div>
-                        <br>
-                        <!-- Password input -->
+                            <br>
+                            <!-- Password input -->
 
-                        <div class="form-group">
-                            <label for="userPassword" class="col-lg-2 control-label">Password*</label>
-                            <div class="col-lg-10">
-                                <input type="text" class="form-control" id="userPassword" placeholder="Password (8-24 characters)" ng-model="uc.lead.password" ng-required="true" ng-minlength="8" ng-maxlength="24">
+                            <div class="form-group">
+                                <label for="userPassword" class="col-lg-2 control-label">Password*</label>
+                                <div class="col-lg-10">
+                                    <input type="text" class="form-control" id="userPassword" placeholder="Password (8-24 characters)" ng-model="uc.lead.password" ng-required="true" ng-minlength="8" ng-maxlength="24">
+                                </div>
                             </div>
-                        </div>
 
-                        <br>
-                        <!-- Access type select -->
-                        <div class="form-group">
-                            <label for="select" class="col-lg-2 control-label">Selects</label>
-                            <div class="col-lg-10">
-                                <select class="form-control" id="select">
+                            <br>
+                            <!-- Access type select -->
+                            <div class="form-group">
+                                <label for="select" class="col-lg-2 control-label">Selects</label>
+                                <div class="col-lg-10">
+                                    <select class="form-control" id="select">
                                     <option value=''>----- Select option -----</option>
                                     <option value='Admin'>Admin</option>
                                     <option value='User'>User</option>
                                     <option>4</option>
                                     <option>5</option>
                                 </select>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mdl-selectfield">
-                            <label for="userType-select" class="mdl-selectfield__label">Access Type</label>
-                            <select id="userType-select" ng-model="uc.lead.role" required style="width:100%">
+                            <div class="mdl-selectfield">
+                                <label for="userType-select" class="mdl-selectfield__label">Access Type</label>
+                                <select id="userType-select" ng-model="uc.lead.role" required style="width:100%">
                                 <option value="">----- Select option -----</option>
                                 <option value="Admin">Admin</option>
                                 <option value="User">User</option>
                                 </select>
+                            </div>
                         </div>
-
+                        <br>
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addUser')">Close</button>
                             <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored" ng-click="uc.closeDialog('addUser')">Add</button>
