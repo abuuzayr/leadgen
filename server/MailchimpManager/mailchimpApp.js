@@ -218,10 +218,20 @@ var mailchimpApp = {
 			.then(function(report) {
 				var results = [];
 				var finalResults=[];
-				var init = 0;
-				var reportPromiseArr=[];
-				for (var i = init; i < report.reports.length; i++) {
-					reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity'));
+				var k = 0;
+				var totalReportLength=0;
+				if(totalReportLength>9)
+				{
+					//number of sets of array of promises
+					totalReportLength = totalReportLength/10;
+					totalReportLength = parseInt(totalReportLength ,10)
+				}
+				var reportPromiseArr=new Array(totalReportLength);
+				for(var j=0;j<totalReportLength;j++){
+					for (var i = 0; i < 10; i++) {
+						reportPromiseArr[j].push(getIndividualReport('reports/' + report.reports[k+i].id + '/email-activity'));
+						k++;
+					}
 				}
 				//Promise.all(reportPromiseArr)
 				Promise.each(reportPromiseArr ,function(result)
