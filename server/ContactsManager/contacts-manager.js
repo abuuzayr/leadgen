@@ -355,7 +355,7 @@ var ContactsManager = {
   },
   addContactMC: function(obj, hash, id, apiKey, coId) {
     return new Promise(function(resolve, reject) {
-      console.log(coId);
+      //console.log(coId);
       dbHandler.dbInsertReturnID((coId+' leads'), obj)
         .then(function(results) {
           dbHandler.dbQuery((coId+' blackListDomains'), null)

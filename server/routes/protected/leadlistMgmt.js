@@ -22,7 +22,7 @@ leadlistRouter.route('/leadList/leads')
     var coName = req.decoded.companyName;
     var apiKey = req.accessInfo.mailchimpAPIKey;
 
-    console.log(coId);
+//    console.log(coId);
 
     MailchimpManager.syncContacts(apiKey,coId,coName)
     .then(function(success){

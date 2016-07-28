@@ -138,7 +138,7 @@ var mailchimpHandler = {
 								}).then(function(differenceArr) {
 								/*	console.log("====================Update Database ========================================");
 									*/for (var i = 0; i < differenceArr.length; i++) {
-										console.log(differenceArr[i]);
+									//	console.log(differenceArr[i]);
 									}
 									//console.log("========================End of Update=======================================");*/
 									var promiseArr = [];
