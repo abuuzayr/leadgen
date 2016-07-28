@@ -26,6 +26,7 @@
         <br>
         <button ng-click="cc.openDialog('addData')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored addButtons" id="addLead">Add Lead</button>
         <button ng-click="cc.openDialog('deleteLeads')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="removeLead"> Remove Lead </button>
+        <h5 ng-show="cc.spinner"><div ng-show="cc.spinner" class="mdl-spinner mdl-js-spinner is-active"></div> Syncing Leads...</h5>
         <button ng-click="cc.openDialog('addField')" style="margin-left:20px !important;" class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect mdl-button--colored pull-right addButtons" id="addFieldButton">
                 <i class="material-icons md-48" id="addFieldSign">add_circle</i>
             </button> &nbsp; &nbsp; &nbsp; &nbsp;
@@ -33,7 +34,6 @@
                 <i class="material-icons md-48" id="removeFieldSign">remove_circle</i>
             </button>
         <br><br>
-        <h3 ng-show="cc.spinner"><div ng-show="cc.spinner" class="mdl-spinner mdl-js-spinner is-active"></div> Syncing Leads</h3>
         <div id="grid1" ui-grid="cc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-importer ui-grid-resize-columns class="grid"></div>
         <br>
         <button ng-click="cc.openDialog('addToMailingList')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="addToList">Add to Mailing List</button>
