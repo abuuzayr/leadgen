@@ -419,6 +419,8 @@ var getReportDetails = function(results, coId, resolve, reject) {
 						var itemID = cResults[i]._id + '';
 						for (var j = 0; j < activityArr.length; j++) {
 							if (activityArr[j].contactID == itemID) {
+								var tempTime= activityArr[j].action[0].timestamp;
+								activityArr[j].action[0].timestamp = tempTime.substring(0,10);
 								if (activityArr[j].action[0].action == 'bounce')
 									fCount++;
 								else

@@ -570,7 +570,6 @@ var deleteContact = function(cid, apiKey, coId) {
     var obj = {
       _id: cid
     };
-    console.log(obj);
     MailinglistManager.getMailingListMemberInfo((coId+' mailinglists'), temp) // 1 -
       .then(function(results) {
         if (results.length !== 0) { //there is a contact in mailing list that need to be deleted.
