@@ -113,29 +113,27 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
                 ld.openDialog('editUser');
                 $scope.$apply();
 
-                var obj = {};
-                obj[colDef.name] = newValue;
-                var editData = [rowEntity, obj];
-                localData.editLocalLeads(editData).then(function successCallback(res) {
-                    $window.location.reload();
-                });
+                // var obj = {};
+                // obj[colDef.name] = newValue;
+                // var editData = [rowEntity, obj];
+                // localData.editLocalLeads(editData).then(function successCallback(res) {
+                //     $window.location.reload();
+                // });
             });
         };
 
-        // ld.editUser = function(gridApi) {
-        //     // $scope.$apply();
-        //     ld.gridApi = gridApi;
-        //     gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+        ld.editUser = function(gridApi) {
+            // $scope.$apply();
+            ld.gridApi = gridApi;
+            gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
 
-        //         var obj = {};
-        //         obj[colDef.name] = newValue;
-        //         var editData = [rowEntity, obj];
-        //         allUsersData.editUserData(editData, userId).then(function successCallback(res) {
-        //             ld.closeDialog('editUser');
-        //             $window.location.reload();
-        //         });
-        //     });
-        // };
+                localData.editUserData(rowEntity, rowEntity._id)
+                    .then(function(res) {
+                        ld.closeDialog('editUser');
+                        $window.location.reload();
+                    });
+            });
+        };
 
         var handleFileSelect = function(event) {
             var target = event.srcElement || event.target;
