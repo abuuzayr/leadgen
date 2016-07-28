@@ -135,14 +135,23 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
 
     //delete selected leads
     vmc.deleteSelected = function() {
-        angular.forEach(vmc.gridApi.selection.getSelectedRows(), function(data, index) {
-            vmc.gridOptions.data.splice(vmc.gridOptions.data.lastIndexOf(data), 1);
-        });
 
-        var leads = vmc.gridApi.selection.getSelectedRows();
-        var url = "/contacts/mailingList/subscriber";
-        var deleteStatus = $http.put(appConfig.API_URL + url, leads);
-        $window.location.reload();
+        var count = vmc.gridApi.selection.getSelectedRows().length;
+        console.log(count);
+
+        if (count <= 5) {
+            angular.forEach(vmc.gridApi.selection.getSelectedRows(), function(data, index) {
+                vmc.gridOptions.data.splice(vmc.gridOptions.data.lastIndexOf(data), 1);
+            });
+
+            var leads = vmc.gridApi.selection.getSelectedRows();
+            var url = "/contacts/mailingList/subscriber";
+            $http.put(appConfig.API_URL + url, leads).then(function successCallback(res) {
+                $window.location.reload();
+            });
+        } else if (count > 5) {
+            vmc.openDialog('deleteLimit');
+        }
     };
 
     vmc.gridOptions.onRegisterApi = function(gridApi) {
