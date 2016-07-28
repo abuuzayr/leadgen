@@ -498,7 +498,7 @@ function compareMemberLists(mailchimpMembers, membersDatabase) {
 				memberFound = true; //we've found the same list!
 			}
 		}
-		if (!memberFound) {
+		if (!memberFound || mailchimpMembers[i].subscriberStatus == "pending") {
 			//member got removed at mailchimp
 			var temp = {
 				// 0 - default, 1 - update member, 2- create member, 3 delete remove
