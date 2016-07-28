@@ -135,18 +135,37 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             });
         };
 
+        var colName = '';
+        var editedValue = '';
+        var row = {};
+
         uc.gridOptions.onRegisterApi = function(gridApi) {
             uc.gridApi = gridApi;
 
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+                uc.openDialog('editUser');
                 $scope.$apply();
-                allUsersData.editUserData(rowEntity, rowEntity._id)
-                    .then(function(res) {
-                        $window.location.reload();
-                    });
+                row = rowEntity;
+
+                // allUsersData.editUserData(rowEntity, rowEntity._id)
+                //     .then(function(res) {
+                //         $window.location.reload();
+                //     });
 
             });
+        };
+
+        uc.editUser = function(gridApi) {
+            uc.gridApi = gridApi;
+
+            if (angular.isDefined(row)) {
+                allUsersData.editUserData(row, row._id)
+                    .then(function(res) {
+                        uc.closeDialog('editUser');
+                        $window.location.reload();
+                    });
+            }
         };
 
         //popup dialog box
