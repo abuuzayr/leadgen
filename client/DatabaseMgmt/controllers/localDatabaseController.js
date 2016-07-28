@@ -104,6 +104,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
 
             };
 
+        var colName = '';
         ld.gridOptions.onRegisterApi = function(gridApi) {
             ld.gridApi = gridApi;
 
@@ -112,6 +113,7 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
                 console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                 ld.openDialog('editUser');
                 $scope.$apply();
+                colName = colDef.name;
 
                 // var obj = {};
                 // obj[colDef.name] = newValue;
@@ -122,12 +124,12 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             });
         };
 
-        ld.editUser = function(gridApi, rowEntity, colDef) {
+        ld.editUser = function(gridApi, rowEntity, colName) {
             // $scope.$apply();
             ld.gridApi = gridApi;
             // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
             var obj = {};
-            obj[colDef.name] = newValue;
+            obj[colName] = newValue;
             var editData = [rowEntity, obj];
             localData.editLocalLeads(editData)
                 .then(function(res) {
