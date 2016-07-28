@@ -117,6 +117,10 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
                 colName = colDef.name;
                 editedValue = newValue;
 
+                console.log('first print');
+                console.log(colName);
+                console.log(editedValue);
+
                 // var obj = {};
                 // obj[colDef.name] = newValue;
                 // var editData = [rowEntity, obj];
