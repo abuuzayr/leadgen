@@ -45,16 +45,16 @@ var mailchimpHandler = {
 									return databaselist;
 								}).then(function(databaselist) {
 									//Now we need arrange he dbResults to fit mailchimp object format
-									/*console.log("====================App Database ========================================");
+								/*	console.log("====================App Database ========================================");
 									for (var i = 0; i < databaselist.length; i++) {
 										console.log(databaselist[i]);
 									}
 									console.log("=========================================================");
 									console.log("====================mailchimp Database ========================================");
-								*/	for (var i = 0; i < mailchimplist.length; i++) {
+									for (var i = 0; i < mailchimplist.length; i++) {
 										console.log(mailchimplist[i]);
 									}
-									console.log("=========================================================");
+									console.log("=========================================================");*/
 									var returnArr = [];
 									returnArr.push(mailchimplist);
 									returnArr.push(databaselist);
@@ -498,7 +498,7 @@ function compareMemberLists(mailchimpMembers, membersDatabase) {
 				memberFound = true; //we've found the same list!
 			}
 		}
-		if (!memberFound || mailchimpMembers[i].subscriberStatus == "pending") {
+		if (!memberFound) {
 			//member got removed at mailchimp
 			var temp = {
 				// 0 - default, 1 - update member, 2- create member, 3 delete remove
