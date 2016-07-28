@@ -104,6 +104,8 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
 
             };
 
+        var colName = '';
+        var editedValue = '';
         ld.gridOptions.onRegisterApi = function(gridApi) {
             ld.gridApi = gridApi;
 
@@ -112,6 +114,12 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
                 console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                 ld.openDialog('editUser');
                 $scope.$apply();
+                colName = colDef.name;
+                editedValue = newValue;
+
+                console.log('first print');
+                console.log(colName);
+                console.log(editedValue);
 
                 // var obj = {};
                 // obj[colDef.name] = newValue;
@@ -122,17 +130,28 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
             });
         };
 
-        ld.editUser = function(gridApi, rowEntity) {
+        ld.editUser = function(gridApi, rowEntity, colName, editedValue) {
             // $scope.$apply();
             ld.gridApi = gridApi;
             // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+            var obj = {};
+            console.log(colName);
+            console.log(editedValue);
+            if (angular.isDefined(colName) && angular.isDefined(editedValue)) {
+                obj[colName] = editedValue;
+                var editData = [rowEntity, obj];
+                localData.editLocalLeads(editData)
+                    .then(function(res) {
+                        ld.closeDialog('editUser');
+                        $window.location.reload();
+                    });
+                // });
+            }
+        };
 
-            localData.editLocalLeads(rowEntity)
-                .then(function(res) {
-                    ld.closeDialog('editUser');
-                    $window.location.reload();
-                });
-            // });
+        ld.cancelEdit = function() {
+            ld.closeDialog('editUser');
+            $window.location.reload();
         };
 
         var handleFileSelect = function(event) {
