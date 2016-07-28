@@ -87,9 +87,11 @@
               "subscribers": 0
           };
           var url = "/contacts/mailingList";
-          addStatus = $http.post(appConfig.API_URL + url, mailingList).then(function successCallback(res) {
-              $window.location.reload();
-          });
+          addStatus = $http.post(appConfig.API_URL + url, mailingList)
+              .then(function successCallback(res) {
+                  mc.closeDialog('addMailList');
+                  $window.location.reload();
+              });
       };
 
       /**
