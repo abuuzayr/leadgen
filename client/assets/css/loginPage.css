@@ -62,9 +62,20 @@ body {
     width: 100% !important;
 }
 
-textarea:focus, textarea.form-control:focus, input.form-control:focus, input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, [type=text].form-control:focus, [type=password].form-control:focus, [type=email].form-control:focus, [type=tel].form-control:focus, [contenteditable].form-control:focus{
-   -webkit-box-shadow: none !important; 
-     box-shadow: none !important; 
+textarea:focus,
+textarea.form-control:focus,
+input.form-control:focus,
+input[type=text]:focus,
+input[type=password]:focus,
+input[type=email]:focus,
+input[type=number]:focus,
+[type=text].form-control:focus,
+[type=password].form-control:focus,
+[type=email].form-control:focus,
+[type=tel].form-control:focus,
+[contenteditable].form-control:focus {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
 }
 
 input:-webkit-autofill,
@@ -79,10 +90,11 @@ select:-webkit-autofill {
 input:-webkit-autofill,
 textarea:-webkit-autofill,
 select:-webkit-autofill {
-    background: transparent;
+    background: transparent !important;
     background-image: none;
     color: rgb(0, 0, 0);
 }
+
 .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
     color: #eb3a40 !important;
 }
@@ -95,6 +107,7 @@ select:-webkit-autofill {
 .mdl-textfield.is-invalid .mdl-textfield__label:after {
     background-color: #eb3a40 !important;
 }
+
 
 /*.textarea:focus,
 textarea.form-control:focus,
@@ -120,4 +133,3 @@ select:focus:invalid:focus {
     -moz-box-shadow: none;
     box-shadow: none;
 }*/
->>>>>>> 10861588f5f00e5e19f1193ea0ba5124888359b3
