@@ -225,5 +225,15 @@
                 </form>
             </div>
         </dialog>
+
+        <dialog id="editUser" class="mdl-dialog">
+            <div class="mdl-dialog__content">
+                <p>Save changes?</p>
+                <div class="mdl-dialog__actions">
+                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="cc.cancelEdit()">Cancel</button>
+                    <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="cc.editUser()">Yes</button>
+                </div>
+            </div>
+        </dialog>
     </div>
 </div>

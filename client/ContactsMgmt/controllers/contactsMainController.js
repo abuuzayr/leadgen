@@ -37,6 +37,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         }
     };
 
+    var colName = '';
+    var editedValue = '';
+    var row = {};
+
     cc.gridOptions = {
         enableSorting: true,
         enableFiltering: true,
@@ -146,18 +150,44 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                 console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
+                cc.openDialog('editUser');
                 $scope.$apply();
-                var obj = {};
-                obj[colDef.name] = newValue;
-                var editData = [rowEntity, obj];
-                var url = "/contacts/leadList/leads";
-                $http.patch(appConfig.API_URL + url, editData)
-                    .success(function(res) {
-                        $window.location.reload();
-                    });
+                colName = colDef.name;
+                editedValue = newValue;
+                row = rowEntity;
 
+
+                // var obj = {};
+                // obj[colDef.name] = newValue;
+                // var editData = [rowEntity, obj];
+                // var url = "/contacts/leadList/leads";
+                // $http.patch(appConfig.API_URL + url, editData)
+                //     .success(function(res) {
+                //         $window.location.reload();
+                //     });
             });
         }
+    };
+
+    cc.editUser = function(gridApi) {
+        cc.gridApi = gridApi;
+        if (angular.isDefined(colName) && angular.isDefined(editedValue) && angular.isDefined(row)) {
+            var obj = {};
+            obj[colName] = editedValue;
+            var editData = [row, obj];
+            console.log(editData);
+            var url = "/contacts/leadList/leads";
+            $http.patch(appConfig.API_URL + url, editData)
+                .success(function(res) {
+                    cc.closeDialog('editUser');
+                    $window.location.reload();
+                });
+        }
+    };
+
+    cc.cancelEdit = function() {
+        cc.closeDialog('editUser');
+        $window.location.reload();
     };
 
     /** 
