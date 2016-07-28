@@ -92,6 +92,8 @@ var MailinglistManager = {
 						lastName: obj.lastName,
 						subscriberStatus: obj.subscriberStatus
 					};
+					console.log("Adding to mailing list");
+					console.log(tempML);
 					dbHandler.dbInsert(collectionName, tempML)
 						.then(function(result) {
 							resolve(result);

@@ -52,10 +52,10 @@ var dbHandler = {
         var filter = {
           email : obj.email
         };
-        col.find(filter).toArray()
-        .then(function(results){
-          if(results.length > 0){
-	    console.log('duplicate found');
+              col.find(filter).toArray()
+              .then(function(results){
+                if(results.length > 0 && collectionName!="mailinglists"){
+      	    console.log('duplicate found');
 	  }else{
             col.insertOne(obj)
             .then(function(success){
