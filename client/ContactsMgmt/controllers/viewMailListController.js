@@ -137,9 +137,8 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
     vmc.deleteSelected = function() {
 
         var count = vmc.gridApi.selection.getSelectedRows().length;
-        console.log(count);
 
-        if (count <= 5) {
+        if (count <= 10) {
             angular.forEach(vmc.gridApi.selection.getSelectedRows(), function(data, index) {
                 vmc.gridOptions.data.splice(vmc.gridOptions.data.lastIndexOf(data), 1);
             });
@@ -149,7 +148,7 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
             $http.put(appConfig.API_URL + url, leads).then(function successCallback(res) {
                 $window.location.reload();
             });
-        } else if (count > 5) {
+        } else if (count > 10) {
             vmc.openDialog('deleteLimit');
         }
     };
