@@ -90,21 +90,15 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 }
             });
 
-            var newUser = {};
-            newUser.username = uc.lead.userName;
-            newUser.email = uc.lead.email;
-            newUser.password = uc.lead.password;
-            newUser.companyId = companyId;
-            newUser.companyName = companyName;
 
-            // var newUser = {
-            //     username: uc.lead.userName,
-            //     email: uc.lead.email,
-            //     password: uc.lead.password,
-            //     companyId: companyId,
-            //     companyName: companyName,
+            var newUser = {
+                username: uc.lead.userName,
+                email: uc.lead.email,
+                password: uc.lead.password,
+                companyId: companyId,
+                companyName: companyName,
 
-            // };
+            };
 
             newUser.application = {};
             newUser.application.bulletlead = {};
