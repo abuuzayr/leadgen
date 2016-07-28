@@ -55,8 +55,8 @@ var dbHandler = {
               col.find(filter).toArray()
               .then(function(results){
                 if(results.length >1){
-          	    console.log('duplicate found');
-                console.log(obj.email);
+          	  //  console.log('duplicate found');
+                //console.log(obj.email);
                 resolve(200);
     	  }else{
             col.insertOne(obj)
