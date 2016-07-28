@@ -139,7 +139,7 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
             vmc.gridOptions.data.splice(vmc.gridOptions.data.lastIndexOf(data), 1);
         });
 
-        var leads = $vmc.gridApi.selection.getSelectedRows();
+        var leads = vmc.gridApi.selection.getSelectedRows();
         var url = "/contacts/mailingList/subscriber";
         var deleteStatus = $http.put(appConfig.API_URL + url, leads);
         $window.location.reload();
