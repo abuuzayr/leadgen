@@ -65,7 +65,7 @@ var MailinglistManager = {
 	addContactsChain: function(collectionName, obj, apiKey, coId, coName) {
 		return new Promise(function(resolve, reject) {
 			/*console.log('++++++++++++ADDCONTACTSCHAIN+++++++++++++');	*/
-			console.log(coId);
+			//console.log(coId);
 			var temp = {
 				firstName: obj.firstName,
 				lastName: obj.lastName,

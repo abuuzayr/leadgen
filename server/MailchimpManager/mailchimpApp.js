@@ -282,7 +282,9 @@ var getMembers = function(id, name, apiKey) {
 						firstName: userFirstName,
 						lastName: userLastName
 					};
+					if(userStatus!='pending'){
 					allUsers.push(newUser);
+				}
 				}
 				var obj = {
 					name: name,
