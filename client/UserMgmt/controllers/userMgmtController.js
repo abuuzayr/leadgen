@@ -108,6 +108,8 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
 
             allUsersData.addUserData(newUser).then(function successCallback(res) {
                 console.log('Added');
+                addFeedback();
+                uc.closeDialog('addUser');
             }).catch(function errorCallback(err) {
                 console.log('Unable to add user');
             });
@@ -163,6 +165,10 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         //refresh
         uc.refresh = function() {
             $window.location.reload();
+        };
+
+        var addFeedback = function() {
+            feedbackServices.successFeedback("Added!", '#userManagementFeedback');
         };
 
         /* =========================================== Load animation =========================================== */
