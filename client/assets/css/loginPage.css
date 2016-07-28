@@ -83,7 +83,18 @@ select:-webkit-autofill {
     background-image: none;
     color: rgb(0, 0, 0);
 }
+.mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
+    color: #838483 !important;
+}
 
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label,
+.mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
+    color: #838483 !important;
+}
+
+.mdl-textfield.is-invalid .mdl-textfield__label:after {
+    background-color: #838483 !important;
+}
 
 /*.textarea:focus,
 textarea.form-control:focus,
