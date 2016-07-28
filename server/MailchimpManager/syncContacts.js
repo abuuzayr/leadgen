@@ -136,10 +136,10 @@ var mailchimpHandler = {
 									return differenceArr;
 								}).then(function(differenceArr) {
 								/*	console.log("====================Update Database ========================================");
-									for (var i = 0; i < differenceArr.length; i++) {
+									*/for (var i = 0; i < differenceArr.length; i++) {
 										console.log(differenceArr[i]);
 									}
-									console.log("========================End of Update=======================================");*/
+									//console.log("========================End of Update=======================================");*/
 									var promiseArr = [];
 									for (var i = 0; i < differenceArr.length; i++) {
 										//go through everylist check the action, perform the action.
