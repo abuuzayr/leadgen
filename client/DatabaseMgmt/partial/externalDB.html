@@ -31,7 +31,17 @@
                 <p>Are you sure ?</p>
                 <div class="mdl-dialog__actions">
                     <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ed.closeDialog('deleteLead')">Cancel</button>
-                    <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ed.deleteSelected();ed.closeDialog('deleteLead')">Yes</button>
+                    <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ed.deleteSelected()">Yes</button>
+                </div>
+            </div>
+        </dialog>
+
+        <dialog id="editUser" class="mdl-dialog">
+            <div class="mdl-dialog__content">
+                <p>Save changes?</p>
+                <div class="mdl-dialog__actions">
+                    <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="ed.cancelEdit()">Cancel</button>
+                    <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="ed.editUser()">Yes</button>
                 </div>
             </div>
         </dialog>

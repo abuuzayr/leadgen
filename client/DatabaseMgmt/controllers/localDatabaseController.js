@@ -120,11 +120,6 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
                 editedValue = newValue;
                 row = rowEntity;
 
-                console.log('first print');
-                console.log(colName);
-                console.log(editedValue);
-                console.log(rowEntity);
-
                 // var obj = {};
                 // obj[colDef.name] = newValue;
                 // var editData = [rowEntity, obj];
@@ -137,9 +132,6 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
         ld.editUser = function(gridApi) {
             // $scope.$apply();
             ld.gridApi = gridApi;
-            // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-            console.log(colName);
-            console.log(editedValue);
             if (angular.isDefined(colName) && angular.isDefined(editedValue) && angular.isDefined(row)) {
                 var obj = {};
                 obj[colName] = editedValue;
@@ -150,7 +142,6 @@ app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGr
                         ld.closeDialog('editUser');
                         $window.location.reload();
                     });
-                // });
             }
         };
 

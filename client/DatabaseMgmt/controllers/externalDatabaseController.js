@@ -80,6 +80,10 @@ app.controller('externalDatabaseController', ['$scope', '$window', '$http', 'ext
 
         };
 
+    var colName = '';
+    var editedValue = '';
+    var row = {};
+
     ed.gridOptions.onRegisterApi = function(gridApi) {
         ed.gridApi = gridApi;
 
@@ -88,13 +92,34 @@ app.controller('externalDatabaseController', ['$scope', '$window', '$http', 'ext
             console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
             $scope.$apply();
 
-            var obj = {};
-            obj[colDef.name] = newValue;
-            var editData = [rowEntity, obj];
-            externalData.editExternalLeads(editData).then(function successCallback(res) {
-                $window.location.reload();
-            });
+            // var obj = {};
+            // obj[colDef.name] = newValue;
+            // var editData = [rowEntity, obj];
+            // externalData.editExternalLeads(editData).then(function successCallback(res) {
+            //     $window.location.reload();
+            // });
         });
+    };
+
+    ed.editUser = function(gridApi) {
+        ed.gridApi = gridApi;
+
+        if (angular.isDefined(colName) && angular.isDefined(editedValue) && angular.isDefined(row)) {
+            var obj = {};
+            obj[colName] = editedValue;
+            var editData = [row, obj];
+            console.log(editData);
+            externalData.editExternalLeads(editData)
+                .then(function(res) {
+                    ed.closeDialog('editUser');
+                    $window.location.reload();
+                });
+        }
+    };
+
+    ed.cancelEdit = function() {
+        ed.closeDialog('editUser');
+        $window.location.reload();
     };
 
     //delete selected leads
@@ -105,7 +130,10 @@ app.controller('externalDatabaseController', ['$scope', '$window', '$http', 'ext
 
         var selectedLeadsToDelete = ed.gridApi.selection.getSelectedRows();
         console.log(selectedLeadsToDelete);
-        externalData.deleteExternalLeads(selectedLeadsToDelete);
+        externalData.deleteExternalLeads(selectedLeadsToDelete)
+            .then(function(res) {
+                ed.closeDialog('deleteLead');
+            });
     };
 
     //update external database
