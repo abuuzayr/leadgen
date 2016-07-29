@@ -365,7 +365,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
                     field: fieldName
                 };
                 var url = "/contacts/leadList/fields";
-                var deleteStatus = $http.put(appConfig.API_URL + url, fieldObj);
+                $http.put(appConfig.API_URL + url, fieldObj)
                 $window.location.reload();
             }
         }
@@ -398,7 +398,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             name: cc.listSelected
         }];
         var url = "/contacts/mailingList/subscriber";
-        $http.post(appConfig.API_URL + url, obj);
+        $http.post(appConfig.API_URL + url, obj)
+            .then(function(res) {
+                console.log('added to mailing list');
+            })
     };
 
     cc.removeDuplicateField = function() {
