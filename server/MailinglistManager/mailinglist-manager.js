@@ -185,7 +185,7 @@ var MailinglistManager = {
 								firstName: obj[1].firstName,
 								lastName: obj[1].lastName
 							}];
-							dbHandler.dbUpdateMany((coId+' leads'), temp2[0], temp2[1])
+							dbHandler.dbUpdateMany((coId+'_leads'), temp2[0], temp2[1])
 								.then(function(results2) {
 									resolve(results2);
 								})
@@ -326,7 +326,7 @@ var MailinglistManager = {
 					var queryID = {
 						_id: returnResults[i].contactID
 					};
-					pArr.push(dbHandler.getSubscriberContact((coId+' leads'), queryID));
+					pArr.push(dbHandler.getSubscriberContact((coId+'_leads'), queryID));
 				}
 				Promise.all(pArr)
 					.then(function(promiseResults) {

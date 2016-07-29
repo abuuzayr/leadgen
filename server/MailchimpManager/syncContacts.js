@@ -10,7 +10,7 @@ var mailchimpHandler = {
 					var appDatabase;
 					//step one, retrieve results from mailchimp
 					mailchimplist = results;
-					mailinglistmanager.getListNamesMC(coId+' mailinglists')
+					mailinglistmanager.getListNamesMC(coId+'_mailinglists')
 						.then(function(dbResults) {
 							var databaselist = [];
 							//create object with a array of list information.
@@ -22,7 +22,7 @@ var mailchimpHandler = {
 								};
 								databaselist.push(temp);
 							}
-							mailinglistmanager.getAllMembers(coId+' mailinglists')
+							mailinglistmanager.getAllMembers(coId+'_mailinglists')
 								.then(function(dbResults2) {
 									//poplating the members field
 									for (var i = 0; i < dbResults2.length; i++) {
@@ -153,7 +153,7 @@ var mailchimpHandler = {
 												listID: differenceArr[i].listID,
 												name: differenceArr[i].name
 											};
-											promiseArr.push(mailinglistmanager.deleteListv2((coId+' mailinglists'), deleteListTemp));
+											promiseArr.push(mailinglistmanager.deleteListv2((coId+'_mailinglists'), deleteListTemp));
 										} else if (differenceArr[i].action == '4') {
 											//its a create call
 											//method call to create ML
@@ -168,7 +168,7 @@ var mailchimpHandler = {
 												subscriberStatus: '-'
 												//_id will be auto generated
 											};
-											promiseArr.push(mailinglistmanager.addListMC((coId+' mailinglists'), createListTemp));
+											promiseArr.push(mailinglistmanager.addListMC((coId+'_mailinglists'), createListTemp));
 											if (differenceArr[i].members.length != '0') {
 												for (var j = 0; j < differenceArr[i].members.length; j++) {
 													//add the member inside the
@@ -181,7 +181,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													};
-													promiseArr.push(mailinglistmanager.addContactsChain((coId+' mailinglists'), createContactTemp, apiKey, coId, coName));
+													promiseArr.push(mailinglistmanager.addContactsChain((coId+'_mailinglists'), createContactTemp, apiKey, coId, coName));
 												}
 											}
 										} else if (differenceArr[i].action == '3') {
@@ -193,7 +193,7 @@ var mailchimpHandler = {
 											}, {
 												name: differenceArr[i].name
 											}];
-											promiseArr.push(mailinglistmanager.updateListMC((coId+' mailinglists'), updateListNameTemp));
+											promiseArr.push(mailinglistmanager.updateListMC((coId+'_mailinglists'), updateListNameTemp));
 											for (var j = 0; j < differenceArr[i].members.length; j++) {
 												//identify the type of update C/U/D
 												if (differenceArr[i].members[j].action == '1') {
@@ -206,7 +206,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													}];
-													promiseArr.push(mailinglistmanager.updateContactMC((coId+' mailinglists'), updateListNameTemp, coId));
+													promiseArr.push(mailinglistmanager.updateContactMC((coId+'_mailinglists'), updateListNameTemp, coId));
 												} else if (differenceArr[i].members[j].action == '2') {
 													//create member
 													var createContactTemp = {
@@ -218,7 +218,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													};
-													promiseArr.push(mailinglistmanager.addContactsChain((coId+' mailinglists'), createContactTemp, apiKey, coId, coName));
+													promiseArr.push(mailinglistmanager.addContactsChain((coId+'_mailinglists'), createContactTemp, apiKey, coId, coName));
 												} else if (differenceArr[i].members[j].action == '3') {
 													//delete member
 													var deleteContactTemp = {
@@ -230,7 +230,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													};
-													promiseArr.push(mailinglistmanager.deleteMemberMC((coId+' mailinglists'), deleteContactTemp));
+													promiseArr.push(mailinglistmanager.deleteMemberMC((coId+'_mailinglists'), deleteContactTemp));
 												}
 											}
 										} else if (differenceArr[i].action == '2') {
@@ -246,7 +246,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													}];
-													promiseArr.push(mailinglistmanager.updateContactMC((coId+' mailinglists'), updateListNameTemp, coId));
+													promiseArr.push(mailinglistmanager.updateContactMC((coId+'_mailinglists'), updateListNameTemp, coId));
 												} else if (differenceArr[i].members[j].action == '2') {
 													//create member
 													var createContactTemp = {
@@ -258,7 +258,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													};
-													promiseArr.push(mailinglistmanager.addContactsChain((coId+' mailinglists'), createContactTemp, apiKey, coId, coName));
+													promiseArr.push(mailinglistmanager.addContactsChain((coId+'_mailinglists'), createContactTemp, apiKey, coId, coName));
 												} else if (differenceArr[i].members[j].action == '3') {
 													//delete member
 													var deleteContactTemp = {
@@ -270,7 +270,7 @@ var mailchimpHandler = {
 														lastName: differenceArr[i].members[j].lastName,
 														subscriberStatus: differenceArr[i].members[j].subscriberStatus
 													};
-													promiseArr.push(mailinglistmanager.deleteMemberMC((coId+' mailinglists'), deleteContactTemp));
+													promiseArr.push(mailinglistmanager.deleteMemberMC((coId+'_mailinglists'), deleteContactTemp));
 												}
 											}
 										} else if (differenceArr[i].action == '1') {
@@ -280,7 +280,7 @@ var mailchimpHandler = {
 											}, {
 												name: differenceArr[i].name
 											}];
-											promiseArr.push(mailinglistmanager.updateListMC((coId+' mailinglists'), updateListNameTemp));
+											promiseArr.push(mailinglistmanager.updateListMC((coId+'_mailinglists'), updateListNameTemp));
 										}
 									}
 									Promise.all(promiseArr)
@@ -401,7 +401,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 			}
 		}
 	}
-	mailinglistmanager.getAllData(coId+' mailinglists')
+	mailinglistmanager.getAllData(coId+'_mailinglists')
 		.then(function(mlResults) {
 			for (var i = 0; i < activityArr.length; i++) {
 				for (var j = 0; j < mlResults.length; j++) {
@@ -412,7 +412,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 					}
 				}
 			}
-			mailinglistmanager.getAllData(coId+' leads')
+			mailinglistmanager.getAllData(coId+'_leads')
 				.then(function(cResults) {
 					for (var j = 0; j < cResults.length; j++) {
 						cResults[j].history = [];
@@ -437,7 +437,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 					}
 					var promiseActivityArr = [];
 					for (var k = 0; k < cResults.length; k++) {
-						promiseActivityArr.push(mailinglistmanager.updateActivity((coId+' leads'), cResults[k]));
+						promiseActivityArr.push(mailinglistmanager.updateActivity((coId+'_leads'), cResults[k]));
 					}
 					Promise.all(activityArr)
 						.then(function(activityResults) {

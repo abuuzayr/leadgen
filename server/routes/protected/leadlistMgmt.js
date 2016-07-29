@@ -26,7 +26,7 @@ leadlistRouter.route('/leadList/leads')
 
     MailchimpManager.syncContacts(apiKey,coId,coName)
     .then(function(success){
-      return ContactsManager.displayLeads((coId+ ' leads'),null);
+      return ContactsManager.displayLeads((coId+ '_leads'),null);
     })
     .then(function(results) {
       res.json(results);
@@ -105,7 +105,7 @@ leadlistRouter.route('/leadList/leads')
       } else {
         lname = originObj.lastName;
       }
-      MailinglistManager.getMailingListMemberInfo((coId+' mailinglists'), temp)
+      MailinglistManager.getMailingListMemberInfo((coId+'_mailinglists'), temp)
         .then(function(results) {
           if (results.length !== 0) {
             var promiseArr = [];
@@ -114,7 +114,7 @@ leadlistRouter.route('/leadList/leads')
             }
             return Promise.all(promiseArr);
           } else {
-            return ContactsManager.updateContacts((coId+' leads'),req.body);
+            return ContactsManager.updateContacts((coId+'_leads'),req.body);
           }
         })
         .then(function(results) {
@@ -132,7 +132,7 @@ leadlistRouter.put('/leadList/leads/duplicates', function(req, res) {
     res.sendStatus(400);
   else {
     var coId = req.decoded.companyId;
-    dbHandler.dbRemoveDuplicate((coId+' leads'), req.body.fieldName)
+    dbHandler.dbRemoveDuplicate((coId+'_leads'), req.body.fieldName)
       .then(function(results) {
         res.sendStatus(200);
       })
@@ -149,7 +149,7 @@ leadlistRouter.get('/leadList/leads/:id', function(req, res) {
       _id: req.params.id
     };
     var coId = req.decoded.companyId;
-    dbHandler.dbQuery(coId + ' leads', obj)
+    dbHandler.dbQuery(coId + '_leads', obj)
       .then(function(results) {
         res.json(results[0].history);
       })
@@ -192,7 +192,7 @@ leadlistRouter.route('/mailingList')
       //Sync mailchimp
       var apiKey = req.accessInfo.mailchimpAPIKey;
       var coId = req.decoded.companyId;
-      MailinglistManager.getListNames(res, (coId+' mailinglists'), displayResultsCallback);
+      MailinglistManager.getListNames(res, (coId+'_mailinglists'), displayResultsCallback);
     }
   })
   /*  ===SAMPLE POST JSON===
@@ -222,7 +222,7 @@ leadlistRouter.route('/mailingList')
             lastName: '-',
             subscriberStatus: '-'
           };
-          MailinglistManager.addList(res, (coId+' mailinglists'), addObject, returnStatusCode); //1
+          MailinglistManager.addList(res, (coId+'_mailinglists'), addObject, returnStatusCode); //1
         }).catch(function(MCerror) {
            res.sendStatus(MCerror);
         });
@@ -246,7 +246,7 @@ leadlistRouter.route('/mailingList')
       MailchimpManager.deleteList(apiKey, req.body[0].listID) //1-
         .then(function(MCResults) {
 	  console.log(MCResults);
-          MailinglistManager.deleteList(res, (coId+' mailinglists'), req.body[0], returnStatusCode); //1-
+          MailinglistManager.deleteList(res, (coId+'_mailinglists'), req.body[0], returnStatusCode); //1-
         }).catch(function(MCError) {
 	  res.sendStatus(405);
         });
@@ -289,7 +289,7 @@ leadlistRouter.route('/mailingList')
         console.log(temp);
         MailchimpManager.updateList(apiKey, req.body[0].listID, temp)
           .then(function(MCResults) {
-            MailinglistManager.updateList(res, (coId+' mailinglists'), req.body, returnStatusCode);
+            MailinglistManager.updateList(res, (coId+'_mailinglists'), req.body, returnStatusCode);
           }).catch(function(MCError) {
            res.sendStatus(MCerror);
           });
@@ -346,10 +346,10 @@ leadlistRouter.route('/mailingList/subscriber')
           console.log(temp);
           obj.push(temp);
         }
-          MailinglistManager.getFilterMembers((coId+' mailinglists'),req.body[1].listID,obj)
+          MailinglistManager.getFilterMembers((coId+'_mailinglists'),req.body[1].listID,obj)
           .then(function(dbResults2){
             console.log(dbResults2);
-           MailinglistManager.addMemberToList(res,(coId+' mailinglists'),dbResults2,returnStatusCode);
+           MailinglistManager.addMemberToList(res,(coId+'_mailinglists'),dbResults2,returnStatusCode);
           });
         });
     }
@@ -383,7 +383,7 @@ leadlistRouter.route('/mailingList/subscriber')
         }
         Promise.all(promiseArr)
           .then(function(MCresults) {
-            MailinglistManager.deleteMember(res, (coId+' mailinglists'), req.body, returnStatusCode);
+            MailinglistManager.deleteMember(res, (coId+'_mailinglists'), req.body, returnStatusCode);
           }).catch(function(MCerror) {
            res.sendStatus(MCerror);
           });
@@ -402,7 +402,7 @@ leadlistRouter.route('/mailinglist/getSubscriber')
         }
       */
       var coId = req.decoded.companyId;
-      MailinglistManager.getSubscribers(res, (coId+' mailinglists'), req.body, displayResultsCallback, coId);
+      MailinglistManager.getSubscribers(res, (coId+'_mailinglists'), req.body, displayResultsCallback, coId);
     }
   });
 /*
@@ -412,7 +412,7 @@ leadlistRouter.route('/leadList/fields')
   .get(function(req, res) {
     var coId = req.decoded.companyId;
     console.log('get columns');
-    ContactsManager.displayList((coId+' columnDef'), null, coId)
+    ContactsManager.displayList((coId+'_columnDef'), null, coId)
       .then(function(results) {
         res.json(results);
       })
@@ -429,9 +429,9 @@ leadlistRouter.route('/leadList/fields')
         res.sendStatus(400);
       else {
         var str = req.body.field;
-        ContactsManager.addField((coId+' leads'), str)
+        ContactsManager.addField((coId+'_leads'), str)
           .then(function(results) {
-            return ContactsManager.insertColumnDef((coId+' columnDef'),req.body);
+            return ContactsManager.insertColumnDef((coId+'_columnDef'),req.body);
           })
           .then(function(results) {
             res.sendStatus(200);
@@ -451,9 +451,9 @@ leadlistRouter.route('/leadList/fields')
       else {
         var coId = req.decoded.companyId;
         var str = req.body.field;
-        ContactsManager.removeField((coId+' leads'), str)
+        ContactsManager.removeField((coId+'_leads'), str)
           .then(function(results) {
-            return ContactsManager.deleteColumnDef((coId+' columnDef'), req.body);
+            return ContactsManager.deleteColumnDef((coId+'_columnDef'), req.body);
           })
           .then(function(results) {
             res.sendStatus(200);
@@ -470,7 +470,7 @@ leadlistRouter.route('/leadList/fields')
 leadlistRouter.route('/blackList/domain')
   .get(function(req, res) {
     var coId = req.decoded.companyId;
-    dbHandler.dbQuery((coId+' blackListDomains'), null)
+    dbHandler.dbQuery((coId+'_blackListDomains'), null)
       .then(function(results) {
         res.json(results);
       })
@@ -488,7 +488,7 @@ leadlistRouter.route('/blackList/domain')
       if (req.body.domain === undefined || req.body.domain === null || req.body.domain === '')
         res.sendStatus(400);
       else {
-        ContactsManager.addDomain((coId+' blackListDomains'),req.body)
+        ContactsManager.addDomain((coId+'_blackListDomains'),req.body)
           .then(function(results) {
             return ContactsManager.addDomainChain(req.body.domain, deleteContact, apiKey, coId);
           })
@@ -511,7 +511,7 @@ leadlistRouter.route('/blackList/domain')
         var coId = req.decoded.companyId;
 
         var str = req.body.domain;
-        ContactsManager.deleteDomain((coId+' blackListDomains'),req.body)
+        ContactsManager.deleteDomain((coId+'_blackListDomains'),req.body)
           .then(function(results) {
             res.sendStatus(results);
           })
@@ -525,7 +525,7 @@ leadlistRouter.route('/blackList')
   .get(function(req, res) {
     var coId = req.decoded.companyId;
 
-    ContactsManager.displayList((coId+' blackList'), null)
+    ContactsManager.displayList((coId+'_blackList'), null)
       .then(function(results) {
         res.json(results);
       })
@@ -540,7 +540,7 @@ leadlistRouter.route('/blackList')
 
       var coId = req.decoded.companyId;
 
-      ContactsManager.deleteFromBlackList((coId+' blackList'),req.body)
+      ContactsManager.deleteFromBlackList((coId+'_blackList'),req.body)
         .then(function(results) {
           res.sendStatus(results);
         })
@@ -570,7 +570,7 @@ var deleteContact = function(cid, apiKey, coId) {
     var obj = {
       _id: cid
     };
-    MailinglistManager.getMailingListMemberInfo((coId+' mailinglists'), temp) // 1 -
+    MailinglistManager.getMailingListMemberInfo((coId+'_mailinglists'), temp) // 1 -
       .then(function(results) {
         if (results.length !== 0) { //there is a contact in mailing list that need to be deleted.
           console.log(results);
@@ -580,10 +580,10 @@ var deleteContact = function(cid, apiKey, coId) {
           }
           Promise.all(promiseArr)
             .then(function(MCresults) {
-              MailinglistManager.deleteListv2((coId+' mailinglists'), temp)
+              MailinglistManager.deleteListv2((coId+'_mailinglists'), temp)
                 .then(function(MLResults) {
                   console.log("Delete from contacts");
-                  ContactsManager.deleteLeads((coId+' leads'),obj)
+                  ContactsManager.deleteLeads((coId+'_leads'),obj)
                     .then(function(results) {
                       resolve(MLResults);
                     })
@@ -597,7 +597,7 @@ var deleteContact = function(cid, apiKey, coId) {
               res.sendStatus(MCerror);
             });
         } else {
-          ContactsManager.deleteLeads((coId+' leads'),obj)
+          ContactsManager.deleteLeads((coId+'_leads'),obj)
             .then(function(results) {
               resolve(results);
             })
@@ -626,10 +626,10 @@ var updateContact = function(results, firstName, lastName, body, apiKey,coId) {
     console.log(temp);
     MailchimpManager.updateMember(apiKey, results.listID, results.email_hash, temp)
       .then(function(MCresults) {
-        MailinglistManager.updateMemberInfo((coId+' mailinglists'), lastName, firstName, results.listID, results.email_hash)
+        MailinglistManager.updateMemberInfo((coId+'_mailinglists'), lastName, firstName, results.listID, results.email_hash)
           .then(function(MLResults) {
             console.log("update success");
-            ContactsManager.updateContacts((coId+' leads'),body)
+            ContactsManager.updateContacts((coId+'_leads'),body)
               .then(function(cResults) {
                 resolve(cResults);
               }).catch(function(cError) {
