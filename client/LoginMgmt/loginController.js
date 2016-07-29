@@ -22,66 +22,6 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
     vm.closeDialog = closeDialog;
     vm.openDialog = openDialog;
 
-    // vm.testValidation = testValidation;
-    // vm.determineType = determineType;
-
-    // function testValidation() {
-    //     var email = '';
-    //     var password = '';
-    //     var errMsg = '';
-
-    //     var type = '';
-
-    //     if (isEmpty(vm.loginEmail) || isEmpty(vm.password)) {
-    //         return;
-    //     } else if (!isValidEmail(vm.loginEmail)) {
-    //         errMsg = 'Email is invalid.';
-    //     } else if (!isValidPassword(vm.password)) {
-    //         errMsg = 'Password is between ' + MIN_PASSWORD_LENGTH + ' and ' + MAX_PASSWORD_LENGTH + ' characters.';
-    //     } else {
-    //         email = vm.loginEmail
-    //         password = vm.password;
-    //         return determineType(email, password);
-    //     }
-    //     errorFeedback(errMsg);
-    // }
-
-    // function determineType(email, password) {
-    //     if (email === 'user@bulletlead.com') {
-    //         if (password === 'password') {
-    //             successFeedback('Logged in');
-    //             userService.setUserType('user');
-    //             $cookies.put('type', 'user');
-
-    //             $state.go('home');
-    //         } else {
-    //             errorFeedback('Unable to log in');;
-    //         }
-    //     } else if (email === 'admin@bulletlead.com') {
-    //         if (password === 'password') {
-    //             successFeedback('Logged in');
-    //             userService.setUserType('admin');
-    //             $cookies.put('type', 'admin');
-
-    //             $state.go('home');
-    //         } else {
-    //             errorFeedback('Unable to log in');;
-    //         }
-    //     } else if (email === 'superadmin@bulletlead.com') {
-    //         if (password === 'password') {
-    //             successFeedback('Logged in');
-    //             userService.setUserType('superadmin');
-    //             $cookies.put('type', 'superadmin');
-
-
-    //             $state.go('home');
-    //         } else {
-    //             errorFeedback('Unable to log in');;
-    //         }
-    //     }
-    // }
-
-
     /* =========================================== UI =========================================== */
     function validateBeforeLogin() {
         var email = '';
@@ -105,7 +45,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
     function validateBeforeSend() {
         var email = '';
         var errMsg = '';
-	console.log('Email : ' + vm.resetPwdEmail);
+        console.log('Email : ' + vm.resetPwdEmail);
         if (!isValidEmail(vm.resetPwdEmail)) {
             errMsg = 'Email is invalid.';
             return errorFeedback(errMsg);
@@ -160,7 +100,7 @@ function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, fe
 
         function SuccessCallback(res) {
             console.log(res);
-	    vm.resetPwdEmail = '';
+            vm.resetPwdEmail = '';
             return successFeedback('email sent to' + email);
         }
 
