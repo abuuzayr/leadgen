@@ -145,6 +145,9 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             var importStatus = $http.post(appConfig.API_URL + url, newObjects)
                 .then(function(res) {
                     importFeedback();
+                })
+                .then(function(res) {
+                    $window.location.reload();
                 });
         },
         onRegisterApi: function(gridApi) {
@@ -158,15 +161,6 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
                 editedValue = newValue;
                 row = rowEntity;
 
-
-                // var obj = {};
-                // obj[colDef.name] = newValue;
-                // var editData = [rowEntity, obj];
-                // var url = "/contacts/leadList/leads";
-                // $http.patch(appConfig.API_URL + url, editData)
-                //     .success(function(res) {
-                //         $window.location.reload();
-                //     });
             });
         }
     };
