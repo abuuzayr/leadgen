@@ -213,7 +213,7 @@ var mailchimpApp = {
 			});
 	}*/
 	getReports: function(getReportDetails, coId, resolve, reject) {
-mailchimp
+	mailchimp
 			.get('reports')
 			.then(function(report) {
 				var results = [];
@@ -252,7 +252,8 @@ mailchimp
 							reject(500);
 						});
 				}else{
-										for (var i = 0; i < report.reports.length; i++) {
+					var reportPromiseArr=[];
+					for (var i = 0; i < report.reports.length; i++) {
 						reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity'));
 					}
 					Promise.all(reportPromiseArr)
