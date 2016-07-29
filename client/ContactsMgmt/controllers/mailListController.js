@@ -115,6 +115,10 @@
               });
       };
 
+      var colName = '';
+      var editedValue = '';
+      var row = {};
+
       /**
        * This method is used to update the UI Grid after editing
        * PATCH - update database
@@ -125,15 +129,41 @@
           //save after edit
           gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
               console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
+              mc.openDialog('editList');
               $scope.$apply();
-              var obj = {};
-              obj[colDef.name] = newValue;
-              var editData = [rowEntity, obj];
-              var url = "/contacts/mailingList";
-              editStatus = $http.patch(appConfig.API_URL + url, editData).then(function successCallback(res) {
-                  $window.location.reload();
-              });
+              colName = colDef.name;
+              editedValue = newValue;
+              row = rowEntity;
+
+              //   var obj = {};
+              //   obj[colDef.name] = newValue;
+              //   var editData = [rowEntity, obj];
+              //   var url = "/contacts/mailingList";
+              //   editStatus = $http.patch(appConfig.API_URL + url, editData).then(function successCallback(res) {
+              //       $window.location.reload();
+              //   });
           });
+      };
+
+      mc.editList = function(gridApi) {
+          mc.gridApi = gridApi;
+
+          if (angular.isDefined(colName) && angular.isDefined(editedValue) && angular.isDefined(row)) {
+              var obj = {};
+              obj[colName] = editedValue;
+              var editData = [row, obj];
+              var url = "/contacts/mailingList";
+              $http.patch(appConfig.API_URL + url, editData)
+                  .then(function successCallback(res) {
+                      mc.closeDialog('editList');
+                      $window.location.reload();
+                  });
+          }
+      };
+
+      mc.cancelEdit = function() {
+          mc.closeDialog('editList');
+          $window.location.reload();
       };
 
       /** This method displays a popup dialog to show a failure message upon failure to delete mailing list. */
