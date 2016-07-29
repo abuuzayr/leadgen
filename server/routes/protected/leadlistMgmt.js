@@ -6,28 +6,36 @@ var md5 = require('blueimp-md5');
 var MailinglistManager = require('../../MailinglistManager/mailinglist-manager');
 var MailchimpManager = require('../../MailchimpManager/syncContacts');
 var apiKey = 'a21a2e3e5898ad6e1d50046f8c33b8ff-us13';
-  
+
 var http403 = require('../../utils/403')();
 //ACCESS CONTROL
 leadlistRouter.use('*',http403.verifyAccess('leadmgmt'));
+
+
+leadlistRouter.get('/sync',function(req,res){
+  var coId = req.decoded.companyId;
+  var coName = req.decoded.companyName;
+  var apiKey = req.accessInfo.mailchimpAPIKey;
+  MailchimpManager.syncContacts(apiKey,coId,coName)
+  .then(function(success){
+    res.sendStatus(200);
+  })
+  .catch(function(success){
+    res.sendStatus(500);
+  })
+
+});
+
+
+
 
 /*
 CRUD on leads
 */
 leadlistRouter.route('/leadList/leads')
   .get(function(req, res) {
-    console.log('get leads');
-    
     var coId = req.decoded.companyId;
-    var coName = req.decoded.companyName;
-    var apiKey = req.accessInfo.mailchimpAPIKey;
-
-//    console.log(coId);
-
-    MailchimpManager.syncContacts(apiKey,coId,coName)
-    .then(function(success){
-      return ContactsManager.displayLeads((coId+ '_leads'),null);
-    })
+    ContactsManager.displayLeads((coId+ '_leads'),null)
     .then(function(results) {
       res.json(results);
     })
@@ -37,10 +45,10 @@ leadlistRouter.route('/leadList/leads')
   })
   .post(function(req, res) {
     console.log('add leads');
-    
+
     var coId = req.decoded.companyId;
     var coName = req.decoded.companyName;
-    
+
     console.log(req.body);
     if (!req.body)
       res.sendStatus(400);
@@ -240,7 +248,7 @@ leadlistRouter.route('/mailingList')
         }
         [ { listID: '3a365442aa', name: 'PostingList7', subscribers: 4 } ]
         */
-      var apiKey = req.accessInfo.mailchimpAPIKey;  
+      var apiKey = req.accessInfo.mailchimpAPIKey;
       var coId = req.decoded.companyId;
 
       MailchimpManager.deleteList(apiKey, req.body[0].listID) //1-

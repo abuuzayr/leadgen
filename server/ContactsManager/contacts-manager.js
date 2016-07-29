@@ -14,6 +14,7 @@ var ContactsManager = {
           resolve(results);
         })
         .catch(function(error) {
+          console.log(error);
           reject(500);
         });
     });
@@ -35,7 +36,7 @@ var ContactsManager = {
               }
             }
 
-            
+
             obj.origin = 1;
             obj.source = coName;
 
