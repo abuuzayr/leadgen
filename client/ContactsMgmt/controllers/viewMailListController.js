@@ -130,6 +130,12 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
             }, {
                 id: 2,
                 status: "Unsubscribed"
+            },{
+                id: 3,
+                status: "Cleaned"
+            },{
+                id: 4,
+                status: "Pending"
             }]
         }],
     };
@@ -188,7 +194,9 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
 .filter('mapStatus', function() {
     var statusHash = {
         1: 'Subscribed',
-        2: 'Unsubscribed'
+        2: 'Unsubscribed',
+        3: 'Cleaned',
+        4: 'Pending'
     };
 
     return function(input) {
