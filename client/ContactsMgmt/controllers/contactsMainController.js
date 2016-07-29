@@ -1,5 +1,5 @@
-app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'syncData', 'leadsData', 'historyData', 'mailListData', 'contactsColumnData', '$http', '$interval', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices',
-    function($scope, $window, appConfig, syncData, leadsData, historyData, mailListData, contactsColumnData, $http, $interval, uiGridConstants, $q, $location, $timeout, feedbackServices) {
+app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'syncData', 'leadsData', 'historyData', 'mailListData', 'contactsColumnData', '$http', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices',
+    function($scope, $window, appConfig, syncData, leadsData, historyData, mailListData, contactsColumnData, $http, uiGridConstants, $q, $location, $timeout, feedbackServices) {
 
         var cc = this;
         cc.spinner = true;
