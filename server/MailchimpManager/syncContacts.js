@@ -396,8 +396,6 @@ var getReportDetails = function(results, coId, resolve, reject) {
 				//One of the following actions: ‘open’, ‘click’, or ‘bounce’ and the date and time recorded for the action.
 				contactID: ''
 			};
-			console.log("Printing collected activity");
-			console.log(temp);
 			if (results[i].emails[j].activity.length != 0) {
 				activityArr.push(temp);
 			}
@@ -432,6 +430,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 								else
 									sCount++;
 								cResults[i].history.push(activityArr[j].action[0]);
+								console.log(cResults[i]);
 							}
 						}
 						cResults[i].success = sCount;
