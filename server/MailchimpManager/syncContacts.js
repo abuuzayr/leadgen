@@ -440,7 +440,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 					for (var k = 0; k < cResults.length; k++) {
 						promiseActivityArr.push(mailinglistmanager.updateActivity((coId+'_leads'), cResults[k]));
 					}
-					Promise.all(activityArr)
+					Promise.each(activityArr)
 						.then(function(activityResults) {
 							resolve(activityResults);
 						})

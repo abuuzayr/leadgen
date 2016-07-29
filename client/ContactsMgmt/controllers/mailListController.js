@@ -156,8 +156,11 @@
               var url = "/contacts/mailingList";
               $http.patch(appConfig.API_URL + url, editData)
                   .then(function successCallback(res) {
+                      console.log('success');
                       mc.closeDialog('editList');
                       $window.location.reload();
+                  }).catch(function errorCallback(res) {
+                      console.log('error');
                   });
           }
       };
