@@ -401,6 +401,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         $http.post(appConfig.API_URL + url, obj)
             .then(function(res) {
                 console.log('added to mailing list');
+                $window.location.reload();
             });
     };
 
