@@ -499,7 +499,7 @@ function compareMemberLists(mailchimpMembers, membersDatabase) {
 	for (var i = 0; i < membersDatabase.length; i++) {
 		var memberFound = false;
 		for (var j = 0; j < mailchimpMembers.length; j++) {
-			console.log(membersDatabase[i].email_hash +" "+mailchimpMembers[j].email_hash)
+			//console.log(membersDatabase[i].email_hash +" "+mailchimpMembers[j].email_hash)
 			if (membersDatabase[i].email_hash == mailchimpMembers[j].email_hash) {
 				memberFound = true; //we've found the same list!
 			}
