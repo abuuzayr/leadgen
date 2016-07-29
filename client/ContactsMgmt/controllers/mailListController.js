@@ -84,7 +84,7 @@
           });
 
           var mailingList = {
-              "name": mc.mailListName,
+              "listName": mc.mailListName,
               "subscribers": 0
           };
           var url = "/contacts/mailingList";
