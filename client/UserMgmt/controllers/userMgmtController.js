@@ -4,6 +4,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         var companyId;
         var userId;
         var companyName;
+        uc.lead = {};
 
         uc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
             if (col.filters[0].term) {
@@ -110,6 +111,11 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 console.log('Added');
                 // addFeedback();
                 uc.closeDialog('addUser');
+
+                uc.lead.userName = '';
+                uc.lead.email = '';
+                uc.lead.role = '';
+                uc.lead.password = '';
             }).catch(function errorCallback(err) {
                 console.log('Unable to add user');
             });
