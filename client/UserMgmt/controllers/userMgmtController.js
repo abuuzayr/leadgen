@@ -4,10 +4,11 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         var companyId;
         var userId;
         var companyName;
-        uc.lead.userName;
-        uc.lead.email;
-        uc.lead.role;
-        uc.lead.password;
+        uc.lead = {};
+        uc.lead.userName = '';
+        uc.lead.email = '';
+        uc.lead.role = '';
+        uc.lead.password = '';
 
 
 
