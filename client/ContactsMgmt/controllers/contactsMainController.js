@@ -264,10 +264,13 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             "history": '',
         };
         var url = "/contacts/leadList/leads";
-        $http.post(appConfig.API_URL + url, lead).then(function successCallback(res) {
-            addFeedback();
-            cc.closeDialog('addData');
-        });
+        $http.post(appConfig.API_URL + url, lead)
+            .then(function successCallback(res) {
+                addFeedback();
+                cc.closeDialog('addData');
+            }).then(function(res) {
+                $window.location.reload();
+            });
     };
 
     /** 
@@ -285,7 +288,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         $http.put(appConfig.API_URL + url, leads)
             .then(function(res) {
                 deleteFeedback();
-                $window.location.reload();
+                // $window.location.reload();
             })
             .catch(function(err) {
                 console.log(err);
