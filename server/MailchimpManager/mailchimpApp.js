@@ -216,11 +216,7 @@ var mailchimpApp = {
 		mailchimp
 			.get('reports')
 			.then(function(report) {
-				var results = [];
-				var finalResults=[];
-				var k = 0;
-				var totalReportLength=report.reports.length;
-				console.log("we have :"+report.reports.length);
+
 
 			}.catch(function(error) {
 						console.log(error);
