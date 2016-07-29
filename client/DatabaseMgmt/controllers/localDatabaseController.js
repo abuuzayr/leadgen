@@ -1,7 +1,7 @@
 (function() {
     'use strict';
-    app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGridConstants', '$q', '$location', '$timeout', 'sendDataToLocal', 'syncToCompany', '$window',
-        function($scope, $http, localData, uiGridConstants, $q, $location, $timeout, sendDataToLocal, syncToCompany, $window) {
+    app.controller('localDatabaseController', ['$scope', '$http', 'localData', 'uiGridConstants', '$q', '$location', '$timeout', 'sendDataToLocal', '$window',
+        function($scope, $http, localData, uiGridConstants, $q, $location, $timeout, sendDataToLocal, $window) {
             var ld = this;
 
             ld.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
