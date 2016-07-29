@@ -90,6 +90,7 @@ var mailchimpHandler = {
 													temp.action = '1';
 												}
 												var membTemp = []; // Array of objects
+												console.log(mailchimplist[i].members.length+"  "+appDatabase[j].members.length);
 												membTemp = compareMemberLists(mailchimplist[i].members, appDatabase[j].members);
 												//1 - update member, 2- create member, 3 delete remove
 												if (membTemp.length != '0') {
