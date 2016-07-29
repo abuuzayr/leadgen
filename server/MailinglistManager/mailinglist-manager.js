@@ -339,8 +339,12 @@ var MailinglistManager = {
 									var temp = Object.assign(returnResults[i], promiseResults[j][0]);
 									if (temp.subscriberStatus === 'subscribed')
 										temp.status = 1;
-									else
+									else if (temp.subscriberStatus === 'unsubscribed')
 										temp.status = 2;
+									else if (temp.subscriberStatus === 'cleaned')
+										temp.status = 3;
+									else if (temp.subscriberStatus === 'pending')
+										temp.status = 4;
 									finalResults.push(temp);
 								}
 							}

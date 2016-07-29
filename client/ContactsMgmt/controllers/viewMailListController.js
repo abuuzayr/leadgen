@@ -113,6 +113,12 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
                 }, {
                     value: '2',
                     label: 'Unsubscribed'
+                },{
+                    value: '3',
+                    label: 'Cleaned'
+                },{
+                    value: '4',
+                    label: 'Pending'
                 }]
             },
             cellFilter: 'mapStatus',
