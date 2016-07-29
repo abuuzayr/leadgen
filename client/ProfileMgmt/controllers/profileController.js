@@ -1,7 +1,7 @@
 (function() {
     'use strict';
-    app.controller('profileController', ['$scope', '$http', '$q', '$location', '$timeout', 'getDetails', 'appConfig', '$window', 'feedbackServices', '$cookies', 'authServices',
-        function($scope, $http, $q, $location, $timeout, getDetails, appConfig, $window, feedbackServices, $cookies, authServices) {
+    app.controller('profileController', ['$scope', '$http', '$q', '$location', '$timeout', 'appConfig', '$window', 'feedbackServices', '$cookies', 'authServices',
+        function($scope, $http, $q, $location, $timeout, appConfig, $window, feedbackServices, $cookies, authServices) {
 
             var pc = this;
             pc.profileData = {};
