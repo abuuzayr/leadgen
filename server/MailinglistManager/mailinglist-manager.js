@@ -80,28 +80,46 @@ var MailinglistManager = {
 				phone: null,
 				source: coName
 			};
-			contactsHandler.addContactMC(temp, obj.email_hash, obj.listID, apiKey, coId)
-				.then(function(results) {
-					var tempML = {
-						contactID: results + '',
-						listID: obj.listID,
-						name: obj.name,
-						email_addr: obj.email_addr,
-						email_hash: obj.email_hash,
-						firstName: obj.firstName,
-						lastName: obj.lastName,
-						subscriberStatus: obj.subscriberStatus
-					};
-					dbHandler.dbInsert(collectionName, tempML)
-						.then(function(result) {
-							resolve(result);
-						}).catch(function(MLerror) {
-							reject(MLerror);
-						});
+			var filterObj = {};
+			filterObj.listID = obj.listID;
+			filterObj.email_hash = obj.email_hash;
+
+			dbHandler.dbQuery(collectionName, filterObj)
+				.then(function(results)
+				{
+					if(results.length==0)
+					{
+						contactsHandler.addContactMC(temp, obj.email_hash, obj.listID, apiKey, coId)
+							.then(function(results) {
+								var tempML = {
+									contactID: results + '',
+									listID: obj.listID,
+									name: obj.name,
+									email_addr: obj.email_addr,
+									email_hash: obj.email_hash,
+									firstName: obj.firstName,
+									lastName: obj.lastName,
+									subscriberStatus: obj.subscriberStatus
+								};
+								dbHandler.dbInsert(collectionName, tempML)
+									.then(function(result) {
+										resolve(result);
+									}).catch(function(MLerror) {
+										reject(MLerror);
+									});
+							})
+							.catch(function(error) {
+								reject(error);
+							});
+					}
+
 				})
-				.catch(function(error) {
-					reject(error);
-				});
+				.catch(function(error1)
+				{
+					console.log(error1);
+					reject(500);
+				})
+			
 		});
 	},
 	deleteList: function(res, collectionName, obj, callback) {
