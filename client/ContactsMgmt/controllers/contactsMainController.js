@@ -144,7 +144,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             var url = "/contacts/leadList/import";
             var importStatus = $http.post(appConfig.API_URL + url, newObjects)
                 .then(function(res) {
-                    addFeedback();
+                    importFeedback();
                 });
         },
         onRegisterApi: function(gridApi) {
@@ -478,6 +478,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
     /** This method is called to initialize and display a success message via a snackbar upon successfully adding new data. */
     var addFeedback = function() {
         feedbackServices.successFeedback("Added!", '#addFeedbackID');
+    };
+
+    var importFeedback = function() {
+        feedbackServices.successFeedback("Imported!", '#addFeedbackID');
     };
 
     var deleteFeedback = function() {
