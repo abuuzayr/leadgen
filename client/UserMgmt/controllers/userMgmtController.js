@@ -116,9 +116,6 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
                 uc.lead.role = '';
                 uc.lead.password = '';
             }).catch(function errorCallback(err) {
-              if(res.status == 409)
-                console.log('username/email already exists')
-              else
                 console.log('Unable to add user');
             });
 
