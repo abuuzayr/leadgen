@@ -48,29 +48,20 @@ var dbHandler = {
       connection.Do(function(db){
         if (obj._id !== undefined)
           delete obj._id;
-        var col = db.collection(collectionName);
-        var filter = {
-          email : obj.email
-        };
-              col.find(filter).toArray()
-              .then(function(results){
-                if(results.length >1){
-          	  //  console.log('duplicate found');
-                //console.log(obj.email);
-                resolve(200);
-    	  }else{
-            col.insertOne(obj)
-            .then(function(success){
-              resolve(200);
-            })
-            .catch(function(error){
-              reject(500);
-            });
-          }
-        })
-        .catch(function(error){
-          reject(500);
-        });
+        else{
+          var col = db.collection(collectionName);
+          
+          if(obj._id !== undefined)
+            delete obj._id;
+
+          col.insertOne(obj)
+          .then(function(success){
+            resolve(201);
+          })
+          .catch(function(error){
+            reject(500);
+          });
+        }
       });
     });
   },
