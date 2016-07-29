@@ -135,6 +135,10 @@
               editedValue = newValue;
               row = rowEntity;
 
+              console.log(colName);
+              console.log(editedValue);
+              console.log(row);
+
               //   var obj = {};
               //   obj[colDef.name] = newValue;
               //   var editData = [rowEntity, obj];
@@ -155,7 +159,7 @@
               console.log(editData);
               var url = "/contacts/mailingList";
               $http.patch(appConfig.API_URL + url, editData)
-                  .then(function successCallback(res) {
+                  .then(function(res) {
                       console.log('success');
                       mc.closeDialog('editList');
                       $window.location.reload();
