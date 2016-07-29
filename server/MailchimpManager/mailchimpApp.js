@@ -232,6 +232,7 @@ var mailchimpApp = {
 						reportPromiseArr[j].push(getIndividualReport('reports/' + report.reports[k+i].id + '/email-activity'));
 						k++;
 					}
+					console.log(reportPromiseArr[j]);
 				}
 				//Promise.all(reportPromiseArr)
 				Promise.each(reportPromiseArr ,function(result)
