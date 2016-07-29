@@ -108,19 +108,17 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             newUser.application.bulletlead.usertype = uc.lead.role;
 
             allUsersData.addUserData(newUser).then(function successCallback(res) {
-                if(res.status == 409){
-                  console.log('username/email already exists');
-                  //TODO snackbar for feedback
-                }else{
-                  console.log('Added');
+                console.log('Added');
                   // addFeedback();
-                  uc.closeDialog('addUser');
-                }
+                uc.closeDialog('addUser');
                 uc.lead.userName = '';
                 uc.lead.email = '';
                 uc.lead.role = '';
                 uc.lead.password = '';
             }).catch(function errorCallback(err) {
+              if(res.status == 409)
+                console.log('username/email already exists')
+              else
                 console.log('Unable to add user');
             });
 
