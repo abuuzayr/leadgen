@@ -220,6 +220,7 @@ var mailchimpApp = {
 				var finalResults=[];
 				var k = 0;
 				var totalReportLength=report.reports.length;
+				console.log("we have :"+report.reports.length;)
 				if(totalReportLength>9)
 				{
 					//number of sets of array of promises
