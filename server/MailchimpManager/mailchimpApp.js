@@ -230,6 +230,7 @@ var mailchimpApp = {
 				for(var j=0;j<totalReportLength;j++){
 					reportPromiseArr[j]=new Array(10);
 					for (var i = 0; i < 10; i++) {
+						console.log("Loop1");
 						reportPromiseArr[j].push(getIndividualReport('reports/' + report.reports[k].id + '/email-activity'));
 						k++;
 					}
