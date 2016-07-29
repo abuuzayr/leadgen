@@ -39,7 +39,7 @@
 }
 
 #removeLead,
-#removeDuplicate,
+#removeDuplicateButton,
 #get_file,
 #removeField,
 #removeFieldSign,
@@ -116,5 +116,5 @@
 }
 
 .addDataClass {
-    width: 400px;
+    width: 350px;
 }
