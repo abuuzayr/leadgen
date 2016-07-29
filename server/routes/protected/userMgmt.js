@@ -45,13 +45,13 @@ accountsettingsRouter.route('/')
         if(body[i].application.bulletlead.usertype !== 'SuperAdmin')
           arr.push(body[i]);
       }
-      res.json(arr);
+      res.status(response.statusCode)json(arr);
     }
   });
 })
 .post(function(req,res){
-  
- 
+
+
   var url = 'https://10.4.1.198/req/api/usermgmt';
 
   var j = request.jar();
@@ -81,7 +81,7 @@ accountsettingsRouter.route('/')
     }
     else{
       console.log(body);
-      res.sendStatus(201);
+      res.sendStatus(response.statusCode);
     }
   });
 });
@@ -118,7 +118,7 @@ accountsettingsRouter.route('/:id')
     }
     else{
       console.log(body);
-      res.sendStatus(200);
+      res.sendStatus(response.statusCode);
     }
   });
 })
@@ -149,7 +149,7 @@ accountsettingsRouter.route('/:id')
     }
     else{
       console.log(body);
-      res.sendStatus(200);
+      res.sendStatus(response.statusCode);
     }
   });
 });
