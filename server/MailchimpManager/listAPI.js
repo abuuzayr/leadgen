@@ -10,7 +10,7 @@ mailchimp
 	.then(function(lists) {
 		console.log("Printing lists");
 		console.log(lists);
-		//var info = JSON.pars0, i<lists.lists.length; e(lists);
+		//var info = JSON.pars0, i<lists.lists.lengthaaaaaasasasa; e(lists);
 
 		for (var i = 0; i < lists.lists.length; i++) {
 			var list_name = lists.lists[i].name;
