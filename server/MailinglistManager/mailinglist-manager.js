@@ -93,7 +93,7 @@ var MailinglistManager = {
 						filterObj2.lastName=obj.firstName
 						filterObj2.firstName=obj.lastName
 						filterObj2.email = obj.email_addr;
-						dbHandler.dbQuery(coId+"_leads", filterObj)
+						dbHandler.dbQuery(coId+"_leads", filterObj2)
 						.then(function(leadsResults)
 						{
 							if(leadsResults.length==0)
@@ -118,8 +118,8 @@ var MailinglistManager = {
 											reject(MLerror);
 										});
 								})
-								.catch(function(error) {
-									reject(error);
+								.catch(function(error2) {
+									reject(error2);
 								});
 							}else
 							{
@@ -142,10 +142,11 @@ var MailinglistManager = {
 							}
 						
 						})
-						.catch(error)
+						.catch(function(error))
 						{
+							console.log(error);
 							reject(500);
-						}
+						});
 					}
 
 				})
