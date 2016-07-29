@@ -6,6 +6,20 @@ app.controller('userMgmtController', ['$scope', '$window', '$http', 'allUsersDat
         var companyName;
         uc.lead = {};
 
+        /* =========================================== Load animation =========================================== */
+        var viewContentLoaded = $q.defer();
+
+        $scope.$on('$viewContentLoaded', function() {
+            $timeout(function() {
+                viewContentLoaded.resolve();
+            }, 0);
+        });
+        viewContentLoaded.promise.then(function() {
+            $timeout(function() {
+                componentHandler.upgradeDom();
+            }, 0);
+        });
+
         uc.highlightFilteredHeader = function(row, rowRenderIndex, col, colRenderIndex) {
             if (col.filters[0].term) {
                 return 'header-filtered';
@@ -211,18 +225,18 @@ app.controller('userMgmtController', ['$scope', '$window', '$http', 'allUsersDat
         // };
 
         /* =========================================== Load animation =========================================== */
-        var viewContentLoaded = $q.defer();
+        // var viewContentLoaded = $q.defer();
 
-        $scope.$on('$viewContentLoaded', function() {
-            $timeout(function() {
-                viewContentLoaded.resolve();
-            }, 0);
-        });
-        viewContentLoaded.promise.then(function() {
-            $timeout(function() {
-                componentHandler.upgradeDom();
-            }, 0);
-        });
+        // $scope.$on('$viewContentLoaded', function() {
+        //     $timeout(function() {
+        //         viewContentLoaded.resolve();
+        //     }, 0);
+        // });
+        // viewContentLoaded.promise.then(function() {
+        //     $timeout(function() {
+        //         componentHandler.upgradeDom();
+        //     }, 0);
+        // });
     }
 ])
 
