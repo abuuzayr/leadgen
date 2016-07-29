@@ -90,6 +90,7 @@
           var url = "/contacts/mailingList";
           addStatus = $http.post(appConfig.API_URL + url, mailingList)
               .then(function successCallback(res) {
+                  console.log('add mailing list success');
                   mc.closeDialog('addMailList');
                   //   $window.location.reload();
               });
