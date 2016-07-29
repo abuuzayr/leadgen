@@ -93,6 +93,8 @@ var MailinglistManager = {
 						filterObj2.lastName=obj.firstName
 						filterObj2.firstName=obj.lastName
 						filterObj2.email = obj.email_addr;
+						console.log(coId+"_leads");
+						console.log(filterObj2);
 						dbHandler.dbQuery(coId+"_leads", filterObj2)
 						.then(function(leadsResults)
 						{
