@@ -1,5 +1,5 @@
-app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'feedbackServices', '$window', 'authServices',
-    function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, feedbackServices, $window, authServices) {
+app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', '$window', 'authServices', 'feedbackServices',
+    function($scope, $http, allUsersData, uiGridConstants, $q, $location, $timeout, $window, authServices, feedbackServices) {
         var uc = this;
         var companyId;
         var userId;
@@ -108,7 +108,7 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             newUser.application.bulletlead.usertype = uc.lead.role;
 
             allUsersData.addUserData(newUser).then(function successCallback(res) {
-				if (res.status == 409) {
+                if (res.status == 409) {
                     console.log('username/email already exists');
                     //TODO snackbar for feedback
                 } else {
