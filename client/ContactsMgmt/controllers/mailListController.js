@@ -152,6 +152,7 @@
               var obj = {};
               obj[colName] = editedValue;
               var editData = [row, obj];
+              console.log(editData);
               var url = "/contacts/mailingList";
               $http.patch(appConfig.API_URL + url, editData)
                   .then(function successCallback(res) {
