@@ -80,6 +80,7 @@ accountsettingsRouter.route('/')
       res.sendStatus(500);
     }
     else{
+      console.log(body);
       res.sendStatus(201);
     }
   });
