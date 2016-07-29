@@ -299,6 +299,7 @@ leadlistRouter.route('/mailingList')
           .then(function(MCResults) {
             MailinglistManager.updateList(res, (coId+'_mailinglists'), req.body, returnStatusCode);
           }).catch(function(MCError) {
+            console.log(MCError);
            res.sendStatus(MCerror);
           });
       });
