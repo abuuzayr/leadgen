@@ -1,5 +1,6 @@
 (function() {
     'use strict';
+
     app.controller('allDatabaseController', ['$scope', '$http', 'allData', 'uiGridConstants', '$q', '$location', '$timeout', 'uiGridExporterService', 'uiGridExporterConstants',
         function($scope, $http, allData, uiGridConstants, $q, $location, $timeout, uiGridExporterService, uiGridExporterConstants) {
             var allDB = this;
