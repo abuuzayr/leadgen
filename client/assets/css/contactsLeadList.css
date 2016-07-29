@@ -107,7 +107,7 @@
     height: auto;
     min-height: 250px;
     max-height: 350px;
-    width: 200px;
+    width: 250px;
     overflow-y: auto;
 }
 
@@ -116,5 +116,5 @@
 }
 
 .addDataClass {
-    width: 350px;
+    width: 450px;
 }
