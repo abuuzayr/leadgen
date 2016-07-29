@@ -67,13 +67,6 @@
                     vm.userMgmtStyle = { "font-weight": "400" }
                     vm.databaseMgmtStyle = { "font-weight": "400" }
                 }
-
-                // console.log(vm.showLead);
-                // console.log(vm.showFinder);
-                // console.log(vm.showAccount);
-                // console.log(vm.showUser);
-                // console.log(vm.showDatabase);
-                // console.log(vm.showLogout);
             };
 
             vm.update();
