@@ -33,7 +33,7 @@
           showGridFooter: true,
           multiSelect: false,
           columnDefs: [{
-              field: 'listName',
+              field: 'name',
               displayName: 'List Name',
               minWidth: 150,
               width: 540,
@@ -79,12 +79,12 @@
       mc.addMailList = function() {
           var n = mc.gridOptions.data.length + 1;
           mc.gridOptions.data.push({
-              "listName": mc.mailListName,
+              "name": mc.mailListName,
               "subscribers": 0
           });
 
           var mailingList = {
-              "listName": mc.mailListName,
+              "name": mc.mailListName,
               "subscribers": 0
           };
           var url = "/contacts/mailingList";
