@@ -422,7 +422,7 @@ var getReportDetails = function(results, coId, resolve, reject) {
 						var fCount = 0;
 						var itemID = cResults[i]._id + '';
 						for (var j = 0; j < activityArr.length; j++) {
-							console.log(activityArr[j].contactID);
+							console.log(activityArr.length);
 							if (activityArr[j].contactID == itemID) {
 								var tempTime= activityArr[j].action[0].timestamp;
 								activityArr[j].action[0].timestamp = tempTime.substring(0,10);
