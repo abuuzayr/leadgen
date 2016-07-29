@@ -89,28 +89,63 @@ var MailinglistManager = {
 				{
 					if(results.length==0)
 					{
-						contactsHandler.addContactMC(temp, obj.email_hash, obj.listID, apiKey, coId)
-							.then(function(results) {
-								var tempML = {
-									contactID: results + '',
-									listID: obj.listID,
-									name: obj.name,
-									email_addr: obj.email_addr,
-									email_hash: obj.email_hash,
-									firstName: obj.firstName,
-									lastName: obj.lastName,
-									subscriberStatus: obj.subscriberStatus
-								};
-								dbHandler.dbInsert(collectionName, tempML)
-									.then(function(result) {
-										resolve(result);
-									}).catch(function(MLerror) {
-										reject(MLerror);
-									});
-							})
-							.catch(function(error) {
-								reject(error);
-							});
+						var filterObj2 = {};
+						filterObj2.lastName=obj.firstName
+						filterObj2.firstName=obj.lastName
+						filterObj2.email = obj.email_addr;
+						dbHandler.dbQuery(coId+"_leads", filterObj)
+						.then(function(leadsResults)
+						{
+							if(leadsResults==0)
+							{
+								//contacts dont have this data, hence we add new contact
+								contactsHandler.addContactMC(temp, obj.email_hash, obj.listID, apiKey, coId)
+								.then(function(results) {
+									var tempML = {
+										contactID: results + '',
+										listID: obj.listID,
+										name: obj.name,
+										email_addr: obj.email_addr,
+										email_hash: obj.email_hash,
+										firstName: obj.firstName,
+										lastName: obj.lastName,
+										subscriberStatus: obj.subscriberStatus
+									};
+									dbHandler.dbInsert(collectionName, tempML)
+										.then(function(result) {
+											resolve(result);
+										}).catch(function(MLerror) {
+											reject(MLerror);
+										});
+								})
+								.catch(function(error) {
+									reject(error);
+								});
+							}else
+							{
+									var tempML = {
+										contactID: leadsResults._id + '',
+										listID: obj.listID,
+										name: obj.name,
+										email_addr: obj.email_addr,
+										email_hash: obj.email_hash,
+										firstName: obj.firstName,
+										lastName: obj.lastName,
+										subscriberStatus: obj.subscriberStatus
+									};
+									dbHandler.dbInsert(collectionName, tempML)
+										.then(function(result) {
+											resolve(result);
+										}).catch(function(MLerror) {
+											reject(MLerror);
+										});
+							}
+						
+						})
+						.catch(error)
+						{
+							reject(500);
+						}
 					}
 
 				})
@@ -118,6 +153,7 @@ var MailinglistManager = {
 				{
 					console.log(error1);
 					reject(500);
+
 				})
 			
 		});
