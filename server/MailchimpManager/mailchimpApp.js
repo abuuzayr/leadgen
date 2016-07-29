@@ -225,23 +225,24 @@ var mailchimpApp = {
 				{
 					//number of sets of array of promises
 					totalReportLength = totalReportLength/10;
-					totalReportLength = parseInt(totalReportLength ,10)
-				}
-				var reportPromiseArr=new Array(totalReportLength);
-				for(var j=0;j<totalReportLength;j++){
-					reportPromiseArr[j]=new Array(10);
-					for (var i = 0; i < 10; i++) {
-						console.log("Loop1");
-						reportPromiseArr[j].push(getIndividualReport('reports/' + report.reports[k].id + '/email-activity'));
-						k++;
+					totalReportLength = parseInt(totalReportLength ,10);
+					var reportPromiseArr=new Array(totalReportLength);//outer array
+
+					for(var j=0;j<totalReportLength;j++){
+						reportPromiseArr[j]=new Array(10);
+							for (var i = 0; i < 10; i++) {
+								console.log("Loop1");
+								if(report.reports[k].id!=undefined){
+								reportPromiseArr[j].push(getIndividualReport('reports/' + report.reports[k].id + '/email-activity'));
+								k++;
+							}
+						}
+						console.log(reportPromiseArr[j]);
 					}
-					console.log(reportPromiseArr[j]);
-				}
-				//Promise.all(reportPromiseArr)
-				Promise.each(reportPromiseArr ,function(result)
-				{
-					finalResults.push(result);
-				})
+							//Promise.all(reportPromiseArr)
+					Promise.each(reportPromiseArr ,function(result){
+								finalResults.push(result);
+							})
 					.then(function(result) {
 						console.log(result);
 						getReportDetails(result, coId, resolve, reject);
@@ -250,11 +251,20 @@ var mailchimpApp = {
 						console.log(error2);
 						reject(500);
 					});
-				//get reports 10 at a time.
-			}).catch(function(error) {
-				console.log(error);
-				reject(500);
-			});
+				}else{
+					for (var i = 0; i < report.reports.length; i++) {
+						reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity'));
+					}
+					Promise.all(reportPromiseArr)
+						.then(function(result) {
+							console.log(result);
+							getReportDetails(result, coId, resolve, reject);
+						})
+						.catch(function(error2) {
+							console.log(error2);
+							reject(500);
+						});
+					}
 	}
 };
 module.exports = mailchimpApp;
