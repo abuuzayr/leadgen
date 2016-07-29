@@ -1,155 +1,158 @@
-angular.module("app")
-    .controller("loginCtrl", loginCtrl);
+(function() {
+    'use strict';
+    angular.module("app")
+        .controller("loginCtrl", loginCtrl);
 
-loginCtrl.$inject = ['$scope', '$q', '$location', '$timeout', '$state', '$http', 'appConfig', 'feedbackServices', 'dialogServices', '$cookies', 'authServices'];
+    loginCtrl.$inject = ['$scope', '$q', '$location', '$timeout', '$state', '$http', 'appConfig', 'feedbackServices', 'dialogServices', '$cookies', 'authServices'];
 
-function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, feedbackServices, dialogServices, $cookies, authServices) {
+    function loginCtrl($scope, $q, $location, $timeout, $state, $http, appConfig, feedbackServices, dialogServices, $cookies, authServices) {
 
-    /* =========================================== Initialisation =========================================== */
-    var vm = this;
-    var MAX_PASSWORD_LENGTH = appConfig.MAX_PASSWORD_LENGTH;
-    var MIN_PASSWORD_LENGTH = appConfig.MIN_PASSWORD_LENGTH;
-    var AUTH_URL = appConfig.AUTH_URL;
-    var FP_URL = appConfig.FP_URL;
-    var API_URL = appConfig.API_URL;
+        /* =========================================== Initialisation =========================================== */
+        var vm = this;
+        var MAX_PASSWORD_LENGTH = appConfig.MAX_PASSWORD_LENGTH;
+        var MIN_PASSWORD_LENGTH = appConfig.MIN_PASSWORD_LENGTH;
+        var AUTH_URL = appConfig.AUTH_URL;
+        var FP_URL = appConfig.FP_URL;
+        var API_URL = appConfig.API_URL;
 
-    vm.loginEmail = '';
-    vm.password = '';
-    vm.resetPwdEmail = '';
+        vm.loginEmail = '';
+        vm.password = '';
+        vm.resetPwdEmail = '';
 
-    vm.validateBeforeLogin = validateBeforeLogin;
-    vm.validateBeforeSend = validateBeforeSend;
-    vm.closeDialog = closeDialog;
-    vm.openDialog = openDialog;
+        vm.validateBeforeLogin = validateBeforeLogin;
+        vm.validateBeforeSend = validateBeforeSend;
+        vm.closeDialog = closeDialog;
+        vm.openDialog = openDialog;
 
-    /* =========================================== UI =========================================== */
-    function validateBeforeLogin() {
-        var email = '';
-        var password = '';
-        var errMsg = '';
+        /* =========================================== UI =========================================== */
+        function validateBeforeLogin() {
+            var email = '';
+            var password = '';
+            var errMsg = '';
 
-        if (isEmpty(vm.loginEmail) || isEmpty(vm.password)) {
-            return;
-        } else if (!isValidEmail(vm.loginEmail)) {
-            errMsg = 'Email is invalid.';
-        } else if (!isValidPassword(vm.password)) {
-            errMsg = 'Password is between ' + MIN_PASSWORD_LENGTH + ' and ' + MAX_PASSWORD_LENGTH + ' characters.';
-        } else {
-            email = vm.loginEmail;
-            password = vm.password;
-            return login(email, password);
+            if (isEmpty(vm.loginEmail) || isEmpty(vm.password)) {
+                return;
+            } else if (!isValidEmail(vm.loginEmail)) {
+                errMsg = 'Email is invalid.';
+            } else if (!isValidPassword(vm.password)) {
+                errMsg = 'Password is between ' + MIN_PASSWORD_LENGTH + ' and ' + MAX_PASSWORD_LENGTH + ' characters.';
+            } else {
+                email = vm.loginEmail;
+                password = vm.password;
+                return login(email, password);
+            }
+            errorFeedback(errMsg);
         }
-        errorFeedback(errMsg);
-    }
 
-    function validateBeforeSend() {
-        var email = '';
-        var errMsg = '';
-        console.log('Email : ' + vm.resetPwdEmail);
-        if (!isValidEmail(vm.resetPwdEmail)) {
-            errMsg = 'Email is invalid.';
-            return errorFeedback(errMsg);
-        } else {
-            email = vm.resetPwdEmail;
-            return sendEmail(email);
+        function validateBeforeSend() {
+            var email = '';
+            var errMsg = '';
+            console.log('Email : ' + vm.resetPwdEmail);
+            if (!isValidEmail(vm.resetPwdEmail)) {
+                errMsg = 'Email is invalid.';
+                return errorFeedback(errMsg);
+            } else {
+                email = vm.resetPwdEmail;
+                return sendEmail(email);
+            }
         }
-    }
 
 
-    /* =========================================== API =========================================== */
-    function login(email, password) {
-        $http.post(AUTH_URL, {
-                email: email,
-                password: password,
-                origin: 'bulletlead.com'
-            })
-            .then(SuccessCallback)
-            .catch(ErrorCallback);
+        /* =========================================== API =========================================== */
+        function login(email, password) {
+            $http.post(AUTH_URL, {
+                    email: email,
+                    password: password,
+                    origin: 'bulletlead.com'
+                })
+                .then(SuccessCallback)
+                .catch(ErrorCallback);
 
-        function SuccessCallback(res) {
-            console.log(res);
-            return successFeedback('Logged in')
-                .then(
-                    $http.get(API_URL + '/cookie')
+            function SuccessCallback(res) {
+                console.log(res);
+                return successFeedback('Logged in')
+                    .then(
+                        $http.get(API_URL + '/cookie')
+                        .then(function(res) {
+                            $state.go('home');
+                        })
+
+                    )
                     .then(function(res) {
+                        console.log(res);
                         $state.go('home');
                     })
+                    .catch(function(err) {
+                        errorFeedback('Login blocked by app server');
+                    });
+            }
 
-                )
-                .then(function(res) {
-                    console.log(res);
-                    $state.go('home');
+            function ErrorCallback(err) {
+                authServices.deleteToken();
+                errorFeedback(err.data);
+            }
+        }
+
+        function sendEmail(email) {
+            $http.post(FP_URL, {
+                    email: email
                 })
-                .catch(function(err) {
-                    errorFeedback('Login blocked by app server');
-                });
+                .then(SuccessCallback)
+                .catch(ErrorCallback);
+
+            function SuccessCallback(res) {
+                console.log(res);
+                vm.resetPwdEmail = '';
+                return successFeedback('email sent to' + email);
+            }
+
+            function ErrorCallback(err) {
+                console.log(err);
+                return errorFeedback(err.data);
+            }
         }
 
-        function ErrorCallback(err) {
-            authServices.deleteToken();
-            errorFeedback(err.data);
-        }
-    }
-
-    function sendEmail(email) {
-        $http.post(FP_URL, {
-                email: email
-            })
-            .then(SuccessCallback)
-            .catch(ErrorCallback);
-
-        function SuccessCallback(res) {
-            console.log(res);
-            vm.resetPwdEmail = '';
-            return successFeedback('email sent to' + email);
+        /* =========================================== Helper Function =========================================== */
+        function openDialog() {
+            return dialogServices.openDialog('forgot-password-dialog');
         }
 
-        function ErrorCallback(err) {
-            console.log(err);
-            return errorFeedback(err.data);
+        function closeDialog() {
+            return dialogServices.closeDialog('forgot-password-dialog');
         }
-    }
 
-    /* =========================================== Helper Function =========================================== */
-    function openDialog() {
-        return dialogServices.openDialog('forgot-password-dialog');
-    }
+        function successFeedback(msg, timeout) {
+            return feedbackServices.successFeedback(msg, '#login-feedbackMessage', timeout)
+        }
 
-    function closeDialog() {
-        return dialogServices.closeDialog('forgot-password-dialog');
-    }
+        function errorFeedback(errData, timeout) {
+            return feedbackServices.errorFeedback(errData, '#login-feedbackMessage', timeout)
+        }
 
-    function successFeedback(msg, timeout) {
-        return feedbackServices.successFeedback(msg, '#login-feedbackMessage', timeout)
-    }
+        function isEmpty(str) {
+            return str == null || str == undefined || str.length < 1;
+        }
 
-    function errorFeedback(errData, timeout) {
-        return feedbackServices.errorFeedback(errData, '#login-feedbackMessage', timeout)
-    }
+        function isValidEmail(str) {
+            var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return emailPattern.test(str);
+        }
 
-    function isEmpty(str) {
-        return str == null || str == undefined || str.length < 1;
-    }
+        function isValidPassword(str) {
+            return str.length >= MIN_PASSWORD_LENGTH && str.length <= MAX_PASSWORD_LENGTH
+        }
 
-    function isValidEmail(str) {
-        var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return emailPattern.test(str);
+        /* =========================================== Load animation =========================================== */
+        var viewContentLoaded = $q.defer();
+        $scope.$on('$viewContentLoaded', function() {
+            $timeout(function() {
+                viewContentLoaded.resolve();
+            }, 0);
+        });
+        viewContentLoaded.promise.then(function() {
+            $timeout(function() {
+                componentHandler.upgradeDom();
+            }, 0);
+        });
     }
-
-    function isValidPassword(str) {
-        return str.length >= MIN_PASSWORD_LENGTH && str.length <= MAX_PASSWORD_LENGTH
-    }
-
-    /* =========================================== Load animation =========================================== */
-    var viewContentLoaded = $q.defer();
-    $scope.$on('$viewContentLoaded', function() {
-        $timeout(function() {
-            viewContentLoaded.resolve();
-        }, 0);
-    });
-    viewContentLoaded.promise.then(function() {
-        $timeout(function() {
-            componentHandler.upgradeDom();
-        }, 0);
-    });
-}
+})();
