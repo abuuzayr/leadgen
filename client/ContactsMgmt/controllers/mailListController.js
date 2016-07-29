@@ -159,6 +159,8 @@
                       console.log('success');
                       mc.closeDialog('editList');
                       $window.location.reload();
+                  }).catch(function errorCallback(res) {
+                      console.log('error');
                   });
           }
       };
