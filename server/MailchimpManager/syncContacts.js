@@ -138,12 +138,12 @@ var mailchimpHandler = {
 									return differenceArr;
 								}).then(function(differenceArr) {
 								/*	console.log("====================Update Database ========================================");
-									for (var i = 0; i < differenceArr.length; i++) {
+									*/for (var i = 0; i < differenceArr.length; i++) {
 										console.log(differenceArr[i]);
 									}
 
 									console.log(differenceArr.length);
-									console.log("========================End of Update=======================================");*/
+									console.log("========================End of Update=======================================");
 									var promiseArr = [];
 									for (var i = 0; i < differenceArr.length; i++) {
 										//go through everylist check the action, perform the action.
@@ -422,7 +422,6 @@ var getReportDetails = function(results, coId, resolve, reject) {
 						var fCount = 0;
 						var itemID = cResults[i]._id + '';
 						for (var j = 0; j < activityArr.length; j++) {
-							console.log(activityArr.length);
 							if (activityArr[j].contactID == itemID) {
 								var tempTime= activityArr[j].action[0].timestamp;
 								activityArr[j].action[0].timestamp = tempTime.substring(0,10);
