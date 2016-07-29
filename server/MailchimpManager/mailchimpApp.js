@@ -221,8 +221,7 @@ var mailchimpApp = {
 				var k = 0;
 				var totalReportLength=report.reports.length;
 				console.log("we have :"+report.reports.length);
-				if(totalReportLength>9)
-				{
+				if(totalReportLength>9){
 					//number of sets of array of promises
 					totalReportLength = totalReportLength/10;
 					totalReportLength = parseInt(totalReportLength ,10);
@@ -266,11 +265,13 @@ var mailchimpApp = {
 							reject(500);
 						});
 					}
-			}.catch(function(error) {
-						console.log(error);
-						reject(500);
-					});
-			}
+			})
+			.catch(function(error){
+				console.log(error);
+				reject(500);
+			});
+		}
+
 };
 module.exports = mailchimpApp;
 
