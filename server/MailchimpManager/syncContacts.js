@@ -45,7 +45,7 @@ var mailchimpHandler = {
 									return databaselist;
 								}).then(function(databaselist) {
 									//Now we need arrange he dbResults to fit mailchimp object format
-									console.log("====================App Database ========================================");
+									/*console.log("====================App Database ========================================");
 									for (var i = 0; i < databaselist.length; i++) {
 										console.log(databaselist[i]);
 									}
@@ -56,7 +56,7 @@ var mailchimpHandler = {
 									}
 									console.log("=========================================================");
 									console.log("mailinglist has "+ mailchimplist.length);
-									console.log("databaselist has "+ databaselist.length);
+									console.log("databaselist has "+ databaselist.length);*/
 									var returnArr = [];
 									returnArr.push(mailchimplist);
 									returnArr.push(databaselist);
@@ -138,12 +138,12 @@ var mailchimpHandler = {
 									return differenceArr;
 								}).then(function(differenceArr) {
 								/*	console.log("====================Update Database ========================================");
-									*/for (var i = 0; i < differenceArr.length; i++) {
+									for (var i = 0; i < differenceArr.length; i++) {
 										console.log(differenceArr[i]);
 									}
 
 									console.log(differenceArr.length);
-									console.log("========================End of Update=======================================");
+									console.log("========================End of Update=======================================");*/
 									var promiseArr = [];
 									for (var i = 0; i < differenceArr.length; i++) {
 										//go through everylist check the action, perform the action.

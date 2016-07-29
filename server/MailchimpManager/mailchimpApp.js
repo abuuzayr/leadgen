@@ -219,7 +219,7 @@ var mailchimpApp = {
 				var results = [];
 				var finalResults=[];
 				var k = 0;
-				var totalReportLength=0;
+				var totalReportLength=report.reports.length;;
 				if(totalReportLength>9)
 				{
 					//number of sets of array of promises
