@@ -45,7 +45,7 @@ var mailchimpHandler = {
 									return databaselist;
 								}).then(function(databaselist) {
 									//Now we need arrange he dbResults to fit mailchimp object format
-								/*	console.log("====================App Database ========================================");
+									console.log("====================App Database ========================================");
 									for (var i = 0; i < databaselist.length; i++) {
 										console.log(databaselist[i]);
 									}
@@ -54,7 +54,7 @@ var mailchimpHandler = {
 									for (var i = 0; i < mailchimplist.length; i++) {
 										console.log(mailchimplist[i]);
 									}
-									console.log("=========================================================");*/
+									console.log("=========================================================");
 									console.log("mailinglist has "+ mailchimplist.length);
 									console.log("databaselist has "+ databaselist.length);
 									var returnArr = [];
@@ -139,7 +139,7 @@ var mailchimpHandler = {
 								}).then(function(differenceArr) {
 								/*	console.log("====================Update Database ========================================");
 									*/for (var i = 0; i < differenceArr.length; i++) {
-									//	console.log(differenceArr[i]);
+										console.log(differenceArr[i]);
 									}
 
 									console.log(differenceArr.length);
