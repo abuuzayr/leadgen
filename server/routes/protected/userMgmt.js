@@ -45,7 +45,7 @@ accountsettingsRouter.route('/')
         if(body[i].application.bulletlead.usertype !== 'SuperAdmin')
           arr.push(body[i]);
       }
-      res.status(response.statusCode)json(arr);
+      res.status(response.statusCode).json(arr);
     }
   });
 })
