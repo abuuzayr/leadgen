@@ -338,7 +338,6 @@ leadlistRouter.route('/mailingList/subscriber')
       MailchimpManager.addMemberToList(apiKey,req.body[1].listID,memberinfoPromiseArr)
         .then(function(MCResults)
         {
-        console.log("Mailchimp Response");
         console.log(MCResults);
         var obj=[];
         for(var i = 0; i<req.body[0].y.length;i++)

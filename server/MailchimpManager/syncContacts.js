@@ -90,7 +90,7 @@ var mailchimpHandler = {
 													temp.action = '1';
 												}
 												var membTemp = []; // Array of objects
-												console.log(mailchimplist[i].members.length+"  "+appDatabase[j].members.length);
+											//	console.log(mailchimplist[i].members.length+"  "+appDatabase[j].members.length);
 												membTemp = compareMemberLists(mailchimplist[i].members, appDatabase[j].members);
 												//1 - update member, 2- create member, 3 delete remove
 												if (membTemp.length != '0') {
@@ -499,6 +499,7 @@ function compareMemberLists(mailchimpMembers, membersDatabase) {
 	for (var i = 0; i < membersDatabase.length; i++) {
 		var memberFound = false;
 		for (var j = 0; j < mailchimpMembers.length; j++) {
+			console.log(membersDatabase[i].email_hash +" "+mailchimpMembers[j].email_hash)
 			if (membersDatabase[i].email_hash == mailchimpMembers[j].email_hash) {
 				memberFound = true; //we've found the same list!
 			}
