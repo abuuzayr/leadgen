@@ -96,7 +96,7 @@ var MailinglistManager = {
 						dbHandler.dbQuery(coId+"_leads", filterObj)
 						.then(function(leadsResults)
 						{
-							if(leadsResults==0)
+							if(leadsResults.length==0)
 							{
 								//contacts dont have this data, hence we add new contact
 								contactsHandler.addContactMC(temp, obj.email_hash, obj.listID, apiKey, coId)
