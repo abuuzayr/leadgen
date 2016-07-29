@@ -1,110 +1,108 @@
 <link rel="stylesheet" type="text/css" href="assets/css/allUsers.css">
-<div ng-controller="userMgmtController as uc">
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <!---------------------------------------- Ng-include nav bars ---------------------------------------->
-        <div ng-include="'NavBarMgmt/mainTab.html'"></div>
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <!---------------------------------------- Ng-include nav bars ---------------------------------------->
+    <div ng-include="'NavBarMgmt/mainTab.html'"></div>
+</div>
+<br>
+<div id='userManagementFeedback' class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+</div>
+<div class="page-container" ng-controller="userMgmtController as uc">
+
+    <!--include tabs-->
+    <div class='tabs'>
+        <ul class="nav nav-tabs">
+            <li><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
+            <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
+        </ul>
     </div>
-    <br>
-    <div class="page-container">
 
-        <!--include tabs-->
-        <div class='tabs'>
-            <ul class="nav nav-tabs">
-                <li><a ui-sref="userManagementprofile" data-toggle="tab">Company Profile</a></li>
-                <li class="active"><a ui-sref="userManagementAdmin" data-toggle="tab">Manage Users</a></li>
-            </ul>
-        </div>
+    <div class="userMgmtDiv">
+        <h3>Users</h3>
+        <div class="row row-offcanvas row-offcanvas-left">
+            <div id="grid1" ui-grid="uc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"></div>
+            <br>
 
-        <div id='userManagementFeedback' class="mdl-js-snackbar mdl-snackbar">
-            <div class="mdl-snackbar__text"></div>
-            <button class="mdl-snackbar__action" type="button"></button>
-        </div>
+            <button ng-click="uc.openDialog('addUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="addNewUser">Add New User</button>
+            <button ng-click="uc.openDialog('deleteUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="removeUser"> Remove User </button>
 
-        <div class="userMgmtDiv">
-            <h3>Users</h3>
-            <div class="row row-offcanvas row-offcanvas-left">
-                <div id="grid1" ui-grid="uc.gridOptions" ui-grid-selection ui-grid-edit ui-grid-resize-columns class="grid"></div>
-                <br>
+            <br><br>
 
-                <button ng-click="uc.openDialog('addUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" id="addNewUser">Add New User</button>
-                <button ng-click="uc.openDialog('deleteUser')" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="removeUser"> Remove User </button>
+            <dialog id="addUser" class="mdl-dialog addUserClass">
+                <div class="mdl-dialog__content" id="addUserDiv">
+                    <p>
+                        Please enter the details.
+                    </p>
 
-                <br><br>
-
-                <dialog id="addUser" class="mdl-dialog addUserClass">
-                    <div class="mdl-dialog__content" id="addUserDiv">
-                        <p>
-                            Please enter the details.
-                        </p>
-
-                        <form class="add-leads-form" ng-submit="uc.addData()">
-                            <!-- Username input -->
-                            <div class='formInput'>
-                                <div class="form-group">
-                                    <label for="username" class="col-lg-2 control-label">Username*</label>
-                                    <div class="col-lg-12">
-                                        <input type="text" class="form-control" id="username" placeholder="Username" ng-model="uc.lead.userName" ng-required="true" autocomplete="off">
-                                    </div>
+                    <form class="add-leads-form" ng-submit="uc.addData()">
+                        <!-- Username input -->
+                        <div class='formInput'>
+                            <div class="form-group">
+                                <label for="username" class="col-lg-2 control-label">Username*</label>
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control" id="username" placeholder="Username" ng-model="uc.lead.userName" ng-required="true" autocomplete="off">
                                 </div>
-                                <br>
-                                <!-- Email input -->
-                                <div class="form-group">
-                                    <label for="userEmail" class="col-lg-2 control-label">Email*</label>
-                                    <div class="col-lg-12">
-                                        <input type="text" class="form-control" id="userEmail" placeholder="Email" ng-model="uc.lead.email" ng-required="true" autocomplete="off">
-                                    </div>
+                            </div>
+                            <br>
+                            <!-- Email input -->
+                            <div class="form-group">
+                                <label for="userEmail" class="col-lg-2 control-label">Email*</label>
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control" id="userEmail" placeholder="Email" ng-model="uc.lead.email" ng-required="true" autocomplete="off">
                                 </div>
-                                <br>
-                                <!-- Password input -->
+                            </div>
+                            <br>
+                            <!-- Password input -->
 
-                                <div class="form-group">
-                                    <label for="userPassword" class="col-lg-2 control-label">Password*</label>
-                                    <div class="col-lg-12">
-                                        <input type="password" class="form-control" id="userPassword" placeholder="Password (8-24 characters)" ng-model="uc.lead.password" ng-required="true" ng-minlength="8" ng-maxlength="24" autocomplete="off">
-                                    </div>
+                            <div class="form-group">
+                                <label for="userPassword" class="col-lg-2 control-label">Password*</label>
+                                <div class="col-lg-12">
+                                    <input type="password" class="form-control" id="userPassword" placeholder="Password (8-24 characters)" ng-model="uc.lead.password" ng-required="true" ng-minlength="8" ng-maxlength="24" autocomplete="off">
                                 </div>
+                            </div>
 
-                                <br>
-                                <!-- Access type select -->
-                                <div class="form-group">
-                                    <label for="userType-select" class="col-lg-6 control-label">Access Type</label>
-                                    <div class="col-lg-12">
-                                        <select id="userType-select" ng-model="uc.lead.role" required style="width:100%">
+                            <br>
+                            <!-- Access type select -->
+                            <div class="form-group">
+                                <label for="userType-select" class="col-lg-6 control-label">Access Type</label>
+                                <div class="col-lg-12">
+                                    <select id="userType-select" ng-model="uc.lead.role" required style="width:100%">
                                         <option value="">----- Select option -----</option>
                                         <option value="Admin">Admin</option>
                                         <option value="User">User</option>
                                     </select>
-                                    </div>
                                 </div>
                             </div>
-                            <div class="mdl-dialog__actions">
-                                <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addUser')">Close</button>
-                                <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button>
-                            </div>
-                        </form>
-                    </div>
-                </dialog>
-
-                <dialog id="deleteUser" class="mdl-dialog">
-                    <div class="mdl-dialog__content">
-                        <p>Are you sure you want to delete the selected user(s)?</p>
-                        <div class="mdl-dialog__actions">
-                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteUser')">Cancel</button>
-                            <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser')">Yes</button>
                         </div>
-                    </div>
-                </dialog>
-
-                <dialog id="editUser" class="mdl-dialog">
-                    <div class="mdl-dialog__content">
-                        <p>Save changes?</p>
                         <div class="mdl-dialog__actions">
-                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.cancelEdit()">Cancel</button>
-                            <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.editUser()">Yes</button>
+                            <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addUser')">Close</button>
+                            <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button>
                         </div>
+                    </form>
+                </div>
+            </dialog>
+
+            <dialog id="deleteUser" class="mdl-dialog">
+                <div class="mdl-dialog__content">
+                    <p>Are you sure you want to delete the selected user(s)?</p>
+                    <div class="mdl-dialog__actions">
+                        <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteUser')">Cancel</button>
+                        <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser')">Yes</button>
                     </div>
-                </dialog>
-            </div>
+                </div>
+            </dialog>
+
+            <dialog id="editUser" class="mdl-dialog">
+                <div class="mdl-dialog__content">
+                    <p>Save changes?</p>
+                    <div class="mdl-dialog__actions">
+                        <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.cancelEdit()">Cancel</button>
+                        <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.editUser()">Yes</button>
+                    </div>
+                </div>
+            </dialog>
         </div>
     </div>
 </div>
