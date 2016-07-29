@@ -284,6 +284,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         var url = "/contacts/leadList/leads";
         $http.put(appConfig.API_URL + url, leads)
             .then(function(res) {
+                deleteFeedback();
                 $window.location.reload();
             })
             .catch(function(err) {
@@ -472,6 +473,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
     /** This method is called to initialize and display a success message via a snackbar upon successfully adding new data. */
     var addFeedback = function() {
         feedbackServices.successFeedback("Added!", '#addFeedbackID');
+    };
+
+    var deleteFeedback = function() {
+        feedbackServices.successFeedback("Deleted!", '#addFeedbackID');
     };
 }])
 
