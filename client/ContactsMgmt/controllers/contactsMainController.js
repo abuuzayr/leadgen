@@ -144,7 +144,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
             var url = "/contacts/leadList/import";
             var importStatus = $http.post(appConfig.API_URL + url, newObjects)
                 .then(function(res) {
-                    importFeedback();
+                    return importFeedback();
                 })
                 .then(function(res) {
                     $window.location.reload();
