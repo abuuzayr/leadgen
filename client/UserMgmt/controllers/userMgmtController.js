@@ -108,13 +108,13 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
             newUser.application.bulletlead.usertype = uc.lead.role;
 
             allUsersData.addUserData(newUser).then(function successCallback(res) {
-                if(res.status == 409){
-                  console.log('username/email already exists');
-                  //TODO snackbar for feedback
-                }else{
-                  console.log('Added');
-                  // addFeedback();
-                  uc.closeDialog('addUser');
+                if (res.status == 409) {
+                    console.log('username/email already exists');
+                    //TODO snackbar for feedback
+                } else {
+                    console.log('Added');
+                    addFeedback();
+                    uc.closeDialog('addUser');
                 }
                 uc.lead.userName = '';
                 uc.lead.email = '';
@@ -205,6 +205,10 @@ app.controller('userMgmtController', ['$scope', '$http', 'allUsersData', 'uiGrid
         var addFeedback = function() {
             feedbackServices.successFeedback("Added!", '#userManagementFeedback');
         };
+
+        // var deleteFeedback = function() {
+        //     feedbackServices.successFeedback("Deleted!", '#addFeedbackID');
+        // };
 
         /* =========================================== Load animation =========================================== */
         var viewContentLoaded = $q.defer();
