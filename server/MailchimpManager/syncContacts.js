@@ -492,7 +492,17 @@ function compareMemberLists(mailchimpMembers, membersDatabase) {
 				lastName: mailchimpMembers[i].lastName,
 				action: '2'
 			};
-			differenceMemArr.push(temp);
+			var findDuplicate=false;
+			for(var k=0;k<differenceMemArr.length;k++)
+			{
+				if(differenceMemArr[k].email_hash==mailchimpMembers[i].email_hash)
+				{
+					findDuplicate=true;
+				}
+			}
+				if(findDuplicate==false){
+				differenceMemArr.push(temp);
+			}
 		}
 	}
 	//find deleted members
