@@ -142,8 +142,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'lea
         importerDataAddCallback: function(grid, newObjects) {
             cc.gridOptions.data = cc.gridOptions.data.concat(newObjects);
             var url = "/contacts/leadList/import";
-            var importStatus = $http.post(appConfig.API_URL + url, newObjects);
-            cc.addFeedback();
+            var importStatus = $http.post(appConfig.API_URL + url, newObjects)
+                .then(function(res) {
+                    addFeedback();
+                });
         },
         onRegisterApi: function(gridApi) {
             cc.gridApi = gridApi;
