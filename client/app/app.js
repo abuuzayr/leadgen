@@ -8,7 +8,8 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
         .state('login', {
             url: '/login',
             templateUrl: 'LoginMgmt/loginPage.html',
-            controller: 'loginCtrl'
+            controller: 'loginCtrl',
+            controllerAs: 'vm'
         })
         .state('home', {
             url: '/home',
