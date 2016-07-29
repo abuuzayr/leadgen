@@ -142,7 +142,7 @@ var MailinglistManager = {
 							}
 						
 						})
-						.catch(function(error))
+						.catch(function(error)
 						{
 							console.log(error);
 							reject(500);
