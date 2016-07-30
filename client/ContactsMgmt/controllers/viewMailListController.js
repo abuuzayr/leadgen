@@ -113,10 +113,10 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
                 }, {
                     value: '2',
                     label: 'Unsubscribed'
-                },{
+                }, {
                     value: '3',
                     label: 'Cleaned'
-                },{
+                }, {
                     value: '4',
                     label: 'Pending'
                 }]
@@ -130,10 +130,10 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
             }, {
                 id: 2,
                 status: "Unsubscribed"
-            },{
+            }, {
                 id: 3,
                 status: "Cleaned"
-            },{
+            }, {
                 id: 4,
                 status: "Pending"
             }]
@@ -145,7 +145,13 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
         $window.location.reload();
     };
 
-    //delete selected leads
+    /**
+     * Deletes the selected leads
+     * Limits the number of leads to be deleted to be 10 due to mailchimp only allowing 10 continuous connection
+     * Will open dialog if user tries to delete more than 10 leads.
+     * http.put - delete leads from database
+     * @param {array} leads - The selected leads to be deleted
+     */
     vmc.deleteSelected = function() {
 
         var count = vmc.gridApi.selection.getSelectedRows().length;

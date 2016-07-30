@@ -2,7 +2,7 @@
 
       var mc = this;
 
-      /** This is used to get the all the mailing lists from database */
+      /** Gets all mailing lists from database */
       mailListData.success(function(data) {
           mc.gridOptions.data = data;
       });
@@ -67,15 +67,19 @@
       };
 
       /**
-       * This method takes in a row entity (mailing list) as it’s parameter. 
-       * It sets the specific row entity as the data for the shareMailList service 
+       * Sets the specific row entity as the data for the shareMailList service 
        * such that viewMailListController is able to retrieve the entity via the same service.
+       * @param {Object} value - a row entity (mailing list)
        */
       mc.showView = function(value) {
           shareMailList.setData(value);
       };
 
-      /** This method adds a new mailing list into the database based on the data retrieve using ng-model */
+      /** 
+       * Adds a new mailing list into the database based on the data retrieve using ng-model 
+       * http.post - add mailing list to database
+       * @param {Object} mailingList
+       */
       mc.addMailList = function() {
           var n = mc.gridOptions.data.length + 1;
           mc.gridOptions.data.push({
@@ -98,8 +102,8 @@
 
       /**
        * This method deletes the selected mailing list
-       * It also updates the database
-       * @param {} mailingList - The selected mailing list to be deleted
+       * http.put - delete mailing list from database
+       * @param {array} mailingList - The selected mailing list to be deleted
        */
       mc.deleteSelected = function() {
           var mailingList = mc.gridApi.selection.getSelectedRows();
@@ -121,8 +125,7 @@
 
       /**
        * This method is used to update the UI Grid after editing
-       * PATCH - update database
-       * @param [] - cell to edit
+       * Will open a dialog to ask if the user wants to confirm the edit
        */
       mc.gridOptions.onRegisterApi = function(gridApi) {
           mc.gridApi = gridApi;
@@ -138,17 +141,13 @@
               console.log(colName);
               console.log(editedValue);
               console.log(row);
-
-              //   var obj = {};
-              //   obj[colDef.name] = newValue;
-              //   var editData = [rowEntity, obj];
-              //   var url = "/contacts/mailingList";
-              //   editStatus = $http.patch(appConfig.API_URL + url, editData).then(function successCallback(res) {
-              //       $window.location.reload();
-              //   });
           });
       };
 
+      /** 
+       * Confirms edit 
+       * http.patch - updates database, then refreshes page
+       */
       mc.editList = function(gridApi) {
           mc.gridApi = gridApi;
 
@@ -169,6 +168,7 @@
           }
       };
 
+      /** Undo edit and refresh page */
       mc.cancelEdit = function() {
           mc.closeDialog('editList');
           $window.location.reload();
