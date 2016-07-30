@@ -6,8 +6,18 @@ var countries = require('../countries.json').geonames;
 var apiKey = require('../apikey.json').googleAPI;
 
 var coord = [];
-
+/**This is a module for handling scraping
+*@module ScrapManager
+*/
 var ScrapManager = {
+
+  /**
+  *Start new google scrape, loads list of coordinates based on country.
+  *@param {string} type - category to scrap
+  *@param {string} country - country to scrap
+  *@param {string} apiKey - google places api key
+  *@returns {Promise} scrape results or error
+  */
   scrapCorporateGoogleNew: function(type, country, apiKey) {
     return new Promise(function(resolve, reject) {
       
@@ -16,7 +26,7 @@ var ScrapManager = {
       if (country == 'Singapore') {
         loadLocalCoordinates();
 
-
+        //Radar search based on coordinates and radius
         var url = 'https://maps.googleapis.com/maps/api/place/radarsearch/json?location=' + coord[0][0] + ',' + coord[0][1] + '&radius=3000&keyword=' + formatType + '&key=' + apiKey;
 
         requestGoogle(url)
@@ -102,6 +112,14 @@ var ScrapManager = {
     });
   },
 
+  /**
+  *Continued google scrape with different coordinates based on index
+  *@param {Number} index - index for array of coordinates
+  *@param {string} type - category to scrap
+  *@param {string} country - country to scrap
+  *@param {string} apiKey - google places api key
+  *@returns {Promise} scrap results or error
+  */
   scrapCorporateGoogleCont: function(index, type, country, apiKey) {
     return new Promise(function(resolve, reject) {
 
@@ -155,6 +173,12 @@ var ScrapManager = {
         });
     });
   },
+
+  /**
+  *Scrape corporate leads from superadmin source
+  *@param {string} type - category to scrap
+  *@returns {Promise} scrape results or error
+  */
   scrapCorporateYellowPage: function(type) {
     return new Promise(function(resolve, reject) {
       dbHandler.dbQuerySA('local', {type:1, category:type})
@@ -169,6 +193,12 @@ var ScrapManager = {
         });
     });
   },
+
+  /**
+  *Scrape consumer leads from superadmin source
+  *@param {string} type - category to scrap
+  *@returns {Promise} scrape results or error
+  */
   scrapConsumerYellowPage: function(type) {
     return new Promise(function(resolve, reject) {
       dbHandler.dbQuerySA('local', {
@@ -189,7 +219,11 @@ var ScrapManager = {
 
 };
 
-
+/**
+*Sends request to the url
+*@param {string} url - api endpoint
+*@returns {Promise} response body or error
+*/
 var requestGoogle = function(url) {
   return new Promise(function(resolve, reject) {
     request(url, function(error, response, body) {
@@ -202,6 +236,9 @@ var requestGoogle = function(url) {
   });
 };
 
+/**
+*Loads local coordinate from config.js
+*/
 var loadLocalCoordinates = function() {
   coord = [];
   for (var i = 0; i < config.coordinates.length; i++) {
@@ -209,6 +246,9 @@ var loadLocalCoordinates = function() {
   }
 };
 
+/**
+*Loads coordinates from other countries
+*/
 var loadForeignCoordinates = function(country) {
   return new Promise(function(resolve, reject) {
     coord = [];

@@ -1,8 +1,16 @@
 var Promise = require('bluebird');
 var dbHandler = require('../database-handler');
 
+/**
+*Module to handle database management services
+*@module DatabaseManager
+*/
+var DatabaseManager = {
 
-var databaseManager = {
+  /**
+  *Retrieves all the leads belonging to all the companies.
+  *@returns {Promise} returns the leads or error
+  */
   retrieveExternalLeads : function(){
     return new Promise(function(resolve,reject){
 
@@ -35,53 +43,7 @@ var databaseManager = {
       });
 
     });
-  },
-/*  updateScrapeData : function(obj){
-    return new Promise(function(resolve,reject){
-      var promiseArr= [];
-      dbHandler.dbQuerySA('local',null)
-      .then(function(data){
-        if(data.length > 0){
-          return dbHandler.dbDropCollection('data',null);
-        }
-        else
-          return 1;  
-      })
-      .then(function(results){
-        for(var i=0;i<obj.length;i++){
-          promiseArr.push(dbHandler.dbInsertSA('data',obj[i]));
-        }
-        return Promise.all(promiseArr);
-      })
-      .then(function(results){
-        resolve(201);
-      })
-      .catch(function(error){
-        reject(500);
-      });
-    });
-  }*/
- 
+  }
 };
 
-module.exports =  databaseManager;
-
-var combineResults = function(){
-  return new Promise(function(resolve,reject){
-
-    resultsArr = [];
-
-    dbHandler.dbQuery('internal',null,null)
-    .then(function(results){
-      resultsArr = results;
-      return dbHandler.dbQuery('external',null,null);
-    })
-    .then(function(results){
-      resultsArr.concate(results);
-      resolve(resultsArr);
-    })
-    .catch(function(error){
-      reject(error);
-    });
-  }); 
-};
+module.exports =  DatabaseManager;

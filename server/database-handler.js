@@ -5,6 +5,12 @@ var config = require('./config');
 var moment = require('moment');
 var connection = require('./utils/connection')();
 
+/**
+*Deletes a document in the collection based on the filter object
+*@param {string} collectionName - name of the collection
+*@param {object} obj - filter object
+*@returns {Promise} success or error
+*/
 var deleteDB = function(collectionName, obj) {
   return new Promise(function(resolve, reject) {
     connection.Do(function(db){
@@ -24,8 +30,18 @@ var deleteDB = function(collectionName, obj) {
   });
 };
 
-
+/**
+*Module to handle database connection and operations
+*@module dbHandler
+*/
 var dbHandler = {
+
+  /**
+  *Delete multiple documents in the collection based on the filter object
+  *@param {string} collectionName - name of the collection
+  *@param {object} obj - filter object
+  *@returns {Promise} success or error
+  */
   deleteManyDB: function(collectionName, obj) {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){
@@ -43,6 +59,13 @@ var dbHandler = {
       });
     });
   },
+
+  /**
+  *Inserts a document in the collection
+  *@param {string} collectionName - name of the collection
+  *@param {object} obj - object to be inserted
+  *@returns {Promise} success or error
+  */
   dbInsert: function(collectionName, obj) {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){
@@ -65,6 +88,13 @@ var dbHandler = {
       });
     });
   },
+
+  /**
+  *Inserts multiple documents in the collection
+  *@param {string} collectionName - name of the collection
+  *@param {object} obj - object to be inserted
+  *@returns {Promise} success or error
+  */
   dbInsertMany: function(collectionName, obj) {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){
@@ -111,6 +141,13 @@ var dbHandler = {
       });
     });
   },
+
+  /**
+  *Queries the collection based on the filter object
+  *@param {string} collectionName - name of the collection
+  *@param {object} obj - filter object
+  *@returns {Promise} query results or error
+  */
   dbQuery: function(collectionName, obj) {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){
@@ -132,6 +169,14 @@ var dbHandler = {
       });
   },
   dbDelete: deleteDB,
+
+  /**
+  *Updates a document in the collection based on the filter object to the update object
+  *@param {string} collectionName - name of the collection
+  *@param {object} originalObj - filter object
+  *@param {object} updateObj - attributes to be updated
+  *@returns {Promise} success or error
+  */
   dbUpdate: function(collectionName, originalObj, updateObj) {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){
@@ -159,6 +204,14 @@ var dbHandler = {
       });
     });
   },
+
+  /**
+  *Updates many documents in the collection based on the filter object to the update object
+  *@param {string} collectionName - name of the collection
+  *@param {object} originalObj - filter object
+  *@param {object} updateObj - attributes to be updated
+  *@returns {Promise} success or error
+  */
   dbUpdateMany: function(collectionName, originalObj, updateObj) {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){
@@ -188,6 +241,13 @@ var dbHandler = {
 
     });
   },
+
+  /**
+  *Removes duplicate documents in the collection based on the desired field 
+  *@param {string} collectionName - name of the collection
+  *@param {string} field
+  *@returns {Promise} success or error
+  */
   dbRemoveDuplicate: function(collectionName, field) {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){
@@ -233,6 +293,13 @@ var dbHandler = {
       });
     });
   },
+
+  /**
+  *Deletes the whole collection
+  *@param {string} collectionName - name of the collection
+  *@param {string} field
+  *@returns {Promise} success or error
+  */
   dbDropCollection: function(collectionName) {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){     
@@ -265,6 +332,13 @@ var dbHandler = {
       });
     });
   },
+
+  /**
+  *Inserts a document in the collection
+  *@param {string} collectionName - name of the collection
+  *@param {object} obj - object to be inserted
+  *@returns {Promise} ID of inserted document
+  */
   dbInsertReturnID: function(collectionName, obj) {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){
@@ -282,6 +356,11 @@ var dbHandler = {
       });
     });
   },
+
+  /**
+  *Gets list of collections in a database
+  *@returns {Promise} Array of collection names or error
+  */
   getListOfCollections : function(){
     return new Promise(function(resolve,reject){
       connection.Do(function(db){  
@@ -296,6 +375,12 @@ var dbHandler = {
     });
   },
 
+  /**
+  *Queries the collection in super admin database based on the filter object
+  *@param {string} collectionName - name of the collection
+  *@param {object} obj - filter object
+  *@returns {Promise} query results or error
+  */
   dbQuerySA : function(collectionName,obj){
     return new Promise(function(resolve,reject){
       
@@ -323,6 +408,12 @@ var dbHandler = {
     });
   },
 
+  /**
+  *Deletes a document in the collection in super admin database based on the filter object
+  *@param {string} collectionName - name of the collection
+  *@param {object} obj - filter object
+  *@returns {Promise} success or error
+  */
   dbDeleteSA : function(collectionName,obj){
     return new Promise(function(resolve, reject) {
 
@@ -344,6 +435,13 @@ var dbHandler = {
     });
   },
 
+  /**
+  *Updates a document in the collection in super admin database based on the filter object to the update object
+  *@param {string} collectionName - name of the collection
+  *@param {object} originalObj - filter object
+  *@param {object} updateObj - attributes to be updated
+  *@returns {Promise} success or error
+  */
   dbUpdateSA : function(collectionName, originalObj, updateObj){
      return new Promise(function(resolve, reject) {
         connection.superAdmin(function(db){
@@ -372,6 +470,12 @@ var dbHandler = {
     });    
   },
 
+  /**
+  *Inserts a document in the collection for super admin database
+  *@param {string} collectionName - name of the collection
+  *@param {object} obj - object to be inserted
+  *@returns {Promise} success or error
+  */
   dbInsertSA: function(collectionName, obj) {
     return new Promise(function(resolve, reject) {
       connection.superAdmin(function(db){
@@ -399,6 +503,12 @@ var dbHandler = {
       });
     });
   },
+
+  /**
+  *Drops the collection in super admin database
+  *@param {string} collectionName - name of the collection
+  *@returns {Promise} success or error  
+  */
   dbDropCollectionSA: function(collectionName) {
     return new Promise(function(resolve, reject) {
       connection.superAdmin(function(db){ 
