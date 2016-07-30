@@ -12,12 +12,12 @@
                 }
             };
 
-            // for import function
+            /** For importing leads */
             document.getElementById('get_file').onclick = function() {
                 document.getElementById('files').click();
             };
 
-            //import type and function for disable
+            /** Get import type (corporate or consumer) and for ng-disabled */
             ld.importType;
             ld.continue = true;
             ld.continueToImport = function() {
@@ -81,6 +81,12 @@
                         type: 'Consumer'
                     }]
                 }, ],
+
+                /** 
+                 * Appends the imported data to UI Grid
+                 * importToLocal - updates database
+                 * @param {Object} - importObjectToSend
+                 */
                 importerDataAddCallback: function(grid, newObjects) {
                     ld.gridOptions.data = ld.gridOptions.data.concat(newObjects);
 
@@ -98,7 +104,7 @@
                 }
             };
 
-            // get leads
+            /** Gets leads from database and binds to UI-Grid */
             localData.getLocalLeads().then(function successCallback(res) {
                     ld.gridOptions.data = res.data;
                 }),
@@ -113,7 +119,7 @@
             ld.gridOptions.onRegisterApi = function(gridApi) {
                 ld.gridApi = gridApi;
 
-                //save after edit
+                /** Opens a dialog after the user edits a cell */
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                     console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                     ld.openDialog('editUser');
@@ -124,6 +130,7 @@
                 });
             };
 
+            /** Confirms the edit, updates the database and refreshes the page */
             ld.editUser = function(gridApi) {
                 ld.gridApi = gridApi;
                 if (angular.isDefined(colName) && angular.isDefined(editedValue) && angular.isDefined(row)) {
@@ -139,6 +146,7 @@
                 }
             };
 
+            /** Cancels the edit and refresh the page */
             ld.cancelEdit = function() {
                 ld.closeDialog('editUser');
                 $window.location.reload();
@@ -159,10 +167,13 @@
             if (fileChooser.length !== 1) {
                 console.log('Found > 1 or < 1 file choosers within the menu item, error, cannot continue');
             } else {
-                fileChooser[0].addEventListener('change', handleFileSelect, false); // TODO: why the false on the end?  Google  
+                fileChooser[0].addEventListener('change', handleFileSelect, false);
             }
 
-            // sync data to local database
+            /** 
+             * Syncs leads from external database to local database 
+             * syncFromExternalLeads -  updates database
+             */
             var appendData = sendDataToLocal.getData();
 
             ld.syncFromExternal = function() {
@@ -173,7 +184,11 @@
                 localData.syncFromExternalLeads();
             };
 
-            //delete selected leads
+            /**
+             * Deletes the selected leads
+             * deleteLocalLeads - delete leads from database
+             * @param {array} selectedLeadsToDelete - The leads to be deleted
+             */
             ld.deleteSelected = function() {
                 angular.forEach(ld.gridApi.selection.getSelectedRows(), function(data, index) {
                     ld.gridOptions.data.splice(ld.gridOptions.data.lastIndexOf(data), 1);

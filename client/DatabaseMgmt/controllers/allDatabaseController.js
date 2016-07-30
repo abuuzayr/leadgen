@@ -62,7 +62,7 @@
                 exporterCsvFilename: 'myLeads.csv',
             };
 
-            // get leads 
+            /** Gets leads from database and bind to UI-Grid */
             allData.getAllLeads().then(function successCallback(res) {
                     allDB.gridOptions.data = res.data;
                 }),
@@ -80,13 +80,17 @@
                 });
             };
 
-            //export function for all database
+            /** Exports selected leads */
             allDB.export = function() {
                 var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
                 allDB.gridApi.exporter.csvExport(allDB.export_row_type, allDB.export_column_type, myElement);
             };
 
-            //delete selected leads
+            /**
+             * Deletes the selected leads
+             * deleteAllLeads function will delete the leads from database
+             * @param {array} selectedLeadsToDelete - The selected leads to be deleted
+             */
             allDB.deleteSelected = function() {
                 angular.forEach(allDB.gridApi.selection.getSelectedRows(), function(data, index) {
                     allDB.gridOptions.data.splice(allDB.gridOptions.data.lastIndexOf(data), 1);

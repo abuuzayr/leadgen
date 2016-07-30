@@ -74,6 +74,10 @@
             };
 
             //get leads
+            /** 
+             * Gets leads from database and bind to UI-Gird 
+             * setData is used for the function to send leads from external database to local database
+             */
             externalData.getExternalLeads().then(function successCallback(res) {
                     ed.gridOptions.data = res.data;
 
@@ -90,7 +94,7 @@
             ed.gridOptions.onRegisterApi = function(gridApi) {
                 ed.gridApi = gridApi;
 
-                //save after edit
+                /** Opens a dialog after the user edits a cell */
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
                     console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                     ed.openDialog('editUser');
@@ -101,6 +105,7 @@
                 });
             };
 
+            /** Confirms the edit, updates the database and refreshes the page */
             ed.editUser = function(gridApi) {
                 ed.gridApi = gridApi;
 
@@ -117,12 +122,17 @@
                 }
             };
 
+            /** Cancels the edit and refresh the page */
             ed.cancelEdit = function() {
                 ed.closeDialog('editUser');
                 $window.location.reload();
             };
 
-            //delete selected leads
+            /**
+             * Deletes the selected leads
+             * deleteExternalLeads - delete leads from database
+             * @param {array} selectedLeadsToDelete - The leads to be deleted
+             */
             ed.deleteSelected = function() {
                 angular.forEach(ed.gridApi.selection.getSelectedRows(), function(data, index) {
                     ed.gridOptions.data.splice(ed.gridOptions.data.lastIndexOf(data), 1);
@@ -136,7 +146,7 @@
                     });
             };
 
-            //update external database
+            /** Updates the leads for external database */
             ed.updateExternal = function() {
 
                 externalData.updateExternalLeads();
