@@ -3,21 +3,24 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'syn
 
         var cc = this;
         cc.spinner = true;
-        /** This is used to get leads from database */
+        /** Get leads from database and bind to UI-Grid*/
         leadsData.success(function(data) {
             cc.gridOptions.data = data;
         });
 
+        /** Hides spinner when syncing data is successful*/
         syncData.success(function(data) {
             cc.spinner = false;
         }).error(function(error) {
             cc.spinner = false;
         });
 
+        /** Gets mailing list from database */
         mailListData.success(function(data) {
             cc.mailingList = data;
         });
 
+        // For import function
         document.getElementById('get_file').onclick = function() {
             document.getElementById('files').click();
         };
@@ -171,6 +174,10 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'syn
             }
         };
 
+        /** 
+         * Confirms edit 
+         * http.patch - updates database, then refreshes page
+         */
         cc.editUser = function(gridApi) {
             cc.gridApi = gridApi;
             if (angular.isDefined(colName) && angular.isDefined(editedValue) && angular.isDefined(row)) {
@@ -187,6 +194,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'syn
             }
         };
 
+        /** Undo edit and refresh page */
         cc.cancelEdit = function() {
             cc.closeDialog('editUser');
             $window.location.reload();
@@ -236,7 +244,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'syn
         /**
          * This method adds a new lead into the database based
          * on the data retrieve using ng-model.
-         * This method also updates the database with the new lead
+         * http.post - add the new lead to the database
          * @param {} lead - The lead to be added
          */
         cc.addData = function() {
@@ -300,7 +308,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'syn
         /**
          * This method adds a new field into the UI-Grid table
          * and stores the new field into the database based on data retrieve using ng-model.
-         * @param {} field - The new field to be added
+         * @param {Object} field - The new field to be added
          */
         cc.addField = function() {
             var fieldName = cc.field.name;
@@ -360,7 +368,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'syn
          *  when selectDeleteField() method is called.
          *  The selected field will also be deleted from the database and the page
          *  will be reloaded to update the UI Grid table.
-         *  @param {} fieldObj - The selected field to be deleted
+         *  @param {Object} fieldObj - The selected field to be deleted
          */
         cc.deleteField = function() {
             for (var x in cc.gridOptions.columnDefs) {
@@ -387,7 +395,7 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'syn
          * This method retrieves leads based on selected rows and
          * add them to a mailing list based on the specific mailing list retrieve from ng-model.
          * It also updates the database
-         * @param {} obj - The name of the mailing list and leads to be added
+         * @param {Object} obj - The name of the mailing list and leads to be added
          */
         cc.addToMailingList = function() {
             var id = "";

@@ -2,7 +2,7 @@ app.controller('blackListController', ['$scope', 'appConfig', '$window', 'domain
 
     var bc = this;
 
-    /** This is used to get leads from database */
+    /** Get leads from database and bind to UI-Grid*/
     blackLeadsData.success(function(data) {
         bc.gridOptions.data = data;
     });
@@ -110,8 +110,9 @@ app.controller('blackListController', ['$scope', 'appConfig', '$window', 'domain
 
     /** 
      * This method retrieves and removes the selected rows from UI-Grid table
-     *  and deletes the data from the database.
-     *  @param [] leads - The selected rows to delete 
+     *  http.put - deletes the data from the database.
+     * The page refreshes when the lead is successfully deleted from the database
+     *  @param {array} leads - The selected rows to delete 
      */
     bc.deleteSelected = function() {
         angular.forEach(bc.gridApi.selection.getSelectedRows(), function(data, index) {
@@ -120,9 +121,9 @@ app.controller('blackListController', ['$scope', 'appConfig', '$window', 'domain
         var leads = bc.gridApi.selection.getSelectedRows();
         var url = "/contacts/blackList";
         $http.put(appConfig.API_URL + url, leads)
-        .then(function(res){
-            $window.location.reload();
-        }); 
+            .then(function(res) {
+                $window.location.reload();
+            });
     }
 
     bc.gridOptions.onRegisterApi = function(gridApi) {

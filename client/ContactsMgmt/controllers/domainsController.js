@@ -2,7 +2,7 @@ app.controller('domainsController', ['$scope', 'appConfig', '$window', 'domainsD
 
     var dc = this;
 
-    /** This is used to get the blocked domains from database */
+    /** Get the blocked domains from database */
     domainsData.success(function(data) {
         dc.gridOptions.data = data;
     });
@@ -49,7 +49,11 @@ app.controller('domainsController', ['$scope', 'appConfig', '$window', 'domainsD
         $window.location.reload();
     };
 
-    /** This method adds a new lead into the database based on the data retrieve using ng-model */
+    /** 
+     * Adds a new domain into the UI-Grid
+     * http.post - adds the new domain to the database and refresh the page
+     * @param {Object} domain 
+     * */
     dc.addDomain = function() {
         var domain = dc.domainSelected;
         var arrName = domain.split(" ");
@@ -67,8 +71,10 @@ app.controller('domainsController', ['$scope', 'appConfig', '$window', 'domainsD
             "domain": editedDomain
         };
         var url = "/contacts/blackList/domain";
-        var addStatus = $http.post(appConfig.API_URL + url, domain);
-        $window.location.reload();
+        $http.post(appConfig.API_URL + url, domain)
+            .then(function(res) {
+                $window.location.reload();
+            });
     };
 
     /**
@@ -83,6 +89,7 @@ app.controller('domainsController', ['$scope', 'appConfig', '$window', 'domainsD
     /**
      * This method deletes a domain based on the data binded to the variable created when 
      * selectDeleteDomain() method is called.
+     * http.put - deletes domain from database and refreshes page if successful
      */
     dc.deleteDomain = function() {
         for (var x in dc.gridOptions.data) {
