@@ -37,6 +37,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
             }
         };
 
+        //get the previously scraped leads and display in the UI Grid table
         rc.gridOptions.data = shareData.getData();
         rc.resultsLength = rc.gridOptions.data.length;
 
@@ -58,6 +59,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
             }, 1500);
         };
 
+        /** Delete the selected leads from table */
         rc.deleteSelected = function() {
             angular.forEach(rc.gridApi.selection.getSelectedRows(), function(data, index) {
                 rc.gridOptions.data.splice(rc.gridOptions.data.lastIndexOf(data), 1);
@@ -68,6 +70,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
         rc.responseMessage = "";
         rc.symbol = true;
 
+        /** Clear leads from the result table once the user is done with scraping */
         rc.clearData = function() {
             // rc.gridOptions.data = [];
             // rc.resultsLength = 0;
@@ -76,6 +79,7 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
 
         var dataToContacts = [];
 
+        /** Add the selected leads to a array */
         rc.addSelected = function() {
             dataToContacts = [];
             angular.forEach(rc.gridApi.selection.getSelectedRows(), function(data, index) {
@@ -87,6 +91,10 @@ app.controller('resultController', ['$scope', 'shareData', 'sendResults', '$http
             });
         };
 
+        /** 
+         * Save the selected leads to lead list
+         * sendLeads - updates database
+         */
         rc.saveToContacts = function() {
             var myJsonString;
             console.log('3.selected data is ' + dataToContacts);

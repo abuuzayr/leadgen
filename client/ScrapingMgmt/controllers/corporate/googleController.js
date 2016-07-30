@@ -60,7 +60,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             }
         };
 
-        //loading effect
+        /** To show loading effect (spinner) based on the different status */
         gc.spinner = false;
         gc.playStatus = function() {
             gc.spinner = true;
@@ -73,24 +73,27 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
         };
 
         // to show scraping page
-        gc.showScrape = false;
-        gc.showScrapeAfterClick = function() {
-            gc.showScrape = true;
-        }
+        // gc.showScrape = false;
+        // gc.showScrapeAfterClick = function() {
+        //     gc.showScrape = true;
+        // };
 
-        //get user input
+        // get the previously selected category & country
         gc.category = shareInput.getCategory();
         gc.country = shareInput.getCountry();
 
         gc.dataListForGoogle = [];
         gc.dataListForYP = [];
-        // gc.forContinueScraping = [];
         gc.numScrap = 0;
         gc.messageNoScrap = "No more websites available";
 
 
-        //get data from json file (google api)
-        googleResults.firstTimeScrape(gc.category, gc.country).then(function successCallback(res) {
+        /** 
+         * Gets leads from Google when user scrapes for the first time
+         * Stores the leads obtained in a array
+         */
+        googleResults.firstTimeScrape(gc.category, gc.country)
+            .then(function successCallback(res) {
                 console.log('first time scrape')
                 gc.dataListForGoogle = res.data;
             }),
@@ -99,7 +102,12 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
                 console.log('error for first time scrape');
             };
 
-        ypResults.scrapeYellowPageLeads(gc.category).then(function successCallback(res) {
+        /** 
+         * Gets leads from database
+         * Stores the leads obtained in a array
+         */
+        ypResults.scrapeYellowPageLeads(gc.category)
+            .then(function successCallback(res) {
                 gc.dataListForYP = res.data;
 
             }),
@@ -110,6 +118,12 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
         var stop;
         var count = 0;
 
+        /**
+         * Push and pop the leads to UI Grid table from array at intervals
+         * Will pause scraping if there is no internet connection
+         * If there is internet connection and leads in the array, the push and pop process will occur
+         * Will request for more leads from database if all the leads are scraped
+         */
         gc.transfer = function() {
             console.log('Start scraping');
             // console.log('the server is ' + navigator.onLine);
@@ -129,7 +143,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
                         var popLead = gc.dataListForGoogle.pop();
                         gc.gridOptions.data.push(popLead);
                         gc.numScrap = gc.gridOptions.data.length;
-                        shareData.addLead(popLead);
+                        shareData.addLead(popLead); // store the scraped leads to another array to display in the results
 
                     } else if (gc.dataListForYP.length > 0 && navigator.onLine === true) {
                         var popYPLead = gc.dataListForYP.pop();
@@ -137,13 +151,13 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
                         gc.numScrap = gc.gridOptions.data.length;
                         shareData.addLead(popYPLead);
 
-                        // if there is no internet connection, stop scraping, ask for internet
+                        // if there is no internet connection, stop scraping and request for internet connection
                     } else if (navigator.onLine === false) {
                         gc.pauseScraping();
                         showInternet(navigator.onLine);
                     } else {
                         googleResults.continueScrape(gc.category, gc.country).then(function successCallback(res) {
-                                // signal to stop scraping
+                                // signal to stop scraping as there are no more leads
                                 if (angular.isDefined(res.data.status) && res.data.status === 205) {
                                     gc.stopScraping();
                                     gc.showFunction(); //show the 'view results' button
@@ -164,6 +178,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             }
         };
 
+        /** Pause scraping and hide loading effect */
         gc.pauseScraping = function() {
             if (angular.isDefined(stop) /*&& stop !== 1*/ ) {
                 $interval.cancel(stop);
@@ -172,7 +187,7 @@ app.controller('googleController', ['$scope', 'googleResults', 'ypResults', 'sha
             gc.spinner = false;
         };
 
-        //if press stop button, cannot continue scraping
+        /** Stop scraping process, hides loading effect, shows 'Results' button*/
         gc.pressStop = false;
         gc.stopScraping = function() {
             if (angular.isDefined(stop)) {

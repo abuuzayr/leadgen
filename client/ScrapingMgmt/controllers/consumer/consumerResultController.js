@@ -20,6 +20,7 @@ app.controller('consumerResultController', ['$scope', 'consumerShareData', 'send
         }
     };
 
+    //get the previously scraped leads and display in the UI Grid table
     cr.gridOptions.data = consumerShareData.getData();
     cr.resultsLength = cr.gridOptions.data.length;
 
@@ -41,6 +42,7 @@ app.controller('consumerResultController', ['$scope', 'consumerShareData', 'send
         }, 1500);
     };
 
+    /** Delete the selected leads from table */
     cr.deleteSelected = function() {
         angular.forEach(cr.gridApi.selection.getSelectedRows(), function(data, index) {
             cr.gridOptions.data.splice(cr.gridOptions.data.lastIndexOf(data), 1);
@@ -51,12 +53,14 @@ app.controller('consumerResultController', ['$scope', 'consumerShareData', 'send
     cr.responseMessage = "";
     cr.symbol = true;
 
+    /** Clear leads from the result table once the user is done with scraping */
     cr.clearData = function() {
         consumerShareData.clearData();
     };
 
     var dataToContacts = [];
 
+    /** Add the selected leads to a array */
     cr.addSelected = function() {
         dataToContacts = [];
         angular.forEach(cr.gridApi.selection.getSelectedRows(), function(data, index) {
@@ -68,6 +72,10 @@ app.controller('consumerResultController', ['$scope', 'consumerShareData', 'send
         });
     };
 
+    /** 
+     * Save the selected leads to lead list
+     * sendLeads - updates database
+     */
     cr.saveToContacts = function() {
         var myJsonString;
         console.log('3.selected data is ' + dataToContacts);

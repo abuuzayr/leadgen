@@ -49,6 +49,7 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
             }
         };
 
+        /** To show loading effect (spinner) based on the different status */
         cs.spinner = false;
         cs.playStatus = function() {
             cs.spinner = true;
@@ -73,13 +74,13 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
         cs.numScrap = 0;
         cs.messageNoScrap = "No more websites available";
 
+        // get the previously selected category
         cs.category = consumerShareInput.getCategory();
 
-        //get data from json file
-        consumerLeads.getConsumerLeads(cs.category).then(function successCallback(res) {
+        /** Gets leads from database and stores the leads obtained in a array */
+        consumerLeads.getConsumerLeads(cs.category)
+            .then(function successCallback(res) {
                 cs.dataList = res.data;
-                // console.log('res is ' + res.data);
-
             }),
             function errorCallback(err) {
                 console.log('err is ' + err);
@@ -88,6 +89,11 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
         var stop;
         var count = 0;
 
+        /**
+         * Push and pop the leads to UI Grid table from array at intervals
+         * Will pause scraping if there is no internet connection
+         * If there is internet connection and leads in the array, the push and pop process will occur
+         */
         cs.transfer = function() {
             if (angular.isDefined(stop)) {
                 return;
@@ -120,6 +126,7 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
             }
         };
 
+        /** Pause scraping and hide loading effect */
         cs.pauseScraping = function() {
             if (angular.isDefined(stop)) {
                 $interval.cancel(stop);
@@ -128,7 +135,7 @@ app.controller('consumerScrapController', ['$scope', 'consumerLeads', 'consumerS
             cs.spinner = false;
         };
 
-        //if press stop button, cannot continue scraping
+        /** Stop scraping process, hides loading effect, shows 'Results' button*/
         cs.pressStop = false;
         cs.stopScraping = function() {
             if (angular.isDefined(stop)) {

@@ -5,10 +5,12 @@ app.controller('beforeConsumerController', ['$scope', '$http', 'uiGridConstants'
 
         beforeConsumer.category = "";
 
+        /** Gets the category that user selects */
         beforeConsumer.setInput = function() {
             consumerShareInput.setCategory(beforeConsumer.category);
         };
 
+        /** To disable 'Proceed to scrape' button until category is choosen */
         beforeConsumer.continue = true;
         beforeConsumer.continueScraping = function() {
             if (angular.isDefined(beforeConsumer.category)) {
