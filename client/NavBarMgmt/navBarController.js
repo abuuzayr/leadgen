@@ -6,6 +6,10 @@
             var vm = this;
             vm.showLogout = false;
 
+            /** 
+             * Used for access control
+             * Updates the different views based on user type 
+             */
             vm.update = function() {
 
                 if (authServices.getToken() && authServices.getUserInfo().usertype === 'User') {
@@ -71,6 +75,7 @@
 
             vm.update();
 
+            /** Deletes cookie when logged out and redirect to login page */
             vm.logout = function() {
                 vm.showLead = false;
                 vm.showFinder = false;

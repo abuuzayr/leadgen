@@ -9,7 +9,7 @@
             pc.newPwd = '';
             pc.retypePwd = '';
 
-            //get profile from cookie
+            /** Gets Username and Email from cookie */
             pc.userName = '';
             pc.userEmail = '';
 
@@ -22,6 +22,10 @@
                 console.log(pc.userEmail);
             }
 
+            /** 
+             * Change password and updates database
+             * @params {Object} data 
+             */
             pc.changePassword = function() {
 
                 var path = '/acct';
@@ -53,6 +57,11 @@
             };
 
             //validate password and change accordingly
+            /** 
+             * Checks the new password and retype password
+             * @returns {promise} if invalid
+             * @returns {function} if valid
+             */
             pc.validateNewPassword = function() {
                 if (pc.newPwd === pc.retypePwd) {
                     // pc.userPassword = pc.newPwd;
