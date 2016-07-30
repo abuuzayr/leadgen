@@ -25,6 +25,12 @@
         vm.openDialog = openDialog;
 
         /* =========================================== UI =========================================== */
+        /**
+         * Checks if email and password are valid. Returns function login if valid. Else, return feedback with error message.
+         * 
+         * @returns {promise} if invalid
+         * @returns {function} if valid
+         */
         function validateBeforeLogin() {
             var email = '';
             var password = '';
@@ -44,6 +50,12 @@
             errorFeedback(errMsg);
         }
 
+        /**
+         * Checks if email is valid before sending new generated password to email. Send email if valid. Else, return display feedback message.
+         * 
+         * @returns {function} if valid
+         * @returns {promise} is invalid
+         */
         function validateBeforeSend() {
             var email = '';
             var errMsg = '';
@@ -59,6 +71,14 @@
 
 
         /* =========================================== API =========================================== */
+        /**
+         * Authenticate user email and password. 
+         * If user log in successful, display success feedback message, return cookie and redirect to home. 
+         * Else, display error feedback message and delete existing cookie.
+         * 
+         * @param {any} email
+         * @param {any} password
+         */
         function login(email, password) {
             $http.post(AUTH_URL, {
                     email: email,
@@ -93,6 +113,11 @@
             }
         }
 
+        /**
+         * Send auto-generated new password to user. Pre-condition: email has to be vaild.
+         * 
+         * @param {any} email
+         */
         function sendEmail(email) {
             $http.post(FP_URL, {
                     email: email
