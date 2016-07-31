@@ -3,7 +3,7 @@ var dbHandler = require('../database-handler');
 
 /**
 *Module to handle database management services
-*@module DatabaseManager
+*@exports DatabaseManager
 */
 var DatabaseManager = {
 

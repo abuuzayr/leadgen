@@ -7,7 +7,7 @@ var apiKey = require('../apikey.json').googleAPI;
 
 var coord = [];
 /**This is a module for handling scraping
-*@module ScrapManager
+*@exports ScrapManager
 */
 var ScrapManager = {
 

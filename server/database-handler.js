@@ -32,7 +32,7 @@ var deleteDB = function(collectionName, obj) {
 
 /**
 *Module to handle database connection and operations
-*@module dbHandler
+*@exports dbHandler
 */
 var dbHandler = {
 
@@ -168,6 +168,13 @@ var dbHandler = {
         });
       });
   },
+
+  /**
+  *Deletes a document in the collection based on the filter object
+  *@param {string} collectionName - name of the collection
+  *@param {object} obj - filter object
+  *@returns {Promise} success or error
+  */
   dbDelete: deleteDB,
 
   /**

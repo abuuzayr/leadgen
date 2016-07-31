@@ -7,7 +7,7 @@ var Promise = require('bluebird');
 var mailchimp = require('../MailchimpManager/mailchimpApp');
 
 /**This is a module for handling contacts
-*@module ContactsManager
+*@exports ContactsManager
 */
 var ContactsManager = {
   /**
