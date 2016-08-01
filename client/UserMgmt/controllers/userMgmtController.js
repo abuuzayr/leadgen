@@ -131,7 +131,11 @@
                     }
                     console.log('Unable to add user');
                 });
+            };
 
+            uc.closeAndRefresh = function() {
+                uc.closeDialog('addUser');
+                $window.location.reload();
             };
 
             //delete selected leads
