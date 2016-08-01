@@ -1,17 +1,19 @@
-app.factory('shareMailList', function() {
-    var savedData = [];
+(function() {
+    'use strict';
+    app.factory('shareMailList', function() {
+        var savedData = [];
 
-    var setData = function(data) {
-        savedData = data;
-    }
+        var setData = function(data) {
+            savedData = data;
+        };
 
-    var getData = function() {
-        //console.log(saveData);
-        return savedData;
-    }
+        var getData = function() {
+            return savedData;
+        };
 
-    return {
-        setData: setData,
-        getData: getData,
-    }
-});
+        return {
+            setData: setData,
+            getData: getData,
+        };
+    });
+})();
