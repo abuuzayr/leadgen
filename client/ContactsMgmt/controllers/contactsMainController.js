@@ -8,13 +8,16 @@ app.controller('contactsMainController', ['$scope', '$window', 'appConfig', 'syn
         /** Get leads from database and bind to UI-Grid*/
         leadsData.success(function(data) {
             cc.gridOptions.data = data;
+            console.log('get leads success');
         });
 
         /** Hides spinner when syncing data is successful*/
         syncData.success(function(data) {
             cc.spinner = false;
+            console.log('sync leads success');
         }).error(function(error) {
             cc.spinner = false;
+            console.log('sync leads failed');
         });
 
         /** Gets mailing list from database */
