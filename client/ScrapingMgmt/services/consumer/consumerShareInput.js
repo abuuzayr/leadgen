@@ -1,16 +1,19 @@
-app.factory('consumerShareInput', function() {
-    var categoryInput = "";
+(function() {
+    'use strict';
+    app.factory('consumerShareInput', function() {
+        var categoryInput = "";
 
-    var getCategory = function() {
-        return categoryInput;
-    };
+        var getCategory = function() {
+            return categoryInput;
+        };
 
-    var setCategory = function(userCategory) {
-        categoryInput = userCategory;
-    };
+        var setCategory = function(userCategory) {
+            categoryInput = userCategory;
+        };
 
-    return {
-        getCategory: getCategory,
-        setCategory: setCategory
-    };
-});
+        return {
+            getCategory: getCategory,
+            setCategory: setCategory
+        };
+    });
+})();

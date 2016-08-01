@@ -1,27 +1,30 @@
-app.factory('consumerShareData', function() {
-    var savedData = [];
+(function() {
+    'use strict';
+    app.factory('consumerShareData', function() {
+        var savedData = [];
 
-    var setData = function(data) {
-        savedData = data;
-    };
+        var setData = function(data) {
+            savedData = data;
+        };
 
-    var getData = function() {
-        return savedData;
-    };
+        var getData = function() {
+            return savedData;
+        };
 
-    var addLead = function(newLead) {
-        savedData.push(newLead);
-        console.log('new lead is ' + newLead);
-    };
+        var addLead = function(newLead) {
+            savedData.push(newLead);
+            console.log('new lead is ' + newLead);
+        };
 
-    var clearData = function() {
-        savedData = [];
-    };
+        var clearData = function() {
+            savedData = [];
+        };
 
-    return {
-        setData: setData,
-        getData: getData,
-        addLead: addLead,
-        clearData: clearData
-    }
-});
+        return {
+            setData: setData,
+            getData: getData,
+            addLead: addLead,
+            clearData: clearData
+        };
+    });
+})();

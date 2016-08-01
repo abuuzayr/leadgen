@@ -1,21 +1,24 @@
-app.factory('shareData', function() {
-    var savedData = [];
+(function() {
+    'use strict';
+    app.factory('shareData', function() {
+        var savedData = [];
 
-    var getData = function() {
-        return savedData;
-    };
+        var getData = function() {
+            return savedData;
+        };
 
-    var addLead = function(newLead) {
-        savedData.push(newLead);
-    };
+        var addLead = function(newLead) {
+            savedData.push(newLead);
+        };
 
-    var clearData = function() {
-        savedData = [];
-    };
+        var clearData = function() {
+            savedData = [];
+        };
 
-    return {
-        getData: getData,
-        addLead: addLead,
-        clearData: clearData
-    };
-});
+        return {
+            getData: getData,
+            addLead: addLead,
+            clearData: clearData
+        };
+    });
+})();
