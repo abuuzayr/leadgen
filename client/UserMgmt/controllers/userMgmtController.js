@@ -112,7 +112,7 @@
                 uc.showMessage = '';
 
                 allUsersData.addUserData(newUser).then(function successCallback(res) {
-                    if (res.status == 409) {
+                    if (res.status === 409) {
                         console.log('username/email already exists');
                         uc.showMessage = 'Username/Email already exists';
                         //TODO snackbar for feedback
@@ -126,6 +126,9 @@
                     uc.lead.role = '';
                     uc.lead.password = '';
                 }).catch(function errorCallback(err) {
+                    if (err.status === 409) {
+                        uc.showMessage = 'Username/Email already exists';
+                    }
                     console.log('Unable to add user');
                 });
 
