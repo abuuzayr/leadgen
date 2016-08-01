@@ -285,31 +285,41 @@ var mailchimpHandler = {
                                             promiseArr.push(mailinglistmanager.updateListMC((coId + '_mailinglists'), updateListNameTemp));
                                         }
                                     }
-                                    Promise.all(promiseArr)
-                                        .then(function(result) {
-                                            console.log('We are done with sync');
-                                            resolve(200);
-                                        })
-                                        .catch(function(error2) {
-                                            reject(error2);
-                                        });
+                                    // Promise.all(promiseArr)
+                                    //     .then(function(result) {
+                                    //         console.log('We are done with sync');
+                                    //         resolve(200);
+                                    //     })
+                                    //     .catch(function(error2) {
+                                    //         reject(error2);
+                                    //     });
 
-                                    // var j = 0;
-                                    // var allArrays = [];
-                                    // var tempArr = [];
-                                    // var chunk = 10;
-                                    // var breakDownArray = function(promiseArr) {
-                                    // 	for (var i=0; i< promiseArr.length; i+=chunk) {
-                                    // 		tempArr = array.slice(i,i+chunk);
-                                    // 		allArrays.push(tempArr);
-                                    // 	}
-                                    // };
+                                    var allArrays = [];
+                                    var tempArr = [];
+                                    var chunk = 10;
 
-                                    // for (var k=0; k<allArrays.length; k++) {
-                                    // 	Promise.all(allArrays[k]);
-                                    // }
+                                    var breakDownArray = function(promiseArr) {
+                                        for (var i = 0; i < promiseArr.length; i += chunk) {
+                                            tempArr = array.slice(i, i + chunk);
+                                            console.log(tempArr);
+                                            allArrays.push(tempArr);
+                                        }
+                                    };
 
-                                    // Promise.each(Promise.all(allArrays));
+                                    var promiseAllPromise = function() {
+                                        breakDownArray(promiseArr);
+                                        console.log(allArrays);
+                                        for (var j = 0; j < allArrays.length; j++) {
+                                            Promise.all(allArrays[j]);
+                                        }
+                                    };
+
+                                    promiseAllPromise.then(function() {
+                                        Promise.each(allArrays);
+                                    }).then(function(result) {
+                                        console.log('donw with sync');
+                                        resolve(200);
+                                    });
                                 })
                                 .catch(function(error) {
                                     reject(error);
