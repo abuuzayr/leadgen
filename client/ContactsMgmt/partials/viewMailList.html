@@ -16,6 +16,7 @@
     </div>
     <br><br>
     <div class="container">
+        <h4 ng-show="vmc.spinner"><div ng-show="vmc.spinner" class="mdl-spinner mdl-js-spinner is-active"></div> Retrieving Leads...</h4>
         <div id="grid1" ui-grid="vmc.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-edit class="grid"></div>
         <div>
             <!-- <p> Mailing List: {{vmc.mailListResult}}</p> -->

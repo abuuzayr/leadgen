@@ -6,13 +6,16 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
 
     vmc.mailListResult = shareMailList.getData();
 
-    detailedMailListData.getMailListData(vmc.mailListResult).then(function successCallback(res) {
+    vmc.spinner = true;
+    detailedMailListData.getMailListData(vmc.mailListResult)
+        .then(function successCallback(res) {
+            cc.spinner = false;
             console.log(res);
             vmc.gridOptions.data = res.data;
-        }),
-        function errorCallback(err) {
+        }).catch(function(err) {
+            cc.spinner = false;
             console.log('err is ' + err);
-        };
+        });
 
     var viewContentLoaded = $q.defer();
     $scope.$on('$viewContentLoaded', function() {

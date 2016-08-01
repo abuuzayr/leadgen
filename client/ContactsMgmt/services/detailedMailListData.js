@@ -4,9 +4,9 @@ app.factory('detailedMailListData', ['$http', 'appConfig', function($http, appCo
             method: 'POST',
             url: appConfig.API_URL + '/contacts/mailinglist/getSubscriber',
             data: row
-        })
-    }
+        });
+    };
     return {
         getMailListData: getMailListData
-    }
+    };
 }]);
