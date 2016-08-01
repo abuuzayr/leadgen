@@ -228,10 +228,10 @@ var dbHandler = {
         };
         col.updateMany(originalObj, obj,function(err, results) {
           if (err !== null){
+            console.log(err);
             reject(400);
           }
           else {
-            
             resolve(200);
           }
         });

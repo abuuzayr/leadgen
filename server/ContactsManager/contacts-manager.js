@@ -247,13 +247,10 @@ var ContactsManager = {
   */
   addField: function(collectionName, str) {
     return new Promise(function(resolve, reject) {
-      dbHandler.dbQuery(collectionName, null)
-        .then(function(results) {
-          var promiseArr = [];
-          var updateObj = {};
-          updateObj[str] = null;
-          return dbUpdateMany(collectionName,null,updateObj);
-        })
+        var filterObj = {};
+        var updateObj = {};
+        updateObj[str] = null;
+        dbUpdateMany(collectionName,filterObj,updateObj);
         .then(function(results) {
           resolve(200);
         })
