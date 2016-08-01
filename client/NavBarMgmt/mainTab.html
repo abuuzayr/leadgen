@@ -29,7 +29,7 @@
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer "></div>
             <!-- Navigation. We hide it in small screens. -->
-            <nav class="mdl-navigation mdl-layout ">
+            <nav class="mdl-navigation mdl-layout--large-screen-only">
                 <a class="mdl-button mdl-js-button " ng-style="vm.leadMgmtStyle" ui-sref="leadlist " ng-if="vm.showLead " ng-click="vm.update() ">Lead Management</a>
                 <a class="mdl-button mdl-js-button " ng-style="vm.leadFinderStyle" ui-sref=" leadFinder " ng-show="vm.showFinder " ng-click="vm.update() ">Lead Finder</a>
                 <a class="mdl-button mdl-js-button " ng-style="vm.accountSettingsStyle" ui-sref="profile " ng-show="vm.showAccount " ng-click="vm.update() ">Account</a>
