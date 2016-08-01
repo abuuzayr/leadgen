@@ -249,7 +249,7 @@ var ContactsManager = {
             var filterObj = {};
             var updateObj = {};
             updateObj[str] = null;
-            dbUpdateMany(collectionName, filterObj, updateObj)
+            dbHandler.dbUpdateMany(collectionName, filterObj, updateObj)
                 .then(function(results) {
                     resolve(200);
                 })
