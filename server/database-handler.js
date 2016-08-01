@@ -186,7 +186,8 @@ var dbHandler = {
           originalObj._id = new mongodb.ObjectID(originalObj._id);
 
         }
-        delete updateObj._id;
+        if(updateObj._id !== undefined)
+          delete updateObj._id;
         var obj = {
           $set: updateObj
         };
@@ -220,8 +221,8 @@ var dbHandler = {
         if (originalObj._id !== undefined) {
           originalObj._id = new mongodb.ObjectID(originalObj._id);
         }
-        delete updateObj._id;
-
+        if(updateObj._id !== undefined)
+          delete updateObj._id;
         var obj = {
           $set: updateObj
         };
