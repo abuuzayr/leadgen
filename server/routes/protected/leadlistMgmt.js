@@ -35,7 +35,7 @@ CRUD on leads
 leadlistRouter.route('/leadList/leads')
   .get(function(req, res) {
     var coId = req.decoded.companyId;
-    ContactsManager.displayLeads((coId+ '_leads'),null)
+    ContactsManager.displayList((coId+ '_leads'),null)
     .then(function(results) {
       res.json(results);
     })
@@ -421,7 +421,7 @@ leadlistRouter.route('/leadList/fields')
   .get(function(req, res) {
     var coId = req.decoded.companyId;
     console.log('get columns');
-    ContactsManager.displayList((coId+'_columnDef'), null, coId)
+    ContactsManager.displayList((coId+'_columnDef'), null)
       .then(function(results) {
         res.json(results);
       })
