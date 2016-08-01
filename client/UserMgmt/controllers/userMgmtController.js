@@ -109,10 +109,12 @@
                 newUser.application.bulletlead = {};
                 newUser.application.bulletlead.isUser = true;
                 newUser.application.bulletlead.usertype = uc.lead.role;
+                uc.showMessage = '';
 
                 allUsersData.addUserData(newUser).then(function successCallback(res) {
                     if (res.status == 409) {
                         console.log('username/email already exists');
+                        uc.showMessage = 'Username/Email already exists';
                         //TODO snackbar for feedback
                     } else {
                         console.log('Added');

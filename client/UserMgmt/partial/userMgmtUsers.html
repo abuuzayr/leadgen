@@ -75,6 +75,7 @@
                                 </div>
                             </div>
                         </div>
+                        {{uc.showMessage}}
                         <div class="mdl-dialog__actions">
                             <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('addUser')">Close</button>
                             <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored">Add</button>
@@ -85,7 +86,7 @@
 
             <dialog id="deleteUser" class="mdl-dialog">
                 <div class="mdl-dialog__content">
-                    <p>Are you sure you want to delete the selected user(s)?</p>
+                    <p>Are you sure you want to delete the selected user?</p>
                     <div class="mdl-dialog__actions">
                         <button id="cancel" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--accent" ng-click="uc.closeDialog('deleteUser')">Cancel</button>
                         <button id="confirmDelete" type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored pull-left" ng-click="uc.deleteSelected(); uc.closeDialog('deleteUser')">Yes</button>
