@@ -52,7 +52,6 @@ var ContactsManager = {
               }
             }
 
-
             obj.origin = 1;
             obj.source = coName;
 
@@ -248,26 +247,12 @@ var ContactsManager = {
   */
   addField: function(collectionName, str) {
     return new Promise(function(resolve, reject) {
-      var arr = [];
       dbHandler.dbQuery(collectionName, null)
         .then(function(results) {
-          if (results.length === 0) {
-            resolve(200);
-          }
-          for (var i = 0; i < results.length; i++) {
-            var obj = results[i];
-            if (obj[str] === undefined)
-              obj[str] = null;
-            arr.push(obj);
-          }
-          return dbHandler.dbDropCollection(collectionName);
-        })
-        .then(function(results) {
           var promiseArr = [];
-          for (var i = 0; i < arr.length; i++) {
-            promiseArr.push(dbHandler.dbInsert(collectionName, arr[i]));
-          }
-          return Promise.all(promiseArr);
+          var updateObj = {};
+          updateObj[str] = null;
+          return dbUpdateMany(collectionName,null,updateObj);
         })
         .then(function(results) {
           resolve(200);

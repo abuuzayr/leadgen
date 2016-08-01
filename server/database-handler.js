@@ -69,13 +69,7 @@ var dbHandler = {
   dbInsert: function(collectionName, obj) {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){
-        if (obj._id !== undefined)
-          delete obj._id;
-        else{
           var col = db.collection(collectionName);
-          
-          if(obj._id !== undefined)
-            delete obj._id;
 
           col.insertOne(obj)
           .then(function(success){
@@ -84,7 +78,6 @@ var dbHandler = {
           .catch(function(error){
             reject(500);
           });
-        }
       });
     });
   },
@@ -99,9 +92,6 @@ var dbHandler = {
     return new Promise(function(resolve, reject) {
       connection.Do(function(db){
         var col = db.collection(collectionName);
-        for(var i in obj){
-           delete obj[i]._id;
-        }
         var partitionLength = 500;
         var promiseArr = [];
         for(var i=0; i<obj.length; i+=partitionLength){
@@ -213,7 +203,7 @@ var dbHandler = {
   },
 
   /**
-  *Updates many documents in the collection based on the filter object to the update object
+  *Updates multiple documents in the collection based on the filter object to the update object
   *@param {string} collectionName - name of the collection
   *@param {object} originalObj - filter object
   *@param {object} updateObj - attributes to be updated
