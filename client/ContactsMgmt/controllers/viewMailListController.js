@@ -9,11 +9,11 @@ app.controller('viewMailListController', ['$scope', 'appConfig', '$window', 'det
     vmc.spinner = true;
     detailedMailListData.getMailListData(vmc.mailListResult)
         .then(function successCallback(res) {
-            cc.spinner = false;
+            vmc.spinner = false;
             console.log(res);
             vmc.gridOptions.data = res.data;
         }).catch(function(err) {
-            cc.spinner = false;
+            vmc.spinner = false;
             console.log('err is ' + err);
         });
 
