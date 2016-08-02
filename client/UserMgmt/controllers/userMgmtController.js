@@ -64,7 +64,7 @@
                 }, ],
             };
 
-            //get company id from cookie
+            //Obtain information from cookie
             if (authServices.getToken()) {
                 companyId = authServices.getUserInfo().companyId;
                 userId = authServices.getUserInfo().userId;
@@ -72,17 +72,20 @@
             }
 
             if (angular.isDefined(companyId)) {
-                // get data from server
+                // get users from database
                 allUsersData.getUserData(companyId).then(function successCallback(res) {
-                        uc.gridOptions.data = res.data;
-                        console.log('get users');
-                    }),
-                    function errorCallback(err) {
-                        console.log('Cannot get users');
-                    };
+                    uc.gridOptions.data = res.data;
+                    console.log('get users');
+                }).catch(function(err) {
+                    console.log('Cannot get users');
+                });
             }
 
-            //add new user
+            /** 
+             * Add user to UI Grid and update database
+             * if return 409, means user already exists, cannot add user to database
+             * @param {Object} newUser
+             */
             uc.addData = function() {
                 var n = uc.gridOptions.data.length + 1;
                 uc.gridOptions.data.push({
@@ -111,34 +114,40 @@
                 newUser.application.bulletlead.usertype = uc.lead.role;
                 uc.showMessage = '';
 
-                allUsersData.addUserData(newUser).then(function successCallback(res) {
-                    if (res.status === 409) {
-                        console.log('username/email already exists');
-                        uc.showMessage = 'Username/Email already exists';
-                        //TODO snackbar for feedback
-                    } else {
-                        console.log('Added');
-                        // addFeedback();
-                        uc.closeDialog('addUser');
-                    }
-                    uc.lead.userName = '';
-                    uc.lead.email = '';
-                    uc.lead.role = '';
-                    uc.lead.password = '';
-                }).catch(function errorCallback(err) {
-                    if (err.status === 409) {
-                        uc.showMessage = 'Username/Email already exists';
-                    }
-                    console.log('Unable to add user');
-                });
+                allUsersData.addUserData(newUser)
+                    .then(function successCallback(res) {
+                        if (res.status === 409) {
+                            console.log('username/email already exists!');
+                            uc.showMessage = 'Username/Email already exists';
+                        } else {
+                            console.log('Added');
+                            // addFeedback();
+                            uc.closeDialog('addUser');
+                        }
+                        uc.lead.userName = '';
+                        uc.lead.email = '';
+                        uc.lead.role = '';
+                        uc.lead.password = '';
+                    }).catch(function errorCallback(err) {
+                        if (err.status === 409) {
+                            uc.showMessage = 'Username/Email already exists';
+                        }
+                        console.log('Unable to add user');
+                    });
             };
 
+            /** Close dialog and refresh the page to update UI Grid */
             uc.closeAndRefresh = function() {
                 uc.closeDialog('addUser');
                 $window.location.reload();
             };
 
-            //delete selected leads
+            /**
+             * This method retrieves and removes the selected rows from UI-Grid table
+             *  and deletes the data from the database. The page will be reloaded when
+             *  deleting the lead from the database is successful to update the UI-Grid
+             *  @param {Object} selectedUsersToDelete - The selected rows to delete
+             */
             uc.deleteSelected = function() {
                 angular.forEach(uc.gridApi.selection.getSelectedRows(), function(data, index) {
                     uc.gridOptions.data.splice(uc.gridOptions.data.lastIndexOf(data), 1);
@@ -169,15 +178,13 @@
                     uc.openDialog('editUser');
                     $scope.$apply();
                     row = rowEntity;
-
-                    // allUsersData.editUserData(rowEntity, rowEntity._id)
-                    //     .then(function(res) {
-                    //         $window.location.reload();
-                    //     });
-
                 });
             };
 
+            /** 
+             * Confirms edit 
+             * editUserData - updates database, then refreshes page
+             */
             uc.editUser = function(gridApi) {
                 uc.gridApi = gridApi;
 
@@ -191,6 +198,7 @@
                 }
             };
 
+            /** Undo edit and refresh page */
             uc.cancelEdit = function() {
                 uc.closeDialog('editUser');
                 $window.location.reload();
@@ -209,7 +217,10 @@
                 dialog.close();
             };
 
-            //refresh
+            /**
+             * This method refreshes the page.
+             * It is used to update the data shown in UI-Grid
+             */
             uc.refresh = function() {
                 $window.location.reload();
             };
