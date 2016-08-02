@@ -202,14 +202,14 @@
             /** Undo edit and refresh page */
             cc.cancelEdit = function() {
                 cc.closeDialog('editUser');
-                $window.location.reload();
+                refresh();
             };
 
             /**
              * This method refreshes the page.
              * It is used to update the data shown in UI-Grid
              */
-            cc.refresh = function() {
+            var refresh = function() {
                 $window.location.reload();
             };
 
@@ -363,7 +363,7 @@
                 var url = "/contacts/leadList/fields";
                 $http.post(appConfig.API_URL + url, field)
                     .then(function(res) {
-                        $window.location.reload();
+                        refresh();
                     });
             };
 
@@ -394,7 +394,7 @@
                         };
                         var url = "/contacts/leadList/fields";
                         $http.put(appConfig.API_URL + url, fieldObj);
-                        $window.location.reload();
+                        refresh();
                     }
                 }
                 for (var x in cc.fields) {
@@ -454,7 +454,7 @@
                 var url = "/contacts/leadList/leads/duplicates";
                 $http.put(appConfig.API_URL + url, fieldObj)
                     .then(function(res) {
-                        $window.location.reload();
+                        refresh();
                     });
             };
 

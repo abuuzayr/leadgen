@@ -48,7 +48,7 @@
              * This method refreshes the page. 
              * It is used to update the data shown in UI-Grid
              */
-            dc.refresh = function() {
+            var refresh = function() {
                 $window.location.reload();
             };
 
@@ -76,7 +76,7 @@
                 var url = "/contacts/blackList/domain";
                 $http.post(appConfig.API_URL + url, domain)
                     .then(function(res) {
-                        $window.location.reload();
+                        refresh();
                     });
             };
 
@@ -99,8 +99,8 @@
                     if ((dc.gridOptions.data[x].domain === dc.selectedDeleteDomain)) {
                         var domain = dc.gridOptions.data.splice(x, 1);
                         var url = "/contacts/blackList/domain";
-                        var deleteStatus = $http.put(appConfig.API_URL + url, domain[0]);
-                        $window.location.reload();
+                        deleteStatus = $http.put(appConfig.API_URL + url, domain[0]);
+                        refresh();
                     }
                 }
             };
@@ -108,11 +108,11 @@
             dc.gridOptions.onRegisterApi = function(gridApi) {
                 dc.gridApi = gridApi;
                 //save after edit
-                gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-                    console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
-                    $scope.$apply();
-                    $window.location.reload();
-                });
+                // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+                //     console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
+                //     $scope.$apply();
+                //     $window.location.reload();
+                // });
             };
 
             //popup dialog box
