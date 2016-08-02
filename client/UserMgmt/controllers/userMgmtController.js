@@ -88,15 +88,15 @@
              */
             uc.addData = function() {
                 var n = uc.gridOptions.data.length + 1;
-                uc.gridOptions.data.push({
-                    "username": uc.lead.userName,
-                    "email": uc.lead.email,
-                    "application": {
-                        "bulletlead": {
-                            "usertype": uc.lead.role
-                        }
-                    }
-                });
+                // uc.gridOptions.data.push({
+                //     "username": uc.lead.userName,
+                //     "email": uc.lead.email,
+                //     "application": {
+                //         "bulletlead": {
+                //             "usertype": uc.lead.role
+                //         }
+                //     }
+                // });
 
 
                 var newUser = {
@@ -116,18 +116,26 @@
 
                 allUsersData.addUserData(newUser)
                     .then(function successCallback(res) {
-                        if (res.status === 409) {
-                            console.log('username/email already exists!');
-                            uc.showMessage = 'Username/Email already exists';
-                        } else {
-                            console.log('Added');
-                            // addFeedback();
-                            uc.closeDialog('addUser');
-                        }
+
+                        console.log('Added');
+                        // addFeedback();
+                        uc.closeDialog('addUser');
+
                         uc.lead.userName = '';
                         uc.lead.email = '';
                         uc.lead.role = '';
                         uc.lead.password = '';
+
+                        uc.gridOptions.data.push({
+                            "username": uc.lead.userName,
+                            "email": uc.lead.email,
+                            "application": {
+                                "bulletlead": {
+                                    "usertype": uc.lead.role
+                                }
+                            }
+                        });
+
                     }).catch(function errorCallback(err) {
                         if (err.status === 409) {
                             uc.showMessage = 'Username/Email already exists';
