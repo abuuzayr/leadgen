@@ -98,10 +98,9 @@
                 .then(function successCallback(res) {
                     console.log('first time scrape')
                     gc.dataListForGoogle = res.data;
-                }),
-                function errorCallback(err) {
+                }).catch(function(err) {
                     console.log('error for first time scrape');
-                };
+                });
 
             /** 
              * Gets leads from database

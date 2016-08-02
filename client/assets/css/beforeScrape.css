@@ -13,13 +13,11 @@
 .tabs {
     border-bottom: solid;
     border-bottom-width: 1px;
-    position: fixed;
 }
 
 .nav-tabs {
     margin-left: 42%;
     color: #141213 !important;
-    position: fixed;
 }
 
 .nav-tabs>li.active>a,
