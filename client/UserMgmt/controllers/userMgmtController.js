@@ -191,7 +191,7 @@
                         .then(function(res) {
                             console.log('success');
                             uc.closeDialog('editUser');
-                            $window.location.reload();
+                            refresh();
                         });
                 }
             };
@@ -199,7 +199,7 @@
             /** Undo edit and refresh page */
             uc.cancelEdit = function() {
                 uc.closeDialog('editUser');
-                $window.location.reload();
+                refresh();
             };
 
             //popup dialog box
