@@ -37,39 +37,40 @@
                     vm.showLogout = true;
                 }
 
+                //style tabs, become bold when at that page
                 var url = window.location.href;
                 var lastPart = url.split("/").pop();
                 console.log(lastPart);
                 if (lastPart == 'lead-finder' || lastPart == 'corporate' || lastPart == 'consumer') {
-                    vm.leadMgmtStyle = { "font-weight": "400" }
-                    vm.leadFinderStyle = { "font-weight": "900" }
-                    vm.accountSettingsStyle = { "font-weight": "400" }
-                    vm.userMgmtStyle = { "font-weight": "400" }
-                    vm.databaseMgmtStyle = { "font-weight": "400" }
+                    vm.leadMgmtStyle = { "font-weight": "400" };
+                    vm.leadFinderStyle = { "font-weight": "900" };
+                    vm.accountSettingsStyle = { "font-weight": "400" };
+                    vm.userMgmtStyle = { "font-weight": "400" };
+                    vm.databaseMgmtStyle = { "font-weight": "400" };
                 } else if (lastPart == 'leadlist' || lastPart == 'maillist' || lastPart == 'blacklist') {
-                    vm.leadMgmtStyle = { "font-weight": "900" }
-                    vm.leadFinderStyle = { "font-weight": "400" }
-                    vm.accountSettingsStyle = { "font-weight": "400" }
-                    vm.userMgmtStyle = { "font-weight": "400" }
-                    vm.databaseMgmtStyle = { "font-weight": "400" }
+                    vm.leadMgmtStyle = { "font-weight": "900" };
+                    vm.leadFinderStyle = { "font-weight": "400" };
+                    vm.accountSettingsStyle = { "font-weight": "400" };
+                    vm.userMgmtStyle = { "font-weight": "400" };
+                    vm.databaseMgmtStyle = { "font-weight": "400" };
                 } else if (lastPart == 'profile') {
-                    vm.leadMgmtStyle = { "font-weight": "400" }
-                    vm.leadFinderStyle = { "font-weight": "400" }
-                    vm.accountSettingsStyle = { "font-weight": "900" }
-                    vm.userMgmtStyle = { "font-weight": "400" }
-                    vm.databaseMgmtStyle = { "font-weight": "400" }
+                    vm.leadMgmtStyle = { "font-weight": "400" };
+                    vm.leadFinderStyle = { "font-weight": "400" };
+                    vm.accountSettingsStyle = { "font-weight": "900" };
+                    vm.userMgmtStyle = { "font-weight": "400" };
+                    vm.databaseMgmtStyle = { "font-weight": "400" };
                 } else if (lastPart == 'externalDatabase') {
-                    vm.leadMgmtStyle = { "font-weight": "400" }
-                    vm.leadFinderStyle = { "font-weight": "400" }
-                    vm.accountSettingsStyle = { "font-weight": "400" }
-                    vm.userMgmtStyle = { "font-weight": "400" }
-                    vm.databaseMgmtStyle = { "font-weight": "900" }
+                    vm.leadMgmtStyle = { "font-weight": "400" };
+                    vm.leadFinderStyle = { "font-weight": "400" };
+                    vm.accountSettingsStyle = { "font-weight": "400" };
+                    vm.userMgmtStyle = { "font-weight": "400" };
+                    vm.databaseMgmtStyle = { "font-weight": "900" };
                 } else {
-                    vm.leadMgmtStyle = { "font-weight": "400" }
-                    vm.leadFinderStyle = { "font-weight": "400" }
-                    vm.accountSettingsStyle = { "font-weight": "400" }
-                    vm.userMgmtStyle = { "font-weight": "400" }
-                    vm.databaseMgmtStyle = { "font-weight": "400" }
+                    vm.leadMgmtStyle = { "font-weight": "400" };
+                    vm.leadFinderStyle = { "font-weight": "400" };
+                    vm.accountSettingsStyle = { "font-weight": "400" };
+                    vm.userMgmtStyle = { "font-weight": "400" };
+                    vm.databaseMgmtStyle = { "font-weight": "400" };
                 }
             };
 
@@ -77,12 +78,6 @@
 
             /** Deletes cookie when logged out and redirect to login page */
             vm.logout = function() {
-                // vm.showLead = false;
-                // vm.showFinder = false;
-                // vm.showAccount = false;
-                // vm.showUser = false;
-                // vm.showDatabase = false;
-                // vm.showLogout = false;
                 authServices.logout();
             };
 
