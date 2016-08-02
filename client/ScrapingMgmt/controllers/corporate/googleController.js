@@ -110,12 +110,12 @@
              */
             ypResults.scrapeYellowPageLeads(gc.category)
                 .then(function successCallback(res) {
+                    console.log('get yp data');
                     gc.dataListForYP = res.data;
 
-                }),
-                function errorCallback(err) {
-                    // console.log('err is ' + err);
-                };
+                }).catch(function(err) {
+                    console.log('err is ' + err);
+                });
 
             var stop;
             var count = 0;
