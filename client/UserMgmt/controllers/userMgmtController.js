@@ -119,7 +119,7 @@
 
                         console.log('Added');
                         // addFeedback();
-                        uc.closeDialog('addUser');
+                        // uc.closeDialog('addUser');
 
                         uc.lead.userName = '';
                         uc.lead.email = '';
@@ -136,6 +136,8 @@
                             }
                         });
 
+                        refresh();
+
                     }).catch(function errorCallback(err) {
                         if (err.status === 409) {
                             uc.showMessage = 'Username/Email already exists';
@@ -147,7 +149,7 @@
             /** Close dialog and refresh the page to update UI Grid */
             uc.closeAndRefresh = function() {
                 uc.closeDialog('addUser');
-                $window.location.reload();
+                refresh();
             };
 
             /**
@@ -229,7 +231,7 @@
              * This method refreshes the page.
              * It is used to update the data shown in UI-Grid
              */
-            uc.refresh = function() {
+            var refresh = function() {
                 $window.location.reload();
             };
 
