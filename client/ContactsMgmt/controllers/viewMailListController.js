@@ -168,9 +168,10 @@
 
                 var leads = vmc.gridApi.selection.getSelectedRows();
                 var url = "/contacts/mailingList/subscriber";
-                $http.put(appConfig.API_URL + url, leads).then(function successCallback(res) {
-                    $window.location.reload();
-                });
+                $http.put(appConfig.API_URL + url, leads)
+                    .then(function successCallback(res) {
+                        $window.location.reload();
+                    });
             } else if (count > 10) {
                 vmc.openDialog('deleteLimit');
             }

@@ -295,19 +295,28 @@
              *  @param {array} leads - The selected rows to delete
              */
             cc.deleteSelected = function() {
-                angular.forEach(cc.gridApi.selection.getSelectedRows(), function(data, index) {
-                    cc.gridOptions.data.splice(cc.gridOptions.data.lastIndexOf(data), 1);
-                });
-                var leads = cc.gridApi.selection.getSelectedRows();
-                var url = "/contacts/leadList/leads";
-                $http.put(appConfig.API_URL + url, leads)
-                    .then(function(res) {
-                        deleteFeedback();
-                        // $window.location.reload();
-                    })
-                    .catch(function(err) {
-                        console.log(err);
+
+                var count = cc.gridApi.selection.getSelectedRows().length;
+
+                if (count <= 10) {
+
+                    angular.forEach(cc.gridApi.selection.getSelectedRows(), function(data, index) {
+                        cc.gridOptions.data.splice(cc.gridOptions.data.lastIndexOf(data), 1);
                     });
+                    var leads = cc.gridApi.selection.getSelectedRows();
+                    var url = "/contacts/leadList/leads";
+                    $http.put(appConfig.API_URL + url, leads)
+                        .then(function(res) {
+                            deleteFeedback();
+                            // $window.location.reload();
+                        })
+                        .catch(function(err) {
+                            deleteLimitedFeedback();
+                            console.log(err);
+                        });
+                } else if (count > 10) {
+                    cc.openDialog('deleteLimit');
+                }
             };
 
             /**
@@ -499,6 +508,10 @@
 
             var deleteFeedback = function() {
                 feedbackServices.successFeedback("Deleted!", '#addFeedbackID');
+            };
+
+            var deleteLimitedFeedback = function() {
+                feedbackServices.successFeedback("Unable to delete lead", '#addFeedbackID');
             };
         }
     ])
