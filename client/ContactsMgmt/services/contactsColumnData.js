@@ -1,3 +1,4 @@
+//Get column def
 (function() {
     'use strict';
     app.factory('contactsColumnData', ['$http', 'appConfig', function($http, appConfig) {  
