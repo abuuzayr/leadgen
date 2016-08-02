@@ -251,14 +251,11 @@ var recrusiveMethod1 = function(promiseArr, count, totalCount, resultsArr, getRe
         //reach the end of the for loop
         //transform the 2D array to 1D
         var finalResults = [];
-        console.log(resultsArr.length);
-        console.log(resultsArr[0].length);
         for (var i = 0; i < resultsArr.length; i++) {
             for (var j = 0; j < resultsArr[i].length; j++) {
                 finalResults.push(resultsArr[i][j]);
             }
         }
-        console.log(finalResults);
         getReportDetails(finalResults, coId, resolve, reject);
     } else {
         var tempPromise = promiseArr[count];
