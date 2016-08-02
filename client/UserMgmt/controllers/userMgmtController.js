@@ -88,16 +88,6 @@
              */
             uc.addData = function() {
                 var n = uc.gridOptions.data.length + 1;
-                // uc.gridOptions.data.push({
-                //     "username": uc.lead.userName,
-                //     "email": uc.lead.email,
-                //     "application": {
-                //         "bulletlead": {
-                //             "usertype": uc.lead.role
-                //         }
-                //     }
-                // });
-
 
                 var newUser = {
                     username: uc.lead.userName,
@@ -118,8 +108,6 @@
                     .then(function successCallback(res) {
 
                         console.log('Added');
-                        // addFeedback();
-                        // uc.closeDialog('addUser');
 
                         uc.lead.userName = '';
                         uc.lead.email = '';
