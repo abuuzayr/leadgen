@@ -63,21 +63,22 @@
             };
 
             /** Gets leads from database and bind to UI-Grid */
-            allData.getAllLeads().then(function successCallback(res) {
+            allData.getAllLeads()
+                .then(function successCallback(res) {
                     allDB.gridOptions.data = res.data;
                 }),
                 function errorCallback(err) {
 
-                }
+                };
 
             allDB.gridOptions.onRegisterApi = function(gridApi) {
                 allDB.gridApi = gridApi;
 
                 //save after edit
-                gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-                    console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
-                    $scope.$apply();
-                });
+                // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+                //     console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
+                //     $scope.$apply();
+                // });
             };
 
             /** Exports selected leads */

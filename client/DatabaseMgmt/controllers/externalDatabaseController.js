@@ -73,7 +73,6 @@
                 }],
             };
 
-            //get leads
             /** 
              * Gets leads from database and bind to UI-Gird 
              * setData is used for the function to send leads from external database to local database
