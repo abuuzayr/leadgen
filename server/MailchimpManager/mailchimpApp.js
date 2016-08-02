@@ -213,6 +213,7 @@ var mailchimpApp = {
 			});
 	}*/
 	getReports: function(getReportDetails, coId, resolve, reject, apiKey) {
+		console.log('we are in getReports');
 		mailchimp
 			.get('reports')
 				.then(function(report) {
@@ -246,6 +247,7 @@ module.exports = mailchimpApp;
 
 var recrusiveMethod1 = function(promiseArr, count, totalCount, resultsArr,getReportDetails,coId,resolve,reject,apiKey)
 {
+	console.log('we are in recursive');
 	if(count == totalCount)
 	{
 		//reach the end of the for loop
