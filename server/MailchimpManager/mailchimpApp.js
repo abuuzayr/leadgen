@@ -316,16 +316,18 @@ var getMembers = function(id, name, apiKey) {
         });
     });
 };
-var getIndividualReport = function(url) {
-    return new Promise(function(resolve, reject) {
-        mailchimp.get(url)
-            .then(function(activity) {
-                resolve(activity);
-            })
-            .catch(function(error) {
-                console.log(error);
-                reject(500);
-            });
+var	getIndividualReport = function(url){
+	return new Promise(function(resolve, reject) {
+		request({
+			url: url
+		}, function(error, response, body) {
+			if (error !== null) {
+				reject(error);
+			} else {
+				var info = JSON.parse(body);
+				resolve(info);
+				}
+			});
 
-    });
-};
+	});
+}
