@@ -264,6 +264,7 @@ var recrusiveMethod1 = function(promiseArr, count, totalCount, resultsArr, getRe
         Promise.all(tempPromise)
             .then(function(results) {
                 resultsArr.push(results);
+                console.log(results);
                 count = count + 1;
                 //call the next recurisve method
                 recrusiveMethod1(promiseArr, count, totalCount, resultsArr, getReportDetails, coId, resolve, reject, apiKey);
