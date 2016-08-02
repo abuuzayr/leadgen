@@ -141,13 +141,14 @@
                     showInternet(navigator.onLine); //to make gc.status
 
                     stop = $interval(function() {
-                        if (gc.dataListForGoogle.length > 0 && navigator.onLine === true) {
-                            var popLead = gc.dataListForGoogle.pop();
-                            gc.gridOptions.data.push(popLead);
-                            gc.numScrap = gc.gridOptions.data.length;
-                            shareData.addLead(popLead); // store the scraped leads to another array to display in the results
+                        // if (gc.dataListForGoogle.length > 0 && navigator.onLine === true) {
+                        //     var popLead = gc.dataListForGoogle.pop();
+                        //     gc.gridOptions.data.push(popLead);
+                        //     gc.numScrap = gc.gridOptions.data.length;
+                        //     shareData.addLead(popLead); // store the scraped leads to another array to display in the results
 
-                        } else if (gc.dataListForYP.length > 0 && navigator.onLine === true) {
+                        // } else if 
+                        if (gc.dataListForYP.length > 0 && navigator.onLine === true) {
                             var popYPLead = gc.dataListForYP.pop();
                             gc.gridOptions.data.push(popYPLead);
                             gc.numScrap = gc.gridOptions.data.length;
