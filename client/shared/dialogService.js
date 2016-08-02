@@ -1,4 +1,4 @@
-app.service('dialogServices', dialogServices)
+app.service('dialogServices', dialogServices);
 
 function dialogServices() {
 
