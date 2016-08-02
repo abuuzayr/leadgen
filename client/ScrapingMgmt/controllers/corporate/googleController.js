@@ -74,11 +74,6 @@
                 gc.spinner = false;
             };
 
-            // to show scraping page
-            // gc.showScrape = false;
-            // gc.showScrapeAfterClick = function() {
-            //     gc.showScrape = true;
-            // };
 
             // get the previously selected category & country
             gc.category = shareInput.getCategory();
@@ -96,7 +91,7 @@
              */
             googleResults.firstTimeScrape(gc.category, gc.country)
                 .then(function successCallback(res) {
-                    console.log('first time scrape')
+                    console.log('first time scrape');
                     gc.dataListForGoogle = res.data;
                 }).catch(function(err) {
                     console.log('error for first time scrape');
