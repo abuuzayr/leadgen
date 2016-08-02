@@ -77,12 +77,12 @@
 
             /** Deletes cookie when logged out and redirect to login page */
             vm.logout = function() {
-                vm.showLead = false;
-                vm.showFinder = false;
-                vm.showAccount = false;
-                vm.showUser = false;
-                vm.showDatabase = false;
-                vm.showLogout = false;
+                // vm.showLead = false;
+                // vm.showFinder = false;
+                // vm.showAccount = false;
+                // vm.showUser = false;
+                // vm.showDatabase = false;
+                // vm.showLogout = false;
                 authServices.logout();
             };
 
