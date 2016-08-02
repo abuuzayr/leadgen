@@ -96,16 +96,22 @@ select:-webkit-autofill {
 }
 
 .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
-    color: #eb3a40 !important;
+    color: #eb3a40 !important;
 }
 
 .mdl-textfield--floating-label.is-focused .mdl-textfield__label,
 .mdl-textfield--floating-label.is-dirty .mdl-textfield__label {
-    color: #eb3a40 !important;
+    color: #eb3a40 !important;
 }
 
 .mdl-textfield.is-invalid .mdl-textfield__label:after {
-    background-color: #eb3a40 !important;
+    background-color: #eb3a40 !important;
+}
+
+dialog {
+    position: fixed;
+    top: 50%;
+    transform: translate(0, -50%);
 }
 
 
