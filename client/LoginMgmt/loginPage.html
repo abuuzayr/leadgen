@@ -1,5 +1,3 @@
-<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="assets/css/loginPage.css">
 <!---------------------------------------- Forgot password dialog ---------------------------------------->
 <dialog id="forgot-password-dialog" class="mdl-dialog">
     <form>
@@ -20,6 +18,28 @@
         </div>
     </form>
 </dialog>
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="assets/css/loginPage.css">
+<!---------------------------------------- Forgot password dialog ---------------------------------------->
+<!--<dialog id="forgot-password-dialog" class="mdl-dialog">
+    <form>
+        <div class="mdl-dialog__content">
+            <div id="forgot-password-username-textbox">
+                <p>Please enter your email.</p>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input ng-model="vm.resetPwdEmail" class="mdl-textfield__input" type="text" ng-required="true" />
+                    <label class="mdl-textfield__label" for="vm.forgotPasswordEmail">Email</label>
+                </div>
+
+            </div>
+        </div>
+        <div class="mdl-dialog__actions">
+            <button id="cancel" type="button" class="mdl-button" ng-click="vm.closeDialog()">Cancel</button>
+            <div class="mdl-layout-spacer"></div>
+            <button id="next" type="submit" class="mdl-button" ng-click="vm.validateBeforeSend();">Next</button>
+        </div>
+    </form>
+</dialog>-->
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
     <div id="login-background" class="mdl-grid">
         <!---------------------------------------- Login main ---------------------------------------->
