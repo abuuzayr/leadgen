@@ -106,7 +106,7 @@
          * This method refreshes the page. 
          * It is used to update the data shown in UI-Grid
          */
-        bc.refresh = function() {
+        var refresh = function() {
             $window.location.reload();
         };
 
@@ -124,18 +124,18 @@
             var url = "/contacts/blackList";
             $http.put(appConfig.API_URL + url, leads)
                 .then(function(res) {
-                    $window.location.reload();
+                    refresh();
                 });
-        }
+        };
 
         bc.gridOptions.onRegisterApi = function(gridApi) {
             bc.gridApi = gridApi;
             //save after edit
-            gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-                console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
-                $scope.$apply();
-                $window.location.reload();
-            });
+            // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
+            //     console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
+            //     $scope.$apply();
+            //     refresh();
+            // });
         };
 
         //popup dialog box
