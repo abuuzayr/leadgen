@@ -287,8 +287,8 @@ var mailchimpHandler = {
 									Promise.all(promiseArr)
 										.then(function(result) {
 											console.log('We are done with sync');
-											resolve(200);
-										})
+											mailchimpClass.getReports(getReportDetails,coId,resolve,reject,apiKey);
+										}
 										.catch(function(error2) {
 											reject(error2);
 										});
