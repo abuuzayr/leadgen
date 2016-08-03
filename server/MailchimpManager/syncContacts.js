@@ -1,6 +1,10 @@
 var mailchimpClass = require('./mailchimpApp');
 var mailinglistmanager = require('../MailinglistManager/mailinglist-manager');
 var Promise = require('bluebird');
+var dbHandler = require('../database-handler'),
+    config = require('../config'),
+    common = require('../common'),
+    mongodb = require('mongodb');
 
 /**
 *Module to handle mailchimp services and bulletleads calls
@@ -18,8 +22,21 @@ var mailchimpHandler = {
       */
     syncContacts: function(apiKey, coId, coName) {
         return new Promise(function(resolve, reject) {
-            mailchimpClass.getMyList(apiKey)
-                .then(function(results) {
+            /**
+            *Check if the account is eligible to launch a sync request
+            */
+            checkSyncEligibility(coId)
+                .then(function(checkSyncEligibilityResult)
+                {
+                    if(checkSyncEligibilityResult){
+                        /**
+                        *Someone else is syncing, skip the step.
+                        */
+                        //console.log("Sync has already started");
+                        resolve('true');
+                    }else{
+                        mailchimpClass.getMyList(apiKey)
+                            .then(function(results) {
                     var mailchimplist;
                     var appDatabase;
                     /**
@@ -69,11 +86,11 @@ var mailchimpHandler = {
                                     */
                                     /*console.log("====================App Database ========================================");
                                     for (var i = 0; i < databaselist.length; i++) {
-                                    	console.log(databaselist[i]);
+                                        console.log(databaselist[i]);
                                     }
                                     console.log("====================mailchimp Database ========================================");
                                     for (var i = 0; i < mailchimplist.length; i++) {
-                                    	console.log(mailchimplist[i]);
+                                        console.log(mailchimplist[i]);
                                     }
                                     console.log("mailinglist has " + mailchimplist.length);
                                     console.log("databaselist has " + databaselist.length);
@@ -160,7 +177,7 @@ var mailchimpHandler = {
                                     }
                                     return differenceArr;
                                 }).then(function(differenceArr) {
-                                    /**	console.log("====================Update Database ========================================");
+                                    /** console.log("====================Update Database ========================================");
                                      *for (var i = 0; i < differenceArr.length; i++) {
                                      *   console.log(differenceArr[i]);
                                      *}
@@ -323,8 +340,14 @@ var mailchimpHandler = {
                                     reject(error);
                                 })
                         });
+                      });
+                    }
+                })
+                .catch(function(syncEligibilityError)
+                {
+                    reject(syncEligibility);
                 });
-        });
+           });
     },
     /**
       *Edit the name of a mailing list in the mailchimp server
@@ -446,6 +469,82 @@ var mailchimpHandler = {
     }
 };
 module.exports = mailchimpHandler;
+
+    /**
+      *Edits the status of the account to denote if the company database is synching with the mailchimp server
+      *@param {string} companyId - the ID of the company
+      *@param {string} newStatus - the new status for the company
+      *@returns {Promise} returns success or error
+      */
+
+var updateSyncStatus = function(companyId, newStatus){
+     return new Promise(function(resolve, reject) {
+        var obj={
+            coId:companyId
+        };
+        var obj2={
+            status:newStatus
+        };
+        dbHandler.dbUpdate("syncStatus", obj, obj2)
+            .then(function(updateSyncStatus)
+            {
+                resolve(200);
+            })
+            .catch(function(updateSyncStatusError)
+            {
+                reject(500);
+            })
+     });
+}
+    /**
+      *Method checks if the company account is currently syncing contacts
+      *@param {string} companyId - the ID of the company
+      *@returns {Promise} returns success or error
+      */
+var checkSyncEligibility = function(companyId){
+     return new Promise(function(resolve, reject) {
+        var obj={
+            coId:companyId
+        };
+        dbHandler.dbQuery("syncStatus", obj)
+            .then(function(results) {
+                if(results.length==0){
+                    //company didnt sync before
+                    var obj2={
+                        coId:companyId,
+                        status: "true"
+                    };
+                    dbHandler.dbInsert("syncStatus", obj2)
+                        .then(function(result)
+                        {
+                            resolve(false);
+                        })
+                        .catch(function(insertError)
+                        {
+                            reject(500);
+                        })
+                }else if(results[0].status=="true"){
+                   //sync has already started
+                    resolve(true);
+                }else{
+                    //sync has not started, we start it
+                    updateSyncStatus("syncStatus", companyId, "true")
+                        .then(function(updateSyncStatus)
+                        {
+                            resolve(false);
+                        })
+                        .catch(function(updateSyncSTatusError)
+                        {
+                            reject(500);
+                        })
+
+                }
+            })
+            .catch(function(error) {
+                reject(error);
+            });
+        });
+}
     /**
       *Method takes in the report information array from mailchimp, sort and save into bulletleads.
       *@param {string} apiKey - apikey of the user's mailchimp account
@@ -454,10 +553,13 @@ module.exports = mailchimpHandler;
       *@param {Promise} reject - To allow method to reject the promise if something fails
       *@returns {Promise} returns success or error
       */
+}
 var getReportDetails = function(results, coId, resolve, reject) {
     var activityArr = [];
-    console.log("===================Report activity ==============================");
-    console.log(results);
+    /**
+     *console.log("===================Report activity ==============================");
+     *console.log(results);
+     */
     // retrieve activity information.
     //Now we want to collate all these information and save them into another array
     //mailing list ID and mc id will get us the contact id so we can add the relevant data.
@@ -531,7 +633,21 @@ var getReportDetails = function(results, coId, resolve, reject) {
             reject(mlError);
         });
     console.log("End of Report activity");
-    resolve('true');
+    var obj={
+        coId:coId
+    };
+    var obj2={
+        status:"false"
+    };
+    updateSyncStatus("syncStatus", obj, obj2)
+        .then(function(results)
+        {
+            resolve('true');
+        })
+        .catch(function()
+        {
+            reject(500);
+        });
 };
 
     /**

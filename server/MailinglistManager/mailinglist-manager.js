@@ -57,9 +57,15 @@ var MailinglistManager = {
 				});
 		});
 	},
+	 /**
+      *Create a new mailing in bullet leads
+      *@param {object} res - result status of the creation
+      *@param {string} collectionName - the table name where the mailing lists are stored(CompanyID specific)
+      *@param {object} obj - the name of the mailing list.
+      *@param {Method} callback - call back method to return the results to front end
+      *@returns {Method} returns results using callback
+      */
 	addList: function(res, collectionName, obj, callback) {
-		//create new Mailing List Object
-		//define new object with MCadd results
 		dbHandler.dbInsert(collectionName, obj)
 			.then(function(results) {
 				callback(res, 200);
@@ -68,10 +74,14 @@ var MailinglistManager = {
 				callback(res, 500);
 			});
 	},
+	/**
+      *Create a new mailing in bullet leads (Used when syncing with mailchimp)
+      *@param {string} collectionName - the table name where the mailing lists are stored(CompanyID specific)
+      *@param {object} obj - the name of the mailing list.
+      *@returns {Promise} returns results or error
+      */
 	addListMC: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
-			//create new Mailing List Object
-			//define new object with MCadd results
 			dbHandler.dbInsert(collectionName, obj)
 				.then(function(results) {
 					resolve(results);
@@ -81,10 +91,18 @@ var MailinglistManager = {
 				});
 		});
 	},
+	/**
+      *Create a contact in leads table, using the _id and add the contact into mailinglists table 
+      *@param {string} collectionName - the table name where the mailing lists are stored(CompanyID specific)
+      *@param {object} obj - the object that contains the contact's information.
+      *@param {string} apiKey - the company's specific mailchimp api key
+      *@param {string} coId - the ID that identifies a particular company
+      *@param {string} coName - the name that identifies a particular company
+      *@returns {Promise} returns results or error
+      */
 	addContactsChain: function(collectionName, obj, apiKey, coId, coName) {
 		return new Promise(function(resolve, reject) {
 			/*console.log('++++++++++++ADDCONTACTSCHAIN+++++++++++++');	*/
-			//console.log(coId);
 			var temp = {
 				firstName: obj.firstName,
 				lastName: obj.lastName,
@@ -175,11 +193,16 @@ var MailinglistManager = {
 				{
 					console.log(error1);
 					reject(500);
-
 				})
-			
 		});
 	},
+	/**
+      *Delete mailinglists from bullet leads
+      *@param {string} res - the results status that will be return to the front end
+      *@param {string} collectionName - the table name where the mailing lists are stored(CompanyID specific)
+      *@param {object} obj - the object that contains the mailinglist's information.
+      *@returns {method} callback - callback method to return the status to the front end
+      */
 	deleteList: function(res, collectionName, obj, callback) {
 		dbHandler.deleteManyDB(collectionName, obj)
 			.then(function(results) {
@@ -189,6 +212,12 @@ var MailinglistManager = {
 				callback(res, error);
 			});
 	},
+	/**
+      *Delete mailinglists from bullet leads
+      *@param {string} collectionName - the table name where the mailing lists are stored(CompanyID specific)
+      *@param {object} obj - the object that contains the mailing list's information.
+      *@returns {Promise} returns results or error
+      */
 	deleteListv2: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
 			dbHandler.deleteManyDB(collectionName, obj)
@@ -200,6 +229,12 @@ var MailinglistManager = {
 				});
 		});
 	},
+	/**
+      *Retrieve a list of mailinglist names from bullet leads server
+      *@param {string} res - the results that will be return to the front end
+      *@param {string} collectionName - the table name where the mailing lists are stored(CompanyID specific)
+      *@returns {method} callback - callback method to return the results to the front end
+      */
 	getListNames: function(res, collectionName, callback) {
 		//This is to allow us to filter out mailing list names only.
 		var obj = {
@@ -233,6 +268,13 @@ var MailinglistManager = {
 				reject(error);
 			});
 	},
+	/**
+      *Edit the contact information saved in mailing list table
+      *@param {string} collectionName - the table name where the mailing lists are stored(CompanyID specific)
+      *@param {object} obj - the object that contains the mailing list's information.
+      *@param {string} coId - the ID of the company that owns the account
+      *@returns {Promise} returns results or error
+      */
 	updateContactMC: function(collectionName, obj, coId) {
 		return new Promise(function(resolve, reject) {
 			//This is to allow us to filter out mailing list names only.
@@ -277,6 +319,11 @@ var MailinglistManager = {
 				});
 		});
 	},
+	/**
+      *Retrieves all mailing list name stored in the company's database
+      *@param {string} collectionName - the table name where the mailing lists are stored(CompanyID specific)
+      *@returns {Promise} returns results or error
+      */
 	getListNamesMC: function(collectionName) {
 		//This is to allow us to filter out mailing list names only.
 		return new Promise(function(resolve, reject) {
@@ -293,6 +340,11 @@ var MailinglistManager = {
 				});
 		});
 	},
+	/**
+      *Retrieves all mailing list members stored in the company's database
+      *@param {string} collectionName - the table name where the mailing lists are stored(CompanyID specific)
+      *@returns {Promise} returns results or error
+      */	
 	getAllMembers: function(collectionName) {
 		return new Promise(function(resolve, reject) {
 			dbHandler.dbQuery(collectionName, null)
@@ -304,30 +356,13 @@ var MailinglistManager = {
 				});
 		});
 	},
-	populate: function(obj, collectionName) {
-		//This is to allow us to filter out mailing list names only.
-		if (!Array.isArray(obj)) {
-			dbHandler.dbInsert(collectionName, obj)
-				.then(function(results) {
-					resolve(results);
-				})
-				.catch(function(error) {
-					reject(error);
-				});
-		} else {
-			var arr = [];
-			for (var index in obj) {
-				arr.push(dbHandler.dbInsert(collectionName, obj[index]));
-			}
-			Promise.all(arr)
-				.then(function(results) {
-					resolve(results);
-				})
-				.catch(function(error) {
-					resolve(error);
-				});
-		}
-	},
+	/**
+      *Adds members to the mailing list table
+      *@param {string} res - the result status to be returned to the front end
+      *@param {string} collectionName - the table name where the member's information are stored(CompanyID specific)
+      *@param {Object} obj - an object that contains the information of the member.
+      *@returns {method} returns results or error status
+      */		
 	addMemberToList: function(res, collectionName, obj, callback) {
 		if (!Array.isArray(obj)) {
 			dbHandler.dbInsert(collectionName, obj)
@@ -351,6 +386,13 @@ var MailinglistManager = {
 				});
 		}
 	},
+	/**
+      *Adds members to the mailing list table
+      *@param {string} res - the result status to be returned to the front end
+      *@param {string} collectionName - the table name where the member's information are stored(CompanyID specific)
+      *@param {Object} obj - an object that contains the information of the member.
+      *@returns {method} returns results or error status
+      */		
 	addMemberToListMC: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
 			dbHandler.dbInsert(collectionName, obj)
@@ -362,15 +404,13 @@ var MailinglistManager = {
 				});
 		});
 	},
-	dbDropCollection: function(res, collectionName, callback) {
-		dbHandler.dbDropCollection(collectionName)
-			.then(function(results) {
-				callback(res, 200);
-			})
-			.catch(function(error) {
-				callback(res, 500);
-			});
-	},
+	/**
+      *Edits the name of the mailing list in the database
+      *@param {string} res - the result status to be returned to the front end
+      *@param {string} collectionName - the table name where the member's information are stored(CompanyID specific)
+      *@param {Array} obj - an object that contains the information of the mailinglist.
+      *@returns {method} returns results or error status
+      */
 	updateList: function(res, collectionName, obj, callback) {
 		if ((Array.isArray(obj)) && obj.length == 2) {
 			dbHandler.dbUpdateMany(collectionName, obj[0], obj[1])
@@ -384,6 +424,15 @@ var MailinglistManager = {
 			callback(res, 400);
 		}
 	},
+	/**
+      *Retrieve all members that belongs to a specific mailing list in the database
+      *@param {string} res - the results to be returned to the front end
+      *@param {string} collectionName - the table name where the member's information are stored(CompanyID specific)
+      *@param {Array} obj - an object that contains the information of the mailinglist.
+      *@param {method} callback - the method use to return the results to the front end.
+      *@param {string} coId - the ID of the company that owns the account
+      *@returns {method} returns results or error 
+      */
 	getSubscribers: function(res, collectionName, obj, callback, coId) {
 		var temp = {
 			listID: obj.listID
@@ -406,7 +455,6 @@ var MailinglistManager = {
 				}
 				Promise.all(pArr)
 					.then(function(promiseResults) {
-						//console.log(promiseResults);
 						var finalResults = [];
 						for (var i = 0; i < returnResults.length; i++) {
 							for (var j = 0; j < promiseResults.length; j++) {
@@ -425,7 +473,6 @@ var MailinglistManager = {
 								}
 							}
 						}
-						//console.log(finalResults);
 						callback(res, finalResults);
 					}).catch(function(pAllError) {
 						callback(res,pAllError);
@@ -435,6 +482,12 @@ var MailinglistManager = {
 				callback(res, error);
 			});
 	},
+	/**
+      *Edits the name of the mailing list in the database
+      *@param {string} collectionName - the table name where the member's information are stored(CompanyID specific)
+      *@param {Array} obj - an object that contains the information of the mailinglist.
+      *@returns {Promise} returns results or error status
+      */
 	updateListMC: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
 			if ((Array.isArray(obj)) && obj.length == 2) {
@@ -448,6 +501,14 @@ var MailinglistManager = {
 			}
 		});
 	},
+	/**
+      *Removes a member from the mailing list database
+      *@param {string} res - the results to be returned to the front end
+      *@param {string} collectionName - the table name where the member's information are stored(CompanyID specific)
+      *@param {Array} obj - an object that contains the information of the members.
+      *@param {method} callback - a method to return the results to the front end
+      *@returns {method} returns results or error status
+      */
 	deleteMember: function(res, collectionName, obj, callback) {
 		if (!Array.isArray(obj)) {
 			dbHandler.dbDelete(collectionName, obj)
@@ -471,6 +532,12 @@ var MailinglistManager = {
 				});
 		}
 	},
+	/**
+      *Removes a member from the mailing list database
+      *@param {string} collectionName - the table name where the member's information are stored(CompanyID specific)
+      *@param {Array} obj - an object that contains the information of the members.
+      *@returns {Promise} returns results or error status
+      */
 	deleteMemberMC: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
 			dbHandler.dbDelete(collectionName, obj)
@@ -482,22 +549,11 @@ var MailinglistManager = {
 				});
 		});
 	},
-	addReportActivity: function(collectionName, obj) {
-		return new Promise(function(resolve, reject) {
-			var queryTemp = {
-				listID: obj.listID,
-				email_hash: obj.email_hash
-			};
-			dbHandler.dbQuery(collectionName, queryTemp)
-				.then(function(results) { //containing contactid
-					obj.contactID = results[0].contactID;
-					resolve(obj);
-				})
-				.catch(function(error) {
-					reject(error);
-				});
-		});
-	},
+	/**
+      *Retrieves all information in mailing list.
+      *@param {string} collectionName - the table name where the member's information are stored(CompanyID specific)
+      *@returns {Promise} returns results or error status
+      */
 	getAllData: function(collectionName) {
 		return new Promise(function(resolve, reject) {
 			dbHandler.dbQuery(collectionName, null)
@@ -509,6 +565,12 @@ var MailinglistManager = {
 				});
 		});
 	},
+	/**
+      *Updates the email activity for a specific contact
+      *@param {string} collectionName - the table name where the member's information are stored(CompanyID specific)
+      *@param {object} obj - object that contains the email activity for a particular contact
+      *@returns {Promise} returns results or error status
+      */
 	updateActivity: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
 			var obj1 = [{
@@ -527,34 +589,40 @@ var MailinglistManager = {
 				});
 		});
 	},
+	/**
+      *Filter out any duplicate item in the array
+      *@param {string} collectionName - the table name where the member's information are stored(CompanyID specific)
+      *@param {object} para - the ID of the mailingist to be retrieved.
+      *@returns {Promise} - returns results or error status
+      */
 	getFilterMembers: function(collectionName, para,results)
 	{
 		return new Promise (function(resolve,reject) {
 		var obj={
 			listID:para
 		};
-		dbHandler.dbQuery(collectionName,obj)
-		.then(function(queryResults){//containing contactid
-			var filterArr=[];
-			var duplicateFound=false;
-			for(var j=0;j<results.length;j++){
-				for(var i=0;i<queryResults.length;i++){
-						if(queryResults[i].email_hash==results[j].email_hash){
-							 duplicateFound = true;
-						}
+			dbHandler.dbQuery(collectionName,obj)
+			.then(function(queryResults){//containing contactid
+				var filterArr=[];
+				var duplicateFound=false;
+				for(var j=0;j<results.length;j++){
+					for(var i=0;i<queryResults.length;i++){
+							if(queryResults[i].email_hash==results[j].email_hash){
+								 duplicateFound = true;
+							}
+					}
+					if(duplicateFound==false) {
+						filterArr.push(results[j]);
+					}else {
+						duplicateFound=false;
+					}
 				}
-				if(duplicateFound==false) {
-					filterArr.push(results[j]);
-				}else {
-					duplicateFound=false;
-				}
-			}
-			var finalArray=_.uniq(filterArr);
-			resolve(finalArray);
-		})
-		.catch(function(error){
-			reject(error);
-		});
+				var finalArray=_.uniq(filterArr);
+				resolve(finalArray);
+			})
+			.catch(function(error){
+				reject(error);
+			});
 		});
 	}
 };
