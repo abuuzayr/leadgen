@@ -151,10 +151,9 @@ module.exports = function(){
 			var decodedAccessInfo = decipher.update(ecodedAccessInfo,'hex','utf8');
 			decodedAccessInfo += decipher.final('utf8');
 			console.log("decoded access info");
-			//console.log(decodedAccessInfo);
+			console.log(decodedAccessInfo);
 			req.accessInfo = JSON.parse(decodedAccessInfo);
-			console.log("lalala");
-			//console.log(req.accessInfo);//TOFIX
+			console.log(req.accessInfo);//TOFIX
 			 next();
 		}catch(err){
 			console.log(err);//TOFIX
@@ -166,8 +165,8 @@ module.exports = function(){
 		console.log(req.accessInfo);//TOFIX
 		var module = req.accessInfo[moduleName];
 		console.log('verifying access');//TOFIX
-		// console.log(module);//TOFIX
-		// console.log(moduleName);
+		console.log(module);//TOFIX
+		console.log(moduleName);
 		console.log('req.method: '+ req.method);//TOFIX
 					switch(req.method){
 				case 'GET':
