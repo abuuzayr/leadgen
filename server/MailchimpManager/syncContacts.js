@@ -1,14 +1,30 @@
 var mailchimpClass = require('./mailchimpApp');
 var mailinglistmanager = require('../MailinglistManager/mailinglist-manager');
 var Promise = require('bluebird');
+
+/**
+*Module to handle mailchimp services and bulletleads calls
+*Performs the syncing of two data
+*@exports MailchimpManager
+*/
+
 var mailchimpHandler = {
+    /**
+      *Syncs bullet leads database (per company) with mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} coId - the ID of the company that owns the mailchimp account.
+      *@param {string} coName - the name of the company that owns the mailchimp account.
+      *@returns {Promise} returns success or error
+      */
     syncContacts: function(apiKey, coId, coName) {
         return new Promise(function(resolve, reject) {
             mailchimpClass.getMyList(apiKey)
                 .then(function(results) {
                     var mailchimplist;
                     var appDatabase;
-                    //step one, retrieve results from mailchimp
+                    /**
+                    *Retrieve members from mailchimp server
+                    */
                     mailchimplist = results;
                     mailinglistmanager.getListNamesMC(coId + '_mailinglists')
                         .then(function(dbResults) {
@@ -22,6 +38,9 @@ var mailchimpHandler = {
                                 };
                                 databaselist.push(temp);
                             }
+                            /**
+                            *Retrieve members from bulletleads server
+                            */
                             mailinglistmanager.getAllMembers(coId + '_mailinglists')
                                 .then(function(dbResults2) {
                                     //poplating the members field
@@ -44,19 +63,21 @@ var mailchimpHandler = {
                                     }
                                     return databaselist;
                                 }).then(function(databaselist) {
-                                    //Now we need arrange he dbResults to fit mailchimp object format
+                                    /**
+                                    *Below console logs are to aid debugging.
+                                    *It prints the both lists retrieved from the two servers
+                                    */
                                     /*console.log("====================App Database ========================================");
                                     for (var i = 0; i < databaselist.length; i++) {
                                     	console.log(databaselist[i]);
                                     }
-                                    console.log("=========================================================");
                                     console.log("====================mailchimp Database ========================================");
                                     for (var i = 0; i < mailchimplist.length; i++) {
                                     	console.log(mailchimplist[i]);
                                     }
-                                    console.log("=========================================================");*/
                                     console.log("mailinglist has " + mailchimplist.length);
                                     console.log("databaselist has " + databaselist.length);
+                                    */
                                     var returnArr = [];
                                     returnArr.push(mailchimplist);
                                     returnArr.push(databaselist);
@@ -65,13 +86,15 @@ var mailchimpHandler = {
                                     return returnArr;
                                 })
                                 .then(function(returnArr) {
-                                    //Now that we have both results, we compare them to see if there are the same,
-                                    //First, we want to check that we have the most updated listname.
-                                    //Since when CRUD is performed at MC, contacts will not be updated immediately, we assume that MC will have the most updated ver.
-                                    var differenceArr = []; // this is detect and record down any difference found while comparing the two array
+                                    /**
+                                    *Now that we have both results, we compare them to see if there are the same
+                                    *First, we need to identify a unique list that exists at both server
+                                    *From this, we can compare the contents individually and apply the difference to bulletleads server.
+                                    */ 
+                                    // this is detect and record down any difference found while comparing the two array
+                                    var differenceArr = [];
                                     var mailchimplist = returnArr[0];
                                     var appDatabase = returnArr[1];
-                                    //start looping
                                     var i, j;
                                     for (i = 0; i < mailchimplist.length; i++) {
                                         var listfound = false;
@@ -90,7 +113,6 @@ var mailchimpHandler = {
                                                     temp.action = '1';
                                                 }
                                                 var membTemp = []; // Array of objects
-                                                //	console.log(mailchimplist[i].members.length+"  "+appDatabase[j].members.length);
                                                 membTemp = compareMemberLists(mailchimplist[i].members, appDatabase[j].members);
                                                 //1 - update member, 2- create member, 3 delete remove
                                                 if (membTemp.length != '0') {
@@ -138,14 +160,14 @@ var mailchimpHandler = {
                                     }
                                     return differenceArr;
                                 }).then(function(differenceArr) {
-                                    /*	console.log("====================Update Database ========================================");
+                                    /**	console.log("====================Update Database ========================================");
+                                     *for (var i = 0; i < differenceArr.length; i++) {
+                                     *   console.log(differenceArr[i]);
+                                     *}
                                      */
-                                    for (var i = 0; i < differenceArr.length; i++) {
-                                        console.log(differenceArr[i]);
-                                    }
-
-                                    console.log(differenceArr.length);
-                                    console.log("========================End of Update=======================================");
+                                    /**Now that the difference of the two arrays has been arranged
+                                     *
+                                     */
                                     var promiseArr = [];
                                     for (var i = 0; i < differenceArr.length; i++) {
                                         //go through everylist check the action, perform the action.
@@ -288,7 +310,9 @@ var mailchimpHandler = {
                                     Promise.all(promiseArr)
                                         .then(function(result) {
                                             console.log('We are done with sync');
-                                            console.log(apiKey);
+                                            /**
+                                            *Now that contacts has finish syncing, we can start to sync email activity.
+                                            */
                                             mailchimpClass.getReports(getReportDetails, coId, resolve, reject, apiKey);
                                         })
                                         .catch(function(error2) {
@@ -302,6 +326,13 @@ var mailchimpHandler = {
                 });
         });
     },
+    /**
+      *Edit the name of a mailing list in the mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist that will be updated in mailchimp server
+      *@param {string} tempInfo - information of the mailinglist
+      *@returns {Promise} returns success or error
+      */
     updateList: function(apiKey, listID, tempInfo) {
         return new Promise(function(resolve, reject) {
             mailchimpClass.updateList(apiKey, listID, tempInfo)
@@ -312,6 +343,12 @@ var mailchimpHandler = {
                 });
         });
     },
+    /**
+      *Adds a mailing list name in the mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listName - the name of the new mailing list to be added to the mailchimp server
+      *@returns {Promise} returns a success or error
+      */
     addList: function(apiKey, listName) {
         return new Promise(function(resolve, reject) {
             mailchimpClass.addList(apiKey, listName)
@@ -323,6 +360,12 @@ var mailchimpHandler = {
         });
 
     },
+     /**Add a new member to a specific list in mailchimp
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist used in mailchimp server
+      *@param {object} memberInfo - an object that contains the details of the member to be added.
+      *@returns {Promise} returns a success or error
+      */
     addMemberToList: function(apiKey, listID, memberInfo) {
         return new Promise(function(resolve, reject) {
             mailchimpClass.addMemberToList(apiKey, listID, memberInfo)
@@ -334,6 +377,12 @@ var mailchimpHandler = {
                 });
         });
     },
+    /**
+      *Retrieves information of a specific mailinglist from mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist that will be retrieved in mailchimp server
+      *@returns {Promise} returns the information of the mailinglist or error
+      */
     getListInformation: function(apiKey, listID) {
         return new Promise(function(resolve, reject) {
             mailchimpClass.getListInformation(apiKey, listID)
@@ -344,6 +393,13 @@ var mailchimpHandler = {
                 });
         });
     },
+    /**
+      *Removes a member from a specific mailing list in mailchimp
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist that will be deleted in mailchimp server
+      *@param {string} suscribeHash - the ID of the member in a specific mailinglist in mailchimp server (md5 of the email address)
+      *@returns {Promise} returns a success or error
+      */
     deleteMember: function(apiKey, listID, suscribeHash) {
         return new Promise(function(resolve, reject) {
             mailchimpClass.deleteMember(apiKey, listID, suscribeHash)
@@ -355,6 +411,12 @@ var mailchimpHandler = {
                 });
         });
     },
+    /**
+      *Removes a list from mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist that will be deleted in mailchimp server
+      *@returns {Promise} returns a success or error
+      */
     deleteList: function(apiKey, listID) {
         return new Promise(function(resolve, reject) {
             mailchimpClass.deleteList(apiKey, listID)
@@ -366,6 +428,12 @@ var mailchimpHandler = {
                 });
         });
     },
+    /**
+      *Edit the name of a mailing list in the mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist that will be updated in mailchimp server
+      *@returns {Promise} returns success or error
+      */
     updateMember: function(apiKey, listID, suscribeHash, memberInfo) {
         return new Promise(function(resolve, reject) {
             mailchimpClass.updateMember(apiKey, listID, suscribeHash, memberInfo)
@@ -378,9 +446,15 @@ var mailchimpHandler = {
     }
 };
 module.exports = mailchimpHandler;
-
+    /**
+      *Method takes in the report information array from mailchimp, sort and save into bulletleads.
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist that will be updated in mailchimp server
+      *@param {Promise} resolve - To allow method to resolve the results
+      *@param {Promise} reject - To allow method to reject the promise if something fails
+      *@returns {Promise} returns success or error
+      */
 var getReportDetails = function(results, coId, resolve, reject) {
-    //Sort to handle email activity information
     var activityArr = [];
     console.log("===================Report activity ==============================");
     console.log(results);
@@ -460,6 +534,12 @@ var getReportDetails = function(results, coId, resolve, reject) {
     resolve('true');
 };
 
+    /**
+      *Method takes in two arrays, retrieved from mailchimp and bullet leads and returns the differences
+      *@param {Array} mailchimpMembers - a list of mailing list members retrieved from mailchimp
+      *@param {Array} membersDatabase - a list of mailing list members retrieved from bullet leads
+      *@returns {Promise} returns success or error
+      */
 function compareMemberLists(mailchimpMembers, membersDatabase) {
     var differenceMemArr = [];
     for (var i = 0; i < mailchimpMembers.length; i++) {
