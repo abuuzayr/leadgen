@@ -19,8 +19,7 @@ app.use('/api', apiRouter);
 
 MongoClient.connect(config.dbURI)
 	.then(function (db1){
-		var superAdminUrl = config.getDbUri(null);
-		MongoClient.connect(superAdminUrl)
+		MongoClient.connect(config.dbURI_sa)
 		.then(function(db2){
 			module.exports = {
 				db1: db1,

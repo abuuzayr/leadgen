@@ -2,10 +2,17 @@
 
 //type 1 = corporate, 2 = consumer
 
+if (process.env.NODE_ENV === 'production') {
+  dbhost = 'mongodb';
+} else {
+  dbhost = 'localhost';
+}
+
 
 module.exports = {
   'port': process.env.PORT || 8080,
-  'dbURI': 'mongodb://localhost:27017/app',
+  'dbURI': 'mongodb://' + dbhost + ':27017/bulletleads',
+  'dbURI_sa': 'mongodb://' + dbhost + ':27017/bulletleads_sa',
   'superSecret' : 'ilovescotchscotchyscotchscotch',
   'appSecret' : 'secret_for_bulletlead',
   'successMsg': 'sucess',
@@ -106,10 +113,4 @@ module.exports = {
     Longitude: 103.831,
     Latitude: 1.4333
   }],
-  getDbUri : function(userID){
-    if(userID === null)
-      return 'mongodb://localhost:27017/s_admin';
-    else
-      return 'mongodb://localhost:27017/' + userID;
-  }
 };
