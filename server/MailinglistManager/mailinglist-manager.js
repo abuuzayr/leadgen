@@ -4,10 +4,20 @@ var dbHandler = require('../database-handler'),
 	mongodb = require('mongodb'),
 	contactsHandler = require('../ContactsManager/contacts-manager'),
 	Promise = require('bluebird');
-
 var _ = require('lodash');
 
+/**
+*Module to handle mailinglists database calls for bulletleads
+*@exports mailinglistmanager
+*/
+
 var MailinglistManager = {
+	 /**
+      *Retrieves mailing members from the MongoDB
+      *@param {string} collectionName - the database table the mailinglist information belongs in
+      *@param {Object} obj - the object that contains the ID of the mailinglist
+      *@returns {Promise} returns results or error
+      */
 	getMailingListMemberInfo: function(collectionName, obj) {
 		return new Promise(function(resolve, reject) {
 			dbHandler.dbQuery(collectionName, obj)
@@ -19,6 +29,15 @@ var MailinglistManager = {
 				});
 		});
 	},
+	 /**
+      *Edit member's information in mailinglist
+      *@param {string} collectionName - the database table the mailinglist information belongs in
+      *@param {string} lname - the last name field of the contact
+      *@param {string} fname - the first name name field of the contact
+      *@param {string} lID - the ID of the mailinglist the contact belongs to
+      *@param {string} sHash - the md5 hash of the email address of the contact
+      *@returns {Promise} returns results or error
+      */
 	updateMemberInfo: function(collectionName, lname, fname, lID, sHash) {
 		return new Promise(function(resolve, reject) {
 			var object1 = {

@@ -2,8 +2,18 @@ var request = require('request');
 var mailchimp = require('mailchimp-v3');
 var Promise = require('bluebird');
 var username = 'anything';
-var count = 0;
+
+/**
+*Module to handle mailchimp services and API calls
+*@exports MailchimpClass
+*/
+
 var mailchimpApp = {
+     /**
+      *Retrieves all mailing list name from the mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@returns {Promise} returns a list or error
+      */
     getMyList: function(apiKey) {
         return new Promise(function(resolve, reject) {
             mailchimp.setApiKey(apiKey);
@@ -46,6 +56,13 @@ var mailchimpApp = {
 
         });
     },
+    /**
+      *Add a new member to a specific list in mailchimp
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist used in mailchimp server
+      *@param {object} memberInfo - an object that contains the details of the member to be added.
+      *@returns {Promise} returns a success or error
+      */
     addMemberToList: function(apiKey, listID, memberInfo) {
         return new Promise(function(resolve, reject) {
             mailchimp.setApiKey(apiKey);
@@ -69,10 +86,16 @@ var mailchimpApp = {
                     resolve(result);
                 })
                 .catch(function(error) {
-                    console.log(error);
+                    reject(500);
                 });
         });
     },
+    /**
+      *Adds a mailing list name in the mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listName - the name of the new mailing list to be added to the mailchimp server
+      *@returns {Promise} returns a success or error
+      */
     addList: function(apiKey, listName) {
         return new Promise(function(resolve, reject) {
             mailchimp.setApiKey(apiKey);
@@ -105,6 +128,12 @@ var mailchimpApp = {
                 });
         });
     },
+    /**
+      *Removes a list from mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist that will be deleted in mailchimp server
+      *@returns {Promise} returns a success or error
+      */
     deleteList: function(apiKey, listID) {
         return new Promise(function(resolve, reject) {
             mailchimp.setApiKey(apiKey);
@@ -117,6 +146,13 @@ var mailchimpApp = {
                 });
         });
     },
+    /**
+      *Removes a member from a specific mailing list in mailchimp
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist that will be deleted in mailchimp server
+      *@param {string} suscribeHash - the ID of the member in a specific mailinglist in mailchimp server (md5 of the email address)
+      *@returns {Promise} returns a success or error
+      */
     deleteMember: function(apiKey, listID, suscribeHash) {
         return new Promise(function(resolve, reject) {
             mailchimp.setApiKey(apiKey);
@@ -126,10 +162,16 @@ var mailchimpApp = {
                     resolve(results);
                 })
                 .catch(function(error) {
-                    reject(error.status);
+                    reject(500);
                 });
         });
     },
+    /**
+      *Retrieves information of a specific mailinglist from mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist that will be retrieved in mailchimp server
+      *@returns {Promise} returns the information of the mailinglist or error
+      */
     getListInformation: function(apiKey, listID) {
         return new Promise(function(resolve, reject) {
             mailchimp.setApiKey(apiKey);
@@ -139,10 +181,17 @@ var mailchimpApp = {
                     resolve(results);
                 })
                 .catch(function(error) {
-                    reject(error);
+                    reject(500);
                 });
         });
     },
+    /**
+      *Edit the name of a mailing list in the mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist that will be updated in mailchimp server
+      *@param {string} tempInfo - information of the mailinglist
+      *@returns {Promise} returns success or error
+      */
     updateList: function(apiKey, listID, tempInfo) {
         return new Promise(function(resolve, reject) {
             mailchimp.setApiKey(apiKey);
@@ -169,6 +218,12 @@ var mailchimpApp = {
                 });
         });
     },
+    /**
+      *Edit the name of a mailing list in the mailchimp server
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@param {string} listID - the ID of the mailinglist that will be updated in mailchimp server
+      *@returns {Promise} returns success or error
+      */
     updateMember: function(apiKey, listID, suscribeHash, memberInfo) {
         return new Promise(function(resolve, reject) {
             mailchimp.setApiKey(apiKey);
@@ -187,33 +242,16 @@ var mailchimpApp = {
                 });
         });
     },
-    /*getReports: function(getReportDetails, coId, resolve, reject) {
-    	mailchimp
-    		.get('reports')
-    		.then(function(report) {
-    			var results = [];
-    			var init = 0;
-    			var reportPromiseArr=[];
-    			for (var i = init; i < report.reports.length; i++) {
-    				reportPromiseArr.push(getIndividualReport('reports/' + report.reports[i].id + '/email-activity'));
-    			}
-    			Promise.all(reportPromiseArr)
-    				.then(function(result) {
-    					console.log(result);
-    					getReportDetails(result, coId, resolve, reject);
-    				})
-    				.catch(function(error2) {
-    					console.log(error2);
-    					reject(500);
-    				});
-    			//get reports 10 at a time.
-    		}).catch(function(error) {
-    			console.log(error);
-    			reject(500);
-    		});
-    }*/
+    /**
+      *Retrieves campagin reports information from mailchimp server. Arrange requests in sets of 10.
+      *@param {method} getReportDetails - method to allow callback after retrieve is successful.
+      *@param {coId} coId - the ID of the company that owns the mailchimp account.
+      *@param {Promise} resolve - to allow method to resolve the results to the caller
+      *@param {Promise} reject - to allow method to reject the error to the caller
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@returns {Promise} returns error, if success proceeds to recursivemethod1
+      */
     getReports: function(getReportDetails, coId, resolve, reject, apiKey) {
-        console.log('we are in getReports');
         mailchimp
             .get('reports')
             .then(function(report) {
@@ -234,22 +272,30 @@ var mailchimpApp = {
                     }
                     promiseArr.push(temp);
                 }
-                //start recurisve loop
                 recrusiveMethod1(promiseArr, 0, promiseArr.length, resultsArr, getReportDetails, coId, resolve, reject, apiKey);
             })
             .catch(function(error) {
-                console.log(error);
                 reject(500);
             });
     }
 };
 module.exports = mailchimpApp;
-
+    /**
+      *Recrusive method that will retrieves reports' information in sets of 10 request at a time.
+      *@param {array} promiseArr - Array arranged in sets of 10s will be used to retrieve information from mailchimp server
+      *@param {int} count - a variable that will be used to iterate the promiseArr
+      *@param {int} count - a variable that will be used denote the end of iteration
+      *@param {array} resultsArr - Array to store the information of email activity retrieved from mailchimp server
+      *@param {method} getReportDetails - method to allow callback after retrieve is successful.
+      *@param {string} coId - the ID of the company that owns the mailchimp account.
+      *@param {Promise} resolve - to allow method to resolve the results to the caller
+      *@param {Promise} reject - to allow method to reject the error to the caller
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@returns {Array} returns array, if iteration is not completed, proceed to recursivemethod1 again
+      */
 var recrusiveMethod1 = function(promiseArr, count, totalCount, resultsArr, getReportDetails, coId, resolve, reject, apiKey) {
     console.log('we are in recursive');
     if (count == totalCount) {
-        //reach the end of the for loop
-        //transform the 2D array to 1D
         var finalResults = [];
         for (var i = 0; i < resultsArr.length; i++) {
             for (var j = 0; j < resultsArr[i].length; j++) {
@@ -262,9 +308,7 @@ var recrusiveMethod1 = function(promiseArr, count, totalCount, resultsArr, getRe
         Promise.all(tempPromise)
             .then(function(results) {
                 resultsArr.push(results);
-               // console.log(results);
                 count = count + 1;
-                //call the next recurisve method
                 recrusiveMethod1(promiseArr, count, totalCount, resultsArr, getReportDetails, coId, resolve, reject, apiKey);
             })
             .catch(function(rm1Error) {
@@ -273,6 +317,13 @@ var recrusiveMethod1 = function(promiseArr, count, totalCount, resultsArr, getRe
             });
     }
 };
+    /**
+      *Retrieve the members of a specific mailing list
+      *@param {string} id - ID of the mailinglist
+      *@param {string} name - name of the selected mailinglist
+      *@param {string} apiKey - apikey of the user's mailchimp account
+      *@returns {Promise} returns success or error
+      */
 var getMembers = function(id, name, apiKey) {
     return new Promise(function(resolve, reject) {
         var err = null;
@@ -315,6 +366,11 @@ var getMembers = function(id, name, apiKey) {
         });
     });
 };
+    /**
+      *Retrieves a specific report based on the campagin url
+      *@param {string} url - the url request to retrieve the report infomation from mailchimp server
+      *@returns {Promise} returns the request information or error
+      */
 var	getIndividualReport = function(url){
 	return new Promise(function(resolve, reject) {
 		request({

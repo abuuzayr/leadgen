@@ -11,7 +11,6 @@ var http403 = require('../../utils/403')();
 //ACCESS CONTROL
 leadlistRouter.use('*', http403.verifyAccess('leadmgmt'));
 
-
 leadlistRouter.get('/sync', function(req, res) {
     var coId = req.decoded.companyId;
     var coName = req.decoded.companyName;
@@ -25,9 +24,6 @@ leadlistRouter.get('/sync', function(req, res) {
         });
 
 });
-
-
-
 
 /*
 CRUD on leads
@@ -149,6 +145,7 @@ leadlistRouter.put('/leadList/leads/duplicates', function(req, res) {
             });
     }
 });
+
 leadlistRouter.get('/leadList/leads/:id', function(req, res) {
     if (!req.params.id)
         res.sendStatus(400);
