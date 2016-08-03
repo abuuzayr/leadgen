@@ -26,9 +26,15 @@ MongoClient.connect(config.dbURI)
 				db2: db2
 			};
 
-			app.listen(config.port,function(){
+			var server = app.listen(config.port,function(){
 				console.log('Express server listening on port '+ config.port);
 			});
+
+      process.on('SIGTERM', function() {
+        server.close(function() {
+          process.exit(0);
+        });
+      });
 		})
 		.catch(function(err){
 			console.log(err);
