@@ -4,10 +4,7 @@
 module.exports = function(){
 
 	var service = {
-		authenticateToken: authenticateToken,
 		generateCookie : generateCookie,
-		checkStroage: checkStroage,
-		checkExpiration: checkExpiration,
 		decodeAccessInfo: decodeAccessInfo,
 		verifyAccess: verifyAccess,
 		decodeCookieInfo: decodeCookieInfo,
@@ -15,39 +12,6 @@ module.exports = function(){
 	};
 	return service;
 
-	function authenticateToken(req,res){
-		var config = require('../config.js');
-		var jwt = require('jsonwebtoken');
-		var token = req.cookies['session'];
-		console.log('Authenticate User');//TOFIX
-		//console.log(token);//TOFIX
-
-		if(!token)
-			send403(req,res,"no token");
-		else{
-			jwt.verify(token,config.superSecret,function(err, decoded){
-				if(err){
-					return send403(req,res,"Authentication failed with error: " + err.message);
-				}
-				else{
-					req.decoded = decoded;
-					jwt.sign({
-               			username: decoded.username,
-               			email: decoded.email,
-               			usertype: decoded.usertype
-               		},config.appSecret,{
-               			expiresIn: '1h'
-               		},function(err,token){
-               			if(err){
-               				return send403(req,res,err.message);
-               			}
-               		res.cookie('id', token, { maxAge: 360000, httpOnly: false });
-               		next();
-               		});
-				}
-			});
-		}
-	}
 	function decodeCookieInfo(req,res,next)
 	{
 		var config = require('../config.js');
@@ -125,19 +89,6 @@ module.exports = function(){
 			});
 		}
 	}
-	function checkStroage(req,res,next){
-		var connection = require('./connection')();
-			connection.Do(function(db){
-				return next()
-		});
-	}
-
-	function checkExpiration(req,res,next){
-		var connection = require('./connection')();
-			connection.Do(function(db){
-				return next()
-		});
-	}
 
 	function decodeAccessInfo(req,res,next){
 		var crypto = require('crypto');
@@ -153,15 +104,8 @@ module.exports = function(){
 			console.log("decoded access info");
 			//console.log(decodedAccessInfo);
 			req.accessInfo = JSON.parse(decodedAccessInfo);
-<<<<<<< HEAD
-<<<<<<< HEAD
-			console.log('Access Info: '+req.accessInfo);//TOFIX
-=======
 			//console.log(req.accessInfo);//TOFIX
->>>>>>> 78728923f1dbc303d669b6f2402f13a6e542f38d
-=======
 			console.log(req.accessInfo);//TOFIX
->>>>>>> 9a5acc88594b6f260a07e838c94d3737fce832c2
 			 next();
 		}catch(err){
 			console.log(err);//TOFIX
@@ -172,21 +116,9 @@ module.exports = function(){
 		return function(req,res,next){
 		console.log('Req Access Info: ' + JSON.stringify(req.accessInfo));//TOFIX
 		var module = req.accessInfo[moduleName];
-<<<<<<< HEAD
-<<<<<<< HEAD
-		console.log('verifying access');//TOFIX
+		/*console.log('verifying access');//TOFIX
 		console.log('Module: ' + module);//TOFIX
-		console.log('Module Name: ' + moduleName);
-=======
-		//console.log('verifying access');//TOFIX
-		//console.log(module);//TOFIX
-		//console.log(moduleName);
->>>>>>> 78728923f1dbc303d669b6f2402f13a6e542f38d
-=======
-		console.log('verifying access');//TOFIX
-		console.log(module);//TOFIX
-		console.log(moduleName);
->>>>>>> 9a5acc88594b6f260a07e838c94d3737fce832c2
+		console.log('Module Name: ' + moduleName);*/
 		console.log('req.method: '+ req.method);//TOFIX
 					switch(req.method){
 				case 'GET':
