@@ -94,14 +94,14 @@
                     .then(
                         $http.get(API_URL + '/cookie')
                         .then(function(res) {
-                            $state.go('home');
+                            $state.go('leadlist');
                         })
 
                     )
-                    .then(function(res) {
-                        console.log(res);
-                        $state.go('home');
-                    })
+                    // .then(function(res) {
+                    //     console.log(res);
+                    //     $state.go('home');
+                    // })
                     .catch(function(err) {
                         errorFeedback('Login blocked by app server');
                     });
