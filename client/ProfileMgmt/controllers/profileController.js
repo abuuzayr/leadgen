@@ -48,8 +48,7 @@
                     .catch(ErrorCallback);
 
                 function SuccessCallback(res) {
-                    return feedbackServices.successFeedback('Password updated', '#profileFeedback', 2000)
-                        .then(delayLogout(1000));
+                    return feedbackServices.successFeedback('Password updated', '#profileFeedback', 2000);
                 }
 
                 function ErrorCallback(err) {
