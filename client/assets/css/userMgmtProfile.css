@@ -78,3 +78,7 @@ h5 {
 .form-group {
     padding: 10px;
 }
+
+#typeBox {
+    background-color: #f15b5d !important;
+}
