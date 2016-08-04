@@ -4,10 +4,10 @@
 module.exports = function(){
 
 	var service = {
-		generateCookie : generateCookie,
-		decodeAccessInfo: decodeAccessInfo,
-		verifyAccess: verifyAccess,
-		decodeCookieInfo: decodeCookieInfo,
+		generateCookie : generateCookie,//generate usertype cookie
+		decodeAccessInfo: decodeAccessInfo,//req.accessInfo
+		verifyAccess: verifyAccess,//check for module permission rights
+		decodeCookieInfo: decodeCookieInfo,//check authentication
 		send403:send403
 	};
 	return service;
