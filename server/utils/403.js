@@ -89,7 +89,7 @@ module.exports = function(){
 		var jwt = require('jsonwebtoken');
 		var token = req.cookies['session'];
 		console.log('Generate Cookie');//TOFIX
-		//console.log(token);//TOFIX
+		console.log('Session Cookie: '+token);//TOFIX
 
 		if(!token)
 			send403(req,res,"no token");
@@ -101,7 +101,7 @@ module.exports = function(){
 				else{
 					req.decoded = decoded;
 					console.log('This is decoded');
-					//console.log(decoded);
+					console.log('Decoded JWT: ' + JSON.stringify(decoded));
 					jwt.sign({
                			email: decoded.email,
                			usertype: decoded.usertype,
@@ -151,9 +151,9 @@ module.exports = function(){
 			var decodedAccessInfo = decipher.update(ecodedAccessInfo,'hex','utf8');
 			decodedAccessInfo += decipher.final('utf8');
 			console.log("decoded access info");
-			console.log(decodedAccessInfo);
+			//console.log(decodedAccessInfo);
 			req.accessInfo = JSON.parse(decodedAccessInfo);
-			console.log(req.accessInfo);//TOFIX
+			console.log('Access Info: '+req.accessInfo);//TOFIX
 			 next();
 		}catch(err){
 			console.log(err);//TOFIX
@@ -162,11 +162,11 @@ module.exports = function(){
 	}
 	function verifyAccess(moduleName){
 		return function(req,res,next){
-		console.log(req.accessInfo);//TOFIX
+		console.log('Req Access Info: ' + JSON.stringify(req.accessInfo));//TOFIX
 		var module = req.accessInfo[moduleName];
 		console.log('verifying access');//TOFIX
-		console.log(module);//TOFIX
-		console.log(moduleName);
+		console.log('Module: ' + module);//TOFIX
+		console.log('Module Name: ' + moduleName);
 		console.log('req.method: '+ req.method);//TOFIX
 					switch(req.method){
 				case 'GET':
