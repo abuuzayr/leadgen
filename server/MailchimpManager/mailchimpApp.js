@@ -318,6 +318,27 @@ var recrusiveMethod1 = function(promiseArr, count, totalCount, resultsArr, getRe
     }
 };
     /**
+      *Retrieves a specific report based on the campagin url
+      *@param {string} url - the url request to retrieve the report infomation from mailchimp server
+      *@returns {Promise} returns the request information or error
+      */
+var	getIndividualReport = function(url){
+	return new Promise(function(resolve, reject) {
+		request({
+			url: url
+		}, function(error, response, body) {
+			if (error !== null) {
+				reject(error);
+			} else {
+				var info = JSON.parse(body);
+				resolve(info);
+				}
+			});
+
+	});
+}
+
+    /**
       *Retrieve the members of a specific mailing list
       *@param {string} id - ID of the mailinglist
       *@param {string} name - name of the selected mailinglist
@@ -329,6 +350,7 @@ var getMembers = function(id, name, apiKey) {
         var err = null;
         var results = [];
         var allUsers = [];
+        var count;
         var url = 'https://' + username + ':' + apiKey + '@us13.api.mailchimp.com/3.0/lists/' + id + '/members?count=1000000';
         request({
             url: url
@@ -366,23 +388,3 @@ var getMembers = function(id, name, apiKey) {
         });
     });
 };
-    /**
-      *Retrieves a specific report based on the campagin url
-      *@param {string} url - the url request to retrieve the report infomation from mailchimp server
-      *@returns {Promise} returns the request information or error
-      */
-var	getIndividualReport = function(url){
-	return new Promise(function(resolve, reject) {
-		request({
-			url: url
-		}, function(error, response, body) {
-			if (error !== null) {
-				reject(error);
-			} else {
-				var info = JSON.parse(body);
-				resolve(info);
-				}
-			});
-
-	});
-}
