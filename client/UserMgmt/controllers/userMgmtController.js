@@ -154,7 +154,7 @@
                 var selectedUsersToDelete = uc.gridApi.selection.getSelectedRows();
                 console.log(selectedUsersToDelete[0]._id);
 
-                allUsersData.deleteUserData(selectedUsersToDelete[0]._id).then(function successCallback(res) {
+                return allUsersData.deleteUserData(selectedUsersToDelete[0]._id).then(function successCallback(res) {
                     return feedbackServices.hideFeedback('#userManagementFeedback').
                     then(feedbackServices.successFeedback('Deleted!', '#userManagementFeedback', 2000));
 
