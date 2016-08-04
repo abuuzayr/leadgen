@@ -154,15 +154,42 @@
                 var selectedUsersToDelete = uc.gridApi.selection.getSelectedRows();
                 console.log(selectedUsersToDelete[0]._id);
 
-                return allUsersData.deleteUserData(selectedUsersToDelete[0]._id).then(function successCallback(res) {
+                // allUsersData.deleteUserData(selectedUsersToDelete[0]._id)
+                //     .then(function successCallback(res) {
+                //         return feedbackServices.hideFeedback('#userManagementFeedback').
+                //         then(feedbackServices.successFeedback('Deleted!', '#userManagementFeedback', 2000));
+
+                //     })
+                //     .catch(function errorCallback(err) {
+                //         return feedbackServices.hideFeedback('#userManagementFeedback').
+                //         then(feedbackServices.successFeedback(err.data, '#userManagementFeedback', 2000));
+                //     });
+
+                var req = {
+                    method: 'PUT',
+                    url: appConfig.API_URL + '/usermgmt/' + userId,
+
+                    headers: {},
+                };
+
+                if ($window.sessionStorage.token) {
+                    req.headers.Authorization = $window.sessionStorage.token;
+                }
+                return $http(req)
+                    .then(SuccessCallback)
+                    .catch(ErrorCallback);
+
+                function SuccessCallback(res) {
                     return feedbackServices.hideFeedback('#userManagementFeedback').
                     then(feedbackServices.successFeedback('Deleted!', '#userManagementFeedback', 2000));
+                }
 
-                }).catch(function errorCallback(err) {
+                function ErrorCallback(err) {
                     return feedbackServices.hideFeedback('#userManagementFeedback').
                     then(feedbackServices.successFeedback(err.data, '#userManagementFeedback', 2000));
-                });
+                }
             };
+            // };
 
             var colName = '';
             var editedValue = '';
