@@ -4,85 +4,12 @@
 module.exports = function(){
 
 	var service = {
-		authenticateToken: authenticateToken,
 		generateCookie : generateCookie,
-		checkStroage: checkStroage,
-		checkExpiration: checkExpiration,
 		decodeAccessInfo: decodeAccessInfo,
 		verifyAccess: verifyAccess,
-		decodeCookieInfo: decodeCookieInfo,
 		send403:send403
 	};
 	return service;
-
-	function authenticateToken(req,res){
-		var config = require('../config.js');
-		var jwt = require('jsonwebtoken');
-		var token = req.cookies['session'];
-		console.log('Authenticate User');//TOFIX
-		//console.log(token);//TOFIX
-
-		if(!token)
-			send403(req,res,"no token");
-		else{
-			jwt.verify(token,config.superSecret,function(err, decoded){
-				if(err){
-					return send403(req,res,"Authentication failed with error: " + err.message);
-				}
-				else{
-					req.decoded = decoded;
-					jwt.sign({
-               			username: decoded.username,
-               			email: decoded.email,
-               			usertype: decoded.usertype
-               		},config.appSecret,{
-               			expiresIn: '1h'
-               		},function(err,token){
-               			if(err){
-               				return send403(req,res,err.message);
-               			}
-               		res.cookie('id', token, { maxAge: 360000, httpOnly: false });
-               		next();
-               		});
-				}
-			});
-		}
-	}
-	function decodeCookieInfo(req,res,next)
-	{
-		var config = require('../config.js');
-		var jwt = require('jsonwebtoken');
-		var token = req.cookies['session'];
-		console.log('Decode Cookie');//TOFIX
-		// console.log(token);//TOFIX
-
-		if(!token)
-			send403(req,res,"no token");
-		else{
-			jwt.verify(token,config.superSecret,function(err, decoded){
-				if(err){
-					return send403(req,res,"Authentication failed with error: " + err.message);
-				}
-				else{
-					req.decoded = decoded;
-					//console.log(req.decoded);
-					jwt.sign({
-               			email: decoded.email,
-               			usertype: decoded.usertype,
-               			subscriptionType: decoded.subscriptionType
-
-               			},config.appSecret,{
-               				expiresIn: '1h'
-               			},function(err,token){
-               				if(err){
-               				    return send403(req,res,err.message);
-               				}
-               				next();
-               				});
-				}
-			});
-		}
-	}
 
 	function generateCookie(req,res){
 		var config = require('../config.js');
@@ -125,25 +52,11 @@ module.exports = function(){
 			});
 		}
 	}
-	function checkStroage(req,res,next){
-		var connection = require('./connection')();
-			connection.Do(function(db){
-				return next()
-		});
-	}
-
-	function checkExpiration(req,res,next){
-		var connection = require('./connection')();
-			connection.Do(function(db){
-				return next()
-		});
-	}
-
 	function decodeAccessInfo(req,res,next){
 		var crypto = require('crypto');
 		var config = require('../config.js');
 		var algorithm = 'aes-256-ctr';
-		console.log('decodeing access info');//TOFIX
+		console.log('decoding access info');//TOFIX
 		var ecodedAccessInfo = req.decoded.application;
 		//console.log(ecodedAccessInfo);//TOFIX
 		var decipher = crypto.createDecipher(algorithm,config.appSecret);
@@ -153,7 +66,7 @@ module.exports = function(){
 			console.log("decoded access info");
 			console.log(decodedAccessInfo);
 			req.accessInfo = JSON.parse(decodedAccessInfo);
-			console.log(req.accessInfo);//TOFIX
+			//console.log(req.accessInfo);//TOFIX
 			 next();
 		}catch(err){
 			console.log(err);//TOFIX
@@ -164,9 +77,9 @@ module.exports = function(){
 		return function(req,res,next){
 		console.log(req.accessInfo);//TOFIX
 		var module = req.accessInfo[moduleName];
-		console.log('verifying access');//TOFIX
-		console.log(module);//TOFIX
-		console.log(moduleName);
+		//console.log('verifying access');//TOFIX
+		//console.log(module);//TOFIX
+		//console.log(moduleName);
 		console.log('req.method: '+ req.method);//TOFIX
 					switch(req.method){
 				case 'GET':
