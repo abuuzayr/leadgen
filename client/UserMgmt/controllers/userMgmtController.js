@@ -1,7 +1,7 @@
 (function() {
     'use strict';
-    app.controller('userMgmtController', ['$scope', '$window', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'authServices', 'feedbackServices',
-        function($scope, $window, $http, allUsersData, uiGridConstants, $q, $location, $timeout, authServices, feedbackServices) {
+    app.controller('userMgmtController', ['$scope', '$window', '$http', 'allUsersData', 'uiGridConstants', '$q', '$location', '$timeout', 'authServices', 'feedbackServices', 'appConfig',
+        function($scope, $window, $http, allUsersData, uiGridConstants, $q, $location, $timeout, authServices, feedbackServices, appConfig) {
             var uc = this;
             var companyId;
             var userId;
