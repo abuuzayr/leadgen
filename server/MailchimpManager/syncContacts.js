@@ -28,6 +28,7 @@ var mailchimpHandler = {
             checkSyncEligibility(coId)
                 .then(function(checkSyncEligibilityResult)
                 {
+                    console.log("Start check Eligibility" +checkSyncEligibilityResult);
                     if(checkSyncEligibilityResult){
                         /**
                         *Someone else is syncing, skip the step.
