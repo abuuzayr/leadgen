@@ -58,7 +58,6 @@
                 }
             };
 
-            //validate password and change accordingly
             /** 
              * Checks the new password and retype password
              * @returns {promise} if invalid
