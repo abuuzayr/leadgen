@@ -36,6 +36,7 @@ var mailchimpHandler = {
                         //console.log("Sync has already started");
                         resolve('true');
                     }else{
+                        console.log(apiKey);
                         mailchimpClass.getMyList(apiKey)
                             .then(function(results) {
                                 var mailchimplist;
