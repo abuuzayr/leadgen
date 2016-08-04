@@ -633,7 +633,6 @@ var getReportDetails = function(results, coId, resolve, reject) {
         }).catch(function(mlError) {
             reject(mlError);
         });
-    console.log("End of Report activity");
     var obj={
         coId:coId
     };
@@ -643,6 +642,8 @@ var getReportDetails = function(results, coId, resolve, reject) {
     updateSyncStatus("syncStatus", obj, obj2)
         .then(function(results)
         {
+            console.log("Updated status");
+            console.log("End of Report activity");
             resolve('true');
         })
         .catch(function()
