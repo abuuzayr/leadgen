@@ -37,7 +37,7 @@
             </form>
         </div>
 
-        <div id="settings-grid" class="mdl-cell mdl-cell--6-col" style="width:45% !important;align:right;float:right;  border-style-right: solid">
+        <div id="settings-grid" class="mdl-cell mdl-cell--6-col" style="width:45% !important;align:right;float:right;  border-style-right: solid" ng-show="pc.showPassword">
             <h3>Change Password</h3>
             <form id="password-settings" ng-submit="pc.validateNewPassword()" style="margin-bottom:20px;">
                 <!-- New password input -->
