@@ -96,7 +96,6 @@
                         .then(function(res) {
                             $state.go('home');
                         })
-
                     )
                     // .then(function(res) {
                     //     console.log(res);

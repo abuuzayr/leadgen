@@ -126,16 +126,12 @@
                 .then(function(res) {
                     refresh();
                 });
+            // .catch(function(err) {
+            // });
         };
 
         bc.gridOptions.onRegisterApi = function(gridApi) {
             bc.gridApi = gridApi;
-            //save after edit
-            // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-            //     console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
-            //     $scope.$apply();
-            //     refresh();
-            // });
         };
 
         //popup dialog box
