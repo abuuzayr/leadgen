@@ -642,6 +642,8 @@ var getReportDetails = function(results, coId, resolve, reject) {
     updateSyncStatus("syncStatus", obj, obj2)
         .then(function(results)
         {
+            console.log(obj);
+            console.log(obj2);
             console.log("Updated status");
             console.log("End of Report activity");
             resolve('true');
