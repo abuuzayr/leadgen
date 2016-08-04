@@ -4,7 +4,10 @@
 module.exports = function(){
 
 	var service = {
+		authenticateToken: authenticateToken,
 		generateCookie : generateCookie,
+		checkStroage: checkStroage,
+		checkExpiration: checkExpiration,
 		decodeAccessInfo: decodeAccessInfo,
 		verifyAccess: verifyAccess,
 		decodeCookieInfo: decodeCookieInfo,
@@ -12,6 +15,39 @@ module.exports = function(){
 	};
 	return service;
 
+	function authenticateToken(req,res){
+		var config = require('../config.js');
+		var jwt = require('jsonwebtoken');
+		var token = req.cookies['session'];
+		console.log('Authenticate User');//TOFIX
+		//console.log(token);//TOFIX
+
+		if(!token)
+			send403(req,res,"no token");
+		else{
+			jwt.verify(token,config.superSecret,function(err, decoded){
+				if(err){
+					return send403(req,res,"Authentication failed with error: " + err.message);
+				}
+				else{
+					req.decoded = decoded;
+					jwt.sign({
+               			username: decoded.username,
+               			email: decoded.email,
+               			usertype: decoded.usertype
+               		},config.appSecret,{
+               			expiresIn: '1h'
+               		},function(err,token){
+               			if(err){
+               				return send403(req,res,err.message);
+               			}
+               		res.cookie('id', token, { maxAge: 360000, httpOnly: false });
+               		next();
+               		});
+				}
+			});
+		}
+	}
 	function decodeCookieInfo(req,res,next)
 	{
 		var config = require('../config.js');
@@ -88,6 +124,19 @@ module.exports = function(){
 				}
 			});
 		}
+	}
+	function checkStroage(req,res,next){
+		var connection = require('./connection')();
+			connection.Do(function(db){
+				return next()
+		});
+	}
+
+	function checkExpiration(req,res,next){
+		var connection = require('./connection')();
+			connection.Do(function(db){
+				return next()
+		});
 	}
 
 	function decodeAccessInfo(req,res,next){
