@@ -94,7 +94,7 @@
                     .then(
                         $http.get(API_URL + '/cookie')
                         .then(function(res) {
-                            $state.go('leadlist');
+                            $state.go('home');
                         })
 
                     )
