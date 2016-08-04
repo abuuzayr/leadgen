@@ -527,9 +527,11 @@ var checkSyncEligibility = function(companyId){
                         })
                 }else if(results[0].status=="true"){
                    //sync has already started
+                    console.log("resultsis"+results[0]);
                     resolve(true);
                 }else{
                     //sync has not started, we start it
+                    console.log("resultsis"+results[0]);
                     updateSyncStatus(companyId, "true")
                         .then(function(updateSyncStatus)
                         {
