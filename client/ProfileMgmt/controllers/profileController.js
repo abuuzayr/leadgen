@@ -8,6 +8,7 @@
             pc.pwd = {};
             pc.newPwd = '';
             pc.retypePwd = '';
+            pc.showPassword = true;
 
             /** Gets Username and Email from cookie */
             pc.userName = '';
@@ -18,8 +19,9 @@
                 pc.userName = authServices.getUserInfo().username;
                 pc.userEmail = authServices.getUserInfo().email;
 
-                console.log(pc.userName);
-                console.log(pc.userEmail);
+                if (authServices.getUserInfo().usertype === 'User') {
+                    pc.showPassword = false;
+                }
             }
 
             /** 
