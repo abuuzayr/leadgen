@@ -40,14 +40,6 @@
         <div id="settings-grid" class="mdl-cell mdl-cell--6-col" style="width:45% !important;align:right;float:right;  border-style-right: solid">
             <h3>Change Password</h3>
             <form id="password-settings" ng-submit="pc.validateNewPassword()" style="margin-bottom:20px;">
-                <!-- Password input -->
-                <!--<div class="form-group" style="margin-bottom:20px;">
-                    <label for="password" class="col-lg-2 control-label" style="width:40% !important;">Old Password</label>
-                    <div class="col-lg-10" style="width:50%;">
-                        <input type="text" class="form-control" id="password" placeholder="Old Password" ng-model="pc.userPassword">
-                    </div>
-                </div>
-                <br />-->
                 <!-- New password input -->
                 <div class="form-group" style="margin-bottom:20px;">
                     <label for="newpassword" class="col-lg-2 control-label" style="width:40% !important;">New Password</label>
@@ -60,7 +52,7 @@
                 <div class="form-group" style="margin-bottom:20px;">
                     <label for="retypepassword" class="col-lg-2 control-label" style="width:40% !important;">Confirm New Password</label>
                     <div class="col-lg-10" style="width:50% !important;">
-                        <input type="text" class="form-control" id="newpassword2" placeholder="Retype Password" ng-model="pc.retypePwd">
+                        <input type="password" class="form-control" id="newpassword2" placeholder="Retype Password" ng-model="pc.retypePwd">
                     </div>
                 </div>
                 <br>
