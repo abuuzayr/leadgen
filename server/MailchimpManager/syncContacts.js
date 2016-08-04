@@ -530,7 +530,7 @@ var checkSyncEligibility = function(companyId){
                     resolve(true);
                 }else{
                     //sync has not started, we start it
-                    updateSyncStatus("syncStatus", companyId, "true")
+                    updateSyncStatus(companyId, "true")
                         .then(function(updateSyncStatus)
                         {
                             resolve(false);
@@ -633,17 +633,10 @@ var getReportDetails = function(results, coId, resolve, reject) {
         }).catch(function(mlError) {
             reject(mlError);
         });
-    var obj={
-        coId:coId
-    };
-    var obj2={
-        status:"false"
-    };
-    updateSyncStatus("syncStatus", obj, obj2)
+
+    updateSyncStatus(coId,"false")
         .then(function(results)
         {
-            console.log(obj);
-            console.log(obj2);
             console.log("Updated status");
             console.log("End of Report activity");
             resolve('true');
