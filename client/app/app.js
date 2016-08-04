@@ -202,6 +202,7 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
     .state('userManagementprofile', {
         url: '/company-profile',
         templateUrl: 'UserMgmt/partial/userMgmtProfile.html',
+        controller: 'userMgmtProfileController',
         resolve: {
             security: ['$q', 'authServices', function($q, authServices) {
                 if (authServices.getToken()) {
@@ -216,6 +217,7 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
     .state('userManagementAdmin', {
         url: '/adminmanagement',
         templateUrl: 'UserMgmt/partial/userMgmtUsers.html',
+        controller: 'userMgmtController',
         resolve: {
             security: ['$q', 'authServices', function($q, authServices) {
                 if (authServices.getToken()) {
@@ -230,6 +232,7 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
     .state('externalDB', {
             url: '/externalDatabase',
             templateUrl: 'DatabaseMgmt/partial/externalDB.html',
+            controller: 'externalDatabaseController',
             resolve: {
                 security: ['$q', 'authServices', function($q, authServices) {
                     if (authServices.getToken()) {
@@ -243,6 +246,7 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
         .state('internalDB', {
             url: '/internalDB',
             templateUrl: 'DatabaseMgmt/partial/localDB.html',
+            controller: 'localDatabaseController',
             resolve: {
                 security: ['$q', 'authServices', function($q, authServices) {
                     if (authServices.getToken()) {
@@ -256,6 +260,7 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
         .state('allDatabase', {
             url: '/allDatabase',
             templateUrl: 'DatabaseMgmt/partial/allDatabase.html',
+            controller: 'allDatabaseController',
             resolve: {
                 security: ['$q', 'authServices', function($q, authServices) {
                     if (authServices.getToken()) {
