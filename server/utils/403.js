@@ -116,9 +116,9 @@ module.exports = function(){
 		return function(req,res,next){
 		console.log('Req Access Info: ' + JSON.stringify(req.accessInfo));//TOFIX
 		var module = req.accessInfo[moduleName];
-		/*console.log('verifying access');//TOFIX
+		console.log('verifying access');//TOFIX
 		console.log('Module: ' + module);//TOFIX
-		console.log('Module Name: ' + moduleName);*/
+		console.log('Module Name: ' + moduleName);
 		console.log('req.method: '+ req.method);//TOFIX
 					switch(req.method){
 				case 'GET':

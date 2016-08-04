@@ -5,11 +5,11 @@ var dbManager = require('../../DatabaseManager/database-manager');
 
 var dbMgmtRouter = express.Router();
 
-var http403 = require('../../utils/403')();
+/*var http403 = require('../../utils/403')();
   
   //ACCESS CONTROL
 dbMgmtRouter.use('*',http403.verifyAccess('dbmgmt'));
-
+*/
 dbMgmtRouter.route('/all')
   .get(function(req,res){
     var leads = [];
