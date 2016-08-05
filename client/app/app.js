@@ -87,6 +87,11 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
             resolve: {
                 security: ['$q', 'authServices', function($q, authServices) {
                     if (authServices.getToken()) {
+                        if (authServices.getUserInfo().subType.corporate === true) {
+                            $state.go('corporate');
+                        } else if (authServices.getUserInfo().subType.consumer === false) {
+                            $state.go('consumer');
+                        }
                         return $q.resolve();
                     } else {
                         return $q.reject(false);
