@@ -87,7 +87,12 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
             resolve: {
                 security: ['$q', 'authServices', function($q, authServices) {
                     if (authServices.getToken()) {
-                        return $q.resolve();
+                        if (authServices.getUserInfo().subType.consumer === true) {
+                            console.log(authServices.getUserInfo().subType.consumer);
+                            $q.resolve();
+                            $state.go('consumer');
+                        }
+                        // return $q.resolve();
                     } else {
                         return $q.reject(false);
                     }
@@ -101,12 +106,7 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
             resolve: {
                 security: ['$q', 'authServices', function($q, authServices) {
                     if (authServices.getToken()) {
-                        if (authServices.getUserInfo().subType.consumer === true) {
-                            console.log(authServices.getUserInfo().subType.consumer);
-                            $q.resolve();
-                            $state.go('consumer');
-                        }
-                        // return $q.resolve();
+                        return $q.resolve();
                     } else {
                         return $q.reject(false);
                     }
