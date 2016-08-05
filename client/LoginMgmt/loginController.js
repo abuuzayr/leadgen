@@ -97,10 +97,6 @@
                             $state.go('home');
                         })
                     )
-                    // .then(function(res) {
-                    //     console.log(res);
-                    //     $state.go('home');
-                    // })
                     .catch(function(err) {
                         errorFeedback('Login blocked by app server');
                     });
@@ -154,7 +150,7 @@
         }
 
         function isEmpty(str) {
-            return str == null || str == undefined || str.length < 1;
+            return str === null || str === undefined || str.length < 1;
         }
 
         function isValidEmail(str) {
