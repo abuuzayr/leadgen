@@ -17,7 +17,6 @@
 }
 
 .btn-default {
-    background-color: #eb3a40 !important;
     color: #F2F1F1 !important;
     width: 30%;
     height: 90px !important;
@@ -26,9 +25,12 @@
 #corporate {
     float: left;
     font-size: 30px;
+    margin-left: 20%;
+    background-color: #f15b5d
 }
 
 #consumer {
     margin-left: 50px;
     font-size: 30px;
+    background-color: #f58a80
 }
