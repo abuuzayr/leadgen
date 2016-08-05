@@ -12,5 +12,5 @@
     </ul>
 </div>-->
 
-<a ui-sref="corporate" class="btn btn-default" id='corporate'><i class="material-icons" id='corporateIcon'>business_center</i><br>Corporate</a>
-<a ui-sref="consumer" class="btn btn-default" id='consumer'><i class="material-icons" id='consumerIcon'>person</i><br>Consumer</a>
+<a ui-sref="corporate" class="btn btn-default" id='corporate' ng-show="vm.showCorporate"><i class="material-icons" id='corporateIcon'>business_center</i><br>Corporate</a>
+<a ui-sref="consumer" class="btn btn-default" id='consumer' ng-show="vm.showConsumer"><i class="material-icons" id='consumerIcon'>person</i><br>Consumer</a>
