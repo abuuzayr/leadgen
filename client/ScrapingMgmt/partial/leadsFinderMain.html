@@ -6,6 +6,6 @@
 <br><br><br>
 
 <div class='tabs' ng-controller="tabsController as vm">
-    <a ui-sref="corporate" class="btn btn-default" id='corporate' ng-show="vm.showCorporate"><i class="material-icons" id='corporateIcon'>business_center</i><br>Corporate</a>
-    <a ui-sref="consumer" class="btn btn-default" id='consumer' ng-show="vm.showConsumer"><i class="material-icons" id='consumerIcon'>person</i><br>Consumer</a>
+    <a ui-sref="corporate" class="btn btn-default" id='corporate' ng-disabled="vm.showCorporate"><i class="material-icons" id='corporateIcon'>business_center</i><br>Corporate</a>
+    <a ui-sref="consumer" class="btn btn-default" id='consumer' ng-disabled="vm.showConsumer"><i class="material-icons" id='consumerIcon'>person</i><br>Consumer</a>
 </div>
