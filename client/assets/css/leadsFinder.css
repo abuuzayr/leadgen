@@ -18,8 +18,8 @@
 
 .btn-default {
     color: #F2F1F1 !important;
-    width: 30%;
-    height: 90px !important;
+    width: 25%;
+    height: 200px !important;
 }
 
 #corporate {
@@ -33,4 +33,9 @@
     margin-left: 50px;
     font-size: 30px;
     background-color: #f58a80
+}
+
+.material-icons {
+    width: 10%;
+    height: 10%;
 }
