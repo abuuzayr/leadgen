@@ -89,7 +89,7 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
                     if (authServices.getToken()) {
                         if (authServices.getUserInfo().subType.consumer === true) {
                             console.log(authServices.getUserInfo().subType.consumer);
-                            $q.resolve();
+                            // $q.resolve();
                             $state.go('consumer');
                         }
                         // return $q.resolve();
