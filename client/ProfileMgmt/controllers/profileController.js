@@ -63,7 +63,7 @@
              * @returns {function} if valid
              */
             pc.validateNewPassword = function() {
-                if (pc.newPwd === pc.retypePwd && !isEmpty(pc.newPwd)) {
+                if (pc.newPwd === pc.retypePwd && pc.newPwd !== null) {
                     // pc.userPassword = pc.newPwd;
                     pc.pwd.newPwd = pc.newPwd;
                     return pc.changePassword();
