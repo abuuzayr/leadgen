@@ -4,8 +4,7 @@
         var getUserData = function(companyId) {
             return $http({
                 method: 'GET',
-                // url: appConfig.API_URL + '/usermgmt',
-                url: 'https://10.4.1.198/req/api/usermgmt'
+                url: appConfig.API_URL + '/usermgmt'
             });
         };
 
