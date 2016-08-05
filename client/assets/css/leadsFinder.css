@@ -35,6 +35,7 @@
     background-color: #f58a80
 }
 
-#corporateIcon {
+#corporateIcon,
+#consumerIcon {
     font-size: 90px;
 }
