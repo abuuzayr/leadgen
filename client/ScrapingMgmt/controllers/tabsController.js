@@ -4,16 +4,16 @@
         .module("app")
         .controller("tabsController", ['authServices', '$scope', function(authServices, $scope) {
             var vm = this;
-            vm.showCorporate = true;
-            vm.showConsumer = true;
+            vm.showCorporate = false;
+            vm.showConsumer = false;
             console.log(authServices.getUserInfo().subType);
 
             if (authServices.getToken() && authServices.getUserInfo().subType.consumer === true) {
-                vm.showConsumer = false;
+                vm.showConsumer = true;
             }
 
             if (authServices.getToken() && authServices.getUserInfo().subType.corporate === true) {
-                vm.showCorporate = false;
+                vm.showCorporate = true;
             }
 
         }]);
