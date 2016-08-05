@@ -89,10 +89,12 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
                     if (authServices.getToken()) {
                         if (authServices.getUserInfo().subType.corporate === true) {
                             $state.go('corporate');
+                            return $q.resolve();
                         } else if (authServices.getUserInfo().subType.consumer === false) {
                             $state.go('consumer');
+                            return $q.resolve();
                         }
-                        return $q.resolve();
+                        // return $q.resolve();
                     } else {
                         return $q.reject(false);
                     }
