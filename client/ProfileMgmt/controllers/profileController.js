@@ -67,6 +67,9 @@
                     // pc.userPassword = pc.newPwd;
                     pc.pwd.newPwd = pc.newPwd;
                     return pc.changePassword();
+                } else if (isEmpty(pc.newPwd) || isEmpty(pc.retypePwd)) {
+                    return feedbackServices.hideFeedback('#profileFeedback').
+                    then(feedbackServices.errorFeedback('Please enter your new password', '#profileFeedback'));
                 }
                 return feedbackServices.hideFeedback('#profileFeedback').
                 then(feedbackServices.errorFeedback('New password inputs do not match', '#profileFeedback'));
