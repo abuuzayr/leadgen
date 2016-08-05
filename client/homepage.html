@@ -4,13 +4,14 @@
         background-color: #eb3a40;
         font-family: 'Roboto';
     }
+    
+    #homepage-background {
+        background-image: url('../images/home-page.jpg');
+    }
 </style>
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <!---------------------------------------- Ng-include nav bars ---------------------------------------->
-    <div ng-include="'NavBarMgmt/mainTab.html'"></div>
-</div>
-<div ng-controller="navBarController as vm">
+<div ng-controller="navBarController as vm" id='homepage-background'>
     <div class="mdl-layout__container">
         <h3 style="padding:30px">Welcome to BulletLeads</h3>
+        <img src="pic_mountain.jpg">
     </div>
 </div>
