@@ -87,6 +87,7 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
             resolve: {
                 security: ['$q', 'authServices', function($q, authServices) {
                     if (authServices.getToken()) {
+                        console.log('test');
                         if (authServices.getUserInfo().subType.corporate === true) {
                             console.log(authServices.getUserInfo().subType.corporate);
                             // $q.resolve();
