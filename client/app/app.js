@@ -86,13 +86,10 @@ app.config(['$urlRouterProvider', '$stateProvider', '$compileProvider', '$locati
             templateUrl: 'ScrapingMgmt/partial/leadsFinderMain.html',
             resolve: {
                 security: ['$q', 'authServices', function($q, authServices) {
-                    if (authServices.getToken()) {
-                        console.log('test');
-                        if (authServices.getUserInfo().subType.corporate === true) {
-                            console.log(authServices.getUserInfo().subType.corporate);
-                            // $q.resolve();
-                            $state.go('corporate');
-                        }
+                    if (authServices.getToken() && authServices.getUserInfo().subType.corporate === true) {
+                        console.log(authServices.getUserInfo().subType.corporate);
+                        // $q.resolve();
+                        $state.go('corporate');
                         // return $q.resolve();
                     } else {
                         return $q.reject(false);
