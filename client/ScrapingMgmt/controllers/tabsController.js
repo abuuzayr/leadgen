@@ -10,15 +10,10 @@
 
             if (authServices.getToken() && authServices.getUserInfo().subType.consumer === true) {
                 vm.showConsumer = true;
-
-                if (authServices.getUserInfo().subType.corporate === false) {
-                    $state.go("consumer");
-                }
             }
 
             if (authServices.getToken() && authServices.getUserInfo().subType.corporate === true) {
                 vm.showCorporate = true;
-                $state.go("corporate");
             }
 
         }]);
