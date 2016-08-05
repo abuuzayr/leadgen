@@ -15,3 +15,20 @@
     box-shadow: inset 0 -2px 0 #f15b5d !important;
     color: #141213 !important;
 }
+
+.btn-default {
+    background-color: #eb3a40 !important;
+    color: #F2F1F1 !important;
+    width: 30%;
+    height: 90px !important;
+}
+
+#corporate {
+    float: left;
+    font-size: 30px;
+}
+
+#consumer {
+    margin-left: 50px;
+    font-size: 30px;
+}
