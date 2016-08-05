@@ -169,7 +169,7 @@
                                     gc.showFunction(); //show the 'view results' button
                                 };
                         }
-                    }, 2000);
+                    }, 500);
                 }
             };
 
