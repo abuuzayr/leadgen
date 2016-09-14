@@ -37,9 +37,9 @@
             var errMsg = '';
 
             if (isEmpty(vm.loginEmail) || isEmpty(vm.password)) {
-                return;
+                return; // note: if the email or password is empty return
             } else if (!isValidEmail(vm.loginEmail)) {
-                errMsg = 'Email is invalid.';
+                errMsg = 'Email is invalid.'; // note: if the email is not valid set the error massage to email is invalid
             } else if (!isValidPassword(vm.password)) {
                 errMsg = 'Password is between ' + MIN_PASSWORD_LENGTH + ' and ' + MAX_PASSWORD_LENGTH + ' characters.';
             } else {
@@ -59,7 +59,6 @@
         function validateBeforeSend() {
             var email = '';
             var errMsg = '';
-            console.log('Email : ' + vm.resetPwdEmail);
             if (!isValidEmail(vm.resetPwdEmail)) {
                 errMsg = 'Email is invalid.';
                 return errorFeedback(errMsg);
@@ -83,13 +82,12 @@
             $http.post(AUTH_URL, {
                     email: email,
                     password: password,
-                    origin: 'bulletlead.com'
+                    origin: 'bulletlead'
                 })
                 .then(SuccessCallback)
                 .catch(ErrorCallback);
 
-            function SuccessCallback(res) {
-                console.log(res);
+            function SuccessCallback(res) {//TODO: handle res token
                 return successFeedback('Logged in')
                     .then(
                         $http.get(API_URL + '/cookie')
@@ -99,7 +97,6 @@
 
                     )
                     .then(function(res) {
-                        console.log(res);
                         $state.go('home');
                     })
                     .catch(function(err) {
@@ -126,13 +123,11 @@
                 .catch(ErrorCallback);
 
             function SuccessCallback(res) {
-                console.log(res);
                 vm.resetPwdEmail = '';
                 return successFeedback('email sent to' + email);
             }
 
             function ErrorCallback(err) {
-                console.log(err);
                 return errorFeedback(err.data);
             }
         }
@@ -147,15 +142,22 @@
         }
 
         function successFeedback(msg, timeout) {
-            return feedbackServices.successFeedback(msg, '#login-feedbackMessage', timeout)
+            return feedbackServices.successFeedback(msg, '#login-feedbackMessage', timeout);
         }
 
         function errorFeedback(errData, timeout) {
-            return feedbackServices.errorFeedback(errData, '#login-feedbackMessage', timeout)
+            return feedbackServices.errorFeedback(errData, '#login-feedbackMessage', timeout);
         }
 
         function isEmpty(str) {
-            return str == null || str == undefined || str.length < 1;
+            switch (typeof str) {
+                case 'undefined': // check if str is undefined
+                    return true;
+                case 'object': // check if str is null
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         function isValidEmail(str) {
@@ -164,7 +166,7 @@
         }
 
         function isValidPassword(str) {
-            return str.length >= MIN_PASSWORD_LENGTH && str.length <= MAX_PASSWORD_LENGTH
+            return str.length >= MIN_PASSWORD_LENGTH && str.length <= MAX_PASSWORD_LENGTH;
         }
 
         /* =========================================== Load animation =========================================== */
