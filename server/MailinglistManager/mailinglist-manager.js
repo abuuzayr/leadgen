@@ -130,8 +130,6 @@ var MailinglistManager = {
 						filterObj2.lastName=obj.firstName
 						filterObj2.firstName=obj.lastName
 						filterObj2.email = obj.email_addr;
-						console.log(coId+"_leads");
-						console.log(filterObj2);
 						dbHandler.dbQuery(coId+"_leads", filterObj2)
 						.then(function(leadsResults)
 						{
@@ -183,7 +181,6 @@ var MailinglistManager = {
 						})
 						.catch(function(error)
 						{
-							console.log(error);
 							reject(500);
 						});
 					}
@@ -191,7 +188,6 @@ var MailinglistManager = {
 				})
 				.catch(function(error1)
 				{
-					console.log(error1);
 					reject(500);
 				})
 		});
@@ -439,7 +435,6 @@ var MailinglistManager = {
 		};
 		dbHandler.dbQuery(collectionName, temp)
 			.then(function(results) {
-				console.log(results);
 				var returnResults = [];
 				for (var i = 0; i < results.length; i++) {
 					if (results[i].email_hash != '-') {

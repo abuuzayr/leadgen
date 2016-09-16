@@ -25,13 +25,11 @@ var mailchimpHandler = {
             /** Check if the account is eligible to launch a sync request*/
             checkSyncEligibility(coId)
                 .then(function(checkSyncEligibilityResult) {
-                    console.log("Start check Eligibility" + checkSyncEligibilityResult);
                     if (checkSyncEligibilityResult) {
                         /** Someone else is syncing, skip the step.*/
                         //console.log("Sync has already started");
                         resolve('true');
                     } else {
-                        console.log(apiKey);
                         mailchimpClass.getMyList(apiKey)
                             .then(function(results) {
                                 var mailchimplist;
@@ -79,15 +77,15 @@ var mailchimpHandler = {
                                                  */
 
                                                 /*console.log("====================App Database ========================================");
-                                                for (var i = 0; i < databaselist.length; i++) {
-                                                    console.log(databaselist[i]);
-                                                }
-                                                console.log("====================mailchimp Database ========================================");
-                                                for (var i = 0; i < mailchimplist.length; i++) {
-                                                    console.log(mailchimplist[i]);
-                                                }
-                                                console.log("mailinglist has " + mailchimplist.length);
-                                                console.log("databaselist has " + databaselist.length);
+                                                    for (var i = 0; i < databaselist.length; i++) {
+                                                        console.log(databaselist[i]);
+                                                    }
+                                                    console.log("====================mailchimp Database ========================================");
+                                                    for (var i = 0; i < mailchimplist.length; i++) {
+                                                        console.log(mailchimplist[i]);
+                                                    }
+                                                    console.log("mailinglist has " + mailchimplist.length);
+                                                    console.log("databaselist has " + databaselist.length);
                                                 */
                                                 var returnArr = [];
                                                 returnArr.push(mailchimplist);
@@ -317,7 +315,6 @@ var mailchimpHandler = {
                                                 }
                                                 Promise.all(promiseArr)
                                                     .then(function(result) {
-                                                        console.log('We are done with sync');
                                                         /**
                                                          *Now that contacts has finish syncing, we can start to sync email activity.
                                                          */
@@ -511,11 +508,9 @@ var checkSyncEligibility = function(companyId) {
                             })
                     } else if (results[0].status == "true") {
                         //sync has already started
-                        console.log("resultsis" + results[0]);
                         resolve(true);
                     } else {
                         //sync has not started, we start it
-                        console.log("resultsis" + results[0]);
                         updateSyncStatus(companyId, "true")
                             .then(function(updateSyncStatus) {
                                 resolve(false);
@@ -620,8 +615,6 @@ var getReportDetails = function(results, coId, resolve, reject) {
 
     updateSyncStatus(coId, "false")
         .then(function(results) {
-            console.log("Updated status");
-            console.log("End of Report activity");
             resolve('true');
         })
         .catch(function() {

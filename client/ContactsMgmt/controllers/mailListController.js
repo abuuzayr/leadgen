@@ -96,7 +96,6 @@
             var url = "/contacts/mailingList";
             addStatus = $http.post(appConfig.API_URL + url, mailingList)
                 .then(function successCallback(res) {
-                    console.log('add mailing list success');
                     mc.closeDialog('addMailList');
                     //   $window.location.reload();
                 });
@@ -133,16 +132,11 @@
             mc.gridApi = gridApi;
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-                console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                 mc.openDialog('editList');
                 $scope.$apply();
                 colName = colDef.name;
                 editedValue = newValue;
                 row = rowEntity;
-
-                console.log(colName);
-                console.log(editedValue);
-                console.log(row);
             });
         };
 
@@ -157,15 +151,12 @@
                 var obj = {};
                 obj[colName] = editedValue;
                 var editData = [row, obj];
-                console.log(editData);
                 var url = "/contacts/mailingList";
                 $http.patch(appConfig.API_URL + url, editData)
                     .then(function(res) {
-                        console.log('success');
                         mc.closeDialog('editList');
                         $window.location.reload();
                     }).catch(function errorCallback(res) {
-                        console.log('error');
                     });
             }
         };

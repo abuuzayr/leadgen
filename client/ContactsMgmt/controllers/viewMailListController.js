@@ -10,11 +10,9 @@
         detailedMailListData.getMailListData(vmc.mailListResult)
             .then(function successCallback(res) {
                 vmc.spinner = false;
-                console.log(res);
                 vmc.gridOptions.data = res.data;
             }).catch(function(err) {
                 vmc.spinner = false;
-                console.log('err is ' + err);
             });
 
         var viewContentLoaded = $q.defer();
@@ -181,7 +179,6 @@
             vmc.gridApi = gridApi;
             //save after edit
             gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-                console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                 $scope.$apply();
                 $window.location.reload();
             });

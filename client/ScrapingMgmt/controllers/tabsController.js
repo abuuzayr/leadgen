@@ -6,7 +6,6 @@
             var vm = this;
             vm.showCorporate = false;
             vm.showConsumer = false;
-            console.log(authServices.getUserInfo().subType);
 
             if (authServices.getToken() && authServices.getUserInfo().subType.consumer === true) {
                 vm.showConsumer = true;

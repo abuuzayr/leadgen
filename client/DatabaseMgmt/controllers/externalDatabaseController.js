@@ -95,7 +95,6 @@
 
                 /** Opens a dialog after the user edits a cell */
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-                    console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                     ed.openDialog('editUser');
                     $scope.$apply();
                     colName = colDef.name;
@@ -112,7 +111,6 @@
                     var obj = {};
                     obj[colName] = editedValue;
                     var editData = [row, obj];
-                    console.log(editData);
                     externalData.editExternalLeads(editData)
                         .then(function(res) {
                             ed.closeDialog('editUser');
@@ -138,7 +136,6 @@
                 });
 
                 var selectedLeadsToDelete = ed.gridApi.selection.getSelectedRows();
-                console.log(selectedLeadsToDelete);
                 externalData.deleteExternalLeads(selectedLeadsToDelete)
                     .then(function(res) {
                         ed.closeDialog('deleteLead');

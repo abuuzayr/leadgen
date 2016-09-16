@@ -314,8 +314,7 @@ var dbHandler = {
   },
   getSubscriberContact: function(collectionName, obj) {
     return new Promise(function(resolve, reject) {
-      connection.Do(function(db){
-	console.log(collectionName);     
+      connection.Do(function(db){   
         var col = db.collection(collectionName);
         if (obj._id != undefined)
           obj._id = new mongodb.ObjectID(obj._id);
@@ -323,7 +322,6 @@ var dbHandler = {
           if (err !== null)
             reject(err);
           else {
-	    console.log(docs);
             resolve(docs);
           }
         });

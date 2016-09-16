@@ -20,7 +20,6 @@
             };
 
             var snackbarContainer = document.querySelector(domElementId);
-            console.log(snackbarContainer);
             snackbarContainer.MaterialSnackbar.showSnackbar(feedback);
             return $q.defer().promise;
         };
@@ -32,7 +31,6 @@
             };
 
             var snackbarContainer = document.querySelector(domElementId);
-            console.log(snackbarContainer);
 
             snackbarContainer.MaterialSnackbar.showSnackbar(feedback);
             return $q.defer().promise;

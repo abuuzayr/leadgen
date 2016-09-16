@@ -17,8 +17,6 @@ module.exports = function(){
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
 		var token = req.cookies['session'];
-		console.log('Decode Cookie');//TOFIX
-		// console.log(token);//TOFIX
 
 		if(!token)
 			send403(req,res,"no token");
@@ -29,7 +27,6 @@ module.exports = function(){
 				}
 				else{
 					req.decoded = decoded;
-					//console.log(req.decoded);
 					jwt.sign({
                			email: decoded.email,
                			usertype: decoded.usertype,
@@ -52,8 +49,6 @@ module.exports = function(){
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
 		var token = req.cookies['session'];
-		console.log('Generate Cookie');//TOFIX
-		console.log('Session Cookie: '+token);//TOFIX
 
 		if(!token)
 			send403(req,res,"no token");
@@ -64,8 +59,6 @@ module.exports = function(){
 				}
 				else{
 					req.decoded = decoded;
-					console.log('This is decoded');
-					console.log('Decoded JWT: ' + JSON.stringify(decoded));
 					jwt.sign({
                			email: decoded.email,
                			usertype: decoded.usertype,
@@ -94,49 +87,35 @@ module.exports = function(){
 		var crypto = require('crypto');
 		var config = require('../config.js');
 		var algorithm = 'aes-256-ctr';
-		console.log('decodeing access info');//TOFIX
 		var ecodedAccessInfo = req.decoded.application;
-		//console.log(ecodedAccessInfo);//TOFIX
 		var decipher = crypto.createDecipher(algorithm,config.appSecret);
 		try{
 			var decodedAccessInfo = decipher.update(ecodedAccessInfo,'hex','utf8');
 			decodedAccessInfo += decipher.final('utf8');
-			console.log("decoded access info");
-			//console.log(decodedAccessInfo);
 			req.accessInfo = JSON.parse(decodedAccessInfo);
-			//console.log(req.accessInfo);//TOFIX
-			console.log(req.accessInfo);//TOFIX
 			 next();
 		}catch(err){
-			console.log(err);//TOFIX
 			return send403(req,res,"Authentication failed with error: " + err.message);
 		}
 	}
 	function verifyAccess(moduleName){
 		return function(req,res,next){
-		console.log('Req Access Info: ' + JSON.stringify(req.accessInfo));//TOFIX
 		var module = req.accessInfo[moduleName];
-		console.log('verifying access');//TOFIX
-		console.log('Module: ' + module);//TOFIX
-		console.log('Module Name: ' + moduleName);
-		console.log('req.method: '+ req.method);//TOFIX
 					switch(req.method){
 				case 'GET':
-						console.log('GET',module.read,module.read == true);//TOFIX
 						if(module.read == true)
 							next();
 						else
 							send403(req,res,'Unauthorized user group');
 						break;
 				case 'POST':
-						console.log('POSt');//TOFIX
 						if(module.create == true)
 							next();
 						else
 							send403(req,res,'Unauthorized user group');
 
 					break;
-				case 'PATCH':	console.log('PUt');//TOFIX
+				case 'PATCH':
 						if(module.update == true)
 							next();
 						else
@@ -144,7 +123,6 @@ module.exports = function(){
 
 					break;
 				case 'PUT':
-						console.log('DELETe');//TOFIX
 						if(module.delete == true)
 							next();
 						else

@@ -20,7 +20,6 @@ apiRouter.use(function(req, res, next) {
 
 
 apiRouter.use('/', function(req, res, next) {
-  console.log('Welcome to the API page');
   next();
 });
 

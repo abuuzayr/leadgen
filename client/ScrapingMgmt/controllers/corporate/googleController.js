@@ -91,7 +91,6 @@
              */
             googleResults.firstTimeScrape(gc.category, gc.country)
                 .then(function successCallback(res) {
-                    console.log('first time scrape');
                     gc.dataListForGoogle = res.data;
                 }).catch(function(err) {
                     console.log('error for first time scrape');
@@ -103,7 +102,6 @@
              */
             ypResults.scrapeYellowPageLeads(gc.category)
                 .then(function successCallback(res) {
-                    console.log('get yp data');
                     gc.dataListForYP = res.data;
 
                 }).catch(function(err) {
@@ -120,7 +118,6 @@
              * Will request for more leads from database if all the leads are scraped
              */
             gc.transfer = function() {
-                console.log('Start scraping');
                 // console.log('the server is ' + navigator.onLine);
                 if (angular.isDefined(stop)) {
                     return;

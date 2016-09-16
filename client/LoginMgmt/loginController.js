@@ -59,7 +59,6 @@
         function validateBeforeSend() {
             var email = '';
             var errMsg = '';
-            console.log('Email : ' + vm.resetPwdEmail);
             if (!isValidEmail(vm.resetPwdEmail)) {
                 errMsg = 'Email is invalid.';
                 return errorFeedback(errMsg);
@@ -89,7 +88,6 @@
                 .catch(ErrorCallback);
 
             function SuccessCallback(res) {
-                console.log(res);
                 return successFeedback('Logged in')
                     .then(
                         $http.get(API_URL + '/cookie')
@@ -121,13 +119,11 @@
                 .catch(ErrorCallback);
 
             function SuccessCallback(res) {
-                console.log(res);
                 vm.resetPwdEmail = '';
                 return successFeedback('email sent to' + email);
             }
 
             function ErrorCallback(err) {
-                console.log(err);
                 return errorFeedback(err.data);
             }
         }

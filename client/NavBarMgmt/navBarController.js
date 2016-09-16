@@ -40,7 +40,6 @@
                 //style tabs, become bold when at that page
                 var url = window.location.href;
                 var lastPart = url.split("/").pop();
-                console.log(lastPart);
                 if (lastPart == 'lead-finder' || lastPart == 'corporate' || lastPart == 'consumer') {
                     vm.leadMgmtStyle = { "font-weight": "400" };
                     vm.leadFinderStyle = { "font-weight": "900" };

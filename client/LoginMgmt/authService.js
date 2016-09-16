@@ -23,17 +23,14 @@
         }
 
         function getToken() {
-            console.log($cookies.get('userTypeCookie'));
             return $cookies.get('userTypeCookie')
         }
 
         function deleteToken() {
-            console.log('remove cookie');
             return $cookies.remove('userTypeCookie');
         }
 
         function decodeToken(token) {
-            console.log(token);
             if (!token)
                 console.log('no cookie'); //	return logout();
             var payload = token.split('.')[1];
@@ -44,10 +41,6 @@
         function getUserInfo() {
             var token = getToken();
             var userInfo = JSON.parse(JSON.stringify(decodeToken(token)));
-            // console.log(token);
-            // console.log(userInfo);
-            console.log(userInfo.subscriptionType);
-            console.log(userInfo.companyName);
             return {
                 username: userInfo.username,
                 email: userInfo.email,
