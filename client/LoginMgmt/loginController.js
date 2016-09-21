@@ -81,8 +81,7 @@
         function login(email, password) {
             $http.post(AUTH_URL, {
                     email: email,
-                    password: password,
-                    origin: 'bulletlead.com'
+                    password: password
                 })
                 .then(SuccessCallback)
                 .catch(ErrorCallback);
