@@ -23,8 +23,8 @@ apiRouter.use('/', function(req, res, next) {
   next();
 });
 
-//apiRouter.use('*',http403.decodeCookieInfo);
-//apiRouter.use('*',http403.decodeAccessInfo);
+apiRouter.use('*',http403.decodeCookieInfo);
+apiRouter.use('*',http403.decodeAccessInfo);
 
 var leadfinderMgmt = require('./protected/leadfinderMgmt.js');
 var leadlistMgmt = require('./protected/leadlistMgmt.js');
