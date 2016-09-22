@@ -88,15 +88,10 @@
 
             function SuccessCallback(res) { //res.data
                 var token = res.data;
-                        $http.post(API_URL + '/cookie', {token:token}) //cannot use get need to post res.data
-                        .then(function() {
-                            return successFeedback('logged in')
-                                .then(function() {
-                                    $state.go('home');
-                                });
-
-                        })
-                    
+                $http.post(API_URL + '/cookie', {token:token})
+                    .then(function() {
+                        $state.go('home');
+                    })
                     .catch(function(err) {
                         errorFeedback('Login blocked by app server');
                     });
