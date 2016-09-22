@@ -12,11 +12,10 @@ module.exports = function() {
 	};
 	return service;
 
-	function decodeCookieInfo(req, res, next) {console.log("dectok");
+	function decodeCookieInfo(req, res, next) {
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
 		var token = req.body.token;
-console.log('decCookie token: ' + req.body.token);
 		if (!token)
 			send403(req, res, "no token");
 		else {
@@ -43,11 +42,10 @@ console.log('decCookie token: ' + req.body.token);
 		}
 	}
 
-	function generateCookie(req, res) {console.log("gentok");
+	function generateCookie(req, res) {
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
 		var token = req.body.token;
-console.log('genCookie token: ' + JSON.stringify(req.body,null,4));
 		if (!token)
 			send403(req, res, "no token");
 		else {
@@ -73,7 +71,7 @@ console.log('genCookie token: ' + JSON.stringify(req.body,null,4));
 							return send403(req, res, err.message);
 						}
 						res.cookie('userTypeCookie', token, {
-							maxAge: 360000,
+							maxAge: 720000,
 							httpOnly: false
 						});
 						res.sendStatus(200);
