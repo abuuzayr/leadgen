@@ -12,11 +12,11 @@ module.exports = function() {
 	};
 	return service;
 
-	function decodeCookieInfo(req, res, next) {
+	function decodeCookieInfo(req, res, next) {console.log("dectok");
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
-		var token = req.cookies.session;
-
+		var token = req.body.token;
+console.log('decCookie token: ' + req.body.token);
 		if (!token)
 			send403(req, res, "no token");
 		else {
@@ -43,11 +43,11 @@ module.exports = function() {
 		}
 	}
 
-	function generateCookie(req, res) {
+	function generateCookie(req, res) {console.log("gentok");
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
-		var token = req.body; //no need cookie?
-
+		var token = req.body.token;
+console.log('genCookie token: ' + JSON.stringify(req.body,null,4));
 		if (!token)
 			send403(req, res, "no token");
 		else {
