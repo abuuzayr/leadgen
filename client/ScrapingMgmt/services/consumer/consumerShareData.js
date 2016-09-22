@@ -13,7 +13,6 @@
 
         var addLead = function(newLead) {
             savedData.push(newLead);
-            console.log('new lead is ' + newLead);
         };
 
         var clearData = function() {

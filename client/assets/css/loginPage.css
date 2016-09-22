@@ -113,29 +113,3 @@ select:-webkit-autofill {
 .mdl-textfield.is-invalid .mdl-textfield__label:after {
     background-color: #eb3a40 !important;
 }
-
-
-/*.textarea:focus,
-textarea.form-control:focus,
-input.form-control:focus,
-input[type=text]:focus,
-input[type=password]:focus,
-input[type=email]:focus,
-input[type=number]:focus,
-[type=text].form-control:focus,
-[type=password].form-control:focus,
-[type=email].form-control:focus,
-[type=tel].form-control:focus,
-[contenteditable].form-control:focus {
-    -webkit-box-shadow: inset 0 -2px 0 #f15b5d;
-    box-shadow: inset 0 -2px 0 #f15b5d;
-}
-
-.input:focus:invalid:focus,
-textarea:focus:invalid:focus,
-select:focus:invalid:focus {
-    border-color: #e9322d;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}*/

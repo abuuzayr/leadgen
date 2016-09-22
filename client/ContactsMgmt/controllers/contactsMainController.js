@@ -8,16 +8,13 @@
             /** Get leads from database and bind to UI-Grid*/
             leadsData.success(function(data) {
                 cc.gridOptions.data = data;
-                console.log('get leads success');
             });
 
             /** Hides spinner when syncing data is successful*/
             syncData.success(function(data) {
                 cc.spinner = false;
-                console.log('sync leads success');
             }).error(function(error) {
                 cc.spinner = false;
-                console.log('sync leads failed');
             });
 
             /** Gets mailing list from database */
@@ -168,7 +165,6 @@
                     cc.gridApi = gridApi;
                     //save after edit
                     gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-                        console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                         cc.openDialog('editUser');
                         $scope.$apply();
                         colName = colDef.name;
@@ -189,7 +185,6 @@
                     var obj = {};
                     obj[colName] = editedValue;
                     var editData = [row, obj];
-                    console.log(editData);
                     var url = "/contacts/leadList/leads";
                     $http.patch(appConfig.API_URL + url, editData)
                         .success(function(res) {
@@ -240,7 +235,6 @@
                         }
                     }),
                     function errorCallback(err) {
-                        console.log('err is ' + err);
                     };
                 var dialog = document.getElementById('historyData');
                 dialog.showModal();
@@ -312,7 +306,6 @@
                         })
                         .catch(function(err) {
                             deleteLimitedFeedback();
-                            console.log(err);
                         });
                 } else if (count > 10) {
                     cc.openDialog('deleteLimit');
@@ -428,7 +421,6 @@
                 var url = "/contacts/mailingList/subscriber";
                 $http.post(appConfig.API_URL + url, obj)
                     .then(function(res) {
-                        console.log('added to mailing list');
                     });
             };
 
@@ -475,10 +467,8 @@
 
             var fileChooser = document.querySelectorAll('.file-chooser');
             if (fileChooser.length !== 1) {
-                console.log('Found > 1 or < 1 file choosers within the menu item, error, cannot continue');
             } else {
                 fileChooser[0].addEventListener('change', handleFileSelect, false); // TODO: why the false on the end?  Google
-                console.log("def");
             }
 
             //Open popup dialog box

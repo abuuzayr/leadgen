@@ -5,11 +5,11 @@ var dbManager = require('../../DatabaseManager/database-manager');
 
 var dbMgmtRouter = express.Router();
 
-var http403 = require('../../utils/403')();
+/*var http403 = require('../../utils/403')();
   
   //ACCESS CONTROL
 dbMgmtRouter.use('*',http403.verifyAccess('dbmgmt'));
-
+*/
 dbMgmtRouter.route('/all')
   .get(function(req,res){
     var leads = [];
@@ -33,7 +33,6 @@ dbMgmtRouter.route('/all')
     });
   })
   .put(function(req,res){
-    console.log('deleting contacts');
     if(!Array.isArray(req.body))
       res.sendStatus(400);
     else{
@@ -65,8 +64,6 @@ dbMgmtRouter.route('/local')
     });
   })
   .put(function(req,res){
-    console.log('deleting local contacts');
-    console.log(req.body);
     if(!Array.isArray(req.body))
       res.sendStatus(400);
     else{
@@ -84,7 +81,6 @@ dbMgmtRouter.route('/local')
     }
   })
   .post(function(req,res){
-    console.log(req.body);
     if(!Array.isArray(req.body.data))
       res.sendStatus(400);
     else{
@@ -93,8 +89,6 @@ dbMgmtRouter.route('/local')
             req.body.data[i].type = 1;
           else
             req.body.data[i].type = 2;
-
-          console.log(req.body.data[i]);
       }
       dbHandler.dbInsertSA('local',req.body.data)
       .then(function(success){
@@ -132,7 +126,6 @@ dbMgmtRouter.get('/local/import',function(req,res){
     res.sendStatus(success);
   })
   .catch(function(error){
-    console.log(error);
     res.sendStatus(error);
   });
 
@@ -205,7 +198,6 @@ dbMgmtRouter.get('/external/update',function(req,res){
     res.json(newLeads);
   })
   .catch(function(error){
-    console.log(error);
     res.sendStatus(500);
   });
 });

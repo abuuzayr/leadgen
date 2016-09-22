@@ -14,7 +14,6 @@ var index = 0;
 Scraping API
 */
 leadfinderRouter.get('/corporate/g/new/:category/:country', function(req, res) {
-  console.log('Google places api key = ' + req.accessInfo.googlePlacesAPIKey);
   if (!req.params.category || !req.params.country)
     res.sendStatus(400);
   else {

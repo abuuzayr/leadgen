@@ -75,7 +75,6 @@
                 // get users from database
                 allUsersData.getUserData(companyId).then(function successCallback(res) {
                     uc.gridOptions.data = res.data;
-                    console.log('get users');
                 }).catch(function(err) {
                     console.log('Cannot get users');
                 });
@@ -107,7 +106,6 @@
                 allUsersData.addUserData(newUser)
                     .then(function successCallback(res) {
 
-                        console.log('Added');
 
                         uc.lead.userName = '';
                         uc.lead.email = '';
@@ -130,7 +128,6 @@
                         if (err.status === 409) {
                             uc.showMessage = 'Username/Email already exists';
                         }
-                        console.log('Unable to add user');
                     });
             };
 
@@ -152,16 +149,17 @@
                 });
 
                 var selectedUsersToDelete = uc.gridApi.selection.getSelectedRows();
-                console.log(selectedUsersToDelete[0]._id);
 
-                allUsersData.deleteUserData(selectedUsersToDelete[0]._id).then(function successCallback(res) {
-                    return feedbackServices.hideFeedback('#userManagementFeedback').
-                    then(feedbackServices.successFeedback('Deleted!', '#userManagementFeedback', 2000));
+                allUsersData.deleteUserData(selectedUsersToDelete[0]._id)
+                    .then(function successCallback(res) {
+                        return feedbackServices.hideFeedback('#userManagementFeedback').
+                        then(feedbackServices.successFeedback('Deleted!', '#userManagementFeedback', 2000));
 
-                }).catch(function errorCallback(err) {
-                    return feedbackServices.hideFeedback('#userManagementFeedback').
-                    then(feedbackServices.successFeedback(err.data, '#userManagementFeedback', 2000));
-                });
+                    })
+                    .catch(function errorCallback(err) {
+                        return feedbackServices.hideFeedback('#userManagementFeedback').
+                        then(feedbackServices.successFeedback(err.data, '#userManagementFeedback', 2000));
+                    });
             };
 
             var colName = '';
@@ -189,7 +187,6 @@
                 if (angular.isDefined(row)) {
                     allUsersData.editUserData(row, row._id)
                         .then(function(res) {
-                            console.log('success');
                             uc.closeDialog('editUser');
                             refresh();
                         });
@@ -257,7 +254,6 @@
 
         return function(input) {
             if (!input) {
-                console.log('input is ' + input);
                 return 'error';
             } else {
                 return roleHash[input];

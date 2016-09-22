@@ -8,8 +8,6 @@ mailchimp.setApiKey(apiKey);
 mailchimp
 	.get('lists')
 	.then(function(lists) {
-		console.log("Printing lists");
-		console.log(lists);
 		//var info = JSON.pars0, i<lists.lists.lengthaaaaaasasasa; e(lists);
 
 		for (var i = 0; i < lists.lists.length; i++) {
@@ -33,7 +31,6 @@ mailchimp
 	})
 
 .then(function(allLists) {
-	console.log("Get request for members");
 	var username = 'anything';
 	var subscriberList = [];
 
@@ -46,17 +43,13 @@ mailchimp
 		}, function(error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var info = JSON.parse(body);
-				console.log(info);
-				var
 
 			};
 		})
 	}
 
-	console.log("Done");
 })
 
 .catch(function(error) {
-	console.log("There is error");
 	console.log(error);
 });

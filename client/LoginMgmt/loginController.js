@@ -27,7 +27,7 @@
         /* =========================================== UI =========================================== */
         /**
          * Checks if email and password are valid. Returns function login if valid. Else, return feedback with error message.
-         * 
+         *
          * @returns {promise} if invalid
          * @returns {function} if valid
          */
@@ -52,7 +52,7 @@
 
         /**
          * Checks if email is valid before sending new generated password to email. Send email if valid. Else, return display feedback message.
-         * 
+         *
          * @returns {function} if valid
          * @returns {promise} is invalid
          */
@@ -71,32 +71,25 @@
 
         /* =========================================== API =========================================== */
         /**
-         * Authenticate user email and password. 
-         * If user log in successful, display success feedback message, return cookie and redirect to home. 
+         * Authenticate user email and password.
+         * If user log in successful, display success feedback message, return cookie and redirect to home.
          * Else, display error feedback message and delete existing cookie.
-         * 
+         *
          * @param {any} email
          * @param {any} password
          */
         function login(email, password) {
             $http.post(AUTH_URL, {
                     email: email,
-                    password: password,
-                    origin: 'bulletlead'
+                    password: password
                 })
                 .then(SuccessCallback)
                 .catch(ErrorCallback);
 
-            function SuccessCallback(res) {//TODO: handle res token
-                return successFeedback('Logged in')
-                    .then(
-                        $http.get(API_URL + '/cookie')
-                        .then(function(res) {
-                            $state.go('home');
-                        })
-
-                    )
-                    .then(function(res) {
+            function SuccessCallback(res) { //res.data
+                var token = res.data;
+                $http.post(API_URL + '/cookie', {token:token})
+                    .then(function() {
                         $state.go('home');
                     })
                     .catch(function(err) {
@@ -112,7 +105,7 @@
 
         /**
          * Send auto-generated new password to user. Pre-condition: email has to be vaild.
-         * 
+         *
          * @param {any} email
          */
         function sendEmail(email) {
@@ -150,14 +143,7 @@
         }
 
         function isEmpty(str) {
-            switch (typeof str) {
-                case 'undefined': // check if str is undefined
-                    return true;
-                case 'object': // check if str is null
-                    return true;
-                default:
-                    return false;
-            }
+            return str === null || str === undefined || str.length < 1;
         }
 
         function isValidEmail(str) {

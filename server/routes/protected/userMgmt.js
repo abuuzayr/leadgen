@@ -35,11 +35,9 @@ accountsettingsRouter.route('/')
             jar: j
           },function(err,response,body ){
     if(err){
-      console.log(err);
       res.sendStatus(500);
     }
     else{
-      console.log(body);
       var arr = [];
       for(var i in body){
         if(body[i].application.bulletlead.usertype !== 'SuperAdmin')
@@ -60,7 +58,6 @@ accountsettingsRouter.route('/')
   var obj = {
     userData : req.body
   };
-  console.log(obj);
   request({
             url: url,
 	    headers:{
@@ -80,7 +77,6 @@ accountsettingsRouter.route('/')
       res.sendStatus(500);
     }
     else{
-      console.log(body);
       res.sendStatus(response.statusCode);
     }
   });
@@ -89,14 +85,12 @@ accountsettingsRouter.route('/')
 accountsettingsRouter.route('/:id')
 .patch(function(req,res){
   var url = 'https://10.4.1.198/req/api/usermgmt/' + req.params.id;
-  console.log(url);
   var j = request.jar();
   var cookie = request.cookie('session='+req.cookies.session);
   j.setCookie(cookie,url);
   var obj = {
     userData : req.body
   };
-  console.log(obj);
   request({
             url: url,
       headers:{
@@ -113,11 +107,9 @@ accountsettingsRouter.route('/:id')
             body:obj
           },function(err,response,body ){
     if(err){
-      console.log(err);
       res.sendStatus(500);
     }
     else{
-      console.log(body);
       res.sendStatus(response.statusCode);
     }
   });
@@ -125,7 +117,6 @@ accountsettingsRouter.route('/:id')
 .put(function(req,res){
 
   var url = 'https://10.4.1.198/req/api/usermgmt/' + req.params.id;
-  console.log(url);
   var j = request.jar();
   var cookie = request.cookie('session='+req.cookies.session);
   j.setCookie(cookie,url);
@@ -144,11 +135,9 @@ accountsettingsRouter.route('/:id')
             jar: j
           },function(err,response,body ){
     if(err){
-      console.log(err);
       res.sendStatus(500);
     }
     else{
-      console.log(body);
       res.sendStatus(response.statusCode);
     }
   });

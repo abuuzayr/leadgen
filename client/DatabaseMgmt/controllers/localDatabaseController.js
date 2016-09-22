@@ -121,7 +121,6 @@
 
                 /** Opens a dialog after the user edits a cell */
                 gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-                    console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
                     ld.openDialog('editUser');
                     $scope.$apply();
                     colName = colDef.name;
@@ -137,7 +136,6 @@
                     var obj = {};
                     obj[colName] = editedValue;
                     var editData = [row, obj];
-                    console.log(editData);
                     localData.editLocalLeads(editData)
                         .then(function(res) {
                             ld.closeDialog('editUser');
@@ -165,8 +163,6 @@
             var fileChooser = document.querySelectorAll('.file-chooser');
 
             if (fileChooser.length !== 1) {
-                console.log('Found > 1 or < 1 file choosers within the menu item, error, cannot continue');
-            } else {
                 fileChooser[0].addEventListener('change', handleFileSelect, false);
             }
 
@@ -195,7 +191,6 @@
                 });
 
                 var selectedLeadsToDelete = ld.gridApi.selection.getSelectedRows();
-                console.log(selectedLeadsToDelete);
                 localData.deleteLocalLeads(selectedLeadsToDelete);
             };
 

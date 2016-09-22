@@ -67,10 +67,8 @@ var mailchimpApp = {
         return new Promise(function(resolve, reject) {
             mailchimp.setApiKey(apiKey);
             var batch = mailchimp.createBatch('lists/' + listID + '/members', 'POST');
-            console.log("We are in add member");
             var batches = [];
             for (var i = 0; i < memberInfo.length; i++) {
-                console.log(memberInfo[i].merge_fields);
                 batches.push({
                     body: {
                         status: 'subscribed',
@@ -99,7 +97,6 @@ var mailchimpApp = {
     addList: function(apiKey, listName) {
         return new Promise(function(resolve, reject) {
             mailchimp.setApiKey(apiKey);
-            console.log("entered list" + listName);
             mailchimp
                 .post('lists/', {
                     name: listName,
@@ -262,10 +259,8 @@ var mailchimpApp = {
                 for (var i = 0; i < report.reports.length / 10; i++) {
                     var temp = [];
                     for (var k = 0; k < 10; k++) {
-                        console.log(j);
                         if (report.reports[j] != undefined) {
                             var url = 'https://' + username + ':' + apiKey + '@us13.api.mailchimp.com/3.0/reports/' + report.reports[j].id + '/email-activity?count=10000000';
-                            console.log(url);
                             temp.push(getIndividualReport(url));
                             j++;
                         }
@@ -294,7 +289,6 @@ module.exports = mailchimpApp;
       *@returns {Array} returns array, if iteration is not completed, proceed to recursivemethod1 again
       */
 var recrusiveMethod1 = function(promiseArr, count, totalCount, resultsArr, getReportDetails, coId, resolve, reject, apiKey) {
-    console.log('we are in recursive');
     if (count == totalCount) {
         var finalResults = [];
         for (var i = 0; i < resultsArr.length; i++) {
@@ -312,11 +306,31 @@ var recrusiveMethod1 = function(promiseArr, count, totalCount, resultsArr, getRe
                 recrusiveMethod1(promiseArr, count, totalCount, resultsArr, getReportDetails, coId, resolve, reject, apiKey);
             })
             .catch(function(rm1Error) {
-                console.log(rm1Error);
                 reject(500);
             });
     }
 };
+    /**
+      *Retrieves a specific report based on the campagin url
+      *@param {string} url - the url request to retrieve the report infomation from mailchimp server
+      *@returns {Promise} returns the request information or error
+      */
+var	getIndividualReport = function(url){
+	return new Promise(function(resolve, reject) {
+		request({
+			url: url
+		}, function(error, response, body) {
+			if (error !== null) {
+				reject(error);
+			} else {
+				var info = JSON.parse(body);
+				resolve(info);
+				}
+			});
+
+	});
+}
+
     /**
       *Retrieve the members of a specific mailing list
       *@param {string} id - ID of the mailinglist
@@ -329,6 +343,7 @@ var getMembers = function(id, name, apiKey) {
         var err = null;
         var results = [];
         var allUsers = [];
+        var count;
         var url = 'https://' + username + ':' + apiKey + '@us13.api.mailchimp.com/3.0/lists/' + id + '/members?count=1000000';
         request({
             url: url
@@ -366,23 +381,3 @@ var getMembers = function(id, name, apiKey) {
         });
     });
 };
-    /**
-      *Retrieves a specific report based on the campagin url
-      *@param {string} url - the url request to retrieve the report infomation from mailchimp server
-      *@returns {Promise} returns the request information or error
-      */
-var	getIndividualReport = function(url){
-	return new Promise(function(resolve, reject) {
-		request({
-			url: url
-		}, function(error, response, body) {
-			if (error !== null) {
-				reject(error);
-			} else {
-				var info = JSON.parse(body);
-				resolve(info);
-				}
-			});
-
-	});
-}

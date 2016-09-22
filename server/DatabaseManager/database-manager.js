@@ -28,7 +28,6 @@ var DatabaseManager = {
                     return Promise.all(promiseArr);
                 })
                 .then(function(results) {
-                    console.log(results);
                     var externalLeads = [];
                     for (var i = 0; i < results.length; i++) {
                         var leads = results[i];

@@ -151,7 +151,6 @@ var ContactsManager = {
      */
     deleteLeads: function(collectionName, obj) {
         return new Promise(function(resolve, reject) {
-            console.log(obj);
             if (!Array.isArray(obj)) {
                 dbHandler.dbDelete(collectionName, obj)
                     .then(function(results) {
@@ -281,7 +280,6 @@ var ContactsManager = {
                             }
                         }
                     }
-                    console.log(leadsArr);
                     var promiseArr = [];
                     for (var i = 0; i < leadsArr.length; i++) {
                         promiseArr.push(callback(leadsArr[i]._id, apiKey, coId));
@@ -464,7 +462,6 @@ var ContactsManager = {
                                         return mailchimp.deleteMember(apiKey, id, hash);
                                     })
                                     .then(function(success) {
-                                        console.log('delete from mailchimp');
                                         reject('deleted from mailchimp');
                                     })
                                     .catch(function(error) {

@@ -107,12 +107,6 @@
 
             dc.gridOptions.onRegisterApi = function(gridApi) {
                 dc.gridApi = gridApi;
-                //save after edit
-                // gridApi.edit.on.afterCellEdit($scope, function(rowEntity, colDef, newValue, oldValue) {
-                //     console.log('edited row id:' + rowEntity.firstName + ' Column:' + colDef.name + ' newValue:' + newValue + ' oldValue:' + oldValue);
-                //     $scope.$apply();
-                //     $window.location.reload();
-                // });
             };
 
             //popup dialog box

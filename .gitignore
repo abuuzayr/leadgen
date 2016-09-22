@@ -41,3 +41,5 @@ jspm_packages
 
 # Directory for testing and miscellaneous
 _dev_only/
+
+.nginx.conf.swp

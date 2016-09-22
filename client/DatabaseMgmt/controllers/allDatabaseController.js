@@ -98,7 +98,6 @@
                 });
 
                 var selectedLeadsToDelete = allDB.gridApi.selection.getSelectedRows();
-                console.log(selectedLeadsToDelete);
                 allData.deleteAllLeads(selectedLeadsToDelete);
             };
 

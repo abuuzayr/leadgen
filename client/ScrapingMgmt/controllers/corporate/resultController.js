@@ -86,8 +86,6 @@
                 dataToContacts = [];
                 angular.forEach(rc.gridApi.selection.getSelectedRows(), function(data, index) {
                     dataToContacts.push(data);
-                    console.log('1.selected data is ' + dataToContacts);
-                    console.log('2.data is ' + data);
 
                     // callback();
                 });
@@ -99,7 +97,6 @@
              */
             rc.saveToContacts = function() {
                 var myJsonString;
-                console.log('3.selected data is ' + dataToContacts);
 
                 // if none selected, save all
                 if (dataToContacts.length === 0) {

@@ -8,6 +8,7 @@
             pc.pwd = {};
             pc.newPwd = '';
             pc.retypePwd = '';
+            pc.showPassword = true;
 
             /** Gets Username and Email from cookie */
             pc.userName = '';
@@ -18,8 +19,9 @@
                 pc.userName = authServices.getUserInfo().username;
                 pc.userEmail = authServices.getUserInfo().email;
 
-                console.log(pc.userName);
-                console.log(pc.userEmail);
+                if (authServices.getUserInfo().usertype === 'User') {
+                    pc.showPassword = false;
+                }
             }
 
             /** 
@@ -46,8 +48,7 @@
                     .catch(ErrorCallback);
 
                 function SuccessCallback(res) {
-                    return feedbackServices.successFeedback('Password updated', '#profileFeedback', 2000)
-                        .then(delayLogout(1000));
+                    return feedbackServices.successFeedback('Password updated', '#profileFeedback', 2000);
                 }
 
                 function ErrorCallback(err) {
@@ -56,7 +57,6 @@
                 }
             };
 
-            //validate password and change accordingly
             /** 
              * Checks the new password and retype password
              * @returns {promise} if invalid
