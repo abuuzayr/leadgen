@@ -17,12 +17,10 @@ module.exports = function() {
 		var jwt = require('jsonwebtoken');
 		var token = req.body.token;
 		var cookie = req.cookies.session;
-		if(!cookie){
-			if (!token){
+		if (!cookie) {
+			if (!token) {
 				send403(req, res, "no token");
-			}
-
-			else {
+			} else {
 				jwt.verify(token, config.superSecret, function(err, decoded) {
 					if (err) {
 						return send403(req, res, "Authentication failed with error: " + err.message);
@@ -44,10 +42,8 @@ module.exports = function() {
 					}
 				});
 			}
-		}
-		else {
-			token = cookie;
-			jwt.verify(token, config.superSecret, function(err, decoded) {
+		} else {
+			jwt.verify(cookie, config.superSecret, function(err, decoded) {
 				if (err) {
 					return send403(req, res, "Authentication failed with error: " + err.message);
 				} else {
@@ -74,9 +70,46 @@ module.exports = function() {
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
 		var token = req.body.token;
-		if (!token)
-			send403(req, res, "no token");
-		else {
+		var cookie = req.cookies.session;
+		if (!cookie) {
+			if (!token)
+				send403(req, res, "no token");
+			else {
+				jwt.verify(token, config.superSecret, function(err, decoded) {
+					if (err) {
+						return send403(req, res, "Authentication failed with error: " + err.message);
+					} else {
+						req.decoded = decoded;
+						jwt.sign({
+							email: decoded.email,
+							usertype: decoded.usertype,
+							subscriptionType: decoded.subscriptionType,
+							companyId: decoded.companyId,
+							userId: decoded._id,
+							username: decoded.username,
+							companyName: decoded.companyName,
+
+						}, config.appSecret, {
+							expiresIn: '1h'
+						}, function(err, token) {
+
+							if (err) {
+								return send403(req, res, err.message);
+							}
+							res.cookie('userTypeCookie', token, {
+								maxAge: 720000,
+								httpOnly: false
+							});
+							res.cookie('session', req.body.token, {
+								maxAge: 86400000,
+								httpOnly: true
+							});
+							res.sendStatus(200);
+						});
+					}
+				});
+			}
+		} else {
 			jwt.verify(token, config.superSecret, function(err, decoded) {
 				if (err) {
 					return send403(req, res, "Authentication failed with error: " + err.message);
