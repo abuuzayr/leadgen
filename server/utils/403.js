@@ -46,7 +46,7 @@ module.exports = function() {
 	function generateCookie(req, res) {
 		var config = require('../config.js');
 		var jwt = require('jsonwebtoken');
-		var token = req.body.token; //no need cookie?
+		var token = req.body; //no need cookie?
 
 		if (!token)
 			send403(req, res, "no token");

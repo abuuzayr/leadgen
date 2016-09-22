@@ -90,7 +90,7 @@
                 var token = res.data;
                 return successFeedback('logging in')
                     .then(
-                        $http.post(API_URL + '/cookie', {token:token}) //cannot use get need to post res.data
+                        $http.post(API_URL + '/cookie', token) //cannot use get need to post res.data
                         .then(function(res) {
                             return successFeedback('logged in')
                                 .then(function() {
