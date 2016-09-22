@@ -86,12 +86,17 @@
                 .then(SuccessCallback)
                 .catch(ErrorCallback);
 
-            function SuccessCallback(res) {
-                return successFeedback('Logged in')
+            function SuccessCallback(res) { //res.data
+                var token = res.data;
+                return successFeedback('logging in')
                     .then(
-                        $http.get(API_URL + '/cookie')
+                        $http.post(API_URL + '/cookie', {token:token}) //cannot use get need to post res.data
                         .then(function(res) {
-                            $state.go('home');
+                            return successFeedback('logged in')
+                                .then(function() {
+                                    $state.go('home');
+                                });
+
                         })
                     )
                     .catch(function(err) {
@@ -137,11 +142,11 @@
         }
 
         function successFeedback(msg, timeout) {
-            return feedbackServices.successFeedback(msg, '#login-feedbackMessage', timeout)
+            return feedbackServices.successFeedback(msg, '#login-feedbackMessage', timeout);
         }
 
         function errorFeedback(errData, timeout) {
-            return feedbackServices.errorFeedback(errData, '#login-feedbackMessage', timeout)
+            return feedbackServices.errorFeedback(errData, '#login-feedbackMessage', timeout);
         }
 
         function isEmpty(str) {
@@ -154,7 +159,7 @@
         }
 
         function isValidPassword(str) {
-            return str.length >= MIN_PASSWORD_LENGTH && str.length <= MAX_PASSWORD_LENGTH
+            return str.length >= MIN_PASSWORD_LENGTH && str.length <= MAX_PASSWORD_LENGTH;
         }
 
         /* =========================================== Load animation =========================================== */
